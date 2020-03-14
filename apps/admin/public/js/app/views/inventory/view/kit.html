@@ -1,0 +1,22 @@
+<div class="headline">Kit Items</div>
+<table class="opake kit-items-table" ng-if="itemsVm.items.length > 0">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Manufacturer</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in itemsVm.items">
+        <td><img src="{{ item.inventory.image }}" /></td>
+        <td>{{item.inventory.name}}</td>
+        <td>{{item.inventory.manufacturer}}</td>
+        <td>{{item.quantity}}</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<div class="panel-data" ng-if="itemsVm.items.length === 0">No items found</div>

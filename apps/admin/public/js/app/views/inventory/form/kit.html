@@ -1,0 +1,38 @@
+<div class="headline">Kit Items</div>
+<table class="opake kit-items-table" ng-if="itemsVm.items.length > 0">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Manufacturer</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in itemsVm.items">
+        <td><img src="{{ item.inventory.image }}" /></td>
+        <td>{{item.inventory.name}}</td>
+        <td>{{item.inventory.manufacturer}}</td>
+        <td>{{item.quantity}}</td>
+        <td class="actions">
+            <a href="" class="remove" ng-click="itemsVm.removeItem(item, 'inventory/kit/delete.html')"><i class="icon-remove"></i>Remove</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="panel-data" ng-if="itemsVm.items.length === 0">No items found</div>
+<a class="btn btn-success" ng-click="itemsVm.addItemDialog()"><i class="glyphicon glyphicon-plus"></i> Add Item</a>
+
+<script type="text/ng-template" id="inventory/kit/delete.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Alert!</h4>
+    </div>
+    <div class="modal-body">
+        <h4>Are you sure you want to delete this item ?</h4>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Yes</button>
+        <button class="btn btn-primary" ng-click="cancel()" type="button">No</button>
+    </div>
+</script>

@@ -1,0 +1,83 @@
+<div class="panel-data">
+    <div class="col-sm-7">
+        <div class="data-row">
+            <label>Item Name:</label>
+            <div>{{ invVm.inventory.name }}</div>
+        </div>
+        <div class="data-row">
+            <label>Manufacturer:</label>
+            <div>{{ invVm.inventory.manf.name }}</div>
+        </div>
+        <div class="data-row">
+            <label>Item Description:</label>
+            <div>{{ invVm.inventory.desc }}</div>
+        </div>
+        <div class="data-row">
+            <label>Type:</label>
+            <div>{{ invVm.inventory.type }}</div>
+        </div>
+        <div class="data-row par-level">
+            <label>Par:</label>
+            <div>
+                <div class="data-row">
+                    <label>Min:</label>
+                    <div>{{ invVm.inventory.min_level }}</div>
+                </div>
+            </div>
+            <div>
+                <div class="data-row">
+                    <label>Max:</label>
+                    <div>{{ invVm.inventory.max_level }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="data-row">
+            <label>Qty/Unit:</label>
+            <div>{{ invVm.inventory.qty_per_uom }}</div>
+        </div>
+        <div class="data-row">
+            <label>Unit of Measure:</label>
+            <div>{{ invVm.inventory.uom.name }}</div>
+        </div>
+        <div class="data-row">
+            <label>Unit Price:</label>
+            <div>{{ invVm.inventory.unit_price }}</div>
+        </div>
+    </div>
+    
+    <div class="col-sm-5">
+        <div class="upload-logo">
+            <img src='{{ invVm.inventory.image }}' />
+        </div>    
+        <div class="product-specifications">
+            <h4>Product Specifications</h4>
+        </div>
+        <div class="data-row">
+            <label>Item Number:</label>
+            <div>{{ invVm.inventory.item_number }}</div>
+        </div>
+        <div class="data-row">
+            <label>HCPCS:</label>
+            <div>{{ invVm.inventory.hcpcs }}</div>
+        </div>
+        <div class="data-row">
+            <label>HIMS Indicator:</label>
+            <div>{{ invVm.inventory.hims_indicator }}</div>
+        </div>
+        <div class="data-row">
+            <label>UNSPSC:</label>
+            <div>{{ invVm.inventory.unspsc }}</div>
+        </div>
+        <div class="data-row">
+            <label>Auto Order:</label>
+            <switch ng-model="invVm.inventory.auto_order" show-labels="true" ng-disabled="true"></switch>
+        </div>
+        <label class="dark" ng-if="invVm.inventory.is_remanufacturable == 1">Remanufacturable</label>
+        <label class="dark" ng-if="invVm.inventory.is_resterilizable == 1">Resterilizable</label>
+        <label class="dark" ng-if="invVm.inventory.is_implantable == 1">Implantable</label>
+        <label class="dark" ng-if="invVm.inventory.is_reusable == 1">Reusable</label>
+        <label class="dark" ng-if="invVm.inventory.is_latex == 1">Latex</label>
+        <label class="dark" ng-if="invVm.inventory.is_hazardous == 1">Hazardous</label>
+        <label class="dark" ng-if="invVm.inventory.is_generic == 1">Generic</label>
+    </div>
+</div>

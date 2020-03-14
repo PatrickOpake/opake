@@ -1,0 +1,16 @@
+<div class="modal-header">
+	<h4 class="modal-title">Purchase Order Details</h4>
+</div>
+<div class="modal-body">
+	<errors src="errors"></errors>
+	<label class="">P.O. #:</label>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<input type="text" class="form-control" valid-number required ng-required="true" min="1" ng-model="po_id" />
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="orderVm.savePoId(po_id)">OK</button>
+	<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+</div>

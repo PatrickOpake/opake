@@ -1,0 +1,38 @@
+{
+	"name": "kbw.calculator",
+	"title": "jQuery Calculator",
+	"description": "This plugin attaches a popup calculator to an input field. * Simple or scientific calculators. * Define your own keys. * Over 15 localisations.",
+	"keywords": [
+		"calculate",
+		"calculator",
+		"compute",
+		"i18n",
+		"input",
+		"ui"
+	],
+	"version": "2.0.1",
+	"author": {
+		"name": "Keith Wood",
+		"url": "http://keith-wood.name/"
+	},
+	"maintainers": [
+		{
+			"name": "Keith Wood",
+			"email": "kbwood@iinet.com.au",
+			"url": "http://keith-wood.name/"
+		}
+	],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt"
+		}
+	],
+	"bugs": "https://github.com/kbwood/calculator/issues",
+	"homepage": "http://keith-wood.name/calculator.html",
+	"docs": "http://keith-wood.name/calculatorRef.html",
+	"download": "http://keith-wood.name/calculator.html",
+	"dependencies": {
+		"jquery": ">=1.7"
+	}
+}

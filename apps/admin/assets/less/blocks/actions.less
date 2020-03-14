@@ -1,0 +1,88 @@
+.actions {
+	> * {
+		color: #00a1cf !important;
+		padding: 0 7px;
+	}
+	> a {
+		text-decoration: underline;
+	}
+	i {
+		margin-right: 5px;
+		vertical-align: bottom;
+	}
+	.edit, .cancel {
+		color: #666 !important;
+	}
+	.remove {
+		color: #f85959 !important;
+		&:focus {
+			outline: 0;
+		}
+	}
+	.switch {
+		color: inherit !important;
+		padding: 0 0;
+	}
+}
+
+.bottom-actions {
+	padding: 0;
+	.btn {
+		line-height: normal !important;
+	}
+}
+
+.arrow-action {
+	text-align: right;
+	padding: 8px 0;
+	a {
+		color: #666;
+		&:after {
+			content: '';
+			background-image: url('@{icon-path}');
+			width: 15px;
+			height: 23px;
+		}
+		&:hover {
+			color: @blue;
+		}
+	}
+}
+
+.next-action {
+	a {
+		&:after {
+			background-position: -88px -98px;
+			float: right;
+		}
+		&:hover {
+			&:after {
+				background-position: -59px -96px;
+			}
+		}
+	}
+}
+
+.back-action {
+	a {
+		&:after {
+			background-position: -103px -98px;
+			float: left;
+		}
+		&:hover {
+			&:after {
+				background-position: -75px -96px;
+			}
+		}
+	}
+}
+
+.v-separator {
+	content: "";
+	display: inline-block;
+	width: 0px;
+	height: 36px;
+	border-right: 1px solid #FAFAFA;
+	border-left: 1px solid #B4B4B4;
+	margin: 0 10px;
+}

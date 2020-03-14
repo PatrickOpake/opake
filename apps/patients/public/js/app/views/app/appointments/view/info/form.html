@@ -1,0 +1,154 @@
+<errors src="ctrl.errors"></errors>
+
+<div ng-form="patient_info" class="row">
+	<div class="col-sm-6">
+		<div class="row">
+			<div class="col-sm-2">
+				<label class="control-label">Title</label>
+				<opk-select class="small disable-arrow" ng-model="ctrl.patient.title" key-value-options="patientConst.TITLES" placeholder='Type or select'></opk-select>
+			</div>
+			<div class="col-sm-5">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.last_name}">Last Name*</label>
+				<input type="text" ng-model="ctrl.patient.last_name" class='form-control input-sm name-field' placeholder='Type' />
+			</div>
+			<div class="col-sm-5">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.first_name}">First Name*</label>
+				<input type="text" ng-model="ctrl.patient.first_name" class='form-control input-sm name-field' placeholder='Type' />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label class="control-label">M.I.</label>
+				<input type="text" ng-model="ctrl.patient.middle_name" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-2 patient-details--suffix">
+				<label class="control-label">Suffix</label>
+				<opk-select class="small disable-arrow" ng-model="ctrl.patient.suffix" key-value-options="patientConst.SUFFIXES" placeholder='Type or select'></opk-select>
+			</div>
+			<div class="col-sm-4">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.gender}">Gender*</label>
+				<opk-select class="small" ng-model="ctrl.patient.gender" key-value-options="patientConst.GENDERS" placeholder='Type or select'></opk-select>
+			</div>
+			<div class="col-sm-4">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.dob}">Date of Birth*</label>
+				<div class="short-date"><date-field ng-model="ctrl.patient.dob" small="true" icon="true"></date-field></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-9">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.home_address}">Address*</label>
+				<input type="text" ng-model="ctrl.patient.home_address" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-3">
+				<label class="control-label">Apt #</label>
+				<input type="text" ng-model="ctrl.patient.home_apt_number" class='form-control input-sm' placeholder='Type' />
+			</div>
+		</div>
+		<div geo model="ctrl.patient" props="{country: 'home_country', state: 'home_state', city: 'home_city', custom_state: 'custom_home_state', custom_city: 'custom_home_city'}">
+			<div class="row">
+				<div class="country col-sm-3">
+					<label class="control-label" ng-class="{'invalid': ctrl.errors.home_country_id}">Country*</label>
+					<opk-select class="small" ng-model="ctrl.patient.home_country"
+								options="item.name for item in geoVm.countries" placeholder='Type or select'></opk-select>
+				</div>
+				<div class="geo-field state col-sm-4">
+					<label class="control-label" ng-class="{'invalid': ctrl.errors.home_state_id}">State*</label>
+					<opk-select class="small" ng-model="ctrl.patient.home_state"
+								options="item.name for item in geoVm.states" placeholder='Type or select'></opk-select>
+				</div>
+				<div class="custom-state col-sm-4">
+					<label class="control-label">State</label>
+					<input type="text" ng-model="ctrl.patient.custom_home_state" placeholder='Type' class="form-control input-sm" />
+				</div>
+				<div class="geo-field city col-sm-5">
+					<label class="control-label geo-field city"  ng-class="{'invalid': ctrl.errors.home_city_id}">City*</label>
+					<input type="text" ng-model="ctrl.patient.home_city" placeholder='Type' uib-typeahead="city as city.name for city in geoVm.cities | filter:$viewValue | limitTo:8" class="form-control input-sm" />
+				</div>
+				<div class="custom-city col-sm-5">
+					<label class="control-label" ng-class="{'invalid': ctrl.errors.custom_home_city}">City*</label>
+					<input type="text" ng-model="ctrl.patient.custom_home_city" placeholder='Type' class="form-control input-sm" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="zip-code col-sm-3">
+					<label class="control-label geo-field zip-code" ng-class="{'invalid': ctrl.errors.home_zip_code}">ZIP code*</label>
+					<input type="text" ng-model="ctrl.patient.home_zip_code" class="form-control input-sm" placeholder='Type' />
+				</div>
+				<div class="col-sm-9">
+					<label class="control-label" ng-class="{'invalid': ctrl.errors.home_email}">Email</label>
+					<input type="text" ng-model="ctrl.patient.home_email" class='form-control input-sm' placeholder='Type' />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.home_phone}">Phone #*</label>
+				<phone ng-model="ctrl.patient.home_phone"></phone>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.additional_phone}">Additional Phone #</label>
+				<phone ng-model="ctrl.patient.additional_phone"></phone>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.ssn}">Social Security #*</label>
+				<ssn ng-model="ctrl.patient.ssn"></ssn>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Marital Status</label>
+				<opk-select class="small" ng-model="ctrl.patient.status_marital" key-value-options="patientConst.STATUSES_MARITAL"></opk-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.ethnicity}">Ethnicity*</label>
+				<opk-select class="small" ng-model="ctrl.patient.ethnicity" key-value-options="patientConst.ETHNICITIES"></opk-select>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.race}">Race*</label>
+				<opk-select class="small" ng-model="ctrl.patient.race" key-value-options="patientConst.RACES"></opk-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.language_id}">Preferred Language*</label>
+				<opk-select class="small" ng-model="ctrl.patient.language" options="item as item.name for item in source.getLanguages()"></opk-select>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Occupation</label>
+				<opk-select class="small" ng-model="ctrl.patient.status_employment" key-value-options="patientConst.STATUSES_EMPLOYMENT"></opk-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Employer/School</label>
+				<input type="text" ng-model="ctrl.patient.employer" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.employer_phone}">Employer Phone #</label>
+				<phone ng-model="ctrl.patient.employer_phone"></phone>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.ec_name}">Emergency Contact*</label>
+				<input type="text" ng-model="ctrl.patient.ec_name" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.ec_phone_number}">Emergency Phone #*</label>
+				<phone ng-model="ctrl.patient.ec_phone_number"></phone>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label" ng-class="{'invalid': ctrl.errors.ec_relationship}">Relationship to Patient*</label>
+				<opk-select class="small" placeholder='Type or select' ng-model="ctrl.patient.ec_relationship"
+				            select-options="{appendToBody: true, searchFilter: 'opkRelationshipToInsuredSearchFilter', allowValuesNotInList: true}"
+				            key-value-options="caseRegistrationConst.RELATIONSHIP_TO_INSURED"></opk-select>
+			</div>
+		</div>
+	</div>
+</div>

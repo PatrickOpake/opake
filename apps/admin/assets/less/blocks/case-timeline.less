@@ -1,0 +1,155 @@
+.case-timeline-triangle(@triangle-position, @triangle-color) {
+	border-color: transparent;
+	border-style: solid;
+	border-width: 8px;
+	content: '';
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 0;
+	z-index: 10;
+	left: 1px;
+
+	& when (@triangle-position = right) {
+		border-left-color: @triangle-color;
+	}
+	& when (@triangle-position = left) {
+		border-right-color: @triangle-color;
+		left: -16px;
+	}
+}
+
+// Timeline
+.case-timeline {
+	padding: 20px 0 20px;
+
+	.vis-timeline {
+		background: #e5f6fa;
+		border: none;
+		overflow: visible;
+	}
+	.vis-panel {
+		overflow: visible;
+
+		&.vis-top {
+			top: -24px !important;
+			border: none;
+			height: 0;
+		}
+		&.vis-center {
+			border: none;
+		}
+	}
+	.vis-current-time {
+		background-color: @red;
+		z-index: 1000;
+
+		&.left {
+			left: 0 !important;
+		}
+		&.right {
+			left: auto !important;
+			right: 0 !important;
+		}
+		&:after {
+			.case-timeline-triangle(right, @red);
+		}
+	}
+	.vis-item.vis-background {
+		background: #c3e9f3;
+	}
+	.vis-item-content {
+		color: #005d84;
+		top: 0;
+
+		.vis-tooltip {
+			position: absolute;
+			top: 0;
+			left: -8px;
+			right: 4px;
+			height: 65px;
+			z-index: 555;
+		}
+	}
+
+	.vis-time-axis {
+		overflow: hidden;
+		z-index: 500;
+
+	}
+	.vis-grid.vis-major {
+		border-color: #28b7de !important;
+	}
+	.vis-grid.vis-minor {
+		border-left: none !important;
+		&:after {
+			content: "";
+			background: #c6d8dd;
+			position: absolute;
+			bottom: 1px;
+			left: 0;
+			height: 11px;
+			width: 1px;
+		}
+		&.quarter:after {
+			background: #a6b1b4;
+			height: 21px;
+		}
+		&.hour:after {
+			background: #999999;
+			height: 40px;
+			bottom: 0;
+		}
+	}
+
+	.vis-foreground .vis-item {
+		top: 2px !important;
+
+		.vis-dot {
+			height: 65px;
+			width: 2px;
+			background: @blue;
+			border: none;
+			border-radius: 0;
+
+			&.start {
+				&:after {
+					.case-timeline-triangle(right, @blue);
+				}
+				&.fact {
+					background: @red;
+					color: @red;
+
+					&:after {
+						border-left-color: @red;
+					}
+					&:before {
+						content: 'START';
+						position: absolute;
+						right: 6px;
+						top: 20px;
+					}
+				}
+			}
+			&.end {
+				&:after {
+					.case-timeline-triangle(left, @blue);
+				}
+				&.fact {
+					background: @red;
+					color: @red;
+
+					&:after {
+						border-right-color: @red;
+					}
+					&:before {
+						content: 'END';
+						position: absolute;
+						left: 6px;
+						top: 20px;
+					}
+				}
+			}
+		}
+	}
+}

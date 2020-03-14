@@ -1,0 +1,60 @@
+<div class="overview-print">
+	<div class="overview-header row">
+		<div class="col-sm-3 opake-logo">
+			<img src="/common/i/opake_logo_overview_print.png"/>
+		</div>
+		<div class="col-sm-9 org-name">
+			{{ listVm.org_name }} <br/>
+			{{ listVm.getDateDisplay() }}
+		</div>
+	</div>
+	<div class="overview-print-table">
+		<div class="group-block" ng-repeat="group_cases in listVm.group_cases">
+			<div class="surgeon-header">
+				{{ group_cases.header }}
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<th ng-if="listVm.isViewTypeDay()" class="case-time--day-view">Time</th>
+						<th ng-if="listVm.isViewTypeWeek()" class="case-time--week-view">DOS</th>
+						<th class="case-room" ng-if="listVm.groupType == 'surgeon'">Room</th>
+						<th class="case-surgeon" ng-if="listVm.groupType == 'room'">Surgeon</th>
+						<th class="case-patient">Name</th>
+						<th ng-class="{'case-procedure--day-view': listVm.isViewTypeDay(), 'case-procedure--week-view': listVm.isViewTypeWeek()}">Procedure</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-class="{'text-grey-italic': case.isAppointmentCanceled()}"
+						ng-repeat="case in group_cases.cases" ng-controller="CaseIntakeCrtl as intakeVm" ng-init="intakeVm.init(case)">
+						<td ng-if="listVm.isViewTypeDay()" class="case-time--day-view">
+							{{ ::case.time_start | date:'h:mm a' }} - {{ ::case.time_end | date:'h:mm a' }} <br/>
+							<span>{{ ::case.time_start| timeLength : case.time_end }}</span>
+						</td>
+						<td ng-if="listVm.isViewTypeWeek()" class="case-time--week-view">
+							{{ ::case.time_start | date:'M/d/yyyy h:mm a' }} - {{ ::case.time_end | date:'h:mm a' }} <br/>
+							<span>{{ ::case.time_start| timeLength : case.time_end }}</span>
+						</td>
+						<td ng-if="listVm.groupType == 'surgeon'" class="case-room">
+							{{ case.location.name }}
+						</td>
+						<td ng-if="listVm.groupType == 'room'" class="case-surgeon">
+							{{ case.first_surgeon_for_dashboard }}
+						</td>
+						<td class="case-patient">
+							<span>{{ ::case.patient.last_name }}, {{ ::case.patient.first_name }}</span>
+							<div class="patient-info">
+								DOB: {{ ::case.patient.dob | date:'MM/dd/yyyy' }} - {{ ::case.patient.age }} <br/>
+								MRN: {{ ::case.patient.full_mrn }}
+							</div>
+						</td>
+						<td ng-class="{'case-procedure--day-view': listVm.isViewTypeDay(), 'case-procedure--week-view': listVm.isViewTypeWeek()}">
+							<span>{{ ::case.procedure_name_for_dashboard_print }}</span> <br/>
+							<span class="italicized-text">{{ case.description }}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

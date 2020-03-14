@@ -1,0 +1,114 @@
+<div class="profile-page patient-profile">
+	<div class="block-panel">
+		<div>
+			<div class="controls">
+				<div class="buttons data-row">
+					<div class="right-control text-right">
+						<button class="btn btn-primary" ng-click="userVm.sendPassword()">Send Password</button>
+						<button class="btn btn-success" ng-click="userVm.save()">Save</button>
+						<button class="btn btn-grey" ng-click="userVm.cancel()">Cancel</button>
+					</div>
+				</div>
+				<div class="additional-info text-right">
+					<span>Date Created: {{userVm.user.created |  date:'M/d/yyyy'}}</span>
+				</div>
+			</div>
+
+			<errors src="userVm.errors"></errors>
+
+			<div class="details-panel">
+				<div class="data-row">
+					<label>First Name:</label>
+					<div class="input-container">
+						<input class='form-control name-field' type='text' ng_model="userVm.user.patient.first_name" />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Last Name:</label>
+					<div class="input-container">
+						<input class='form-control name-field' type='text' ng_model="userVm.user.patient.last_name" />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>DOB:</label>
+					<div>
+						<div class="date-field">
+							<date-field ng-model="userVm.user.patient.dob" icon="true"></date-field>
+						</div>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Email:</label>
+					<div class="input-container">
+						<input type="text" ng-model="userVm.user.patient.home_email" class='form-control' placeholder='Type' />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Phone:</label>
+					<div class="input-container">
+						<phone ng-model="userVm.user.patient.home_phone"></phone>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Address:</label>
+					<div class="input-container">
+						<input type="text" ng-model="userVm.user.patient.home_address" class='form-control' placeholder='Type' />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Apartment #:</label>
+					<div class="input-container">
+						<input type="text" ng-model="userVm.user.patient.home_apt_number" class='form-control' placeholder='Type' />
+					</div>
+				</div>
+				<div geo model="userVm.user.patient" props="{country: 'home_country', state: 'home_state', city: 'home_city', custom_state: 'custom_home_state', custom_city: 'custom_home_city'}">
+					<div class="data-row country">
+						<label>Country:</label>
+						<div class="input-container">
+							<opk-select ng-model="userVm.user.patient.home_country"
+										options="item.name for item in geoVm.countries" placeholder='Type or select'></opk-select>
+						</div>
+					</div>
+					<div class="data-row geo-field state">
+						<label>State:</label>
+						<div class="input-container">
+							<opk-select ng-model="userVm.user.patient.home_state"
+										options="item.name for item in geoVm.states" placeholder='Type or select'></opk-select>
+						</div>
+					</div>
+					<div class="data-row custom-state">
+						<label>State:</label>
+						<div class="input-container">
+							<input type="text" ng-model="userVm.user.patient.custom_home_state" placeholder='Type' class="form-control" />
+						</div>
+					</div>
+					<div class="data-row geo-field city">
+						<label>City:</label>
+						<div class="input-container">
+							<input type="text" ng-model="userVm.user.patient.home_city" placeholder='Type' uib-typeahead="city as city.name for city in geoVm.cities | filter:$viewValue | limitTo:8" class="form-control" />
+						</div>
+					</div>
+					<div class="data-row custom-city">
+						<label>City:</label>
+						<div class="input-container">
+							<input type="text" ng-model="userVm.user.patient.custom_home_city" placeholder='Type' class="form-control" />
+						</div>
+					</div>
+					<div class="data-row geo-field zip-code">
+						<label>ZIP Code:</label>
+						<div class="input-container">
+							<input type="text" ng-model="userVm.user.patient.home_zip_code" class="form-control" placeholder='Type' />
+						</div>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Status:</label>
+					<div class="status-switch">
+						<span class="switch-label" ng-class="{active: !userVm.user.active}" ng-click="userVm.deactivateUser()">Inactive</span>
+						<switch ng-model="userVm.user.active"></switch>
+						<span ng-class="{active: userVm.user.active}" class="switch-label" ng-click="userVm.activateUser()">Active</span>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>

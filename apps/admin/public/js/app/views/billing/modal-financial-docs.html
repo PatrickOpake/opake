@@ -1,0 +1,205 @@
+<div class="financial-docs--modal" show-loading="docVm.isLoading">
+	<div class="modal-header">
+		<span class="modal-title">{{ regVm.registration.last_name + ' ' + regVm.registration.first_name}} - Financial Documents</span>
+		<a href="" class="x-close" ng-click="docVm.cancel()"><i class="glyphicon glyphicon glyphicon-remove"></i></a>
+	</div>
+	<errors src="docVm.errors"></errors>
+	<div class="modal-body patient-charts">
+		<div ng-if="!docVm.docsToUpload.length">
+				<div class="patient-charts-header row">
+					<div class="col-sm-1 check-all">
+						<div class="checkbox">
+							<input id="print_all" type="checkbox" class="styled" ng-checked="docVm.selectAll" ng-click="docVm.addToPrintAll()">
+							<label for="print_all"></label>
+						</div>
+					</div>
+					<div class="col-sm-8 icons">
+						<a href="" ng-click="docVm.print()" class="icon">
+							<i class="icon-print-grey"></i>
+						</a>
+						<a href="" ng-click="docVm.viewType = 'list'" class="icon">
+							<i class="icon-list-style" ng-class="{'active': docVm.viewType == 'list'}"></i>
+						</a>
+						<a href="" ng-click="docVm.viewType = 'grid'" class="icon">
+							<i class="icon-grid-style" ng-class="{'active': docVm.viewType == 'grid'}"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="patient-charts--list-style" ng-if="docVm.viewType == 'list'">
+					<table class="opake charts-table" ng-if="docVm.general_docs.length">
+						<thead>
+						<tr>
+							<th colspan="5">General Charts</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="doc in docVm.general_docs">
+							<td class="check">
+								<div class="checkbox">
+									<input id="patient_chart_{{$index}}"
+										   type="checkbox"
+										   class="styled"
+										   ng-disabled="!doc.url"
+										   ng-checked="docVm.isAddedToPrint(doc)"
+										   ng-click="docVm.addToPrint(doc)">
+									<label for="patient_chart_{{$index}}"></label>
+								</div>
+							</td>
+							<td class="name">
+								<span>{{ doc.name }}</span>
+							</td>
+							<td class="date">{{ doc.uploaded_date | date:'MMMM d, yyyy' }}</td>
+						</tr>
+						</tbody>
+					</table>
+
+					<table class="opake charts-table" ng-repeat="case in docVm.cases" ng-if="case.financial_documents.length">
+						<thead>
+						<tr>
+							<th colspan="5">
+								{{ case.time_start | date:'M/d/yyyy'}} -
+								{{ case.first_surgeon_name }} -
+								{{ case.type_name }}
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="doc in case.financial_documents" ng-if="!doc.is_booking_sheet">
+							<td class="check">
+								<div class="checkbox">
+									<input id="case_chart_{{case.id}}_{{$index}}"
+										   type="checkbox"
+										   class="styled"
+										   ng-disabled="!doc.url"
+										   ng-checked="docVm.isAddedToPrint(doc)"
+										   ng-click="docVm.addToPrint(doc)">
+									<label for="case_chart_{{case.id}}_{{$index}}"></label>
+								</div>
+							</td>
+							<td class="name">
+								<span>{{ doc.name }}</span>
+							</td>
+							<td class="date">{{ doc.uploaded_date | date:'MMMM d, yyyy' }}</td>
+						</tr>
+						<tr ng-repeat="doc in case.financial_documents" ng-if="doc.is_booking_sheet">
+							<td class="check">
+								<div class="checkbox">
+									<input id="case_chart_bs_{{case.id}}_{{$index}}"
+										   type="checkbox"
+										   class="styled"
+										   ng-disabled="!doc.url"
+										   ng-checked="docVm.isAddedToPrint(doc)"
+										   ng-click="docVm.addToPrint(doc)">
+									<label for="case_chart_{{case.id}}_{{$index}}"></label>
+								</div>
+							</td>
+							<td class="name">{{ doc.name }}</td>
+							<td class="date" ng-if="!case.isAppointmentCanceled()">{{ doc.uploaded_date | date:'MMMM d, yyyy' }}</td>
+							<td class="date" ng-if="case.isAppointmentCanceled()">Canceled</td>
+							<td></td>
+							<td></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="patient-charts--grid-style" ng-if="docVm.viewType == 'grid'">
+					<div class="charts-block" ng-if="docVm.general_docs.length">
+						<div class="charts-block-header">General Charts</div>
+						<div class="charts row">
+							<div class="chart-container col-sm-3" ng-repeat="doc in docVm.general_docs">
+								<div class="chart">
+									<div class="chart-header row">
+										<div class="col-sm-2 checkbox-container">
+											<div class="checkbox">
+												<input id="grid_patient_chart_{{$index}}"
+													   type="checkbox"
+													   class="styled"
+													   ng-disabled="!doc.url"
+													   ng-checked="docVm.isAddedToPrint(doc)"
+													   ng-click="docVm.addToPrint(doc)">
+												<label for="grid_patient_chart_{{$index}}"></label>
+											</div>
+										</div>
+									</div>
+									<div class="chart-body-view" ng-if="!doc.edit_mode">
+										<i class="icon-pdf"></i>
+										<div class="chart-info">
+									<span class="name">
+										<span><a class="" href="" ng-click="docVm.preview(doc)">{{ doc.name }}</a></span>
+									</span> <br/>
+											<span class="date">{{ doc.uploaded_date | date:'MMMM d, yyyy' }}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="charts-block" ng-repeat="case in docVm.cases" ng-if="case.financial_documents.length">
+						<div class="charts-block-header">
+							{{ case.time_start | date:'M/d/yyyy'}} -
+							{{ case.first_surgeon_name }} -
+							{{ case.type_name }}
+						</div>
+						<div class="charts row">
+							<div class="chart-container col-sm-3" ng-repeat="doc in case.financial_documents" ng-if="!doc.is_booking_sheet">
+								<div class="chart">
+									<div class="chart-header row">
+										<div class="col-sm-2 checkbox-container">
+											<div class="checkbox">
+												<input id="grid_case_chart_{{case.id}}_{{$index}}"
+													   type="checkbox"
+													   class="styled"
+													   ng-disabled="!doc.url"
+													   ng-checked="docVm.isAddedToPrint(doc)"
+													   ng-click="docVm.addToPrint(doc)">
+												<label for="grid_case_chart_{{case.id}}_{{$index}}"></label>
+											</div>
+										</div>
+									</div>
+									<div class="chart-body-view" ng-if="!doc.edit_mode">
+										<i class="icon-pdf"></i>
+										<div class="chart-info">
+											<span class="name"><a class="" href="" ng-click="docVm.preview(doc)">{{ doc.name }}</a></span> <br/>
+											<span class="date">{{ doc.uploaded_date | date:'MMMM d, yyyy' }}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="chart-container col-sm-3" ng-repeat="doc in case.financial_documents" ng-if="doc.is_booking_sheet">
+								<div class="chart">
+									<div class="chart-header row">
+										<div class="col-sm-2 checkbox-container">
+											<div class="checkbox">
+												<input id="grid_case_chart_bs_{{case.id}}_{{$index}}"
+													   type="checkbox"
+													   class="styled"
+													   ng-disabled="!doc.url"
+													   ng-checked="docVm.isAddedToPrint(doc)"
+													   ng-click="docVm.addToPrint(doc)">
+												<label for="grid_case_chart_{{case.id}}_{{$index}}"></label>
+											</div>
+										</div>
+									</div>
+									<div class="chart-body-view" ng-if="!doc.edit_mode">
+										<i class="icon-pdf"></i>
+										<div class="chart-info">
+											<span class="name"><a class="" href="" ng-click="docVm.preview(doc)">{{ doc.name }}</a></span> <br/>
+											<span class="date" ng-if="!case.isAppointmentCanceled()">{{ doc.uploaded_date | date:'MMMM d, yyyy' }}</span>
+											<span class="date" ng-if="case.isAppointmentCanceled()">Canceled</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="waiting-layer" ng-show="docVm.isDocumentsLoading">
+			<img class="spinner" src="/common/i/spinner.gif" alt=""/>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,185 @@
+<div class="content-block medication-reconciliation" ng-controller="CaseManagementIntakeMedicationsCtrl as medicationsVm" ng-init="medicationsVm.init(regVm.registration.id)" show-loading="!medicationsVm.isFormContentLoaded" ng-cloak>
+    <div ng-if="medicationsVm.reconciliation"  warning-unsaved-form="medicationsVm.reconciliation">
+        <div class="row medication-reconciliation-header">
+            <div class="col-sm-11 header-text">
+                <h3>Medication Reconciliation</h3>
+            </div>
+            <div class="col-sm-1 print-icon">
+                <a href="" ng-click="medicationsVm.print()" class="print-form">
+                    <i class="icon-print-grey" uib-tooltip="Print"></i>
+                </a>
+            </div>
+        </div>
+
+        <errors src="medicationsVm.errors"></errors>
+
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <input id="no_known_allergies" type="checkbox" ng-model="medicationsVm.reconciliation.no_known_allergies">
+                    <label for="no_known_allergies">No known allergies</label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <input id="copy_given_to_patient" type="checkbox" ng-model="medicationsVm.reconciliation.copy_given_to_patient">
+                    <label for="copy_given_to_patient">Copy given to patient</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="allergies top-buffer">
+            <div class="allergies-header">Allergy and/or Sensitivity/Reaction</div>
+            <div class="allergies-list row">
+                <div class="col-sm-6 allergies-list-item" ng-repeat="allergy in medicationsVm.reconciliation.allergies">
+                    <input type="text" ng-model="allergy.name" class='form-control input-sm'/>
+                    <span class="delimiter"> / </span>
+                    <input type="text" ng-model="allergy.description" class='form-control input-sm'/>
+                </div>
+            </div>
+            <div class="allergies-footer row">
+                <div class="col-sm-6 footer-text">
+                    This list does not constitute a physician’s order
+                </div>
+                <div class="col-sm-6 add-allergy">
+                    <a href="" ng-click="medicationsVm.addAllergy()">+Add Additional Allergies</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row top-buffer">
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <input id="patient_denies" type="checkbox" ng-model="medicationsVm.reconciliation.patient_denies">
+                    <label for="patient_denies">Patient denies medication use</label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <input id="pre_op_call" type="checkbox" ng-model="medicationsVm.reconciliation.pre_op_call">
+                    <label for="pre_op_call">Pre-Op call</label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <input id="admission" type="checkbox" ng-model="medicationsVm.reconciliation.admission">
+                    <label for="admission">Admission</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="medications">
+            <table>
+                <thead>
+                <tr>
+                    <th>
+                        <span class="bold-upper-text"> Medication Name Include: </span> <br/>
+                        OTC, vitamins, herbal supplements
+                    </th>
+                    <th class="vertical"><span class="bold-upper-text"> Dose </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> Route </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> Frequency or Time </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> Current </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> Pre-Op </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> Post-Op </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> RX </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> Verify with prescribing MD </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> Resume / Post-Op </span></th>
+                    <th class="vertical"><span class="bold-upper-text"> Discontinue </span></th>
+                    <th>
+                        <span class="bold-upper-text"> Medication Indications, Additional Instructions or Comments </span> <br/>
+                        (Date Pain Management Changes)
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="medication in medicationsVm.reconciliation.medications">
+                    <td><input type="text" ng-model="medication.name" class='form-control'/></td>
+                    <td><input type="text" ng-model="medication.dose" class='form-control'/></td>
+                    <td><input type="text" ng-model="medication.route" class='form-control'/></td>
+                    <td><input type="text" ng-model="medication.frequency" class='form-control input-sm'/></td>
+                    <td><opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medication.current" key-value-options="caseRegistrationConst.YES_NO" placeholder=""></opk-select></td>
+                    <td><opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medication.pre_op" key-value-options="caseRegistrationConst.YES_NO" placeholder=""></opk-select></td>
+                    <td><opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medication.post_op" key-value-options="caseRegistrationConst.YES_NO" placeholder=""></opk-select></td>
+                    <td><opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medication.rx" key-value-options="caseRegistrationConst.YES_NO" placeholder=""></opk-select></td>
+                    <td><opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medication.verify" key-value-options="caseRegistrationConst.YES_NO" placeholder=""></opk-select></td>
+                    <td><opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medication.resume" key-value-options="caseRegistrationConst.YES_NO" placeholder=""></opk-select></td>
+                    <td><opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medication.discontinue" key-value-options="caseRegistrationConst.YES_NO" placeholder=""></opk-select></td>
+                    <td><input type="text" ng-model="medication.comments" class='form-control'/></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="add-medication">
+                <a href="" ng-click="medicationsVm.addMedication()">+Add Additional Medication</a>
+            </div>
+        </div>
+
+        <div class="anesthesia">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="control-label">Anesthesia Type:</label>
+                    <opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medicationsVm.reconciliation.case_anesthesia_type" key-value-options="caseRegistrationConst.ANESTHESIA_TYPE"></opk-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="control-label">Anesthesia Drugs:</label>
+                    <opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="medicationsVm.reconciliation.anesthesia_drugs" key-value-options="caseRegistrationConst.ANESTHESIA_DRUGS"></opk-select>
+                </div>
+                <div class="col-sm-6" ng-if="medicationsVm.reconciliation.anesthesia_drugs == 4">
+                    <label class="control-label">Anesthesia Drugs Other:</label>
+                    <input type="text" ng-model="medicationsVm.reconciliation.anesthesia_drugs_other" class='form-control'/>
+                </div>
+            </div>
+        </div>
+
+        <div class="signatures">
+            <div class="signature">
+                Medication reviewed with patient.
+                <div class="signature-field"></div>
+                <span class="bold-text">RN signature</span>
+            </div>
+            <div class="signature">
+                I verify that the above list of medications is complete and accurate to the best of my knowledge.
+                <div class="signature-field"></div>
+                <span class="bold-text">Patient signature</span>
+            </div>
+            The reconciliation and decision to continue or omit with reason,
+            the use of these medications as appropriate to the care of the patient, is made by the prescribing physician.
+            Vitamins and herbal supplements are not reconciled unless specifically ordered by the physician.
+        </div>
+
+        <div class="visit-updates">
+            <div class="visit-updates-header">Return Visit Update: Pain Management Patients Only</div>
+            <div class="visit-updates-list row" ng-repeat="visit in medicationsVm.reconciliation.visit_updates">
+                <div class="col-sm-2">
+                    <div class="checkbox">
+                        <input id="no_change_{{$index}}" type="checkbox" ng-model="visit.no_change">
+                        <label for="no_change_{{$index}}">No Change</label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="checkbox">
+                        <input id="change_listed_{{$index}}" type="checkbox" ng-model="visit.change_listed">
+                        <label for="change_listed_{{$index}}">Change Listed</label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="data-row">
+                        <label class="control-label">Date:</label>
+                        <div class="short-date"><date-field ng-model="visit.date" small="true" without-calendar="true"></date-field></div>
+                    </div>
+                </div>
+                <div class="col-sm-1"><span class="bold-text">Signature:</span></div>
+                <div class="col-sm-5"><div class="signature-field"></div></div>
+            </div>
+        </div>
+
+        <div class="bottom-buttons top-buffer">
+            <div class="pull-right">
+                <a class="btn btn-grey" href="" ng-click="medicationsVm.cancel()">Cancel</a>
+                <a class="btn btn-success" href="" ng-click="medicationsVm.save()" ng-disabled="!medicationsVm.isChanged()">Save</a>
+            </div>
+        </div>
+    </div>
+</div>

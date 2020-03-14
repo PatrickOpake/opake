@@ -1,0 +1,145 @@
+<div>
+	<div class="main-control">
+		<a class='btn btn-grey' href='' ng-click="vendorVm.cancel()">Cancel</a>
+		<a class='btn btn-success' href='' ng-click="vendorVm.save()">Save</a>
+	</div>
+
+	<errors src="vendorVm.errors"></errors>
+
+	<div class="headline">
+		Profile Details
+		<span ng-if="vendorVm.vendor.time_create">Date Created: {{ vendorVm.vendor.time_create | date:'M/d/yyyy h:mm a' }}</span>
+	</div>
+	<div class="panel-data data-row">
+		<div>
+			<div class="data-row">
+				<label>Name:</label>
+				<input class='form-control' type='text' ng-model="vendorVm.vendor.name"/>
+			</div>
+			<div class="data-row">
+				<label>MMIS/ Distributor ID:</label>
+				<input class='form-control' type='text' ng-model="vendorVm.vendor.mmis_id"/>
+			</div>
+			<div class="data-row">
+				<label>Account Number:</label>
+				<input class='form-control' type='text' ng-model="vendorVm.vendor.acc_number"/>
+			</div>
+			<div class="checkbox">
+				<input id="check-dist" type="checkbox" class=" styled" ng-model="vendorVm.vendor.is_dist" ng-true-value="'1'" ng-false-value="'0'" />
+				<label class="dark" for="check-dist">Distributor</label>
+			</div>
+			<div class="checkbox">
+				<input id="check-manf" type="checkbox" class=" styled" ng-model="vendorVm.vendor.is_manf" ng-true-value="'1'" ng-false-value="'0'" />
+				<label class="dark" for="check-manf">Manufacturer</label>
+			</div>
+
+		</div>
+		<div class="upload-logo">
+			<img src='{{ vendorVm.vendor.logo }}' id="upload-vendor-img" data-size='default'/>
+			<a class='logo upload' href='#' image-upload target="#upload-vendor-img" size="default" upload-type="user" ng-model="vendorVm.vendor.logo_id">
+				Upload
+			</a>
+			<input id='fileupload' type='file' name='file' data-target='#logoupload' />
+			<input id='logoupload' data-target='form .upload-logo img' ng-model="vendorVm.vendor.logo_id" type='hidden'/>
+		</div>
+	</div>
+
+	<div class="headline">Contact Info</div>
+	<div class="panel-data">
+		<div class="data-row">
+			<label>Web Site:</label>
+			<input class='form-control' type='text' ng-model="vendorVm.vendor.website"/>
+		</div>
+		<div class="data-row">
+			<label>Address:</label>
+			<textarea class='form-control' ng-model="vendorVm.vendor.address"></textarea>
+		</div>
+		<div class="data-row">
+			<label>Country:</label>
+			<div class="input-container">
+				<opk-select ng-model="vendorVm.vendor.country_id" options="value.id as value.name for value in source.getCountries()"></opk-select>
+			</div>
+		</div>
+		<div class="data-row">
+			<label>Phone:</label>
+			<phone ng-model="vendorVm.vendor.phone"></phone>
+		</div>
+		<div class="data-row">
+			<label>Email:</label>
+			<input class='form-control' type='text' ng-model="vendorVm.vendor.email"/>
+		</div>
+	</div>
+
+	<div class="headline">Primary Contact</div>
+	<div class="panel-data">
+		<div class="data-row">
+			<label>Name:</label>
+			<input class='form-control name-field' type='text' ng-model="vendorVm.vendor.contact_name"/>
+		</div>
+		<div class="data-row">
+			<label>Phone:</label>
+			<phone ng-model="vendorVm.vendor.contact_phone"></phone>
+		</div>
+		<div class="data-row">
+			<label>Email:</label>
+			<input class='form-control' ng-model="vendorVm.vendor.contact_email"/>
+		</div>
+	</div>
+
+	<div class="headline">Contacts</div>
+	<div opk-table="items" ng-cloak>
+		<table class="opake" ng-if="vendorVm.vendor.contacts.length > 0">
+			<thead>
+			<tr>
+				<th>Row #</th>
+				<th>Name</th>
+				<th>Phone</th>
+				<th>Email</th>
+				<th>Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="item in vendorVm.vendor.contacts">
+				<td>{{ $index + 1 }}</td>
+				<td>{{ item.name }}</td>
+				<td>{{ item.phone }}</td>
+				<td>{{ item.email }}</td>
+				<td class="actions">
+					<a href="" class="edit" ng-click="vendorVm.contactEditDialog(item)"><i class="icon-edit"></i>Edit</a>
+					<a href="" class="remove" ng-click="vendorVm.removeContact(item)"><i class="icon-remove"></i>Remove</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<div class="panel-data" ng-if="vendorVm.vendor.contacts.length === 0">No Found Contacts</div>
+		<a class="btn btn-success" ng-click="vendorVm.contactAddDialog()"><i class="glyphicon glyphicon-plus"></i> Add Contact</a>
+	</div>
+
+	<script type="text/ng-template" id="opake/vendor/contact.html">
+		<div class="vendor-contacts--add-modal modal-body" ng-form name="ContactForm">
+			<div class="data-row">
+				<label class="col-sm-2">Name*:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control name-field" ng-model="vendorVm.contact.name" ng-required="true" />
+				</div>
+			</div>
+			<div class="data-row">
+				<label class="col-sm-2">Phone:</label>
+				<div class="col-sm-10">
+					<phone ng-model="vendorVm.contact.phone"></phone>
+				</div>
+			</div>
+			<div class="data-row">
+				<label class="col-sm-2">Email:</label>
+				<div class="col-sm-10">
+					<input type="email" class="form-control" ng-model="vendorVm.contact.email" />
+				</div>
+			</div>
+			<div ng-show="ContactForm.$invalid" class="text-danger">Please, fill form correct</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="ok()" ng-disabled="ContactForm.$invalid">OK</button>
+			<button class="btn btn-danger" ng-click="cancel()" type="button">Cancel</button>
+		</div>
+	</script>
+</div>

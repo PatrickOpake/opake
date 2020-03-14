@@ -1,0 +1,123 @@
+<div class="profile-page user-profile organization-info">
+	<div class="block-panel">
+		<div class="heading-row clearfix">
+			<profile-image-upload
+					options="userVm.profileImageOptions"
+					ng-if="userVm.profileImageOptions"
+					is-view-only="true"></profile-image-upload>
+
+			<div class="controls">
+				<div class="buttons clearfix">
+					<a class='btn btn-success btn-shadow' ng-if="::userVm.canEditUser" href='' ng-click="userVm.edit()">Edit</a>
+				</div>
+				<div class="additional-info">
+					<span>Date Created: {{userVm.user.last_change}}</span>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="details-panel">
+			<div class="data-row" ng-if="userVm.user.user_access">
+				<label>User Access:</label>
+				<div>{{userVm.user.user_access.name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="userVm.user.profession">
+				<label>Type:</label>
+				<div>{{userVm.user.profession.name}}</div>
+			</div>
+
+			<div class="data-row">
+				<label>First Name:</label>
+				<div>{{userVm.user.first_name}}</div>
+			</div>
+			<div class="data-row">
+				<label>Last Name:</label>
+				<div>{{userVm.user.last_name}}</div>
+			</div>
+			<div class="data-row">
+				<label>Email:</label>
+				<div>
+					<a href="mailto:{{userVm.user.email}}" ng-if="!userVm.isSelfUser">{{userVm.user.email}}</a>
+					<span ng-if="userVm.isSelfUser">{{userVm.user.email}}</span>
+				</div>
+			</div>
+			<div class="data-row" ng-if="userVm.user.username">
+				<label>Username:</label>
+				<div>
+					{{userVm.user.username}}
+				</div>
+			</div>
+			<div class="row user-phone" ng-if="userVm.user.phone">
+				<div class="col-sm-6">
+					<div class="data-row">
+						<label>Phone:</label>
+						<div>{{userVm.user.phone | phone}}</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="data-row phone-type" ng-if="userVm.user.phone_type">
+						<label>Type:</label>
+						<div>{{ userConst.PHONE_TYPES[userVm.user.phone_type] }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="data-row" ng-if="userVm.user.country">
+				<label>Country:</label>
+				<div>{{userVm.user.country.name}}</div>
+			</div>
+			<div class="data-row" ng-if="userVm.user.state_name">
+				<label>State:</label>
+				<div>{{userVm.user.state_name}}</div>
+			</div>
+			<div class="data-row" ng-if="userVm.user.city_name">
+				<label>City:</label>
+				<div>{{userVm.user.city_name}}</div>
+			</div>
+			<div class="data-row"  ng-if="userVm.user.zip_code">
+				<label>Zip Code</label>
+				<div>{{userVm.user.zip_code}}</div>
+			</div>
+			<div class="data-row" ng-if="userVm.user.address">
+				<label>Address:</label>
+				<div>{{userVm.user.address}}
+					<div class="data-row phone-type without-border" ng-if="userVm.user.address_type">
+						<label>Type:</label>
+						<div>{{ userConst.ADDRESS_TYPES[userVm.user.address_type] }}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="data-row" ng-if="userVm.user.sites">
+				<label>Site:</label>
+				<div>{{userVm.formatMultipleValues(userVm.user.sites)}}</div>
+			</div>
+
+			<div class="data-row" ng-if="userVm.user.departments">
+				<label>Department:</label>
+				<div>{{userVm.formatMultipleValues(userVm.user.departments)}}</div>
+			</div>
+
+			<div class="data-row" ng-if="userVm.user.comment">
+				<label>Comments:</label>
+				<div>{{userVm.user.comment}}</div>
+			</div>
+
+			<div class="data-row" ng-if="userVm.user.practice_groups && userVm.user.practice_groups.length">
+				<label>Practice Name:</label>
+				<div>
+					<span ng-repeat="group in userVm.user.practice_groups">
+						<span ng-if="!group.active">
+							<span class="inactive-practice-group">{{group.name}}*</span><span class="groups-sep" ng-if="!$last">,</span>
+						</span>
+						<span ng-if="group.active">
+							{{group.name}}<span class="groups-sep" ng-if="!$last">,</span>
+						</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

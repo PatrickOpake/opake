@@ -1,0 +1,48 @@
+<div class="row case-data">
+	<div class="col-sm-6">
+		<div dnd-list="reportVm.chunkedCaseInfo[0]"
+			 dnd-allowed-types="[reportVm.templateConst.GROUPS.CASEINFO]">
+			<div ng-repeat="item in reportVm.chunkedCaseInfo[0]"
+				 dnd-draggable="item"
+				 dnd-moved="reportVm.chunkedCaseInfo[0].splice($index, 1);"
+				 dnd-effect-allowed="move"
+				 dnd-dragend="reportVm.reindexCaseInfoColumns()"
+				 dnd-type="item.group_id"
+				 ng-if="item.confirmed_active"
+				 dnd-nodrag
+				 class="row">
+				<div class="col-sm-12">
+					<div class="data-row">
+						<div class="switch-container"><switch ng-if="reportVm.isEditMode()" class="green" ng-model="item.active"></switch><label>{{item.name}}:</label></div>
+						<date-field ng-if="item.type === 'date'" ng-disabled="true" class="" ng-model="item" icon="true" placeholder=""></date-field>
+						<div ng-if="item.type !== 'date'" class="form-control input-sm disabled">{{reportVm.plug_text}}</div>
+						<div ng-if="reportVm.isEditMode()" dnd-handle class="handle"><i class="icon-drag-n-drop"></i></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div dnd-list="reportVm.chunkedCaseInfo[1]"
+			 dnd-allowed-types="[reportVm.templateConst.GROUPS.CASEINFO]">
+			<div ng-repeat="item in reportVm.chunkedCaseInfo[1]"
+				 dnd-draggable="item"
+				 dnd-moved="reportVm.chunkedCaseInfo[1].splice($index, 1);"
+				 dnd-effect-allowed="move"
+				 dnd-dragend="reportVm.reindexCaseInfoColumns()"
+				 dnd-type="item.group_id"
+				 ng-if="item.confirmed_active"
+				 dnd-nodrag
+				 class="row">
+				<div class="col-sm-12">
+					<div class="data-row">
+						<div class="switch-container"><switch ng-if="reportVm.isEditMode()" class="green" ng-model="item.active"></switch><label>{{item.name}}:</label></div>
+						<date-field ng-if="item.type === 'date'" ng-disabled="true" class="" ng-model="item" icon="true" placeholder=""></date-field>
+						<div ng-if="item.type !== 'date'" class="form-control input-sm disabled">{{reportVm.plug_text}}</div>
+						<div ng-if="reportVm.isEditMode()" dnd-handle class="handle"><i class="icon-drag-n-drop"></i></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

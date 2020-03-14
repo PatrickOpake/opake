@@ -1,0 +1,23 @@
+<table class="opake" ng-if="listVm.items.length">
+	<thead sorter="listVm.search_params" callback="listVm.search()">
+		<tr>
+			<th sort="date">Date</th>
+			<th class="text-center">Order</th>
+			<th sort="item_count" class="text-center"># Unique Items</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in listVm.items">
+			<td>
+				<span ng-if="item.date">{{ ::item.date }}</span>
+				<a ng-if="!item.date" href="/orders/outgoing/{{ ::org_id }}/view/{{ ::item.id }}">Ready to Send</a>
+			</td>
+			<td class="text-center"><a href="/orders/outgoing/{{ ::org_id }}/view/{{ ::item.id }}">{{ ::(item.date ? 'View' : 'View/Edit') }}</a></td>
+			<td class="text-center">{{ ::item.item_count }}</td>
+			<td class="text-center"><a ng-if="::!item.date" href="" class="remove" ng-click="listVm.delete(item)"><i class="icon-remove"></i></a></td>
+		</tr>
+	</tbody>
+</table>
+<pages count="listVm.total_count" page="listVm.search_params.p" limit="listVm.search_params.l" callback="listVm.search()"></pages>
+<h4 ng-if="listVm.items && !listVm.items.length">No orders found</h4>

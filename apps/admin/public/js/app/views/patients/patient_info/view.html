@@ -1,0 +1,169 @@
+<div ng-form="patient_info" class="row patient-form view-patient-form">
+	<div class="col-sm-6">
+		<div class="row">
+			<div class="col-sm-2">
+				<label class="control-label">Title</label>
+				<div class="form-control input-sm">{{ patientConst.TITLES[ctrl.patient.title] }}</div>
+			</div>
+			<div class="col-sm-5">
+				<label class="control-label">Last Name*</label>
+				<div class="form-control input-sm">{{ ctrl.patient.last_name}}</div>
+			</div>
+			<div class="col-sm-5">
+				<label class="control-label">First Name*</label>
+				<div class="form-control input-sm">{{ ctrl.patient.first_name}}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label class="control-label">M.I.</label>
+				<div class="form-control input-sm">{{ ctrl.patient.middle_name}}</div>
+			</div>
+			<div class="col-sm-2">
+				<label class="control-label">Suffix</label>
+				<div class="form-control input-sm">{{ patientConst.SUFFIXES[ctrl.patient.suffix] }}</div>
+			</div>
+			<div class="col-sm-4">
+				<label class="control-label">Gender</label>
+				<div class="form-control input-sm">{{ patientConst.GENDERS[ctrl.patient.gender] }}</div>
+			</div>
+			<div class="col-sm-4">
+				<label class="control-label">Date of Birth*</label>
+				<div class="form-control input-sm">{{ ctrl.patient.dob | date:'M/d/yyyy' }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-9">
+				<label class="control-label">Address</label>
+				<div class="form-control input-sm">{{ ctrl.patient.home_address}}</div>
+			</div>
+			<div class="col-sm-3">
+				<label class="control-label">Apt #</label>
+				<div class="form-control input-sm">{{ ctrl.patient.home_apt_number}}</div>
+			</div>
+		</div>
+		<div geo model="ctrl.patient" props="{country: 'home_country', state: 'home_state', city: 'home_city', custom_state: 'custom_home_state', custom_city: 'custom_home_city'}">
+			<div class="row">
+				<div ng-if="ctrl.patient.home_country.id == 235" class="geo-field state col-sm-4">
+					<label class="control-label">State</label>
+					<div class="form-control input-sm">{{ ctrl.patient.home_state.name}}</div>
+				</div>
+				<div ng-if="ctrl.patient.home_country.id != 235" class="custom-state col-sm-4">
+					<label class="control-label">State</label>
+					<div class="form-control input-sm">{{ ctrl.patient.custom_home_state}}</div>
+				</div>
+				<div ng-if="ctrl.patient.home_country.id == 235" class="geo-field city col-sm-5">
+					<label class="control-label geo-field city">City</label>
+					<div class="form-control input-sm">{{ ctrl.patient.home_city.name}}</div>
+				</div>
+				<div ng-if="ctrl.patient.home_country.id != 235" class="custom-city col-sm-5">
+					<label class="control-label custom-city">City</label>
+					<div class="form-control input-sm">{{ ctrl.patient.custom_home_city}}</div>
+				</div>
+				<div class="geo-field zip-code col-sm-3">
+					<label class="control-label geo-field zip-code">ZIP code</label>
+					<div class="form-control input-sm">{{ ctrl.patient.home_zip_code}}</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="country col-sm-3">
+					<label class="control-label">Country</label>
+					<div class="form-control input-sm">{{ ctrl.patient.home_country.name}}</div>
+				</div>
+				<div class="col-sm-9">
+					<label class="control-label">Email</label>
+					<div class="form-control input-sm">{{ ctrl.patient.home_email}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Phone #</label>
+				<div class="form-control input-sm">{{ ctrl.patient.home_phone | phone }}</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Type</label>
+				<div class="form-control input-sm">{{ patientConst.TYPE_PHONE[ctrl.patient.home_phone_type] }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Additional Phone #</label>
+				<div class="form-control input-sm">{{ ctrl.patient.additional_phone | phone }}</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Type</label>
+				<div class="form-control input-sm">{{ patientConst.TYPE_PHONE[ctrl.patient.additional_phone_type] }}</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Social Security #</label>
+				<div class="form-control input-sm">{{ ctrl.patient.ssn | ssn }}</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Marital Status</label>
+				<div class="form-control input-sm">{{ patientConst.STATUSES_MARITAL[ctrl.patient.status_marital]}}</div>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Ethnicity</label>
+				<div class="form-control input-sm">{{ patientConst.ETHNICITIES[ctrl.patient.ethnicity] }}</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Race</label>
+				<div class="form-control input-sm">{{ patientConst.RACES[ctrl.patient.race]}}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Preferred Language</label>
+				<div class="form-control input-sm">{{ ctrl.patient.language.name }}</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Occupation</label>
+				<div class="form-control input-sm">{{ patientConst.STATUSES_EMPLOYMENT[ctrl.patient.status_employment]}}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Employer/School</label>
+				<div class="form-control input-sm">{{ ctrl.patient.employer }}</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Employer Phone #</label>
+				<div class="form-control input-sm">{{ ctrl.patient.employer_phone | phone }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Emergency Contact</label>
+				<div class="form-control input-sm">{{ ctrl.patient.ec_name }}</div>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Emergency Phone #</label>
+				<div class="form-control input-sm">{{ ctrl.patient.ec_phone_number | phone }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div ng-if="ctrl.patient.display_point_of_contact" class="col-sm-6">
+				<label class="control-label">Point of Contact SMS #</label>
+				<div class="form-control input-sm">{{ ctrl.patient.point_of_contact_phone | phone }}</div>
+			</div>
+			<div ng-if="ctrl.patient.display_point_of_contact" class="col-sm-6">
+				<label class="control-label">Type</label>
+				<div class="form-control input-sm">{{ patientConst.TYPE_PHONE[ctrl.patient.point_of_contact_phone_type] }}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Relationship to Patient</label>
+				<div class="form-control input-sm">{{ patientConst.RELATIONSHIP[ctrl.patient.ec_relationship] }}</div>
+			</div>
+		</div>
+	</div>
+</div>

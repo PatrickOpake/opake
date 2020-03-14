@@ -1,0 +1,92 @@
+	<div class="main-control">
+		<a class='btn btn-success' href='' ng-click="vendorVm.edit()">Edit</a>
+	</div>
+
+	<div class="headline">
+		Profile Details
+			<span ng-if="vendorVm.vendor.time_create">Date Created: {{ vendorVm.vendor.time_create | date:'M/d/yyyy h:mm a' }}</span>
+	</div>
+	<div class="panel-data">
+		<div class="data-row">
+			<label>Name:</label>
+			<div>{{ vendorVm.vendor.name }}</div>
+		</div>
+		<div class="data-row" ng-if="vendorVm.vendor.mmis_id">
+			<label>MMIS/ Distributor ID:</label>
+			<div>{{ vendorVm.vendor.mmis_id }}</div>
+		</div>
+		<div class="data-row" ng-if="vendorVm.vendor.acc_number">
+			<label>Account Number:</label>
+			<div>{{ vendorVm.vendor.acc_number }}</div>
+		</div>
+		<div class="data-row" ng-if="vendorVm.vendor.is_dist || vendorVm.vendor.is_manf">
+			<label>Vendor Type:</label>
+            <span ng-if="vendorVm.vendor.is_dist == 1">Distributor</span>
+            <span ng-if="vendorVm.vendor.is_manf == 1">Manufacturer</span>
+		</div>
+	</div>
+
+    <div ng-if="vendorVm.vendor.website || vendorVm.vendor.address || vendorVm.vendor.country || vendorVm.vendor.phone || vendorVm.vendor.email">
+		<div class="headline">Contact Info</div>
+		<div class="panel-data">
+            <div class="data-row" ng-if="vendorVm.vendor.website">
+                <label>Web Site:</label>
+                <div>{{ vendorVm.vendor.website }}</div>
+            </div>
+            <div class="data-row" ng-if="vendorVm.vendor.address">
+                <label>Address:</label>
+                <div>{{ vendorVm.vendor.address }}</div>
+            </div>
+            <div class="data-row" ng-if="vendorVm.vendor.country">
+                <label>Country</label>
+                <div>{{ vendorVm.vendor.country.name }}</div>
+            </div>
+            <div class="data-row" ng-if="vendorVm.vendor.phone">
+                <label>Phone:</label>
+                <div>{{ vendorVm.vendor.phone | phone }}</div>
+            </div>
+            <div class="data-row" ng-if="vendorVm.vendor.email">
+                <label>Email:</label>
+                <div>{{ vendorVm.vendor.email }}</div>
+            </div>
+		</div>
+	</div>
+
+	<div ng-if="vendorVm.vendor.contact_name || vendorVm.vendor.contact_name || vendorVm.vendor.contact_email">
+		<div class="headline">Primary Contact</div>
+		<div class="panel-data">
+            <div class="data-row" ng-if="vendorVm.vendor.contact_name">
+                <label>Name:</label>
+                <div>{{ vendorVm.vendor.contact_name }}</div>
+            </div>
+            <div class="data-row" ng-if="vendorVm.vendor.contact_name">
+                <label>Phone:</label>
+                <div>{{ vendorVm.vendor.contact_phone | phone }}</div>
+            </div>
+            <div class="data-row" ng-if="vendorVm.vendor.contact_email">
+                <label>Email:</label>
+                <div>{{ vendorVm.vendor.contact_email }}</div>
+            </div>
+		</div>
+    </div>
+
+	<div class="headline">Contacts</div>
+    <table class="opake" ng-if="vendorVm.vendor.contacts.length > 0">
+        <thead>
+            <tr>
+                <th>Row #</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in vendorVm.vendor.contacts">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.phone | phone }}</td>
+                <td>{{ item.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panel-data" ng-if="vendorVm.vendor.contacts.length === 0">No Found Contacts</div>

@@ -1,0 +1,171 @@
+<div ng-form="patient_info" class="row">
+	<div class="col-sm-6">
+		<div class="row">
+			<div class="col-sm-2">
+				<label class="control-label">Title</label>
+				<opk-select class="small disable-arrow" ng-model="ctrl.patient.title" key-value-options="patientConst.TITLES" placeholder='Type or select'></opk-select>
+			</div>
+			<div class="col-sm-5">
+				<label class="control-label" ng-class="{'invalid': !ctrl.patient.last_name}">Last Name*</label>
+				<input type="text" ng-model="ctrl.patient.last_name" class='form-control input-sm name-field' placeholder='Type' />
+			</div>
+			<div class="col-sm-5">
+				<label class="control-label" ng-class="{'invalid': !ctrl.patient.first_name}">First Name*</label>
+				<input type="text" ng-model="ctrl.patient.first_name" class='form-control input-sm name-field' placeholder='Type' />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<label class="control-label">M.I.</label>
+				<input type="text" ng-model="ctrl.patient.middle_name" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-2 patient-details--suffix">
+				<label class="control-label">Suffix</label>
+				<opk-select class="small disable-arrow" ng-model="ctrl.patient.suffix" key-value-options="patientConst.SUFFIXES" placeholder='Type or select'></opk-select>
+			</div>
+			<div class="col-sm-4">
+				<label class="control-label">Gender</label>
+				<opk-select class="small" ng-model="ctrl.patient.gender" key-value-options="patientConst.GENDERS" placeholder='Type or select'></opk-select>
+			</div>
+			<div class="col-sm-4">
+				<label class="control-label" ng-class="{'invalid': !ctrl.patient.dob}">Date of Birth*</label>
+				<div class="short-date"><date-field ng-model="ctrl.patient.dob" small="true" without-calendar="true"></date-field></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-9">
+				<label class="control-label">Address</label>
+				<input type="text" ng-model="ctrl.patient.home_address" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-3">
+				<label class="control-label">Apt #</label>
+				<input type="text" ng-model="ctrl.patient.home_apt_number" class='form-control input-sm' placeholder='Type' />
+			</div>
+		</div>
+		<div geo model="ctrl.patient" props="{country: 'home_country', state: 'home_state', city: 'home_city', custom_state: 'custom_home_state', custom_city: 'custom_home_city'}">
+			<div class="row">
+				<div class="geo-field state col-sm-4">
+					<label class="control-label">State</label>
+					<opk-select class="small" ng-model="ctrl.patient.home_state"
+							options="item.name for item in geoVm.states" placeholder='Type or select'></opk-select>
+				</div>
+				<div class="custom-state col-sm-4">
+					<label class="control-label">State</label>
+					<input type="text" ng-model="ctrl.patient.custom_home_state" placeholder='Type' class="form-control input-sm" />
+				</div>
+				<div class="geo-field city col-sm-5">
+					<label class="control-label geo-field city">City</label>
+					<opk-select class="small" select-options="{appendToBody: true, fixedDropdownWidth: true, autocompleteOnly: true, newItemFn: 'geoVm.newCity($query)', newItemUseLabel: true, newItemLabel: 'Add City'}" ng-model="ctrl.patient.home_city"
+								options="city as city.name for city in geoVm.cities" placeholder="Type"></opk-select>
+				</div>
+				<div class="custom-city col-sm-5">
+					<label class="control-label">City</label>
+					<input type="text" ng-model="ctrl.patient.custom_home_city" placeholder='Type' class="form-control input-sm" />
+				</div>
+				<div class="zip-code col-sm-3">
+					<label class="control-label geo-field zip-code">ZIP code</label>
+					<input type="text" ng-model="ctrl.patient.home_zip_code" class="form-control input-sm" placeholder='Type' />
+				</div>
+			</div>
+			<div class="row">
+				<div class="country col-sm-3">
+					<label class="control-label">Country</label>
+					<opk-select class="small" ng-model="ctrl.patient.home_country"
+								options="item.name for item in geoVm.countries" placeholder='Type or select'></opk-select>
+				</div>
+				<div class="col-sm-9">
+					<label class="control-label">Email</label>
+					<input type="text" ng-model="ctrl.patient.home_email" class='form-control input-sm' placeholder='Type' />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Phone #</label>
+				<phone ng-model="ctrl.patient.home_phone"></phone>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Type</label>
+				<opk-select class="small disable-arrow" ng-model="ctrl.patient.home_phone_type" key-value-options="patientConst.TYPE_PHONE" placeholder='Type or select'></opk-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Additional Phone #</label>
+				<phone ng-model="ctrl.patient.additional_phone"></phone>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Type</label>
+				<opk-select select-options="{appendToBody: true}" class="small disable-arrow" ng-model="ctrl.patient.additional_phone_type" key-value-options="patientConst.TYPE_PHONE" placeholder='Type or select'></opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Social Security #</label>
+				<ssn ng-model="ctrl.patient.ssn"></ssn>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Marital Status</label>
+				<opk-select class="small" ng-model="ctrl.patient.status_marital" key-value-options="patientConst.STATUSES_MARITAL"></opk-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Ethnicity</label>
+				<opk-select class="small" ng-model="ctrl.patient.ethnicity" key-value-options="patientConst.ETHNICITIES"></opk-select>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Race</label>
+				<opk-select class="small" ng-model="ctrl.patient.race" key-value-options="patientConst.RACES"></opk-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Preferred Language</label>
+				<opk-select class="small" ng-model="ctrl.patient.language" options="item as item.name for item in source.getLanguages()"></opk-select>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Occupation</label>
+				<opk-select class="small" ng-model="ctrl.patient.status_employment" key-value-options="patientConst.STATUSES_EMPLOYMENT"></opk-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Employer/School</label>
+				<input type="text" ng-model="ctrl.patient.employer" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Employer Phone #</label>
+				<phone ng-model="ctrl.patient.employer_phone"></phone>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Emergency Contact</label>
+				<input type="text" ng-model="ctrl.patient.ec_name" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Emergency Phone #</label>
+				<phone ng-model="ctrl.patient.ec_phone_number"></phone>
+			</div>
+		</div>
+		<div class="row">
+			<div ng-if="ctrl.patient.display_point_of_contact" class="col-sm-6">
+				<label class="control-label">Point of Contact SMS #</label>
+				<phone ng-model="ctrl.patient.point_of_contact_phone"></phone>
+			</div>
+			<div ng-if="ctrl.patient.display_point_of_contact" class="col-sm-6">
+				<label class="control-label">Type</label>
+				<opk-select class="small disable-arrow" ng-model="ctrl.patient.point_of_contact_phone_type" key-value-options="patientConst.TYPE_PHONE" placeholder='Type or select'></opk-select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Relationship to Patient</label>
+				<opk-select class="small" placeholder='Type or select' ng-model="ctrl.patient.ec_relationship" key-value-options="patientConst.RELATIONSHIP"></opk-select>
+			</div>
+		</div>
+	</div>
+</div>

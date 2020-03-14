@@ -1,0 +1,12 @@
+<div class="eligible-coverage-container" show-loading="EligibilityVm.isEligibilityChecking">
+	<errors src="EligibilityVm.eligibleErrors"></errors>
+
+	<div class="eligible-coverage-header">
+		<a href="" ng-click="EligibilityVm.print()" class="print-form"><i class="icon-circle-print-blue" uib-tooltip="Print"></i></a>
+		<div class="button-column">
+			<span class="update-date" ng-show="EligibilityVm.eligibleCoverageLatestUpdate">Date Updated: {{ EligibilityVm.eligibleCoverageLatestUpdate | date:'M/d/yyyy h:mm a' }}</span>
+			<button class="btn btn-success" ng-click="EligibilityVm.checkInsuranceEligibility(VerificationVm.insuranceId)">Update</button>
+		</div>
+	</div>
+	<eligible-coverage-navicure  coverage="EligibilityVm.eligibleCoverage" latest-update="EligibilityVm.eligibleCoverageLatestUpdate"></eligible-coverage-navicure>
+</div>

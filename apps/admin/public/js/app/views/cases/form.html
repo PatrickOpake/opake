@@ -1,0 +1,118 @@
+<div class="row">
+	<div class="col-sm-6">
+		<div class="data-row">
+			<label>Patient Name:</label>
+			<div>{{ case.patient.last_name + ', ' + case.patient.first_name }}</div>
+		</div>
+		<div class="data-row">
+			<label>Surgeon:</label>
+			<opk-select ng-disabled="!permissions.hasAccess('cases', 'edit_assigned_users')" ng-model="case.users" multiple options="user.fullname for user in source.getSurgeons()"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Procedure:</label>
+			<opk-select ng-model="case.type" change="case.changeType()" options="type.full_name for type in source.getCaseTypes($query)"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Description:</label>
+			<textarea class="form-control" ng-model="case.description" placeholder="Type"></textarea>
+		</div>
+		<div class="data-row">
+			<label>MRN#:</label>
+			<div class="case-mrn-field">
+				<input type="text" ng-model="case.patient.mrn" class='form-control input-sm mrn-number-field' placeholder='Type' />
+				<span class="mrn-year-sep">-</span>
+				<input type="text" ng-model="case.patient.mrn_year" class='form-control input-sm mrn-year-field' placeholder='' />
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="data-row">
+			<label>Room:</label>
+			<opk-select ng-model="case.location" options="location.name for location in source.getLocations()"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Date of Service:</label>
+			<div>
+				<date-field ng-model="case.time_start" icon="true"></date-field>
+			</div>
+		</div>
+		<div class="data-row">
+			<label>Time Start:</label>
+			<opk-timepicker ng-model="case.time_start"></opk-timepicker>
+		</div>
+		<div class="data-row">
+			<label>Length of Case:</label>
+			<time-length start="case.time_start" end="case.time_end" minutes-step="5"></time-length>
+		</div>
+	</div>
+</div>
+
+<div class="surgeon-details-link"><a href="" ng-click="caseVm.surgeryDetailsOpen = !caseVm.surgeryDetailsOpen">Surgery details</a></div>
+
+<div ng-if="caseVm.surgeryDetailsOpen" class="surgery-details">
+	<div class="data-row">
+		<label>Procedure Codes:</label>
+		<div class="opk-codes--select">
+			<opk-select select-options="{appendToBody: true, fixedDropdownWidth: true, autocompleteOnly: true, searchFilter: 'opkSelectCpt', reorder: true}"
+						ng-model="case.additional_cpts" change="caseVm.changeAdditionalCpts(case)" multiple options="type.full_name for type in source.getCaseTypes($query)" placeholder="Type"></opk-select>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Other Staff:</label>
+		<opk-select ng-model="case.other_staff" multiple options="user.fullname for user in source.getUsers()"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Pre-Op Data Required:</label>
+		<opk-select placeholder='Type or select' ng-model="caseVm.toedit.pre_op_required_data" key-value-options="caseRegistrationConst.PRE_OP_DATA_REQUIRED" multiple></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Studies Ordered:</label>
+		<opk-select placeholder='Type or select' ng-model="caseVm.toedit.studies_ordered" key-value-options="caseRegistrationConst.STUDIES_ORDERED" multiple></opk-select>
+	</div>
+	<div class="data-row" ng-if="case.studies_ordered_other">
+		<label>Studies Other:</label>
+		<input class="form-control" type="text" ng-model="case.studies_other">
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Anesthesia Type:</label>
+				<opk-select select-options="{appendToBody: true}" ng-model="case.anesthesia_type" key-value-options="caseRegistrationConst.ANESTHESIA_TYPE"></opk-select>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row" ng-if="case.anesthesia_type == 5">
+				<label>Anesthesia Other:</label>
+				<input class="form-control" type="text" ng-model="case.anesthesia_other">
+			</div>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Special Equipment Required:</label>
+		<opk-select ng-model="case.special_equipment_required" key-value-options="caseRegistrationConst.SPECIAL_EQUIPMENT_REQUIRED"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Special Equipment / Implants:</label>
+		<input class="form-control" type="text" ng-model="case.special_equipment_implants">
+	</div>
+	<div class="data-row">
+		<label>Admitting Diagnosis:</label>
+		<div class="opk-codes--select">
+			<opk-select select-options="{appendToBody: true, fixedDropdownWidth: true, autocompleteOnly: true}" ng-model="case.registration.admitting_diagnosis" multiple
+						options="(type.code ? (type.code + ' - ' +  type.desc) : null) for type in source.getIcds($query)" placeholder="Search ICD-10 Codes"></opk-select>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Secondary Diagnosis:</label>
+		<div class="opk-codes--select">
+			<opk-select select-options="{appendToBody: true, fixedDropdownWidth: true, autocompleteOnly: true}" ng-model="case.registration.secondary_diagnosis" multiple
+						options="(type.code ? (type.code + ' - ' +  type.desc) : null) for type in source.getIcds($query)" placeholder="Search ICD-10 Codes"></opk-select>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Admission Type:</label>
+		<div class="opk-codes--select">
+			<opk-select select-options="{appendToBody: true}" ng-model="case.registration.admission_type" key-value-options="caseRegistrationConst.ADMISSION_TYPE"></opk-select>
+		</div>
+	</div>
+</div>

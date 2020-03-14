@@ -1,0 +1,38 @@
+<div ng-controller="CaseRegistrationNewDocumentCtrl as docVm" ng-init="docVm.reg = reg" show-loading="docVm.isFileUploading">
+	<div class="modal-header">
+		<h4>Upload Chart</h4>
+	</div>
+	<div class="modal-body">
+		<errors src="docVm.errors"></errors>
+		<div>
+			<div ng-if="!docVm.doc.file" class="file-drop-box"
+				 ngf-drop="docVm.uploadFile($files)" ngf-drag-over-class="'drag-over'">
+				<div class="file-drop-box--help">
+					<i class="icon-file-upload-cloud"></i> <br/>
+					<span class="bold-text">Drag and drop a file here</span> <br/>
+					or <br/>
+					<button class="btn btn-grey btn-file" select-file on-select="docVm.uploadFormFileChanged(files)"> Select File
+						<input type="file" name="fileDoc"/>
+					</button>
+				</div>
+			</div>
+			<div ng-if="docVm.doc.file" class="data-row upload-file--filename">
+				{{docVm.doc.file.name}}
+				<a ng-click="docVm.removeUploadedFile()" href="" class="remove">
+					<i class="glyphicon glyphicon-remove-circle"></i>
+				</a>
+			</div>
+			<div class="upload-forms--upload-inputs" >
+				<div class="data-row">
+					<label>Name:</label>
+					<input type="text" class="form-control input-sm" name="name" ng-model="docVm.doc.name" >
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+		<button class="btn btn-success" ng-click="docVm.uploadNewDocument()">Upload</button>
+	</div>
+</div>

@@ -1,0 +1,134 @@
+.medication-reconciliation {
+	.medication-reconciliation-header {
+		border-bottom: 2px solid #e6e6e6;
+		margin-left: 0;
+		margin-right: 0;
+		padding-top: 10px;
+		padding-bottom: 5px;
+		.header-text {
+			padding-left: 0;
+			h3 {
+				font-size: 18px;
+				color: #666;
+				margin-top: 5px;
+			}
+		}
+		.print-icon {
+			padding-right: 0;
+			.icon-print-grey {
+				float: right;
+			}
+		}
+	}
+
+	.checkbox, .data-row {
+		label {
+			color: #777;
+		}
+	}
+
+	.allergies {
+		.allergies-header {
+			color: #777;
+			font-weight: bold;
+			padding-bottom: 10px;
+		}
+		.allergies-list {
+			.allergies-list-item {
+				padding-bottom: 7px;
+				input {
+					display: inline-block;
+					width: 45%;
+				}
+				.delimiter {
+					padding-right: 5px;
+					padding-left: 5px;
+				}
+			}
+		}
+		.allergies-footer {
+			padding-top: 5px;
+			.footer-text {
+				font-size: 14px;
+			}
+			.add-allergy {
+				text-align: right;
+				padding-right: 40px;
+			}
+		}
+	}
+
+	.medications {
+		padding-top: 10px;
+		table {
+			th {
+				font-weight: normal;
+				text-align: center;
+				.bold-upper-text {
+					font-weight: bold;
+					text-transform: uppercase;
+				}
+			}
+			th, td {
+				padding: 5px;
+				border: 1px solid #e6e6e6;
+			}
+		}
+		.add-medication {
+			text-align: right;
+			padding-top: 10px;
+		}
+	}
+
+	.anesthesia {
+		.row {
+			margin-bottom: 10px;
+			label {
+				color: #777;
+			}
+		}
+	}
+
+	.signatures {
+		margin-top: 30px;
+		.signature {
+			margin-bottom: 30px;
+			.signature-field {
+				height: 30px;
+				border-bottom: 1px solid #333;
+				background-color: #eeeaea;
+				width: 50%;
+			}
+		}
+	}
+	.bold-text {
+		font-weight: bold;
+	}
+
+	.visit-updates {
+		.visit-updates-header {
+			color: #777;
+			font-weight: bold;
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+		.visit-updates-list {
+			margin-bottom: 10px;
+			.checkbox {
+				margin-top: 4px;
+			}
+			.data-row > * {
+				vertical-align: middle;
+			}
+			.bold-text {
+				position: relative;
+				top: 4px;
+			}
+			.signature-field {
+				height: 30px;
+				border-bottom: 1px solid #333;
+				background-color: #eeeaea;
+			}
+		}
+	}
+}

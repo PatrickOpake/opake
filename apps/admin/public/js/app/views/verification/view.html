@@ -1,0 +1,52 @@
+<div ng-if="VerificationVm" ng-cloak>
+	<div ng-controller="EligibilityCoverageCtrl as EligibilityVm" ng-init="EligibilityVm.init(regVm.registration.id, {isVerificationQueue: true})" ng-cloak>
+
+		<ng-include src="view.get('verification/patient-details.html')"></ng-include>
+		<ng-include src="view.get('verification/case-details.html')"></ng-include>
+
+		<div ng-if="VerificationVm.insuranceId" ng-init="EligibilityVm.loadCoverage(VerificationVm.insuranceId)"
+			 show-loading="EligibilityVm.isEligibilityChecking || VerificationVm.isSaving"
+			 class="verification-view">
+			<!--warning-unsaved-form="regVm.patient">-->
+			<div class="verification-buttons">
+				<div class="row">
+					<a class="btn btn-success" ng-click="EligibilityVm.resetErrors(); VerificationVm.save()" ng-disabled="!VerificationVm.isDataChanged()">Save</a>
+					<a class="btn btn-grey" ng-click="VerificationVm.closeInsurance()" ng-if="VerificationVm.isDataChanged()">Cancel</a>
+					<a class="btn btn-grey" ng-click="VerificationVm.closeInsurance()" ng-if="!VerificationVm.isDataChanged()">Close</a>
+				</div>
+			</div>
+			<uib-tabset class="opk-tabs" active="VerificationVm.activeTab">
+				<uib-tab index="0">
+					<uib-tab-heading>
+						{{VerificationVm.insurance.title}}
+					</uib-tab-heading>
+					<div>
+						<ng-include src="view.get('verification/insurance.html')"></ng-include>
+					</div>
+				</uib-tab>
+
+				<uib-tab index="1">
+					<uib-tab-heading>
+						Verification sheet
+					</uib-tab-heading>
+					<div>
+						<ng-include src="view.get('verification/sheet.html')"></ng-include>
+					</div>
+				</uib-tab>
+
+				<uib-tab index="2" ng-if="EligibilityVm.hasEligibility">
+					<uib-tab-heading>
+						Eligibility
+					</uib-tab-heading>
+					<div>
+						<ng-include src="view.get('verification/eligible.html')"></ng-include>
+					</div>
+				</uib-tab>
+			</uib-tabset>
+		</div>
+
+		<div class="verification-view verification-case-view" ng-if="!VerificationVm.insuranceId">
+			<ng-include src="view.get('verification/insurances.html')"></ng-include>
+		</div>
+	</div>
+</div>

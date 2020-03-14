@@ -1,0 +1,56 @@
+<div class="modal-body">
+	<filters-panel ctrl="invVm">
+		<div class="data-row">
+			<label>Keyword</label>
+			<input type="text" ng-model="invVm.search_params.name" class='form-control input-sm' placeholder='Type' />
+		</div>
+		<div class="data-row">
+			<label>Type</label>
+			<opk-select ng-model="invVm.search_params.type" options="item for item in source.getInventoryTypes()"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Manufacturer</label>
+			<opk-select ng-model="invVm.search_params.manf" options="item.name as item.name for item in source.getVendors($query, 'manf')"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Site</label>
+			<opk-select ng-model="invVm.search_params.site" options="item for item in source.getList('/clients/ajax/site/', $query)"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Room</label>
+			<opk-select ng-model="invVm.search_params.location" options="item.name as item.name for item in source.getStorage()"></opk-select>
+		</div>
+	</filters-panel>
+	<div class="list-control">
+		<a href="" class="btn btn-grey" ng-click="cancel()">Cancel</a>
+	</div>
+
+	<div ng-if="!invVm.search_items.length">
+		<h4>No inventory found</h4>
+	</div>
+</div>
+
+<table class="opake" ng-if="invVm.search_items.length">
+	<thead>
+	<tr>
+		<th></th>
+		<th class="width-25">Item</th>
+		<th>Type</th>
+		<th>Manufacturer</th>
+		<th>Opake ID #</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="item in invVm.search_items">
+		<td><img ng-if="item.image.path" src="{{ item.image }}" /></td>
+		<td>{{ item.name }}</td>
+		<td>{{ item.type }}</td>
+		<td>{{ item.manf.name }}</td>
+		<td>{{ item.id }}</td>
+		<td class="text-right">
+			<button type="button" class="btn btn-success" ng-click="invVm.addSubstitutionsItem(item)" ng-disabled="!invVm.checkSubstitutionsItem(item)"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+		</td>
+	</tr>
+	</tbody>
+</table>

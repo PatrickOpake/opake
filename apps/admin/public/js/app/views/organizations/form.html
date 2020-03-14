@@ -1,0 +1,168 @@
+<div class="profile-page user-profile organization-profile">
+	<div class="block-panel">
+		<div>
+			<div class="heading-row clearfix">
+				<profile-image-upload
+						options="profileVm.profileImageOptions"
+						control="profileVm.profileImageControl"
+						ng-if="profileVm.profileImageOptions"></profile-image-upload>
+
+				<div class="controls">
+					<div class="buttons clearfix">
+						<a class='btn btn-grey' href='' ng-click="profileVm.cancel()">Cancel</a>
+						<a class='btn btn-success' href='' ng-click="profileVm.save()">Save</a>
+					</div>
+					<div class="additional-info">
+						<span ng-if="profileVm.org.id">Date Created:  {{profileVm.org.time_create}}</span>
+					</div>
+
+				</div>
+			</div>
+
+			<errors src="profileVm.errors"></errors>
+
+			<div class="details-panel">
+				<div class="headline-title">
+					Profile Details
+				</div>
+
+				<div class="data-row">
+					<label>Name:</label>
+					<div class="input-container">
+						<input class='form-control' type='text' ng-model="profileVm.org.name"/>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>Status:</label>
+					<div class="status-switch">
+						<span class="switch-label" ng-class="{active: !profileVm.org.is_active}" ng-click="userVm.deactivateOrganization()">Inactive</span> <switch ng-model="profileVm.org.is_active"></switch> <span ng-class="{active: profileVm.org.is_active}" class="switch-label" ng-click="profileVm.activateOrganization()">Active</span>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>Comments:</label>
+					<div class="input-container">
+						<textarea class='form-control medium' ng-model="profileVm.org.comment"></textarea>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>Tax ID / EIN Number:</label>
+					<div class="input-container federal-tax">
+						<input class='form-control' type='text' ng-model="profileVm.org.federal_tax" />
+
+						<div class="accept-assignment-title">Accept Assignment under terms of the payer program</div>
+						<div class="accept-assignment-options">
+							<div class="radio radio-inline">
+								<input id="accept-assignment-options-no" type="radio" ng-model="profileVm.org.accept_assignment_payer_program" ng-value="false" />
+								<label for="accept-assignment-options-no">No</label>
+							</div>
+							<div class="radio radio-inline">
+								<input id="accept-assignment-options-yes" type="radio" ng-model="profileVm.org.accept_assignment_payer_program" ng-value="true" />
+								<label for="accept-assignment-options-yes">Yes</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>NPI:</label>
+					<div class="input-container">
+						<input class='form-control' type='text' ng-model="profileVm.org.npi" />
+					</div>
+				</div>
+
+				<div class="data-row" ng-if="profileVm.canEditNuanceOrgId">
+					<label>Nuance Org ID:</label>
+					<div class="input-container">
+						<input class='form-control' type='text' ng-model="profileVm.org.nuance_org_id" />
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>Address:</label>
+					<div class="input-container">
+						<textarea class='form-control' name='address' ng-model="profileVm.org.address"></textarea>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>Country:</label>
+					<div class="input-container">
+						<opk-select ng-model="profileVm.org.country_id" options="value.id as value.name for value in source.getCountries()"></opk-select>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>Web Site:</label>
+					<div class="input-container">
+						<input class='form-control' type='text' ng-model="profileVm.org.website" />
+					</div>
+				</div>
+
+				<div class="data-row" ng-if="profileVm.canEditServiceCodes">
+					<label>Service Codes:</label>
+					<div class="input-container eligible-service-codes">
+						<input class="form-control"
+							   type="text"
+							   ng-model="profileVm.org.eligible_service_codes" />
+						<span class="eligible-link">
+							<a href="https://eligible.com/docs/service-type-codes" target="_blank">https://eligible.com/docs/service-type-codes</a>
+						</span>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>Associated Practices:</label>
+					<div class="input-container">
+						<opk-select placeholder="Select"
+									multiple
+									select-options="{searchFilter: 'opkSelectPracticeGroupSearchFilter'}"
+									ng-model="profileVm.org.practice_groups"
+									options="value.name for value in source.getPracticeGroups()"></opk-select>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="block-panel">
+		<div class="details-panel organization-permissions">
+			<div class="headline-title">
+				Site Permissions
+			</div>
+
+			<permission-tree settings="profileVm.org.permissions.settings" hierarchy="profileVm.org.permissions.hierarchy" ></permission-tree>
+
+		</div>
+	</div>
+
+	<div class="block-panel">
+		<div class="details-panel">
+			<div class="headline-title">
+				Administrator Info
+			</div>
+
+			<div class="data-row">
+				<label>Name</label>
+				<div class="input-container">
+					<input class='form-control name-field' type='text' ng-model="profileVm.org.contact_name" />
+				</div>
+			</div>
+			<div class="data-row">
+				<label>Phone</label>
+				<phone ng-model="profileVm.org.contact_phone"></phone>
+			</div>
+			<div class="data-row">
+				<label>Email</label>
+				<div class="input-container">
+					<input class='form-control' type='text' ng-model="profileVm.org.contact_email" />
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

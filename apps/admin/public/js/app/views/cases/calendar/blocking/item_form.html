@@ -1,0 +1,69 @@
+<div class="modal-header">
+	<span class="modal-title">Case Block</span>
+	<a href="" ng-click="cancel()"><i class="icon-x"></i></a>
+</div>
+<div class="modal-body">
+	<errors src="blockItemVm.errors"></errors>
+	<div class="row double-columns">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Surgeon or Practice Group:</label>
+				<opk-select ng-if="blockItemVm.blockingItem.id" change="blockItemVm.changeUser()"
+					    ng-disabled="!permissions.hasAccess('cases', 'edit_assigned_users')"
+					    ng-model="blockItemVm.blockingItem.surgeon_or_practice"
+					    change="blockItemVm.changeItemUser()"
+					    options="user.fullname for user in source.getSurgeonsAndPracticeGroups()">
+				</opk-select>
+			</div>
+			<div class="data-row">
+				<label>Time:</label>
+				<opk-timepicker ng-model="blockItemVm.blockingItem.start"></opk-timepicker>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Room:</label>
+				<opk-select ng-model="blockItemVm.blockingItem.location"
+					    options="location.name for location in source.getLocations()">
+				</opk-select>
+			</div>
+			<div class="data-row">
+				<label>Length:</label>
+				<time-length start="blockItemVm.blockingItem.start" end="blockItemVm.blockingItem.end" minutes-step="5"></time-length>
+			</div>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Description:</label>
+		<textarea class="form-control" ng-model="blockItemVm.blockingItem.description"></textarea>
+	</div>
+	<div class="row double-columns">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<span>Allow Overwrite:
+					<i class="glyphicon glyphicon-info-sign"
+					   uib-tooltip="If turned on system will warn users of scheduled block but allow them to schedule during time"
+					   tooltip-placement="top"
+					   tooltip-class="white-for-cpt-codes">
+					</i>
+				</span>
+				<br/>
+				<switch ng-model="blockItemVm.blockingItem.overwrite"></switch>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row no-margin">
+				<label>Color:</label>
+				<opk-select class="select-color" ng-model="blockItemVm.blockingItem.color"
+					    ng-disabled="blockItemVm.blockingItem.surgeon_or_practice.case_color && blockItemVm.blockingItem.surgeon_or_practice.case_color !== calendarConst.DEFAULT_COLOR"
+					    placeholder="Select"
+					    select-options="{dropdownFilter: 'opkSelectColor', searchFilter: 'opkSelectColor' }"
+					    options="color.key as color.key for color in calendarConst.COLORS"></opk-select>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-danger pull-left" href="" ng-click="blockItemVm.delete()">Delete Block</a>
+	<a class="btn btn-success" href="" ng-click="blockItemVm.save()">Save</a>
+</div>

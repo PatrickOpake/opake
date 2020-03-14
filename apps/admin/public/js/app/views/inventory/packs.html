@@ -1,0 +1,49 @@
+<div class="headline">Quantities and Location</div>
+<table class="opake" ng-if="inventoryVm.packs.length > 0">
+	<thead>
+		<tr>
+			<th class="width-20">Quantity</th>
+			<th class="width-20">Site</th>
+			<th class="width-20">Room</th>
+			<th class="width-20">Expiration Date</th>
+			<th class="width-20">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="pack in inventoryVm.packs">
+			<td>
+				<input type="hidden" name="packs[{{$index}}][id]" value="{{ pack.id }}" />
+				<input type="text" name="packs[{{$index}}][quantity]" valid-number class="form-control" ng-model="pack.quantity" />
+				<input type="hidden" name="packs[{{$index}}][location][id]" value="{{ pack.location }}" />
+			</td>
+			<td>
+				<opk-select ng-model="pack.site" options="site.name for site in sites track by site.id"></opk-select>
+			</td>
+			<td>
+				<opk-select ng-model="pack.location" change="inventoryVm.locatinChange(pack)" options="location.name for location in source.getStorage() | filter:{site_id: pack.site.id}"></opk-select>
+			</td>
+			<td>
+				<date-field ng-model="pack.exp_date" name="packs[{{$index}}][exp_date]" icon="true"></date-field>
+			</td>
+			<td class="actions">
+				<a href="" class="remove" ng-click="inventoryVm.removePack(pack, 'inventory/packs/delete.html')"><i class="icon-remove"></i>Remove</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div ng-if="inventoryVm.packs.length === 0">No items found</div>
+
+<a class="btn btn-success" ng-click="inventoryVm.addPack(inventoryVm.getPackMaster())"><i class="glyphicon glyphicon-plus"></i> Add Qty</a>
+
+<script type="text/ng-template" id="inventory/packs/delete.html">
+	<div class="modal-header">
+		<h4 class="modal-title">Alert!</h4>
+	</div>
+	<div class="modal-body">
+		<h4>Are you sure you want to delete this item ?</h4>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">Yes</button>
+		<button class="btn btn-primary" ng-click="cancel()" type="button">No</button>
+	</div>
+</script>

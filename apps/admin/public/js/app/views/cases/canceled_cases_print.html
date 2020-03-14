@@ -1,0 +1,32 @@
+<div class="canceled-cases-print">
+	<table class="opake">
+		<thead>
+		<tr>
+			<th>Patient Name</th>
+			<th>MRN</th>
+			<th>Physician</th>
+			<th>Practice</th>
+			<th>DOS</th>
+			<th>Date Cancelled</th>
+			<th>Reason</th>
+			<th>Staff</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="item in listVm.items">
+			<td>{{ ::item.case.patient.last_name }}, {{ ::item.case.patient.first_name }}</td>
+			<td>{{ ::item.case.patient.full_mrn }}</td>
+			<td>{{ ::item.case.first_surgeon_for_dashboard }}</td>
+			<td>{{ ::item.case.first_surgeon_practice_name }}</td>
+			<td>{{ ::item.dos | date:'M/d/yyyy' }}</td>
+			<td>{{ ::item.cancel_time | date:'M/d/yyyy' }}</td>
+			<td ng-if="item.cancel_status != 4">
+				{{ caseRegistrationConst.CANCEL_STATUSES[item.cancel_status] }} -
+				<span class="italic-text">{{ item.getCancelReason() }}</span>
+			</td>
+			<td ng-if="item.cancel_status == 4">No Show</td>
+			<td>{{ ::item.canceled_user.full_name }}</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

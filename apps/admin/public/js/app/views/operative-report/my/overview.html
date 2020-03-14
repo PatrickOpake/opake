@@ -1,0 +1,83 @@
+<div ng-controller="OperativeReportsOverviewCtrl as overviewVm" class="dashboard" ng-cloak>
+	
+	<div class="dashboard--header row">
+		<div class="icon-group col-sm-3">
+			<div class="case-calendar-period-select" ctrl="overviewVm"></div>
+			<div ng-hide="overviewVm.isToday()" class="tool-item">
+				<a ng-if="overviewVm.isViewTypeDay()" href="" ng-click="overviewVm.today()" class="today btn btn-grey">Today</a>
+				<a ng-if="overviewVm.isViewTypeWeek()" href="" ng-click="overviewVm.today()" class="today btn btn-grey">This
+					Week</a>
+			</div>
+		</div>
+		<div class="dashboard-date col-sm-6">
+			<div class="prev col-sm-1">
+				<button type="button" class="prev-button" ng-click="overviewVm.previous()"><span
+						class="dashboard-icon icon-left-single-arrow"></span></button>
+			</div>
+			<div class="center col-sm-10">
+				<h2>{{ overviewVm.getDateDisplay() }}</h2>
+			</div>
+			<div class="next col-sm-1">
+				<button type="button" class="next-button" ng-click="overviewVm.next()"><span
+						class="dashboard-icon icon-right-single-arrow"></span></button>
+			</div>
+		</div>
+	</div>
+	
+	<div ng-if="overviewVm.dataLoaded">
+		<div class="table-wrap dashboard--table" ng-if="overviewVm.items.length">
+			<table class="opake">
+				<thead>
+				<tr>
+					<th ng-if="overviewVm.isViewTypeDay()" class="case-time--day-view">Time</th>
+					<th ng-if="overviewVm.isViewTypeWeek()" class="case-time--week-view">DOS</th>
+					<th class="case-surgeon">Surgeon</th>
+					<th class="case-patient">Name</th>
+					<th >Procedure</th>
+					<th>Action</th>
+				</tr>
+				</thead>
+				<tbody>
+				<table ng-repeat="case in overviewVm.items" class="opake">
+					<tbody>
+					<tr>
+						<td ng-if="overviewVm.isViewTypeDay()" class="case-time--day-view"
+							ng-class="{'text-red': overviewVm.isStartTimeHighlightInRed(case)}">
+							{{ ::case.time_start | date:'h:mm a' }} <br/>
+							{{ ::case.time_start| timeLength : case.time_end }}
+						</td>
+						<td ng-if="overviewVm.isViewTypeWeek()" class="case-time--week-view"
+							ng-class="{'text-red': overviewVm.isStartTimeHighlightInRed(case)}">
+							{{ ::case.time_start | date:'M/d/yyyy h:mm a' }} <br/>
+							{{ ::case.time_start| timeLength : case.time_end }}
+						</td>
+						<td class="case-surgeon">
+							{{ ::case.first_surgeon_for_dashboard }}
+						</td>
+						<td class="case-patient">
+							<a href='/cases/{{ ::org_id }}/cm/{{ ::case.id }}'
+							   uib-tooltip-html="overviewVm.getPatientTooltipStr(case.patient)">
+								{{ ::case.patient.full_name }}
+							</a>
+						</td>
+						<td>
+							<a href="/cases/{{ ::org_id }}/cm/{{ ::case.id }}">
+								{{ ::case.procedure_name_for_dashboard }}
+							</a>
+						</td>
+						<td>
+							<a ng-if="!overviewVm.isReportExistForCase(listVm.items, case)" href="" class="icon" ng-click="overviewVm.generateReport(case)" ><i uib-tooltip="Generate Operative Report" class="icon-add-op-report"></i></a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				</tbody>
+			</table>
+		</div>
+		<h4 ng-if="!overviewVm.items.length">No Cases</h4>
+	</div>
+	
+	<div class="waiting-layer" ng-show="overviewVm.showWaitingSpinner">
+		<img class="spinner" src="/common/i/spinner.gif" alt=""/>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+<div ng-controller="OperativeReportCtrl as reportVm" ng-init="reportVm.init(cmVm.case.op_report_id, null, 'cm')" ng-cloak>
+	<uib-tabset class="opk-tabs" justified="true" active="cmVm.activeTab">
+		<uib-tab ng-repeat="(tabIdx, tab) in cmVm.tabs" select="reportVm.changeTab(tab.key, caseVm)">
+			<uib-tab-heading>
+				<span class="tab-state" ng-class="{completed: cmVm.case.state[tab.key]}">{{ $index + 1 }}</span> {{ tab.title }}
+			</uib-tab-heading>
+			<ng-include src="view.get('cases/cm/clinical/' + tab.key + '.html')"></ng-include>
+		</uib-tab>
+	</uib-tabset>
+</div>

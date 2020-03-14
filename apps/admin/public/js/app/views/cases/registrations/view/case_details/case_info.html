@@ -1,0 +1,190 @@
+<div class="row">
+	<div class="col-sm-3">
+		<label class="control-label" ng-class="{'invalid': !caseVm.toedit.users.length}">Surgeon:</label>
+		<opk-select ng-disabled="!permissions.hasAccess('booking', 'edit_assigned_users')" ng-model="caseVm.toedit.users" multiple options="user.fullname for user in source.getSurgeons()"></opk-select>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Surgeon Assistant:</label>
+		<opk-select ng-model="caseVm.toedit.assistant" multiple options="user.fullname for user in source.getSurgeonsAndAssistant()"></opk-select>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Other Staff:</label>
+		<opk-select ng-model="caseVm.toedit.other_staff" multiple options="user.fullname for user in source.getUsers()"></opk-select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-3">
+		<label class="control-label">Admission Type:</label>
+		<div class="opk-codes--select">
+			<opk-select select-options="{appendToBody: true}" ng-model="caseVm.toedit.registration.admission_type" key-value-options="caseRegistrationConst.ADMISSION_TYPE"></opk-select>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Room:</label>
+		<opk-select select-options="{listFilter: 'opkSelectEmptyFieldIdName'}" ng-model="caseVm.toedit.location" options="location.name for location in source.getLocations()"></opk-select>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Point of Origin for Admission or Visit:</label>
+		<div class="opk-codes--select">
+			<opk-select class="small"
+					select-options="{appendToBody: true}"
+					ng-model="caseVm.toedit.point_of_origin"
+					key-value-options="caseRegistrationConst.POINT_OF_ORIGIN"></opk-select>
+		</div>
+	</div>
+	<div class="col-sm-3" ng-if="caseVm.toedit.point_of_origin == 2">
+		<label class="control-label">Name of referring provider or source:</label>
+		<input class="form-control" type="text" ng-model="caseVm.toedit.referring_provider_name" placeholder="Type">
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-3">
+		<label class="control-label" ng-class="{'invalid': !caseVm.toedit.time_start}">Date of Service:</label>
+		<div>
+			<date-field ng-model="caseVm.toedit.time_start"  icon="true"></date-field>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label" ng-class="{'invalid': !caseVm.toedit.time_start}">Time Start:</label>
+		<opk-timepicker ng-model="caseVm.toedit.time_start"></opk-timepicker>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label" ng-class="{'invalid': !caseVm.toedit.time_start || !caseVm.toedit.time_end}">Length of Case:</label>
+		<div class="data-row">
+			<time-length start="caseVm.toedit.time_start" end="caseVm.toedit.time_end" minutes-step="5"></time-length>
+		</div>
+	</div>
+	<div class="col-sm-3" ng-if="caseVm.toedit.point_of_origin == 2">
+		<label class="control-label">NPI of referring provider:</label>
+		<input class="form-control" type="text" ng-model="caseVm.toedit.referring_provider_npi" placeholder="Type">
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="col-sm-12 without-left-padding">
+			<label class="control-label">Is patient employed and unable to work due to this illness?</label>
+		</div>
+		<div class="col-sm-2 radio-column">
+			<div class="radio">
+				<input id="is_unable_to_work-no" type="radio" name="is_unable_to_work-yes-no" ng-model="caseVm.toedit.is_unable_to_work" ng-value="false">
+				<label for="is_unable_to_work-no">No</label>
+			</div>
+		</div>
+		<div class="col-sm-2 radio-column">
+			<div class="radio">
+				<input id="is_unable_to_work-yes" type="radio" name="is_unable_to_work-yes-no" ng-model="caseVm.toedit.is_unable_to_work" ng-value="true">
+				<label for="is_unable_to_work-yes">Yes</label>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6" ng-if="caseVm.toedit.is_unable_to_work">
+		<div class="col-sm-12 without-left-padding">
+			<label class="control-label">What dates was patient unable to work?</label>
+		</div>
+		<div class="col-sm-6 without-left-padding">
+			<span>From:</span>
+			<div>
+				<date-field ng-model="caseVm.toedit.unable_to_work_from" icon="true"></date-field>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<span>To:</span>
+			<div>
+				<date-field ng-model="caseVm.toedit.unable_to_work_to" icon="true"></date-field>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label" ng-class="{'invalid': !caseVm.toedit.additional_cpts.length}">Proposed Procedure Codes:</label>
+		<div class="opk-codes--select">
+			<opk-select select-options="{appendToBody: true, fixedDropdownWidth: true, autocompleteOnly: true, searchFilter: 'opkSelectCpt', reorder: true}"
+						ng-model="caseVm.toedit.additional_cpts" change="caseVm.changeAdditionalCpts(caseVm.toedit)" multiple options="type.full_name for type in source.getCaseTypes($query)" placeholder="Type"></opk-select>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label" ng-class="{'invalid': loggedUser.isSatelliteOffice() && !caseVm.toedit.locate}">Location</label>
+		<opk-select class="small" select-options="{listFilter: 'opkSelectEmptyField'}" placeholder='Type or select' ng-model="caseVm.toedit.locate" key-value-options="caseRegistrationConst.LOCATION"></opk-select>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Date of injury/illness onset:</label>
+		<div>
+			<date-field ng-model="caseVm.toedit.date_of_injury" icon="true"></date-field>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label" ng-class="{'invalid': !caseVm.toedit.registration.admitting_diagnosis.length}">Primary Diagnosis:</label>
+		<div class="opk-codes--select">
+			<opk-select select-options="{appendToBody: true, fixedDropdownWidth: true, autocompleteOnly: true}" ng-model="caseVm.toedit.registration.admitting_diagnosis"
+						options="(type.code ? (type.code + ' - ' +  type.desc) : null) for type in source.getIcds($query, caseVm.getYearAddingForICDs())" placeholder="Search ICD-10 Codes" multiple></opk-select>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<label class="control-label">Secondary Diagnosis:</label>
+		<div class="opk-codes--select">
+			<opk-select select-options="{appendToBody: true, fixedDropdownWidth: true, autocompleteOnly: true}" ng-model="caseVm.toedit.registration.secondary_diagnosis" multiple
+						options="(type.code ? (type.code + ' - ' +  type.desc) : null) for type in source.getIcds($query, caseVm.getYearAddingForICDs())" placeholder="Search ICD-10 Codes"></opk-select>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label" ng-class="{'invalid': loggedUser.isSatelliteOffice() && !caseVm.toedit.pre_op_required_data.length}">Pre-Op Data Required</label>
+		<opk-select placeholder='Type or select' ng-model="caseVm.toedit.pre_op_required_data" key-value-options="caseRegistrationConst.PRE_OP_DATA_REQUIRED" multiple></opk-select>
+	</div>
+	<div class="col-sm-6">
+		<label class="control-label" ng-class="{'invalid': loggedUser.isSatelliteOffice() && !caseVm.toedit.studies_ordered.length}">Studies Ordered</label>
+		<opk-select placeholder='Type or select' ng-model="caseVm.toedit.studies_ordered" key-value-options="caseRegistrationConst.STUDIES_ORDERED" multiple></opk-select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label">Anesthesia Type:</label>
+		<opk-select select-options="{appendToBody: true, listFilter: 'opkSelectEmptyField'}" ng-model="caseVm.toedit.anesthesia_type" key-value-options="caseRegistrationConst.ANESTHESIA_TYPE"></opk-select>
+	</div>
+	<div class="col-sm-6">
+		<label class="control-label">Special Equipment:</label>
+		<input class="form-control" type="text" ng-model="caseVm.toedit.special_equipment_implants" placeholder="Type">
+		<!--<opk-select ng-model="caseVm.toedit.equipments" multiple-->
+					<!--select-options="{newItemFn: 'caseVm.toedit.newEquipment($query)', newItemUseLabel: true, newItemLabel: 'Add Item'}"-->
+					<!--options="item.full_name for item in source.getEquipments($query)" placeholder="Type or Select">-->
+		<!--</opk-select>-->
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-3">
+		<div ng-if="caseVm.isExistOfOtherInStudiesOrdered()">
+			<label class="control-label">Studies (other):</label>
+			<input class="form-control" type="text" ng-model="caseVm.toedit.studies_other">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div ng-if="caseRegistrationConst.ANESTHESIA_TYPE[caseVm.toedit.anesthesia_type] === 'Other'">
+			<label class="control-label">Anesthesia (other)</label>
+			<input class="form-control" type="text" ng-model="caseVm.toedit.anesthesia_other">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label">Transport:</label>
+		<input class="form-control" type="text" ng-model="caseVm.toedit.transportation_notes">
+	</div>
+	<div class="col-sm-6">
+		<label class="control-label">Implants:</label>
+		<input class="form-control" type="text" ng-model="caseVm.toedit.implants" placeholder="Type">
+		<!--<opk-select ng-model="caseVm.toedit.implant_items" multiple-->
+					<!--select-options="{newItemFn: 'caseVm.toedit.newImplant($query)', newItemUseLabel: true, newItemLabel: 'Add Item'}"-->
+					<!--options="item.full_name for item in source.getImplants($query)" placeholder="Type or Select">-->
+		<!--</opk-select>-->
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<label class="control-label">Description:</label>
+		<textarea class="form-control" ng-model="caseVm.toedit.description" placeholder="Type"></textarea>
+	</div>
+</div>

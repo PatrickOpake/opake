@@ -1,0 +1,11 @@
+/.svn
+/vendor
+/.idea
+/*.iml
+/env
+.DS_Store
+/logs/
+/apps/admin/public/tmp/
+/.vagrant
+/Vagrantfile.local
+/ubuntu-xenial-16.04-cloudimg-console.log

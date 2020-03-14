@@ -1,0 +1,80 @@
+table.opake {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	color: #666;
+	background: #fff;
+	> * > * > th, > * > * > * > th {
+		padding: 10px;
+		border-top: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+	}
+	> * > * > td, > * > * > * > td {
+		padding: 10px;
+		border-top: 1px solid #e6e6e6;
+		border-bottom: 1px solid #e6e6e6;
+
+		&:first-child {
+			border-left-width: 1px;
+		}
+		&:last-child {
+			border-right-width: 1px;
+		}
+	}
+
+	th[sort] {
+		cursor: pointer;
+		color: #666;
+
+		i {
+			padding-left: 3px;
+		}
+	}
+	th.narrow, td.narrow {
+		width: 55px;
+	}
+	td.actions {
+		width: 220px;
+	}
+	th.width-25 {
+		width: 25%;
+	}
+	th.width-20 {
+		width: 20%;
+	}
+	td[rowspan] {
+		background: #fff;
+	}
+	tr td:last-child button {
+		text-transform: capitalize;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.editable {
+		text-decoration: none;
+		color: @light-blue;
+		border-bottom: none;
+	}
+	.editable-input {
+		padding: 0;
+		max-width: 120px;
+	}
+	td a.icon {
+		display: inline-block;
+	}
+
+	&.highlight-rows {
+		tbody tr:hover {
+			color: #fff;
+			background: @blue;
+			cursor: pointer;
+			a {
+				color: #fff;
+			}
+		}
+	}
+}
+
+.header--table-opake {
+  margin-top: 25px;
+}

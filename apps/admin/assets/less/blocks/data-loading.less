@@ -1,0 +1,52 @@
+.loading-spinner {
+	background: url('/common/i/spinner.gif') no-repeat center;
+	width: 30px;
+	height: 30px;
+}
+
+.show-loading-container {
+	position: relative;
+
+	.waiting-layer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1050;
+		background-color: #FFFFFF;
+		opacity: 0.5;
+
+		.loading-spinner {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -18px;
+			margin-left: -18px;
+			opacity: 1;
+		}
+	}
+}
+
+.waiting-layer-list {
+	position: relative;
+	min-height: 420px;
+
+	&:before {
+		position: absolute;
+		content: "";
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 3;
+		background-color: #fff;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		padding: 35px;
+		-moz-background-origin: content-box;
+		-webkit-background-origin: content-box;
+		background-origin: content-box;
+		background-image: data-uri('../../../public/i/list-loading.png');
+	}
+}

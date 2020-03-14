@@ -1,0 +1,635 @@
+@font-face {
+	font-family: 'Avenir Next';
+	src: url('/common/fonts/AvenirNext/AvenirNext-Regular.eot');
+	src: url('/common/fonts/AvenirNext/AvenirNext-Regular.eot?#iefix') format('embedded-opentype'), url('/common/fonts/AvenirNext/AvenirNext-Regular.woff') format('woff'), url('/common/fonts/AvenirNext/AvenirNext-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
+
+body {
+	font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 11px;
+}
+
+body.case-export {
+	font-size: 16px;
+}
+
+h4 {
+	margin-bottom: 4px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	padding: 5px 8px;
+}
+
+table.border th,  table.border td {
+	border: 1px solid black;
+}
+
+.top-buffer {
+	margin-top: 20px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+body.case-export td {
+	vertical-align: top;
+}
+
+body.case-export > div.page > table > tbody > tr > td {
+	width: 50%;
+}
+
+	/* Operative Report Export */
+
+table.header * {
+	border: none;
+}
+
+table.header td img {
+	height: 30px;
+}
+
+table.header td.account {
+	text-align: right;
+}
+
+table.case-info {
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+table.case-info td.surgeons {
+	padding: 0;
+}
+
+table.surgeons tr:first-child td {
+	border-top: none;
+}
+
+table.surgeons tr:last-child td {
+	border-bottom: none;
+}
+
+table.surgeons tr td:first-child {
+	border-left: none;
+}
+
+table.surgeons tr td:last-child {
+	border-right: none;
+}
+
+table.operative-report-info {
+	margin-bottom: 25px;
+}
+table.operative-report-info .list-column {
+	width: 50%;
+	vertical-align: top;
+}
+div.signatures {
+	margin-top: 30px;
+	display: table;
+	width: 100%;
+}
+div.signatures div.left {
+	float: left;
+	border-bottom: solid 1px #000;
+	width: 350px;
+}
+
+div.signatures div.right {
+	float: right;
+	border-bottom: solid 1px #000;
+	width: 250px;
+}
+
+.copyright {
+	text-align: right;
+	margin-top: 40px;
+}
+
+body.case-export .page {
+	page-break-inside: avoid;
+	height: 1300px;
+	position: relative;
+}
+
+body.case-export div.signatures {
+	position: absolute;
+	bottom: 0;
+}
+
+body.case-export div.signatures div.right {
+	width: 300px;
+	border-bottom: none;
+}
+
+body.case-export div.signatures div.left {
+	width: 400px;
+	border-bottom: none;
+}
+
+body.case-export table th, td {
+	padding: 3px 8px;
+}
+
+body.case-export table td.bordered {
+	padding-bottom: 25px;
+	border: 1px solid #000;
+}
+
+body.case-export td.insurance-title * {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+body.case-export .mrn-field {
+	margin-top: 30px;
+	font-size: 13px;
+}
+body.case-export .insurance-description {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+table.header-form-template {
+	font-size: 12pt !important;
+	height: 120px;
+}
+table.header-form-template, table.header-form-template table, table.header-form-template td {
+	border: none;
+}
+table.header-form-template .border-right {
+	border-right: 1px solid #ccc;
+}
+table.header-form-template label {
+	color: #666;
+	font-weight: bold;
+}
+
+.export-chart {
+	width: 1096px;
+}
+
+.export-chart.landscape {
+	width: 1550px;
+}
+
+.export-chart img {
+	max-width: 1096px;
+	overflow: hidden;
+}
+
+.export-chart.landscape img {
+	max-width: 1550px;
+	overflow: hidden;
+}
+
+.export-chart .opk-editor-regular-content {
+	width: 1096px;
+}
+
+.export-chart.landscape .opk-editor-regular-content {
+	width: 1550px;
+}
+
+.pre-wrap {
+	white-space: pre-wrap;
+}
+div.page-break {
+	page-break-before : always;
+}
+
+table.no-border td, table.no-border th{
+	border: none;
+}
+
+.registered-sign {
+	font-size: 22px;
+	font-weight: normal;
+	line-height: 0;
+}
+.registered-sign:before {
+	content: "\00ae";
+}
+
+.overview-print .org-name{
+	text-align: right;
+}
+
+.overview-print .opake-logo {
+	float: left;
+	width: 200px;
+}
+
+.overview-header {
+	margin-bottom: 20px;
+}
+
+.overview-print-table .surgeon-header {
+	padding: 3px;
+	font-size: 12pt;
+	text-transform: uppercase;
+	background-color: #e6e6e6 !important;
+	-webkit-print-color-adjust: exact;
+	border: 1px solid #333;
+}
+
+.overview-print-table  .bold-text {
+	font-weight: bold !important;
+}
+.overview-print-table  .italicized-text {
+	font-style: italic;
+}
+
+.overview-print-table table {
+	width: 100%;
+}
+
+.overview-print-table table tr {
+	border-top: 1px solid #e6e6e6;
+}
+
+.overview-print-table table tr:last-child {
+	 border-bottom: 1px solid #e6e6e6;
+}
+
+.overview-print-table table tr.case-notes {
+	 border-top: none;
+}
+.overview-print-table table tr.case-notes .case-notes-list {
+	font-style: italic;
+}
+.overview-print-table table tr.case-notes td {
+	padding: 0 5px;
+}
+.overview-print-table table tr td:first-child, .overview-print-table table tr th:first-child {
+	border-left: 1px solid #e6e6e6;
+}
+.overview-print-table table tr td:last-child, .overview-print-table table tr th:last-child {
+	border-right: 1px solid #e6e6e6;
+}
+.overview-print-table table th {
+	text-transform: uppercase;
+	padding: 3px 5px;
+	font-size: 12pt;
+	font-weight: bold;
+	text-align: left;
+}
+.overview-print-table table td {
+	padding: 3px 5px;
+	font-size: 12pt;
+	vertical-align: top;
+}
+.overview-print-table table td.case-patient {
+	width: 20%;
+}
+.overview-print-table table td.case-room {
+	width: 15%;
+}
+.overview-print-table table td.case-surgeon {
+	width: 15%;
+}
+.overview-print-table table td.case-time--day-view {
+	width: 19%;
+}
+.overview-print-table table td.case-time--week-view {
+	width: 27%;
+}
+.overview-print-table table td.case-procedure--day-view {
+	width: 46%;
+}
+.overview-print-table table td.case-procedure--week-view {
+	width: 38%;
+}
+
+.operative-report-export .signatures {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.operative-report-export-header {
+	padding-top: 10px;
+}
+.operative-report-export-header table.header td.account {
+	text-align: right;
+}
+.operative-report-export-header table.header td.organization-name {
+	text-align: center;
+}
+.operative-report-export-footer {
+	padding-bottom: 20px;
+}
+.operative-report-export-header, .operative-report-export-footer, .operative-report-export {
+	font-size: 10pt;
+}
+
+/* Patient Labels */
+table.patient-labels {
+	font-family: Arial, sans-serif;
+	font-size: 10pt;
+	width: 100%;
+	height: 100%;
+	border-spacing: 0;
+}
+table.patient-labels td {
+	width: 2.75in;
+	height: 1in;
+	border: none;
+	padding: 0.13in 0.15in 0.13in 0.075in;
+	vertical-align: top;
+}
+table.patient-labels tr td:last-child {
+	width: 2.625in;
+	padding: 0.13in 0.025in 0.13in 0.075in;
+}
+table.patient-labels td .patient {
+	margin-bottom: 13px;
+}
+table.patient-labels td .patient .patient-name {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+table.patient-labels td .patient-age {
+	margin-left: 70px;
+}
+table.patient-labels td .surgeon-name {
+	text-transform: uppercase;
+}
+
+/* Patient Influenza Form */
+.influenza-form-export {
+	color: #5f5f5f;
+}
+.influenza-form-export .form-main-title {
+	text-align: center;
+	text-transform: uppercase;
+	margin-bottom: 22px;
+}
+.influenza-form-export label {
+	font-weight: bold;
+}
+.influenza-form-export .field {
+	margin-bottom: 25px;
+}
+.influenza-form-export .field .radio-button-value {
+	display: inline-block;
+	width: 45px;
+}
+.influenza-form-export .field.illnesses .illness {
+	display: inline-block;
+	width: 320px;
+	min-height: 30px;
+	margin-right: 15px;
+	vertical-align: top;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+.influenza-form-export .field.illnesses .illness .illness-cough-options {
+	margin-top: 5px;
+}
+
+/* Case Medications and Allergies */
+.case-reconciliation-export .bold-text {
+	font-weight: bold;
+}
+.case-reconciliation-export .main-title {
+	text-align: center;
+	text-transform: uppercase;
+	margin-bottom: 22px;
+}
+.case-reconciliation-export .sub-title {
+	margin-bottom: 10px;
+}
+.case-reconciliation-export .medications {
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+.case-reconciliation-export .medications th.vertical {
+
+}
+.case-reconciliation-export .medications th span.bold-upper-text {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.case-reconciliation-export .signatures {
+	margin-top: 30px;
+}
+.case-reconciliation-export .signatures .signature {
+	margin-bottom: 30px;
+}
+.case-reconciliation-export .signatures .signature .signature-field {
+	height: 30px;
+	border-bottom: 1px solid #333;
+	background-color: #eeeaea;
+	width: 50%;
+}
+.case-reconciliation-export .visit-updates td.signature {
+	width: 50%;
+}
+.case-reconciliation-export .visit-updates td.signature .signature-field {
+	height: 30px;
+	border-bottom: 1px solid #333;
+	background-color: #eeeaea;
+}
+
+/* Staff Pref Card */
+.staff-pref-card-export {
+	font-size: 12px;
+}
+.staff-pref-card-export .title {
+	padding-bottom: 12px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #999 !important;
+}
+.staff-pref-card-export .template-name {
+	padding-bottom: 12px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #999 !important;
+}
+.staff-pref-card-export .subtitle {
+	padding-bottom: 8px;
+}
+.staff-pref-card-export .notes-title {
+	padding-top: 15px;
+ }
+.staff-pref-card-export .items-title {
+	padding-top: 15px;
+ }
+.staff-pref-card-export span.bold-text {
+	font-weight: bold;
+}
+.staff-pref-card-export table.notes td {
+	padding: 7px;
+}
+.staff-pref-card-export table.notes td.square-td {
+	width: 30px;
+	vertical-align: middle;
+}
+.staff-pref-card-export table.notes td.square-td .square {
+	width: 15px;
+	height: 15px;
+	border: 1px solid #000;
+}
+
+.staff-pref-card-export .stage-title {
+	font-weight: bold;
+}
+.staff-pref-card-export table.items td, .staff-pref-card-export table.items th {
+	padding: 5px;
+}
+.staff-pref-card-export table.items td.stage, .staff-pref-card-export table.items th.stage {
+	width: 11%;
+ }
+.staff-pref-card-export table.items td.number, .staff-pref-card-export table.items th.number {
+	width: 15%;
+	word-break: break-all;
+}
+.staff-pref-card-export table.items td.name, .staff-pref-card-export table.items th.name {
+	width: 15%;
+ }
+.staff-pref-card-export table.items td.manufacturer, .staff-pref-card-export table.items th.manufacturer {
+	width: 12%;
+ }
+.staff-pref-card-export table.items td.description, .staff-pref-card-export table.items th.description {
+	width: 15%;
+ }
+.staff-pref-card-export table.items td.no-inventory, .staff-pref-card-export table.items th.no-inventory {
+	width: 42%;
+	font-weight: bold;
+	text-align: center;
+ }
+.staff-pref-card-export table.items td.default-qty, .staff-pref-card-export table.items th.default-qty {
+	width: 12%;
+}
+.staff-pref-card-export table.items td.uom, .staff-pref-card-export table.items th.uom {
+	width: 8%;
+}
+.staff-pref-card-export table.items td.actual-use, .staff-pref-card-export table.items th.actual-use {
+	width: 12%;
+}.staff-pref-card-export table.items td.text-center, .staff-pref-card-export table.items th.text-center {
+	text-align: center;
+}
+.staff-pref-card-export table.items thead td {
+	font-weight: bold;
+}
+
+.eligibility-print h4 {
+	font-weight: bold;
+	font-size: 16px;
+}
+.eligibility-print .text-left {
+	text-align: left;
+}
+.eligibility-print .page-break {
+	page-break-before : always !important;
+}
+.eligibility-print .page {
+	page-break-inside: avoid !important;;
+	height: 1000px;
+	position: relative;
+}
+
+/* Patient Statement */
+.patient-statement-export table {
+	margin-bottom: 15px;
+}
+
+.patient-statement-export table tr.grey-background > td {
+	background-color: #999;
+}
+.patient-statement-export .main-info-block {
+	vertical-align: top;
+	width: 65%;
+}
+
+.patient-statement-export.itemized-bill .main-info-block {
+	width: 60%;
+}
+
+.patient-statement-export .card-info-block {
+	width: 35%;
+}
+
+.patient-statement-export .top-right-block {
+	width: 40%;
+	vertical-align: top;
+}
+
+.patient-statement-export .credit-card-fields .header {
+	background-color: #F1FBFD;
+}
+
+.patient-statement-export .credit-card-fields .fields-table {
+	background-color: #E0F0FC;
+}
+.patient-statement-export .credit-card-fields .fields-table .field, .patient-statement-export .amounts-fields .field {
+	background-color: #fff;
+	height: 20px;
+	border: 1px solid black;
+	line-height: 25px;
+	padding-left: 2px;
+}
+
+.patient-statement-export .credit-card-fields .fields-table .type-cards {
+	background-color: #fff;
+	padding: 20px 5px;
+	width: 110px;
+}
+.patient-statement-export .credit-card-fields table {
+	border-collapse: collapse;
+}
+.patient-statement-export .credit-card-fields .check-card-block {
+	vertical-align: top;
+}
+
+.patient-statement-export .amounts-fields {
+	background-color: #F1FBFD;
+}
+.patient-statement-export hr {
+	border:none;
+	border-top:1px dotted #000;
+	color:#fff;
+	background-color:#fff;
+	height:1px;
+	width: 100%;
+
+}
+.patient-statement-export .dotted-line {
+	margin-bottom: 25px;
+}
+.patient-statement-export .statement-comment {
+	margin-top: 5px;
+	font-weight: bold;
+}
+.patient-statement-export .statement-comment .comment-border {
+	border: 1px solid black;
+	padding: 10px;
+}
+.patient-statement-export .money-cell {
+	white-space: nowrap;
+}
+
+.patient-statement-export .responsibility-label-row tr {
+	border: none;
+}
+
+.patient-statement-export .responsibility-label-column {
+	text-align: center;
+}
+
+.patient-statement-export .main-info-block {
+	padding-left: 50px;
+}
+
+.patient-statement-export .patient-info-block {
+	margin-top: 30px;
+}

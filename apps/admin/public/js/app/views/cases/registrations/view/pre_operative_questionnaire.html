@@ -1,0 +1,417 @@
+<div ng-controller="CasePatientFormsPreOperativeCtrl as preoperativeVm"
+     ng-init="preoperativeVm.init(regVm.registration.id)"
+     class="content-block">
+
+	<div ng-if="preoperativeVm.form" class="intake-patient-form pre-operative-form" ng-show="preoperativeVm.form" warning-unsaved-form="preoperativeVm.form">
+
+		<h4 class="form-main-title">
+			<a href="" ng-click="preoperativeVm.print()" class="print-form">
+				<i class="icon-circle-print-blue" uib-tooltip="Print"></i>
+			</a>
+			PRE-OPERATIVE QUESTIONNAIRE
+		</h4>
+
+		<div class="case-information">
+			<label>Physician:</label> {{caseVm.case.getSurgeonNames()}}
+		</div>
+		<div class="case-information">
+			<label>Date of Service:</label> {{caseVm.case.time_start | date:'M/d/yyyy'}}
+		</div>
+		<div class="case-information">
+			<label>Time:</label> {{caseVm.case.time_start | date:'h:mm a'}}
+		</div>
+
+
+		<errors src="preoperativeVm.errors"></errors>
+
+		<div class="field height-weight-field">
+		<span class="height">
+			Please enter patient's height: <span class="height-inputs"><input type="text" class="form-control input-sm" ng-model="preoperativeVm.form.height_ft"/> Ft <input type="text" class="form-control input-sm" ng-model="preoperativeVm.form.height_in"/> In</span>
+		</span>
+		<span class="weight">
+			Weight: <input type="text" class="form-control input-sm" ng-model="preoperativeVm.form.weight_lbs"/> Lbs
+		</span>
+		<span class="bmi">
+			BMI: <input type="text" class="form-control input-sm" ng-value="preoperativeVm.getBmi()" readonly/>
+		</span>
+		</div>
+
+		<div class="field demographic-and-correction">
+			<div>
+				<div>
+					<div class="checkbox">
+						<input id="confirmed-patient-demographics" type="checkbox" ng-model="preoperativeVm.form.confirmed_patient_demographics">
+						<label for="confirmed-patient-demographics">Confirmed Patient Demographics</label>
+					</div>
+					<div class="checkbox">
+						<input id="correction-made" type="checkbox" ng-model="preoperativeVm.form.correction_made">
+						<label for="correction-made">Correction Made</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<label>Medications</label>
+			<div class="inputs">
+				<div class="description">Please list all medications the patient is taking including over the counter & herbal supplements</div>
+				<div class="input" ng-repeat="medication in preoperativeVm.form.medications">
+					<input type="text" class="form-control" ng-model="medication.name" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+				<div class="additional-inputs">
+					<a href="" ng-click="preoperativeVm.addMedication()">+ Add Additional Medications</a>
+				</div>
+				<div class="medication-steroids">
+					<div class="description">Has the patient used any Steroids or Cortisone in the past 6 months?</div>
+					<div class="input">
+						<input type="text" class="form-control" ng-model="preoperativeVm.form.steroids" maxlength="{{preoperativeVm.characterLimit}}" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<label>Allergies</label>
+			<div class="inputs">
+				<div class="description">List any medications that the patient is allergic to</div>
+				<div class="input" ng-repeat="allergy in preoperativeVm.form.allergies">
+					<input type="text" class="form-control" ng-model="allergy.name" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+				<div class="additional-inputs">
+					<a href="" ng-click="preoperativeVm.addAllergies()">+ Add Additional Allergies</a>
+				</div>
+			</div>
+			<div class="inputs">
+				<div class="allergic-question">
+					<div>
+						<span class="allergic-yes-no">Is the patient allergic to latex?</span>
+						<div class="radio">
+							<input id="allergic-latex-no" type="radio" ng-model="preoperativeVm.form.allergic_to_latex" ng-value="false">
+							<label for="allergic-latex-no">No</label>
+						</div>
+						<div class="radio">
+							<input id="allergic-latex-yes" type="radio" ng-model="preoperativeVm.form.allergic_to_latex" ng-value="true">
+							<label for="allergic-latex-yes">Yes</label>
+						</div>
+					</div>
+					<div>
+						<input type="text" class="form-control description-input" ng-model="preoperativeVm.form.allergic_to_latex_reason" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+					</div>
+				</div>
+				<div class="allergic-question">
+					<div>
+						<span class="allergic-yes-no">Food allergies?</span>
+						<div class="radio">
+							<input id="allergic-food-no" type="radio" ng-model="preoperativeVm.form.allergic_to_food" ng-value="false">
+							<label for="allergic-food-no">No</label>
+						</div>
+						<div class="radio">
+							<input id="allergic-food-yes" type="radio" ng-model="preoperativeVm.form.allergic_to_food" ng-value="true">
+							<label for="allergic-food-yes">Yes</label>
+						</div>
+					</div>
+					<div>
+						<input type="text" class="form-control description-input" ng-model="preoperativeVm.form.allergic_to_food_reason" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+					</div>
+				</div>
+				<div class="allergic-question">
+					<div>
+						<span class="allergic-yes-no">Any other allergies?</span>
+						<div class="radio">
+							<input id="allergic-other-no" type="radio" ng-model="preoperativeVm.form.allergic_other" ng-value="false">
+							<label for="allergic-other-no">No</label>
+						</div>
+						<div class="radio">
+							<input id="allergic-other-yes" type="radio" ng-model="preoperativeVm.form.allergic_other" ng-value="true">
+							<label for="allergic-other-yes">Yes</label>
+						</div>
+					</div>
+					<div>
+						<input type="text" class="form-control description-input" ng-model="preoperativeVm.form.allergic_other_reason" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<label>History of present illness</label>
+			<div class="inputs">
+				<div class="input">
+					<input type="text" class="form-control" ng-model="preoperativeVm.form.history_of_present_illness" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+			</div>
+		</div>
+
+		<div class="field conditions">
+			<label>Does the patient have any of the following conditions?</label>
+			<div class="inputs">
+				<div ng-repeat="conditionType in preoperativeVm.conditionTypes">
+					<span class="condition-title">{{conditionType.label}}</span>
+					<div class="radio">
+						<input id="allergic-{{conditionType.name}}-no" type="radio" ng-model="preoperativeVm.form.conditions[conditionType.name].enabled" ng-value="false">
+						<label for="allergic-{{conditionType.name}}-no">No</label>
+					</div>
+					<div class="radio">
+						<input id="allergic-{{conditionType.name}}-yes" type="radio" ng-model="preoperativeVm.form.conditions[conditionType.name].enabled" ng-value="true">
+						<label for="allergic-{{conditionType.name}}-yes">Yes</label>
+					</div>
+					<input type="text" class="form-control description-input" ng-model="preoperativeVm.form.conditions[conditionType.name].reason" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<label>Has the patient had any prior surgeries or hospitalizations?</label>
+			<div class="inputs">
+				<div class="input" ng-repeat="item in preoperativeVm.form.surgeries_hospitalizations">
+					<input type="text" class="form-control" ng-model="item.name" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+				<div class="additional-inputs">
+					<a href="" ng-click="preoperativeVm.addSurgeryHospitalization()">+ Add Additional</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<label>Does the patient's family have a history of medical conditions or problems?</label>
+			<div class="inputs">
+				<div class="input" ng-repeat="item in preoperativeVm.form.family_problems">
+					<input type="text" class="form-control" ng-model="item.name" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+				<div class="additional-inputs">
+					<a href="" ng-click="preoperativeVm.addFamilyProblems()">+ Add Additional</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<label>Does the patient's family have a history of anesthesia related problems?</label>
+			<div class="inputs">
+				<div class="input" ng-repeat="item in preoperativeVm.form.family_anesthesia_problems">
+					<input type="text" class="form-control" ng-model="item.family_anesthesia_problems" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+				<div class="additional-inputs">
+					<a href="" ng-click="preoperativeVm.addFamilyAnesthesiaProblems()">+ Add Additional</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="field">
+			<div class="smoke-drink-question">
+				<div>
+					<span class="question-title main-question-label">Does the patient smoke?</span>
+					<div class="radio">
+						<input id="smoke-no" type="radio" name="smoke-yes-no" ng-model="preoperativeVm.form.smoke" ng-value="false">
+						<label for="smoke-no">No</label>
+					</div>
+					<div class="radio">
+						<input id="smoke-yes" type="radio" name="smoke-yes-no" ng-model="preoperativeVm.form.smoke" ng-value="true">
+						<label for="smoke-yes">Yes</label>
+					</div>
+				<span class="how-long">
+					<span class="question-title">For how long?</span> <input type="text" class="form-control digit-input input-sm" ng-model="preoperativeVm.form.smoke_how_long_yrs"/> Yrs <input type="text" class="form-control digit-input input-sm" ng-model="preoperativeVm.form.smoke_packs_per_day"/> Packs per Day
+				</span>
+				</div>
+				<div class="description">
+					<input type="text" class="form-control" ng-model="preoperativeVm.form.smoke_description" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+			</div>
+
+			<div class="smoke-drink-question">
+				<div>
+					<span class="question-title main-question-label">Does the patient drink?</span>
+					<div class="radio">
+						<input id="drink-no" type="radio" name="drink-yes-no" ng-model="preoperativeVm.form.drink" ng-value="false">
+						<label for="drink-no">No</label>
+					</div>
+					<div class="radio">
+						<input id="drink-yes" type="radio" name="drink-yes-no" ng-model="preoperativeVm.form.drink" ng-value="true">
+						<label for="drink-yes">Yes</label>
+					</div>
+				<span class="how-long">
+					<span class="question-title">For how long?</span> <input type="text" class="form-control digit-input input-sm" ng-model="preoperativeVm.form.drink_how_long_yrs"/> Yrs <input type="text" class="form-control digit-input input-sm" ng-model="preoperativeVm.form.drink_drinks_per_week"/> Drinks per week
+				</span>
+				</div>
+				<div class="description">
+					<input type="text" class="form-control" ng-model="preoperativeVm.form.drink_description" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+			</div>
+
+			<div class="smoke-drink-question">
+				<div>
+					<span class="question-title main-question-label">Illicit drugs?</span>
+					<div class="radio">
+						<input id="illicit-drugs-no" type="radio" name="illicit-drugs-yes-no" ng-model="preoperativeVm.form.illicit_drugs" ng-value="false">
+						<label for="illicit-drugs-no">No</label>
+					</div>
+					<div class="radio">
+						<input id="illicit-drugs-yes" type="radio" name="illicit-drugs-yes-no" ng-model="preoperativeVm.form.illicit_drugs" ng-value="true">
+						<label for="illicit-drugs-yes">Yes</label>
+					</div>
+				<span class="how-long">
+					<span class="question-title">For how long?</span> <input type="text" class="form-control digit-input input-sm" ng-model="preoperativeVm.form.illicit_drugs_how_long_yrs"/> Yrs
+				</span>
+				</div>
+				<div class="description">
+					<input type="text" class="form-control" ng-model="preoperativeVm.form.illicit_drugs_description" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+			</div>
+
+		</div>
+
+		<div class="field">
+			<label>Has the patient or any immediate family / close contacts traveled outside the country in the last 2 weeks?</label>
+			<div class="inputs">
+				<div class="input" ng-repeat="item in preoperativeVm.form.travel_outside">
+					<input type="text" class="form-control" ng-model="item.name" placeholder="If yes, please describe & list countries that were visited" maxlength="{{preoperativeVm.characterLimit}}" />
+				</div>
+				<div class="additional-inputs">
+					<a href="" ng-click="preoperativeVm.addTravelOutsideCountries()">+ Add Additional</a>
+				</div>
+			</div>
+		</div>
+
+	<div class="field">
+		<label>Has the patient been exposed to any communicable diseases recently?</label>
+		<div class="inputs">
+			<div class="input" ng-repeat="item in preoperativeVm.form.communicable_diseases">
+				<input type="text" class="form-control" ng-model="item.name" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+			</div>
+			<div class="additional-inputs">
+				<a href="" ng-click="preoperativeVm.addCommunicableDeceases()">+ Add Additional</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="field">
+		<label>Are there any religious/cultural/language limitations?</label>
+		<div class="inputs">
+			<div class="input" ng-repeat="item in preoperativeVm.form.cultural_limitations">
+				<input type="text" class="form-control" ng-model="item.name" placeholder="If yes, please describe" maxlength="{{preoperativeVm.characterLimit}}" />
+			</div>
+			<div class="additional-inputs">
+				<a href="" ng-click="preoperativeVm.addCulturalLimitations()">+ Add Additional</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="field">
+			<label>Does the patient have a living will or advance directive?</label>
+			<div class="inputs">
+				<div class="radio">
+					<input id="living-will-no" type="radio" name="living-will-yes-no" ng-model="preoperativeVm.form.living_will" ng-value="false">
+					<label for="living-will-no">No</label>
+				</div>
+				<div class="radio">
+					<input id="living-will-yes" type="radio" name="living-will-yes-no" ng-model="preoperativeVm.form.living_will" ng-value="true">
+					<label for="living-will-yes">Yes</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="field contact-information">
+			<label>Please provide the following contact information:</label>
+			<div class="inputs">
+				<div class="contact">
+					<span class="contact-title">Primary Care Physician</span> <span class="contact-name"><input type="text" class="form-control input-sm" placeholder="Name" ng-model="preoperativeVm.form.primary_care_name" maxlength="{{preoperativeVm.characterLimit}}" /></span> <span class="phone-number">Phone Number: <phone ng-model="preoperativeVm.form.primary_care_phone"></phone></span>
+				</div>
+				<div class="contact">
+					<span class="contact-title">Name of transportation</span> <span class="contact-name"><input type="text" class="form-control input-sm" placeholder="Name" ng-model="preoperativeVm.form.transportation_name" maxlength="{{preoperativeVm.characterLimit}}" /></span> <span class="phone-number">Phone Number: <phone ng-model="preoperativeVm.form.transportation_phone"></phone></span>
+				</div>
+				<div class="contact">
+					<span class="contact-title">Name of Caretaker after procedure</span> <span class="contact-name"><input type="text" class="form-control input-sm" placeholder="Name" ng-model="preoperativeVm.form.caretaker_name" maxlength="{{preoperativeVm.characterLimit}}" /></span> <span class="phone-number">Phone Number: <phone ng-model="preoperativeVm.form.caretaker_phone"></phone></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="field future-communication">
+			<label>May Millennium leave a phone message for future communications?</label>
+			<div class="inputs">
+				<div class="radio">
+					<input id="leave-message-no" type="radio" name="leave-message-yes-no" ng-model="preoperativeVm.form.leave_message" ng-value="false">
+					<label for="leave-message-no">No</label>
+				</div>
+				<div class="radio">
+					<input id="leave-message-yes" type="radio" name="leave-message-yes-no" ng-model="preoperativeVm.form.leave_message" ng-value="true">
+					<label for="leave-message-yes">Yes</label>
+				</div>
+				<span class="phone-number">Phone Number: <phone ng-model="preoperativeVm.form.leave_message_phone" maxlength="{{preoperativeVm.characterLimit}}" ></phone></span>
+			</div>
+		</div>
+
+		<div class="field">
+			<label>Additional Instructions:</label>
+			<div class="inputs">
+				<div class="instruction">Do not wear contact lenses</div>
+				<div class="instruction">You may bring glasses</div>
+				<div class="instruction">Wear comfortable clothing</div>
+				<div class="instruction">Do not bring money, valuables, and/or jewelry, or make-up</div>
+				<div class="instruction">Do not drink any fluids 6 hours prior to arrival time. This includes water, Pedialyte, Kool-Aid, gingerale, apple juice, jello, popsicles, or broth.</div>
+				<div class="instruction">No solid foods 8 hours prior to arrival</div>
+			</div>
+		</div>
+
+		<div class="field pain-management">
+			<label>Pain Management Only</label>
+			<div class="pain-management-inputs">
+				<div class="pain-management-row" ng-repeat="painManagementType in preoperativeVm.painManagementTypes">
+					<div ng-if="painManagementType.type === 'procedure'">
+						<div class="pain-management-input">
+							<span class="pain-management-type">Return Visit Update</span>
+							<input type="text" class="form-control description" ng-model="preoperativeVm.form.pain_management[painManagementType.name].description" maxlength="{{preoperativeVm.characterLimit}}" />
+						</div>
+						<div class="pain-management-input">
+							<span class="pain-management-type">Date of Procedure</span>
+							<date-field class="date-of-procedure" ng-model="preoperativeVm.form.pain_management[painManagementType.name].date" icon="true" placeholder="mm/dd/yyyy"></date-field>
+						</div>
+						<div class="pain-management-input">
+							<span class="pain-management-type short">Arrival Time</span>
+							<input type="text" class="form-control arrival-time" ng-model="preoperativeVm.form.pain_management[painManagementType.name].arrival_time" maxlength="{{preoperativeVm.characterLimit}}" />
+						</div>
+						<div class="pain-management-input">
+							<span class="pain-management-type short">NPO Status</span>
+							<input type="text" class="form-control npo-status" ng-model="preoperativeVm.form.pain_management[painManagementType.name].npo_status" maxlength="{{preoperativeVm.characterLimit}}" />
+						</div>
+					</div>
+					<div ng-if="painManagementType.type === 'transportation'">
+						<div class="pain-management-input">
+							<span class="pain-management-type">Left Message</span>
+							<input type="text" class="form-control description" ng-model="preoperativeVm.form.pain_management[painManagementType.name].description" maxlength="{{preoperativeVm.characterLimit}}" />
+						</div>
+						<div class="pain-management-input">
+							<span class="pain-management-type">Transportation</span>
+							<input type="text" class="form-control transportation" ng-model="preoperativeVm.form.pain_management[painManagementType.name].transportation" maxlength="{{preoperativeVm.characterLimit}}" />
+						</div>
+						<div class="pain-management-input">
+							<span class="pain-management-type short">Changes</span>
+							<div class="pain-management-changes">
+								<div class="radio">
+									<input id="pain-management-changes-{{painManagementType.name}}-yes" type="radio" name="pain-management-changes-{{painManagementType.name}}-yes-no" ng-model="preoperativeVm.form.pain_management[painManagementType.name].changes" ng-value="true">
+									<label for="pain-management-changes-{{painManagementType.name}}-yes">Yes</label>
+								</div>
+								<div class="radio">
+									<input id="pain-management-changes-{{painManagementType.name}}-no" type="radio" name="pain-management-changes-{{painManagementType.name}}-yes-no" ng-model="preoperativeVm.form.pain_management[painManagementType.name].changes" ng-value="false">
+									<label for="pain-management-changes-{{painManagementType.name}}-no">No</label>
+								</div>
+							</div>
+						</div>
+						<div class="pain-management-input">
+							<span class="pain-management-type short">RN Initials</span>
+							<input type="text" class="form-control rn-initials" ng-model="preoperativeVm.form.pain_management[painManagementType.name].rn_initials" maxlength="{{preoperativeVm.characterLimit}}" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="controls-block">
+			<div class="right-control text-right">
+				<button class="btn btn-success" ng-click="preoperativeVm.save()">Save</button>
+				<button class="btn btn-grey" ng-click="preoperativeVm.cancel()">Cancel</button>
+			</div>
+		</div>
+
+	</div>
+
+</div>

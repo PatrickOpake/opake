@@ -1,0 +1,107 @@
+<div ng-controller="CaseRegistrationDocsCtrl as docsVm" ng-init="docsVm.init()" class="cases-management--docs" show-loading="docsVm.isDocumentsLoading">
+
+	<div class="row">
+		<div class="col-sm-6">
+			<a class="btn btn-grey" ng-click="docsVm.printLabels()">Print Labels</a>
+		</div>
+		<div class="col-sm-6 text-right" ng-if="!regVm.isFormEditDisabled">
+			<a class="btn btn-success" ng-click="docsVm.additionalForm()">Upload Additional Charts</a>
+		</div>
+	</div>
+
+	<table class="cases-management--table top-buffer">
+		<tr ng-if="regVm.form_docs" ng-repeat="doc in regVm.form_docs">
+			<td class="icon"><i class="glyphicon glyphicon-save-file"></i></td>
+			<td colspan="2"><a href="" ng-click="formDocuments.downloadTemplate(doc, cmVm.case.id)">{{ ::doc.name }}</a></td>
+		</tr>
+	</table>
+
+	<a href="" ng-click="docsVm.print(regVm)" class="icon">
+		<i class="icon-circle-print-blue" uib-tooltip="Print"></i>
+	</a>
+
+	<table class="cases-management--table">
+		<tr>
+			<th>
+				<div class="checkbox">
+					<input id="print_all" type="checkbox" class="styled" ng-checked="docsVm.selectAll" ng-click="docsVm.addToPrintAll()">
+					<label for="print_all"></label>
+				</div>
+			</th>
+			<th>Form</th>
+			<th>Uploaded Date</th>
+			<th>Delete</th>
+		</tr>
+
+		<tr ng-repeat="doc in docsVm.reg.documents">
+			<!-- Print Checkbox-->
+			<td>
+				<div class="checkbox">
+					<input id="print_{{$index}}"
+						   type="checkbox"
+						   class="styled"
+						   ng-disabled="!docsVm.isExistForm(doc)"
+						   ng-checked="docsVm.isAddedToPrint(doc)"
+						   ng-click="docsVm.addToPrint(doc)">
+					<label for="print_{{$index}}"></label>
+				</div>
+			</td>
+			<!-- Form-->
+			<td>
+				{{doc.name}}
+			</td>
+			<!-- Uploaded Date-->
+			<td ng-if="!doc.url">
+				<div ng-if="!regVm.isFormEditDisabled">
+					<a href=""
+					   ng-if="doc.countExistedDocuments"
+					   ng-click="docsVm.uploadDocument(doc)">
+						<i uib-tooltip="Upload" class="icon-circle-upload"></i>
+					</a>
+
+					<a href=""
+					   uib-tooltip="Upload"
+					   ng-if="!doc.countExistedDocuments"
+					   class="btn-file"
+					   file-upload
+					   upload-url="regVm.documentUploadUrl"
+					   form-data="docsVm.getDocumentUploadData(doc.type)"
+					   on-complete="docsVm.onUploadComplete()">
+						<i class="icon-circle-upload"></i>
+					</a>
+				</div>
+			</td>
+			<td ng-if="doc.url">
+				<a href="" class="icon doc-icon" ng-click="docsVm.preview(doc)">
+					<i class="icon-note"></i>
+				</a>
+				<div class="uploaded-date">
+					<a href="" ng-click="docsVm.preview(doc)">Uploaded: {{ doc.uploaded_date | date:'M/d/yyyy'}}</a>
+				</div>
+				<div class="upload-new" ng-if="!regVm.isFormEditDisabled">
+					<a href=""
+						uib-tooltip="Upload"
+						ng-if="doc.countExistedDocuments"
+						ng-click="docsVm.uploadDocument(doc)">
+						Upload New
+					</a>
+
+					<a href="" uib-tooltip="Upload" ng-if="!doc.countExistedDocuments" 
+					   ng-click="docsVm.openUploadDocumentModal(doc)">
+						Upload New
+					</a>
+				</div>
+			</td>
+			<!-- Delete-->
+			<td>
+				<a ng-if="doc.url"
+				   ng-if="!regVm.isFormEditDisabled"
+				   href=""
+				   ng-click="docsVm.removeFile(doc.type);">
+					<i class="icon-circle-remove" ></i>
+				</a>
+			</td>
+		</tr>
+	</table>
+
+</div>

@@ -1,0 +1,226 @@
+<div class="profile-page user-profile">
+	<div class="block-panel">
+		<div>
+			<div class="heading-row clearfix">
+				<profile-image-upload
+						options="userVm.profileImageOptions"
+						control="userVm.profileImageControl"
+						ng-if="userVm.profileImageOptions"></profile-image-upload>
+
+				<div class="controls">
+					<div class="buttons clearfix">
+						<a class='btn btn-grey' href='' ng-click="userVm.cancel()">Cancel</a>
+						<a class='btn btn-success' href='' ng-click="userVm.save()">Save</a>
+						<a class='btn btn-success' href='' ng-click="userVm.sendPasswordEmail()" ng-if="userVm.user.id && userVm.canEditPermission" ng-disabled="userVm.isSendPwdButtonDisabled">Send Pwd Email</a>
+						<a class='btn btn-success' href='' ng-click="userVm.save(true)" ng-if="!userVm.user.id">Save & Send Pwd Email</a>
+					</div>
+					<div class="additional-info" ng-if="userVm.user.id">
+						<span ng-if="userVm.user.id">Date Created:  {{userVm.user.last_change}}</span>
+					</div>
+
+				</div>
+			</div>
+
+			<errors src="userVm.errors"></errors>
+
+			<div class="details-panel">
+
+				<div class="data-row" ng-if="userVm.canEditNotBasic && userVm.canEditPermission">
+					<label>User Access:</label>
+					<div class="input-container">
+						<opk-select ng-model="userVm.user.role_id" ng-change="userVm.changeRole()" options="value.id as value.name for value in source.getRoles()"></opk-select>
+					</div>
+				</div>
+
+				<div class="data-row" ng-if="userVm.canEditNotBasic && userVm.canEditPermission">
+					<label>Type:</label>
+					<div class="input-container">
+						<opk-select ng-model="userVm.user.profession_id" options="value.id as value.name for value in source.getProfessions()" ng-disabled="userVm.isDisableProfessionField(userVm.user.role_id)"></opk-select>
+						<div class="data-row">
+							<div class="checkbox">
+								<input id="enabled_operative_report" type="checkbox" class="styled" ng-model="userVm.user.is_enabled_op_report" ng-disabled="!permissions.user.is_internal">
+								<label for="enabled_operative_report">Enable Operative Reports</label>
+							</div>
+							<div class="checkbox" ng-if="userVm.user.role_id == userConst.ROLES.DOCTOR && permissions.hasAccess('operative_reports', 'dragon_dictation')">
+								<input id="enable_dictation" type="checkbox" class="styled" ng-model="userVm.user.is_dictation_enabled">
+								<label for="enable_dictation">Enable Dragon Dictation</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>First Name:</label>
+					<div class="input-container">
+						<input class='form-control name-field' type='text' ng_model="userVm.user.first_name" />
+					</div>
+
+				</div>
+				<div class="data-row">
+					<label>Last Name:</label>
+					<div class="input-container">
+						<input class='form-control name-field' type='text' ng_model="userVm.user.last_name" />
+					</div>
+				</div>
+				<div class="data-row" ng-if="userVm.user.id && userVm.canEditNotBasic">
+					<label>ID</label>
+					<div>{{userVm.user.id}}</div>
+				</div>
+				<div class="data-row" ng-if="userVm.canEditNotBasic && userVm.canEditPermission && !userVm.isSelf()">
+					<label>Status</label>
+					<div class="status-switch">
+						<span class="switch-label" ng-class="{active: !userVm.user.is_active}" ng-click="userVm.deactivateUser()">Inactive</span> 
+						<switch ng-model="userVm.user.is_active"></switch>
+						<span ng-class="{active: userVm.user.is_active}" class="switch-label" ng-click="userVm.activateUser()">Active</span>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Email:</label>
+					<div class="input-container">
+						<input class='form-control' type='text' ng-model="userVm.user.email" />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Username:</label>
+					<div class="input-container username-field">
+						<div class="rules-notice">
+							Usernames can contain letters (a-z), numbers (0-9), dashes (-), underscores (_),apostrophes ('}, and periods (.).<br/>
+							Usernames can't contain an equal sign (=), brackets (<,>), plus sign (+), a comma (,), or more than one period (.) in a row.
+						</div>
+						<div>
+							<input class="form-control" ng-keyup="userVm.validateUsername()" type='text' ng-model="userVm.user.username" />
+							<i ng-show="userVm.usernameOptions.isChanged" ng-class="{'icon-red-warning': !userVm.usernameOptions.isCorrect, 'icon-green-checkmark': userVm.usernameOptions.isCorrect}" class="icon-red-warning"></i>
+						</div>
+						<div class="error-message">{{userVm.usernameOptions.errorMessage}}</div>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Password:</label>
+					<div class="input-container password-field">
+						<div class="new-password">
+							<div class="rules-notice" ng-class="{'has-error': userVm.passwordOptions.isChanged && !userVm.passwordOptions.isCorrect}">
+								Password must be at least 8 characters long and include at least one capital<br />
+								letter, one lowercase letter, one special (symbol) character.
+							</div>
+							<div>
+								<input class="form-control" placeholder="Enter New Password" ng-keyup="userVm.validatePassword()" type='password' ng-model="userVm.user.new_password" />
+								<i ng-show="userVm.passwordOptions.isChanged" ng-class="{'icon-red-warning': !userVm.passwordOptions.isCorrect, 'icon-green-checkmark': userVm.passwordOptions.isCorrect}" class="icon-red-warning"></i>
+							</div>
+							<div class="error-message">{{userVm.passwordOptions.errorMessage}}</div>
+						</div>
+						<div class="confirm-password">
+							<div>
+								<input class="form-control" placeholder="Confirm Password" ng-keyup="userVm.validatePassword()" type='password' ng-model="userVm.user.confirm_new_password" />
+								<i ng-show="userVm.passwordOptions.showConfirmMark" ng-class="{'icon-red-warning': !userVm.passwordOptions.isConfirmCorrect, 'icon-green-checkmark': userVm.passwordOptions.isConfirmCorrect}" class="icon-red-warning"></i>
+							</div>
+							<div class="error-message">{{userVm.passwordOptions.confirmErrorMessage}}</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="row user-phone">
+					<div class="col-sm-6">
+						<div class="data-row">
+							<label>Phone:</label>
+							<div class="input-container">
+								<phone ng-model="userVm.user.phone"></phone>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="data-row phone-type">
+							<label>Type:</label>
+							<div class="input-container">
+								<opk-select ng-model="userVm.user.phone_type" key-value-options="userConst.PHONE_TYPES" placehoder="Select"></opk-select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div geo model="userVm.user" props="{country: 'country', state: 'state', city: 'city', custom_state: 'custom_state', custom_city: 'custom_city'}">
+					<div class="data-row geo-field country">
+						<label>Country:</label>
+						<div class="input-container">
+							<opk-select ng-model="userVm.user.country"
+							            options="item.name for item in geoVm.countries"></opk-select>
+						</div>
+					</div>
+					<div class="data-row geo-field state">
+						<label>State:</label>
+						<div class="input-container">
+							<opk-select ng-model="userVm.user.state"
+							            options="item.name for item in geoVm.states"></opk-select>
+						</div>
+					</div>
+					<div class="data-row geo-field custom-state">
+						<label>State:</label>
+						<div class="input-container">
+							<input type="text" ng-model="userVm.user.custom_state" placeholder='Type' class="form-control" />
+						</div>
+					</div>
+					<div class="data-row geo-field city">
+						<label>City:</label>
+						<div class="input-container">
+							<input type="text" ng-model="userVm.user.city" uib-typeahead="city as city.name for city in geoVm.cities | filter:$viewValue | limitTo:8" class="form-control" placeholder="Type" />
+						</div>
+					</div>
+					<div class="data-row geo-field custom-city">
+						<label>City:</label>
+						<div class="input-container">
+							<input type="text" ng-model="userVm.user.custom_city" placeholder='Type' class="form-control" />
+						</div>
+					</div>
+					<div class="data-row geo-field zip-code">
+						<label>Zip Code:</label>
+						<div class="input-container">
+							<input type="text" ng-model="userVm.user.zip_code" class="form-control" />
+						</div>
+					</div>
+				</div>
+
+				<div class="data-row">
+					<label>Address:</label>
+					<div class="input-container">
+						<textarea class='form-control' ng-model="userVm.user.address"></textarea>
+						<div class="data-row phone-type">
+							<label>Type:</label>
+							<div class="input-container">
+								<opk-select ng-model="userVm.user.address_type" options="value.id as value.title for value in userConst.ADDRESS_TYPE_OPTIONS" placehoder="Select"></opk-select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="data-row" ng-if="userVm.canEditNotBasic">
+					<label>Site:</label>
+					<div class="input-container">
+						<opk-select ng-model="userVm.user.site_ids" multiple options="value.id as value.name for value in source.getSites()"></opk-select>
+					</div>
+				</div>
+				<div class="data-row" ng-if="userVm.canEditNotBasic">
+					<label>Department:</label>
+					<div class="input-container">
+						<opk-select ng-model="userVm.user.department_ids" multiple options="value.id as value.name for value in source.getDepartments()"></opk-select>
+					</div>
+				</div>
+				<div class="data-row" ng-if="userVm.canEditNotBasic">
+					<label>Comments:</label>
+					<div class="input-container">
+						<textarea class='form-control' ng-model="userVm.user.comment"></textarea>
+					</div>
+				</div>
+
+
+				<div class="data-row" ng-if="userVm.canEditPracticeGroups">
+					<label>Practice Name:</label>
+					<div class="input-container">
+						<opk-select placeholder="Select"
+									multiple
+									select-options="{searchFilter: 'opkSelectPracticeGroupSearchFilter', appendToBody: true}"
+									ng-model="userVm.user.practice_groups"
+									options="value.name for value in source.getPracticeGroupsForOrganization(userVm.user.organization_id)"></opk-select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

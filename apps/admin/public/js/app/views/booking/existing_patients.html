@@ -1,0 +1,36 @@
+<div>
+	<div class="modal-header">
+		Patient with same name and/or DOB exists
+	</div>
+	<div class="modal-body">
+		<span class="left-align">Select existing patient</span>
+		<table class="opake">
+			<thead>
+				<tr>
+					<th>Last Name</th>
+					<th>First Name</th>
+					<th>DOB</th>
+					<th>Phone Number</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="patient in existingPatientsVm.existingPatients">
+					<td>{{ patient.last_name }}</td>
+					<td>{{ patient.first_name }}</td>
+					<td>{{ patient.dob | date:'M/d/yyyy' }}</td>
+					<td>{{ patient.home_phone }}</td>
+					<td>
+						<button ng-click="existingPatientsVm.selectPatient(patient.id)" class="btn btn-success">
+							Select patient
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<div class="or">OR</div>
+		<button class="btn btn-primary" ng-click="cancel()">Create New Patient</button>
+	</div>
+</div>

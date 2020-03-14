@@ -1,0 +1,54 @@
+<div class="panel-data cases-management--pref-card--header">
+	<a href="" ng-if="cardVm.fromCardsQueue" class="back" ng-click="cardVm.toCardsQueue()"><i class="glyphicon glyphicon-chevron-left"></i>Back</a>
+	<div class="data-row card-data">
+		<span class="headline">{{cmVm.case.users[0].full_name}}</span>
+		<div class="pref-card-actions">
+			<a href="" ng-click="cardVm.print()" class="btn btn-icon icon" uib-tooltip="Print">
+				<i class="icon-print-grey"></i>
+			</a>
+			<a class='btn btn-success' href="" ng-click="cardVm.edit()">Edit</a>
+		</div>
+	</div>
+
+	<div class="row pref-card-info">
+		<div class="col-sm-5">
+			<div class="data-row">
+				<label>Procedure:</label>
+				<div>
+					<span ng-repeat="type in cmVm.case.additional_cpts" uib-tooltip="{{ type.name }}" tooltip-placement="bottom" tooltip-class="white-for-cpt-codes">
+						{{ type.code }}{{ !$last ? ', ' : '' }}
+					</span>
+				</div>
+			</div>
+			<div class="data-row">
+				<label>Template Name:</label>
+				<div>{{ cardVm.card.template.name}}</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row patient-info">
+				<div class="col-sm-6">
+					<div class="data-row"><label>Patient Name</label> <b>{{ cmVm.case.patient.last_name + ', ' + cmVm.case.patient.first_name }}</b></div>
+					<div class="data-row"><label>Age/Sex</label> <b>{{ cmVm.case.patient.age}}/{{ cmVm.case.patient.sex}}</b></div>
+					<div class="data-row"><label>DOB</label> <b>{{ cmVm.case.patient.dob | date:'M/d/yyyy' }}</b></div>
+				</div>
+				<div class="col-sm-6">
+					<div class="data-row"><label>MRN</label> <b>{{ cmVm.case.patient.full_mrn}}</b></div>
+					<div class="data-row"><label>DOS</label> <b>{{ cmVm.case.time_start | date:'M/d/yyyy' }}</b></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div ng-if="cardVm.card" ng-controller="CardItemsCrtl as itemsVm"
+	 ng-init="itemsVm.init(cardVm.card.items, cardVm.card.notes, cardVm.card.stages);"
+	 ng-include="view.get('cards/items/view.html')" onLoad="isCaseCard = true">
+</div>
+
+<h3>Additional Notes:</h3>
+<div class="panel-data cases-management--pref-card--additional-notes">{{cardVm.card.additional_note}}</div>
+
+<h3>Variable Cost:</h3>
+<div class="cases-management--pref-card--var-cost form-control">{{cardVm.card.var_cost | money}}</div>

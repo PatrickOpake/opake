@@ -1,0 +1,7 @@
+<div class="modal-body">
+	<errors src="orderVm.errors"></errors>
+	<email-form email="orderVm.mail" name="order_mail" class="order-form"></email-form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-success" ng-click="orderVm.sendMail()" ng-disabled="order_mail.$invalid || orderVm.sending">Send</button>
+</div>

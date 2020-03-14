@@ -1,0 +1,93 @@
+<div ng-if="patientVm.patient.id" ng-controller="CaseRegistrationListCrtl as listVm" ng-init="listVm.init(false, patientVm.patient.id);" class="case-registration-list">
+	<div ng-if="listVm.items.length" class="main-control">
+		<a href="" ng-click="listVm.downloadRecord()" ng-disabled="!listVm.toDownload.length" class="icon">
+			<i class="icon-circle-download" uib-tooltip="Download Record"></i>
+		</a>
+		<span ng-controller="PatientInvitationCrtl as inviteVm" ng-init="inviteVm.init(patientVm.patient)">
+			<span ng-if="inviteVm.isShowPortalButton() && inviteVm.isEnablePortalButton()">
+				<a href="" ng-if="permissions.hasAccess('patient-portal', 'send_login_email')" ng-click="inviteVm.openPatientPortalEmailWindow()" class="icon send-mail">
+					<i class="icon-send-mail" uib-tooltip="Email Patient Portal invite"></i>
+				</a>
+			</span>
+		</span>
+		<a class="btn btn-success" ng-hide="hideCreateBooking" href="/booking/{{ ::org_id }}/create#?patient={{ ::patientVm.patient.id }}">Create Booking</a>
+	</div>
+	<div ng-if="!listVm.items.length">
+		<span ng-controller="PatientInvitationCrtl as inviteVm" ng-init="inviteVm.init(patientVm.patient)">
+			<span ng-if="inviteVm.isShowPortalButton() && inviteVm.isEnablePortalButton()">
+				<a href="" ng-if="permissions.hasAccess('patient-portal', 'send_login_email')" ng-click="inviteVm.openPatientPortalEmailWindow()" class="icon send-mail">
+					<i class="icon-send-mail" uib-tooltip="Email Patient Portal invite"></i>
+				</a>
+			</span>
+		</span>
+	</div>
+	<table class="opake">
+		<thead sorter="listVm.search_params" callback="listVm.search()">
+		<tr>
+			<th>
+				<div class="checkbox">
+					<input id="print_all" type="checkbox" class="styled" ng-checked="listVm.selectAll" ng-click="listVm.addToDownloadAll()">
+					<label for="print_all"></label>
+				</div>
+			</th>
+			<th sort="acc_number" class="text-center">Account Number</th>
+			<th sort="dos" class="text-center">DOS</th>
+			<th sort="procedure" class="text-center">Procedure</th>
+			<th ng-if="permissions.hasAccess('registration', 'index')" sort="status" class="text-center">Registration</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="item in listVm.items" ng-if="listVm.items.length">
+			<td>
+				<div class="checkbox">
+					<input id="print_{{$index}}"
+						   type="checkbox"
+						   class="styled"
+						   ng-checked="listVm.isAddedToDownload(item)"
+						   ng-click="listVm.addToDownload(item)">
+					<label for="print_{{$index}}"></label>
+				</div>
+			</td>
+			<td class="text-center" >
+				<a ng-if="permissions.hasAccess('case_management', 'view')"
+				   href="/cases/{{ ::org_id }}/cm/{{ ::item.case.id }}"
+				   uib-tooltip="Click for Case Details">
+					{{ ::item.case.id }}
+				</a>
+				<span ng-if="!permissions.hasAccess('case_management', 'view')">{{ ::item.case.id }}</span>
+			</td>
+			<td class="text-center">
+				<a href="/cases/{{::org_id}}/#?date={{ ::item.case.time_start | date:'yyyy-MM-dd'}}"
+				   uib-tooltip="Click for Calendar View">
+					{{ ::item.case.time_start | date:'M/d/yyyy' }}
+				</a>
+			</td>
+			<td class="text-center">{{ ::item.case.type.full_name }}</td>
+			<td ng-if="permissions.hasAccess('registration', 'index')" class="text-center control">
+				<button ng-if="item.case.appointment_status != 1" ng-click="listVm.view(item.id)" class="btn" ng-class="{'btn-primary': item.status == 1, 'btn-success': item.status == 0, 'btn-link': item.status == 2}">
+					{{ ::caseRegistrationConst.STATUSES[item.status] }}
+				</button>
+				<a ng-if="item.case.appointment_status == 1" href="" ng-click="listVm.goToCancellationsList(item)" class="btn btn-link" 
+				   uib-tooltip="Click to Reschedule" tooltip-placement="top-right">Canceled</a>
+			</td>
+		</tr>
+		<tr ng-if="listVm.items && !listVm.items.length">
+			<td colspan="{{ ::permissions.hasAccess('registration', 'index') ? 5 : 4 }}">
+				<div class="no-encounters-message">
+					<span ng-if="!hideCreateBooking" class="text">No encounters currently scheduled, click "Create Booking" to create one.</span>
+					<span ng-if="hideCreateBooking" class="text">No encounters currently scheduled.</span>
+					<span class="group pull-right">
+						<a class="btn btn-success" ng-hide="hideCreateBooking" href="/booking/{{ ::org_id }}/create#?patient={{ ::patientVm.patient.id }}">Create Booking</a>
+						<a class="btn btn-danger" ng-show="showCancelButton" href="" ng-click="listVm.cancel()">Cancel</a>
+					</span>
+
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<pages count="listVm.total_count" page="listVm.search_params.p" limit="listVm.search_params.l" callback="listVm.search()"></pages>
+	<div class="waiting-layer ng-hide" ng-show="listVm.isDocumentsLoading">
+		<img class="spinner" src="/common/i/spinner.gif" alt="">
+	</div>
+</div>

@@ -1,0 +1,110 @@
+<div class="profile-page organization-info organization-profile organization-page">
+	<div class="block-panel">
+		<div class="heading-row clearfix">
+			<div class="headline-container">
+				<div class="headline-title">
+					Organization Details
+				</div>
+			</div>
+
+			<div class="controls">
+				<div class="buttons clearfix">
+					<a class='btn btn-success btn-shadow' href='' ng-if="profileVm.canEditOrganization" ng-click="profileVm.edit()">Edit Profile</a>
+				</div>
+				<div class="additional-info">
+					<span ng-if="profileVm.org.time_create">Date Created: {{profileVm.org.time_create}}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="details-panel">
+			<div class="data-row">
+				<label>Name:</label>
+				<div>{{profileVm.org.name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.federal_tax">
+				<label>Tax ID / EIN Number:</label>
+				<div>{{profileVm.org.federal_tax}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.npi">
+				<label>NPI:</label>
+				<div>{{profileVm.org.npi}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.nuance_org_id && profileVm.canEditNuanceOrgId">
+				<label>Nuance Org ID:</label>
+				<div>{{profileVm.org.nuance_org_id}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.address">
+				<label>Address:</label>
+				<div>{{profileVm.org.address}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.country">
+				<label>Country:</label>
+				<div>{{profileVm.org.country.name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.website">
+				<label>Web Site:</label>
+				<div><a href="{{profileVm.org.website}}">{{profileVm.org.website}}</a></div>
+			</div>
+			<div class="data-row"
+				 ng-if="profileVm.org.eligible_service_codes">
+				<label>Service Codes:</label>
+				<div>{{profileVm.org.eligible_service_codes}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.comment">
+				<label>Comments:</label>
+				<div>{{profileVm.org.comment}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.practice_groups">
+				<label>Associated Practices:</label>
+				<div>
+					<span ng-repeat="group in profileVm.org.practice_groups">
+						<span ng-if="!group.active">
+							<span class="inactive-practice-group">{{group.name}}*</span><span class="groups-sep" ng-if="!$last">,</span>
+						</span>
+						<span ng-if="group.active">
+							{{group.name}}<span class="groups-sep" ng-if="!$last">,</span>
+						</span>
+					</span>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="block-panel" ng-if="profileVm.org.contact_name || profileVm.org.contact_phone || profileVm.org.contact_email">
+		<div class="details-panel">
+			<div class="headline-title">
+				Administrator Info
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.contact_name">
+				<label>Name</label>
+				<div>{{profileVm.org.contact_name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.contact_phone">
+				<label>Phone</label>
+				<div>{{profileVm.org.contact_phone | phone}}</div>
+			</div>
+
+			<div class="data-row" ng-if="profileVm.org.contact_email">
+				<label>Email</label>
+				<div><a href="mailto:{{profileVm.org.contact_email}}">{{profileVm.org.contact_email}}</a></div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+

@@ -1,0 +1,37 @@
+body[state^='error'] {
+	background: url('/common/i/main.jpg') no-repeat center center fixed;
+	background-size: cover;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.error-box {
+	position: absolute;
+	width: 600px;
+	height: 150px;
+	z-index: 15;
+	top: 50%;
+	left: 50%;
+	margin: -75px 0 0 -300px;
+
+	text-align: center;
+	color: #ffffff;
+	font-size: 32px;
+
+	.logo {
+		display: inline-block;
+		margin-bottom: 20px;
+		color: #ffffff;
+
+		img {
+			vertical-align: middle;
+			display: inline-block;
+		}
+		.text {
+			display: inline-block;
+			font-weight: bold;
+			letter-spacing: 3px;
+			vertical-align: middle;
+			margin-left: 10px;
+		}
+	}
+}

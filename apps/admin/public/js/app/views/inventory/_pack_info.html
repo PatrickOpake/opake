@@ -1,0 +1,21 @@
+<div class="headline">Quantities and Location</div>
+<table class="opake quantities-location-table" ng-if="invVm.inventory.packs.length > 0">
+	<thead>
+		<tr>
+			<th>Quantity</th>
+			<th>Site</th>
+			<th>Room</th>
+			<th>Expiration Date</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in invVm.inventory.packs">
+			<td>{{ item.quantity }}</td>
+			<td>{{ item.location.site_name }}</td>
+			<td>{{ item.location.name }}</td>
+			<td>{{ item.exp_date | date:'M/d/yyyy' }}</td>
+		</tr>
+	</tbody>
+</table>
+<div class="panel-data" ng-if="invVm.inventory.packs.length === 0">No items found</div>
+

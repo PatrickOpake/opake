@@ -1,0 +1,93 @@
+<div class="open-op-reports-list">
+	<div class="top-icons">
+		<a ng-if="!listVm.showOverviewReportTable" href="" class="icon" ng-click="listVm.printAll()" ng-disabled="!listVm.toSelected.length">
+			<i class="icon-print-grey" uib-tooltip="Print"></i>
+		</a>
+		<a ng-if="!listVm.showOverviewReportTable" href="" class="icon" ng-click="listVm.archiveAll()" ng-disabled="!listVm.toSelected.length">
+			<i class="icon-archive" uib-tooltip="Archive"></i>
+		</a>
+		<div class="loading-wheel" ng-if="listVm.isShowLoading">
+			<div class="loading-spinner"></div>
+		</div>
+
+		<a ng-if="permissions.user.canGenerateReports()"  href="" class="icon generate-op-reports--button pull-right" ng-click="listVm.showGenerateReportTable()" >
+			<i uib-tooltip="Generate Operative Reports" tooltip-append-to-body="true" class="icon-add-op-report"></i>
+		</a>
+	</div>
+	<div ng-if="!listVm.showOverviewReportTable" show-loading-list="listVm.isShowLoading">
+		<table class="opake highlight-rows" ng-if="listVm.items.length">
+			<thead sorter="listVm.search_params" callback="listVm.search()">
+			<tr>
+				<th>
+					<div class="checkbox">
+						<input id="print_all" type="checkbox" class="styled" ng-checked="listVm.selectAll" ng-click="listVm.addToSelectedAll()">
+						<label for="print_all"></label>
+					</div>
+				</th>
+				<th sort="last_name" class="text-center">Last Name</th>
+				<th sort="first_name" class="text-center">First Name</th>
+				<th sort="mrn" class="text-center">MRN</th>
+				<th sort="dos" class="text-center">DOS</th>
+				<th sort="case_type" class="text-center">Procedure</th>
+				<th sort="date_created" class="text-center">Date Created</th>
+				<th class="text-center">Comments</th>
+				<th ng-if="permissions.user.isDoctor()"></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="item in listVm.items">
+				<td>
+					<div class="checkbox">
+						<input id="print_{{$index}}"
+							   type="checkbox"
+							   class="styled"
+							   ng-checked="listVm.isAddedToSelected(item)"
+							   ng-click="listVm.addToSelected(item)">
+						<label for="print_{{$index}}"></label>
+					</div>
+				</td>
+				<td class="text-center" ng-click="listVm.view(item)">
+					<a ng-if="!permissions.user.isDoctor()" href="" ng-click="listVm.view(item)">{{ ::item.patient.last_name }}</a>
+					<span ng-if="permissions.user.isDoctor()">{{ ::item.patient.last_name }}</span>
+				</td>
+				<td class="text-center" ng-click="listVm.view(item)">
+					<a ng-if="!permissions.user.isDoctor()" href="" ng-click="listVm.view(item)">{{ ::item.patient.first_name }}</a>
+					<span ng-if="permissions.user.isDoctor()">{{ ::item.patient.first_name }}</span>
+				</td>
+				<td ng-click="listVm.view(item)" class="mrn">{{ ::item.patient.mrn }}</td>
+				<td class="text-center" ng-click="listVm.view(item)">
+					<a ng-if="!permissions.user.isDoctor()" href="" ng-click="listVm.view(item)">{{ ::item.case.time_start | date:'M/d/yyyy' }}</a>
+					<span ng-if="permissions.user.isDoctor()">{{ ::item.case.time_start | date:'M/d/yyyy' }}</span>
+				</td>
+				<td class="text-center" ng-click="listVm.view(item)">
+					<a ng-if="!permissions.user.isDoctor()" href="" ng-click="listVm.view(item)">{{ ::item.case.type_full_name}}</a>
+					<span ng-if="permissions.user.isDoctor()">{{ ::item.case.type_full_name}}</span>
+				</td>
+				<td ng-click="listVm.view(item)">{{ ::item.time_start | date:'M/d/yyyy' }}</td>
+				<td class="text-center case-notes" ng-controller="ReportNoteCrtl as noteVm">
+					<a class="add-note-link" href="" ng-click="noteVm.openNotesDialog(item.id)">
+						<i class="icon-note"></i>
+						<span class="badge" ng-if="noteVm.reportNotes.getNotesCount(item)"
+							  ng-class="{'blue': noteVm.reportNotes.hasUnreadNotes[item.id]}">
+							{{ noteVm.reportNotes.getNotesCount(item) }}
+						</span>
+					</a>
+				</td>
+				<td class="text-center control">
+					<button ng-click="listVm.view(item)" class="btn" ng-class="{'btn-success': item.status == 1, 'btn-primary': item.status == 2}"
+							ng-show="permissions.user.is_internal ||  permissions.hasAccess('operative_reports', 'edit', item)">
+						{{ ::operativeReportConst.STATUSES_NAME[item.status] }}
+					</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<pages count="listVm.total_count" page="listVm.search_params.p" limit="listVm.search_params.l" callback="listVm.search()"></pages>
+	</div>
+
+	<ng-include ng-if="listVm.showOverviewReportTable" src="view.get('/operative-report/my/overview.html')"></ng-include>
+
+	<div class="waiting-layer ng-hide" ng-show="listVm.isDocumentsLoading">
+		<img class="spinner" src="/common/i/spinner.gif" alt="">
+	</div>
+</div>

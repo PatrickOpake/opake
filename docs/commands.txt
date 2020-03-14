@@ -1,0 +1,15 @@
+Composer:
+
+php composer.phar update - update dependencies and the file composer.lock
+php composer.phar install - just install dependencies
+
+Phinx (migration):
+
+php vendor/bin/phinx create MigrationName - generate a new migration file
+php vendor/bin/phinx migrate - applying the migrations
+
+Codeception (tests):
+
+php vendor/bin/codecept generate:cest suitename CestName - genereate a new test suite
+php vendor/bin/codecept run - running the tests
+php vendor/bin/codecept run -vvv - running the tests (verbose output)

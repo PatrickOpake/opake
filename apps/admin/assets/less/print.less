@@ -1,0 +1,305 @@
+@media screen {
+	#printSection {
+		display: none;
+	}
+
+	#patientLabels, #patientLabelsPrintSection {
+		display: none;
+	}
+
+	#preferenceCardPrint, #prefCardPrintSection {
+		display: none;
+	}
+
+	#overviewPrint, #overviewPrintSection {
+		display: none;
+	}
+
+	#canceledCasesPrint, #canceledCasesPrintSection {
+		display: none;
+	}
+}
+
+@media print {
+	@page {
+		margin: 0;
+	}
+
+	* {
+		margin: 0;
+		padding: 0
+	}
+
+	html, body {
+		height: auto;
+	}
+
+	body.hidden-print-body {
+
+		.site-header,
+		.site-footer,
+		.site-body {
+			display: none;
+		}
+
+	}
+
+	a[href]:after {
+		content: none !important;
+	}
+
+	// Calendar print
+	body.calendar-body {
+		width: 297mm;
+		height: 210mm;
+	}
+
+	.cases-calendar {
+		padding-top: 30px !important;
+
+		.fc-event.case {
+			-webkit-print-color-adjust: exact !important;
+		}
+
+		.fc-event.block {
+			display: none;
+			/*background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent) !important;
+			background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent) !important;
+			background-image: -o-linear-gradient(135deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent) !important;
+			background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent) !important;
+			background-size: 30px 30px !important;
+			-webkit-print-color-adjust: exact !important;*/
+		}
+
+	}
+
+	#printSection {
+		display: block;
+		zoom: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+
+		.case-calendar--print-header {
+			padding: 5px 10px;
+			position: absolute;
+			right: 0;
+		}
+	}
+
+	// Patient labels print section
+	body.patient-labels-body {
+		width: 8.5in;
+		height: 11in;
+	}
+
+	#patientLabelsPrintSection {
+		display: block;
+		position: absolute;
+		left: 0.1875in;
+		top: 0.5in;
+
+		table.patient-labels {
+			font-family: Arial, sans-serif;
+			font-size: 8pt;
+			text-transform: uppercase;
+			width: 100%;
+			height: 100%;
+			border-spacing: 0;
+			td {
+				width: 2.75in;
+				height: 1in;
+				border: none;
+				padding: 0 0.125in 0 0.08in;
+				vertical-align: top;
+				div.patient {
+					.patient-name {
+						font-weight: bold;
+					}
+				}
+			}
+			td:last-child {
+				padding: 0 0 0 0.08in;
+			}
+		}
+	}
+
+	// Preference card print section
+	#prefCardPrintSection {
+		font-size: 14px;
+		.title {
+			padding-bottom: 12px;
+			font-size: 22px;
+			font-weight: bold;
+			color: #999 !important;
+		}
+		.subtitle {
+			padding-bottom: 8px;
+			&.checklist-title {
+				padding-top: 15px;
+			}
+			&.items-title {
+				padding-top: 15px;
+			}
+			span {
+				font-weight: bold;
+				text-decoration: underline;
+			}
+		}
+		.item-type {
+			font-weight: bold;
+			padding: 7px 0 5px 45px;
+		}
+
+		table.checklist {
+			tr {
+				td {
+					padding: 10px;
+				}
+				td.square-td {
+					width: 30px;
+					vertical-align: middle;
+					.square {
+						width: 15px;
+						height: 15px;
+						border: 1px solid #000;
+					}
+				}
+			}
+		}
+
+		table.items {
+			tr {
+				td, th {
+					padding: 10px;
+				}
+				th {
+					font-weight: normal;
+					text-decoration: underline;
+				}
+				td.square-td {
+					width: 5%;
+					vertical-align: middle;
+					.square {
+						width: 15px;
+						height: 15px;
+						border: 1px solid #000;
+					}
+				}
+				td.name {
+					width: 40%;
+				}
+				td.description {
+					width: 45%;
+				}
+				td.quantity {
+					width: 10%;
+				}
+			}
+		}
+	}
+
+	// Overview print section
+	#overviewPrintSection {
+		.overview-header {
+			margin-bottom: 20px;
+			font-size: 8pt;
+			.opake-logo {
+				float: left;
+				width: 200px;
+			}
+			.org-name {
+				text-align: right;
+				float: right;
+				width: 500px;
+			}
+		}
+		.overview-print-table {
+			.surgeon-header {
+				padding: 3px;
+				font-size: 8pt;
+				text-transform: uppercase;
+				background-color: #e6e6e6 !important;
+				-webkit-print-color-adjust: exact;
+				border: 1px solid #333;
+			}
+			.bold-text {
+				font-weight: bold;
+			}
+			.italicized-text {
+				font-style: italic;
+			}
+			table {
+				width: 100%;
+				tr {
+					border-top: 1px solid #e6e6e6;
+					&:last-child {
+						border-bottom: 1px solid #e6e6e6;
+					}
+					&.case-notes {
+						border-top: none;
+						.case-notes-list {
+							font-style: italic;
+						}
+						td {
+							padding: 0 5px;
+						}
+					}
+					td:first-child, th:first-child {
+						border-left: 1px solid #e6e6e6;
+					}
+					td:last-child, th:last-child {
+						border-right: 1px solid #e6e6e6;
+					}
+				}
+				th {
+					text-transform: uppercase;
+					padding: 3px 5px;
+					font-size: 8pt;
+				}
+				td {
+					padding: 3px 5px;
+					font-size: 8pt;
+					vertical-align: top;
+				}
+				td.case-patient {
+					width: 20%;
+				}
+				td.case-room {
+					width: 15%;
+				}
+				td.case-surgeon {
+					width: 15%;
+				}
+				td.case-time--day-view {
+					width: 19%;
+				}
+				td.case-time--week-view {
+					width: 27%;
+				}
+				td.case-procedure--day-view {
+					width: 46%;
+				}
+				td.case-procedure--week-view {
+					width: 38%;
+				}
+				tr.text-grey-italic {
+					background: url('/i/bg-for-cross-out-line.jpg') center repeat-x !important;
+					-webkit-print-color-adjust: exact;
+					color: #909090;
+					font-style: italic;
+					a {
+						color: #909090;
+					}
+				}
+			}
+		}
+	}
+
+	// Canceled cases print section
+	#canceledCasesPrintSection {
+		.italic-text {
+			font-style: italic;
+		}
+	}
+}

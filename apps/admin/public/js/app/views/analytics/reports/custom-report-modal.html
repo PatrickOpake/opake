@@ -1,0 +1,22 @@
+<div class="analytics-custom-report--modal">
+	<div class="modal-header">
+		<h4 class="modal-title">Save as New Report Type</h4>
+		<a href="" ng-click="modalVm.cancel()" class="close-button"><i class="glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="modal-body form-group" ng-form name="CustomReportForm">
+		<div class="custom-reports--data-row" ng-class="{'has-error': modalVm.errors.length}">
+			<div class="data-row">
+				<input ng-keyup="modalVm.reportInputKeyDown($event)" ng-required="true" type="text" class="form-control"
+					   ng-model="modalVm.custom_report_type_name" placeholder="Type here to enter a report type name"
+					   maxlength="30">
+			</div>
+		</div>
+	</div>
+	<div class="modal-errors">
+		<errors src="modalVm.errors"></errors>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-grey" ng-click="modalVm.cancel()">Cancel</button>
+		<button class="btn btn-primary" ng-class="{'disabled': modalVm.errors.length}" ng-click="modalVm.saveCustomReport()">Save</button>
+	</div>
+</div>

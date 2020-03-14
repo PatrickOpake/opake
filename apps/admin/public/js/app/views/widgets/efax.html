@@ -1,0 +1,20 @@
+<div ng-show="widgetVm.isShowWidget">
+	<div class="efax-widget" ng-if="widgetVm.isInitialized">
+			<div class="tabs">
+				<div class="tab" ng-class="{'active': widgetVm.activeTab === 'inbox'}" ng-click="widgetVm.setActiveTab('inbox')">
+					<div class="tab-box">
+					</div>
+					<span class="text">Inbox <span class="unread-count" ng-if="widgetVm.totalUnreadCount > 0">({{widgetVm.totalUnreadCount}})</span></span>
+				</div>
+				<div class="tab" ng-class="{'active': widgetVm.activeTab === 'sent'}" ng-click="widgetVm.setActiveTab('sent')">
+					<div class="tab-box">
+					</div>
+					<span class="text">Sent</span>
+				</div>
+			</div>
+			<div class="content">
+				<ng-include src="view.get('widgets/efax/inbox.html')" ng-if="widgetVm.activeTab === 'inbox'"></ng-include>
+				<ng-include src="view.get('widgets/efax/sent.html')" ng-if="widgetVm.activeTab === 'sent'"></ng-include>
+			</div>
+	</div>
+</div>

@@ -1,0 +1,49 @@
+<div class="opk-table">
+	<div class="headline">Quantities and Location</div>
+	<table class="opake quantities-location-table" ng-if="invVm.inventory.packs.length > 0">
+		<thead>
+		<tr>
+			<th class="width-20">Quantity</th>
+			<th class="width-20">Site</th>
+			<th class="width-20">Room</th>
+			<th class="width-20">Expiration Date</th>
+			<th class="width-20">Actions</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="pack in invVm.inventory.packs">
+			<td>
+				<input type="text" valid-number class="form-control" ng-model="pack.quantity" />
+			</td>
+			<td>
+				<opk-select select-options="{appendToBody: true}" ng-model="pack.site" options="site.name for site in source.getSites() track by site.id"></opk-select>
+			</td>
+			<td>
+				<opk-select select-options="{appendToBody: true}" ng-model="pack.location" change="invVm.locationChange(pack)" options="location.name for location in source.getStorage() | filter:{site_id: pack.site.id}"></opk-select>
+			</td>
+			<td>
+				<date-field ng-model="pack.exp_date" icon="true"></date-field>
+			</td>
+			<td class="actions">
+				<a href="" class="remove" ng-click="invVm.removePack(pack, 'inventory/packs/delete.html')"><i class="icon-remove"></i>Remove</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<div class="panel-data" ng-if="invVm.inventory.packs.length === 0">No items found</div>
+
+	<a class="btn btn-success" ng-click="invVm.addPack(invVm.getPackMaster())"><i class="glyphicon glyphicon-plus"></i> Add Qty</a>
+
+	<script type="text/ng-template" id="inventory/packs/delete.html">
+		<div class="modal-header">
+			<h4 class="modal-title">Alert!</h4>
+		</div>
+		<div class="modal-body">
+			<h4>Are you sure you want to delete this item ?</h4>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" ng-click="ok()">Yes</button>
+			<button class="btn btn-primary" ng-click="cancel()" type="button">No</button>
+		</div>
+	</script>
+</div>

@@ -1,0 +1,353 @@
+.coding-header {
+	position: relative;
+	margin-top: 25px;
+
+	label {
+		width: 120px;
+		color: #909090;
+	}
+}
+
+.coding-header--title {
+	text-transform: uppercase;
+	background-color: #fbfbfb;
+	color: #333;
+	border-bottom: 1px solid #e6e6e6;
+	font-size: 14px;
+	padding: 7px;
+}
+
+.coding-body {
+	&:extend(.content-block);
+
+	.headline {
+		color: #666;
+		clear: both;
+	}
+
+	table {
+		td, th {
+			padding: 5px;
+			border: 1px solid #e6e6e6;
+		}
+	}
+
+	.buttons {
+		margin-top: 10px;
+		text-align: right;
+	}
+}
+
+.coding-insurances {
+	.headline {
+		margin-bottom: 15px;
+	}
+	label {
+		color: #666;
+		font-weight: normal !important;
+	}
+	.row {
+		margin-bottom: 10px;
+	}
+	.show-insurance-info {
+		margin-left: 0;
+		margin-right: 0;
+		.text {
+			width: 230px;
+			span {
+				color: #00a1cf;
+				cursor: pointer;
+				i {
+					margin-right: 5px;
+					position: relative;
+					top: 2px;
+				}
+			}
+		}
+		.line {
+			margin-top: 12px;
+			border-top: 1px solid #ddd;
+		}
+	}
+}
+
+.coding-code-inputs {
+	margin-bottom: 10px;
+	.data-row {
+		margin-bottom: 10px;
+		label {
+			color: #666;
+			vertical-align: middle;
+			width: 180px;
+		}
+	}
+	.coding-occurrences {
+		margin-top: 15px;
+		margin-left: 0;
+		margin-right: 0;
+		.col-sm-3 {
+			padding-right: 5px;
+			padding-left: 5px;
+		}
+		table {
+			width: 100%;
+			td {
+				&.code {
+					width: 40%;
+					.opk-select {
+						.select-search {
+							min-height: 34px;
+						}
+						.select-dropdown {
+							width: 500px;
+						}
+					}
+				}
+				&.date {
+					width: 60%;
+				}
+			}
+		}
+	}
+}
+
+.coding-diagnosis {
+	display: table;
+	width: 100%;
+
+	table {
+		width: 48%;
+		float: left;
+		td {
+			&.code {
+				width: 40%;
+				.opk-select {
+					.select-dropdown {
+						width: 500px;
+					}
+				}
+			}
+		}
+
+		&:last-child {
+			float: right;
+		}
+	}
+}
+
+.coding-billing-form {
+	margin-bottom: 10px;
+	display: table;
+	width: 100%;
+
+	> .row {
+		margin-bottom: 10px;
+	}
+	label {
+		color: #666;
+		width: 100px;
+	}
+	.lab-services-label {
+		width: 100%;
+		margin-top: 10px;
+	}
+	.ref-number-label {
+		width: 135px;
+	}
+}
+
+.coding-billing {
+	table {
+		width: 100%;
+		margin-bottom: 10px;
+
+	  	.quantity-column {
+		  width: 80px;
+		}
+
+	  	.modifier-column {
+		  width: 120px;
+		}
+
+	  	.hcpcs-column {
+		  width: 30%;
+		}
+
+	  	.revenue-code-column {
+		  width: 120px;
+		}
+
+		.diagnosis-column {
+		  width: 200px;
+		}
+
+	}
+	.handle {
+		cursor: pointer;
+	}
+}
+
+// Old
+.coding-procedures--table {
+	width: 100%;
+
+	th, td {
+		border: 1px solid #e6e6e6;
+	}
+	td {
+		padding: 5px;
+	}
+	th {
+		padding-top: 16px;
+	}
+	th.code {
+		width: 180px;
+	}
+	th.date {
+		width: 150px;
+	}
+	th.type {
+		width: 120px;
+	}
+	td[rowspan] {
+		background: #fff;
+	}
+	tr.active {
+		background: @blue;
+		color: #fff;
+		a {
+			color: #fff;
+			border-color: #fff;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	tr td:last-child button {
+		text-transform: capitalize;
+		margin: -5px;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
+	i {
+		cursor: pointer;
+		color: #8e8e8e;
+	}
+	a {
+		text-decoration: underline;
+	}
+	.even, .even td[rowspan] {
+		background: #f2f2f2;
+	}
+	.editable {
+		text-decoration: none;
+	}
+	.editable-input {
+		padding: 0;
+		max-width: 120px;
+	}
+	.search-code {
+		padding-bottom: 10px;
+	}
+}
+
+.coding-provider {
+	label {
+		width: 180px;
+		color: #666;
+		font-weight: normal !important;
+	}
+}
+
+.coding-claim-block {
+  position: relative;
+  margin-top: 20px;
+  background-color: #FFFFFF;
+  padding: 10px;
+  min-height: 80px;
+
+  .headline {
+	color: #666;
+	clear: both;
+	height: 30px;
+  }
+
+  .status-fields {
+	margin-top: 15px;
+	margin-bottom: 15px;
+
+	.title {
+	  font-weight: bold;
+	}
+
+	> div {
+	  margin-top: 5px;
+	  margin-bottom: 5px;
+	}
+  }
+
+  .buttons {
+	position: absolute;
+	right: 15px;
+	top: 20px;
+  }
+
+  .alert {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-right: 5px;
+  }
+
+  .claim-status-detail-table {
+	margin-top: 5px;
+  }
+
+  .claim-type-title {
+	color: #666;
+	clear: both;
+	height: 26px;
+	font-weight: bold;
+	font-size: 16px;
+  }
+
+  .active-claim {
+	margin-top: 10px;
+	margin-bottom: 10px;
+  }
+
+}
+
+.coding--assign-to-insurance-order {
+	margin-top: 10px;
+	label {
+		width: 170px;
+		color: #666;
+		&.insurance-order-label {
+			width: 100%;
+			margin-top: 10px;
+		}
+	}
+}
+
+.coding-claim--send-block {
+	.checkbox {
+		display: inline-block;
+		margin-right: 20px;
+		label {
+			color: #666;
+		}
+	}
+	b.or {
+		margin: 0 15px;
+	}
+}
+
+.has-error {
+  oi-select {
+	.select-search {
+	  border-color: red;
+	}
+  }
+}

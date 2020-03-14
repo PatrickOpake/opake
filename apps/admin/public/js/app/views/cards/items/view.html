@@ -1,0 +1,74 @@
+<h3>Instructions / Notes:</h3>
+<div class="preference-cards--items">
+	<table class='opake pref-card-notes'>
+		<tbody>
+		<tr ng-repeat="note in itemsVm.notes">
+			<td class="pre-wrap note-name name">{{note.name}}:</td>
+			<td class="pre-wrap text">{{note.text}}</td>
+		</tr>
+		</tbody>
+	</table>
+	<h4 ng-if="itemsVm.notes.length === 0">No items found</h4>
+</div>
+
+<h3>Items:</h3>
+<div class="preference-cards--items">
+	<div dnd-list="itemsVm.stagesWithItems"
+		 dnd-allowed-types="['stages']">
+		<div ng-repeat="stageWithItems in itemsVm.stagesWithItems"
+			 dnd-draggable="stageWithItems"
+			 dnd-moved="itemsVm.stagesWithItems.splice($index, 1);"
+			 dnd-effect-allowed="move"
+			 dnd-dragend="cardVm.stagesChanged(itemsVm.stagesWithItems, true)"
+			 dnd-type="'stages'">
+			<div class="stage-header row">
+				<div class="col-sm-11">
+					<span>{{ stageWithItems.stage.name }}</span>
+				</div>
+				<div class="col-sm-1">
+					<div class="handle"><i class="icon-drag-n-drop"></i></div>
+				</div>
+			</div>
+			<table class='opake pref-card-items'>
+				<thead>
+				<tr>
+					<th class="number view-mode">Item #</th>
+					<th class="name view-mode">Item Name</th>
+					<th class="manufacturer">Manufacturer</th>
+					<th class="description view-mode">Description</th>
+					<th class="default-qty">Default Qty</th>
+					<th class="uom">Unit of Measure</th>
+					<th class="actual-use">Actual Use</th>
+					<th class="actions view-mode"></th>
+				</tr>
+				</thead>
+			</table>
+			<div class="pref-card-items" dnd-list="stageWithItems.items"
+				   dnd-allowed-types="itemsVm.stagesIds">
+				<div class="row" ng-repeat="item in stageWithItems.items"
+					uib-tooltip-html="itemsVm.getPriceTooltipStr(item.inventory)"
+					dnd-draggable="item"
+					dnd-moved="stageWithItems.items.splice($index, 1);"
+					dnd-effect-allowed="move"
+					dnd-dragend="cardVm.itemsPositionsChanged(itemsVm.stagesWithItems, true)"
+					dnd-type="item.stage_id">
+					<div class="col-sm-2 number view-mode">
+						<span ng-if="itemsVm.itemHasInventory(item)">{{item.inventory.number}}</span>
+					</div>
+					<div ng-if="itemsVm.itemHasInventory(item)" class="col-sm-2 name view-mode" ng-if="itemsVm.itemHasInventory(item)">{{item.inventory.name}}</div>
+					<div ng-if="itemsVm.itemHasInventory(item)" class="col-sm-2 manufacturer" ng-if="itemsVm.itemHasInventory(item)">{{item.inventory.manufacturer}}</div>
+					<div ng-if="itemsVm.itemHasInventory(item)" class="col-sm-2 description view-mode" ng-if="itemsVm.itemHasInventory(item)">{{item.inventory.desc}}</div>
+					<div ng-if="!itemsVm.itemHasInventory(item)" class="col-sm-6 no-inventory view-mode">Item number does not exist</div>
+
+					<div class="col-sm-1 default-qty">{{item.default_qty ? item.default_qty : '' }}</div>
+					<div class="col-sm-1 uom">{{item.inventory.uom}}</div>
+					<div class="col-sm-1 actual-use"><span ng-if="isCaseCard">{{item.actual_use ? item.actual_use : '' }}</span></div>
+					<div class="col-sm-1 actions view-mode" ng-if="!item.edit_mode">
+						<a class="handle"><i class="icon-drag-n-drop"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<h4 ng-if="itemsVm.items.length === 0">No items found</h4>
+</div>

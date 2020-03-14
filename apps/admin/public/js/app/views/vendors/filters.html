@@ -1,0 +1,18 @@
+<filters-panel ctrl="listVm" ng-if="org_id">
+	<div class="data-row">
+		<label>Keyword</label>
+		<input type="text" ng-model="listVm.search_params.name" class="form-control input-sm" placeholder='Type' />
+	</div>
+	<div class="data-row">
+		<label>Vendor Type</label>
+		<div class='input-group'>
+			<opk-select ng-model="listVm.search_params.type" class="small" key-value-options="vendorConst.TYPES"></opk-select>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Vendor ID</label>
+		<div class='input-group'>
+			<input type='text' ng-model="listVm.search_params.vend_id" valid-number class='form-control input-sm' placeholder='Type' />
+		</div>
+	</div>
+</filters-panel>

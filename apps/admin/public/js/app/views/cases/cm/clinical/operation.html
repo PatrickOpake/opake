@@ -1,0 +1,20 @@
+<div ng-controller="CaseOperationCrtl as opVm" ng-init="opVm.init(cmVm.case)">
+	<div class="card-management--phases-control">
+		<div class="buttons">
+			<button ng-if="!opVm.case.time_start_in_fact" ng-click="opVm.start()" class="btn btn-success">Start Case</button>
+			<button ng-if="opVm.case.time_start_in_fact && !opVm.case.time_end_in_fact" ng-if="" ng-click="opVm.end()" class="btn btn-success">End Case</button>
+			<button ng-if="!mgmt.isCompleted(tab.key) && opVm.case.time_end_in_fact" ng-click="cmVm.next()" class="btn btn-success">Finish</button>
+			<button ng-if="mgmt.isCompleted(tab.key)" ng-click="mgmt.uncomplete(tab.key)" class="btn btn-success">Edit</button>
+		</div>
+	</div>
+
+	<script type="text/ng-template" id="case/cm/clinical/operation_confirm.html">
+		<div class="modal-body">
+			<h4>You are ending the case. Do you acknowledge that you have checked all notes and items, and that all reported quantities are correct?</h4>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" ng-click="ok()">Yes Complete Case</button>
+			<button class="btn btn-primary" ng-click="cancel()" type="button">No I need to review</button>
+		</div>
+	</script>
+</div>

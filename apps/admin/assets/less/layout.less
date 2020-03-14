@@ -1,0 +1,75 @@
+.messaging-header {
+	position: relative;
+	float: left;
+	margin: -4px 24px 0 0;
+
+	.icon-messaging {
+		cursor: pointer;
+	}
+	.messages-badge {
+		position: absolute;
+		top: 2px;
+		right: -18px;
+	}
+}
+
+.calculator-header {
+	position: relative;
+	float: left;
+	margin: -4px 24px 0 0;
+	i {
+		cursor: pointer;
+	}
+}
+
+.top-menu-group {
+	min-height: 43px;
+}
+.top-menu {
+	li {
+		width: 11.8%;
+		display: inline-block;
+		margin-left: 2px;
+		margin-right: 2px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
+
+.modal-open--scrolling-under-modal {
+	overflow-y: auto;
+	padding-right: 0 !important;
+	.modal {
+		overflow-y: hidden;
+		.modal-dialog {
+			margin-top: 50px !important;
+		}
+	}
+}
+
+body.waiting-room {
+	.inner-grid.desktop left-menu {
+		display: none;
+		width: 0;
+	}
+	.cases-calendar .fc-toolbar .fc-today-button {
+		display: none;
+	}
+  	.site-header {
+	  display: none;
+	}
+  	.site-footer {
+	  display: none;
+	}
+  	.top-menu-group {
+	  display: none;
+	}
+  	.cases-calendar-main {
+	  margin-top: 15px;
+	}
+}
+
+
+.alert.alert-top-flash {
+  margin-top: 20px;
+}

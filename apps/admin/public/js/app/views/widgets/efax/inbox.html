@@ -1,0 +1,90 @@
+<div class="inbound-faxes" ng-controller="EfaxInboundList as listVm" ng-init="listVm.init()">
+	<div class="window-controls">
+		<a href="" ng-show="!widgetVm.isContentCollapsed" ng-click="widgetVm.collapseContent()"><i class="glyphicon glyphicon glyphicon-collapse-up"></i></a>
+		<a href="" ng-show="widgetVm.isContentCollapsed" ng-click="widgetVm.expandContent()"><i class="glyphicon glyphicon glyphicon-collapse-down"></i></a>
+		<a href="" ng-click="widgetVm.toggleShowWidget()"><i class="glyphicon glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="window-content" ng-show="!widgetVm.isContentCollapsed">
+		<div class="control-buttons">
+			<div class="filters">
+				<div class="btn-group table-items-selection" uib-dropdown is-open="listVm.isItemsSelectionOpened">
+					<button id="table-items-selection" type="button" class="btn btn-link" uib-dropdown-toggle>
+				<span class="checkbox" ng-class="{indeterminate: !listVm.selectAll && listVm.toSelected.length > 0}">
+					<input id="select-all-filter" type="checkbox" class="styled" ng-checked="listVm.selectAll">
+					<label for="select-all-filter"></label>
+				</span><span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="table-items-selection">
+						<li role="menuitem"><a href="" ng-click="listVm.selectAllFaxes()">All</a></li>
+						<li role="menuitem"><a href="" ng-click="listVm.selectNoneFaxes()">None</a></li>
+						<li role="menuitem"><a href="" ng-click="listVm.selectReadFaxes()">Read</a></li>
+						<li role="menuitem"><a href="" ng-click="listVm.selectUnreadFaxes()">Unread</a></li>
+					</ul>
+				</div>
+				<div class="btn-group filter-selection" uib-dropdown is-open="listVm.isFilterOpened">
+					<button id="filter-selection" type="button" class="btn btn-link" uib-dropdown-toggle>
+						<span class="icon-filter-static"></span><span>{{listVm.currentSelectedFilterName}}</span><span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="filter-selection">
+						<li role="menuitem"><a href="" ng-click="listVm.resetFilters()">Reset</a></li>
+						<li role="menuitem"><a href="" ng-click="listVm.filterReadOnly()">Display Read Only</a></li>
+						<li role="menuitem"><a href="" ng-click="listVm.filterUnreadOnly()">Display Unread Only</a></li>
+						<li class="divider"></li>
+						<li role="menuitem" ng-repeat="site in listVm.sites"><a href="" ng-click="listVm.filterSite(site)">{{::site.name}}</a></li>
+					</ul>
+				</div>
+
+				<button class="btn btn-primary" ng-show="listVm.toSelected.length" ng-click="listVm.markAsUnreadSelected()">Mark as unread</button>
+				<a href="" class="icon" ng-click="listVm.downloadSelected()" ng-show="listVm.toSelected.length"><span class="icon-circle-download"></span></a>
+				<a href="" class="icon" ng-click="listVm.printSelected()" ng-show="listVm.toSelected.length"><span class="icon-circle-print"></span></a>
+
+				<div class="loading-wheel" ng-if="listVm.isShowLoading">
+					<div class="loading-spinner"></div>
+				</div>
+
+				<div class="pagination" ng-show="listVm.totalPages > 1">
+					<a href="" class="prev-link" ng-class="{'no-more-items': !listVm.hasPrevPage()}" ng-click="listVm.prevPage()" ><i class="glyphicon glyphicon-chevron-left"></i></a>
+					<span class="page-number">Page {{listVm.currentPage}}</span>
+					<a href="" class="next-link" ng-class="{'no-more-items': !listVm.hasNextPage()}" ng-click="listVm.nextPage  ()" ><i class="glyphicon glyphicon-chevron-right"></i></a>
+				</div>
+
+			</div>
+		</div>
+		<div class="inbound-faxes">
+			<div show-loading-list="listVm.isShowLoading && listVm.isInitLoading">
+				<table class="opake table-striped" ng-if="listVm.items.length">
+					<thead>
+					<tr>
+						<th></th>
+						<th>Preview</th>
+						<th>From</th>
+						<th>Received Date</th>
+						<th>Site</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="item in listVm.items" ng-class="{'not-read': !item.is_read, 'selected': listVm.isAddedToSelected(item)}">
+						<td>
+							<div>
+								<div class="checkbox">
+									<input id="print_{{$index}}"
+									       type="checkbox"
+									       class="styled"
+									       ng-checked="listVm.isAddedToSelected(item)"
+									       ng-click="listVm.addToSelected(item)">
+									<label for="print_{{$index}}"></label>
+								</div>
+							</div>
+						</td>
+						<td ng-click="listVm.preview(item)"><span class="icon-pdf"></span></td>
+						<td ng-click="listVm.preview(item)">{{ ::item.from_fax }}</td>
+						<td ng-click="listVm.preview(item)">{{ ::item.received_date }}</td>
+						<td ng-click="listVm.preview(item)">{{ ::item.site_name }}</td>
+					</tr>
+					</tbody>
+				</table>
+				<h4 ng-if="listVm.items && !listVm.items.length" class="has-no-faxes">No inbound faxes</h4>
+			</div>
+		</div>
+	</div>
+</div>

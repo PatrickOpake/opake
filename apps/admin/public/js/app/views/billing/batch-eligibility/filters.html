@@ -1,0 +1,35 @@
+<div class="booking-filter">
+	<div class="filters-panel" ng-form name="filterBatchEligibility">
+		<div class="filters-panel--content">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="date-range data-row">
+						<label>DOS from</label>
+						<date-field ng-required="true" ng-model="batchVm.search_params.dos_from" icon="true"></date-field>
+						<label class="to">to</label>
+						<date-field ng-required="true" ng-model="batchVm.search_params.dos_to" icon="true"></date-field>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="data-row">
+						<label>Site</label>
+						<opk-select ng-required="true" ng-model="batchVm.search_params.site" options="item.name as item.name for item in source.getSites()"></opk-select>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="data-row">
+						<label>Provider</label>
+						<opk-select class="multiple" ng-model="batchVm.search_params.user"
+									options="surgeon.id as surgeon.fullname for surgeon in source.getSurgeons()" multiple></opk-select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="filters-panel--actions">
+			<a href="" ng-click="batchVm.createBatch()" class="btn btn-success ng-binding" ng-disabled="filterBatchEligibility.$invalid">Create Batch</a>
+			<a href="" ng-click="batchVm.clear()" class="reset">clear</a>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,56 @@
+<div ng-if="listVm.isCaseSearchEnable()">
+	<div ng-if="listVm.items.length">
+		<div class="top-icons">
+			<a href="" class="btn btn-success" ng-click="listVm.searchInventories()">
+				Generate Summary
+			</a>
+		</div>
+		<table class="opake top-buffer">
+			<thead sorter="listVm.search_params" callback="listVm.search()">
+			<tr>
+				<th>
+					<div class="checkbox">
+						<input id="print_all" type="checkbox" class="styled" ng-checked="listVm.selectAll" ng-click="listVm.addToSelectedAll()">
+						<label for="print_all"></label>
+					</div>
+				</th>
+				<th class="case-dos">DOS</th>
+				<th class="case-physician">Physician</th>
+				<th class="case-time">Patient Name</th>
+				<th class="case-procedure">Procedure</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="case in listVm.items">
+				<td>
+					<div class="checkbox">
+						<input id="print_{{$index}}"
+							   type="checkbox"
+							   class="styled"
+							   ng-checked="listVm.isAddedToSelected(case)"
+							   ng-click="listVm.addToSelected(case)">
+						<label for="print_{{$index}}"></label>
+					</div>
+				</td>
+				<td class="case-dos">
+					{{ ::case.time_start | date:'M/d/yyyy' }}
+				</td>
+				<td class="case-physician">
+					{{ ::case.first_surgeon_for_dashboard }}
+				</td>
+				<td class="case-patient">
+					<span>{{ ::case.patient.last_name }}, {{ ::case.patient.first_name }}</span>
+				</td>
+				<td class="case-procedure">
+					<span>{{ ::case.type.full_name  }}</span>
+				</td>
+
+			</tr>
+			</tbody>
+		</table>
+		<pages count="listVm.total_count" page="listVm.search_params.p" limit="listVm.search_params.l"
+			   callback="listVm.search()"></pages>
+	</div>
+	<h4 ng-if="listVm.items && !listVm.items.length">Cases not found</h4>
+</div>
+<h4 ng-if="!listVm.isCaseSearchEnable()">Fill Out Date Range</h4>

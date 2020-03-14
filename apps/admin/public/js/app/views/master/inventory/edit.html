@@ -1,0 +1,47 @@
+<tr ng-repeat="item in listVm.items">
+	<td><input class="form-control input-sm" ng-model="item.item_number" /></td>
+	<td><input class="form-control input-sm" ng-model="item.name" /></td>
+	<td><textarea class="form-control input-sm" ng-model="item.desc"></textarea></td>
+	<td class="opk-codes--select">
+		<opk-select select-options="{appendToBody: true, searchFilter: 'opkSelectInventory'}" ng-model="item.substitutes" multiple
+					options="item.id + ' - ' +  item.name for item in source.getMasterItems($query)" ></opk-select>
+	</td>
+	<td><input class="form-control input-sm" ng-model="item.hcpcs" /></td>
+	<td><input class="form-control input-sm" ng-model="item.qty_per_uom" /></td>
+	<td><opk-select ng-model="item.uom" class="small"
+			select-options="{newItemFn: 'item.newUom($query)', newItemUseLabel: true, newItemLabel: 'Add Unit'}"
+			options="value.name for value in source.getInventoryUoms()"></opk-select>
+	</td>
+	<td><input class="form-control input-sm" ng-model="item.unit_price" /></td>
+	<td>{{ item.cost_multiplier }}</td>
+	<td>{{ item.charge_amount }}</td>
+	<td><input class="form-control input-sm" ng-model="item.status" /></td>
+	<td><input class="form-control input-sm" ng-model="item.ndc" /></td>
+	<td> <opk-select ng-model="item.manf" class="small" options="value.name for value in source.getVendors($query, 'manf')"
+					 select-options="{newItemFn: 'item.newManufacturer($query)', newItemUseLabel: true, newItemLabel: 'Add Manufacturer'}">
+	</opk-select></td>
+	<td><input class="form-control input-sm" ng-model="item.manufacturer_catalog" /></td>
+	<td><input class="form-control input-sm" ng-model="item.distributor_name" /></td>
+	<td><input class="form-control input-sm" ng-model="item.distributor_catalog" /></td>
+	<td><input class="form-control input-sm" ng-model="item.gln" /></td>
+	<td><input class="form-control input-sm" ng-model="item.gtin" /></td>
+	<td><input class="form-control input-sm" ng-model="item.barcode" /></td>
+	<td><input class="form-control input-sm" ng-model="item.barcode_type" /></td>
+	<td><a href="{{ item.image_path}}">{{ item.image_path}}</a></td>
+	<td><input class="form-control input-sm" ng-model="item.shipping_type" /></td>
+	<td><input class="form-control input-sm" ng-model="item.unit_weight" /></td>
+	<td><input class="form-control input-sm" ng-model="item.min_level" /></td>
+	<td><input class="form-control input-sm" ng-model="item.max_level" /></td>
+	<td><input class="form-control input-sm" ng-model="item.total_units" /></td>
+	<td><opk-select ng-model="item.type" class="small" options="value for value in source.getInventoryTypes()"></opk-select></td>
+	<td class="text-center"><input type="checkbox" ng-model="item.is_remanufacturable" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input type="checkbox" ng-model="item.is_resterilizable" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input type="checkbox" ng-model="item.is_reusable" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input type="checkbox" ng-model="item.is_generic" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input type="checkbox" ng-model="item.is_implantable" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input type="checkbox" ng-model="item.is_latex" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input type="checkbox" ng-model="item.is_hazardous" ng-true-value="1" ng-false-value="0" /></td>
+	<td><input class="form-control input-sm" ng-model="item.hims_indicator" /></td>
+	<td><input class="form-control input-sm" ng-model="item.unspsc" /></td>
+	<td>{{ item.id}}</td>
+</tr>

@@ -1,0 +1,14 @@
+<div class="patient-insurances-container" ng-controller="PatientInsurancesCtrl as patientInsurancesVm">
+	<div ng-repeat="item in insuranceVm.patient.insurances" class="patient-insurance">
+		<errors src="insuranceVm.errors[$index+1]"></errors>
+		<div>
+
+			<ng-include src="view.get('app/insurance/common/edit.html')"></ng-include>
+
+			<div ng-if="item.type">
+				<ng-include src="patientInsurancesVm.getDataTemplateSrc(item, true)"></ng-include>
+			</div>
+
+		</div>
+	</div>
+</div>

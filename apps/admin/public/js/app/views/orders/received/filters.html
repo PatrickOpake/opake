@@ -1,0 +1,45 @@
+<div class="main-control center">
+	<div ng-if="listVm.type === 'received'" class="btn-group" ng-click="listVm.search();">
+		<label class="btn" ng-model="listVm.search_params.type" uib-btn-radio="'open_orders'">Open</label>
+		<label class="btn" ng-model="listVm.search_params.type" uib-btn-radio="'received_orders'">Processed</label>
+	</div>
+</div>
+
+<filters-panel ctrl="listVm">
+	<div class="data-row">
+		<label>Date from</label>
+		<div class="input-group">
+			<date-field ng-model="listVm.search_params.date_from" icon="true" placeholder="Select" small="true"></date-field>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Date to</label>
+		<div class="input-group">
+			<date-field ng-model="listVm.search_params.date_to" icon="true" placeholder="Select" small="true"></date-field>
+		</div>
+	</div>
+	<div class="data-row">
+		<label># items from</label>
+		<input type="text" ng-model="listVm.search_params.count_from" valid-number class='form-control input-sm' placeholder='Type' />
+	</div>
+	<div class="data-row">
+		<label># items to</label>
+		<input type="text" ng-model="listVm.search_params.count_to" valid-number class='form-control input-sm' placeholder='Type' />
+	</div>
+	<div class="data-row">
+		<label>PO number</label>
+		<input type="text" ng-model="listVm.search_params.po_id" valid-number class="form-control input-sm" placeholder='Type' />
+	</div>
+	<div class="data-row">
+		<label>Status</label>
+		<opk-select ng-model="listVm.search_params.status" options="item as item for item in source.getList('/orders/ajax/received/{{ ::org_id }}/getStatuses')"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Vendor</label>
+		<opk-select ng-model="listVm.search_params.vendor" options="item.name as item.name for item in source.getVendors($query, 'dist')"></opk-select>
+	</div>
+</filters-panel>
+
+<div class="list-control">
+	<a ng-if="listVm.type === 'received'" class="btn btn-success" href="/orders/{{ ::org_id }}/adding/" >Outside Order</a>
+</div>

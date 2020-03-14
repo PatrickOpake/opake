@@ -1,0 +1,19 @@
+<div class="insurance-tab">
+	<div class="row">
+		<div class="col-sm-1">
+			<a href="" print-iframe="{{regVm.getInsurancesPrintUrl(regVm.registration.case_id)}}" class="icon">
+				<i class="icon-circle-print-blue" uib-tooltip="Print"></i>
+			</a>
+		</div>
+		<div class="col-sm-3 col-sm-offset-8 text-right" ng-if="regVm.action === 'view' && !regVm.isEditDisabled">
+			<a  class="btn btn-success" ng-click="regVm.edit()">Edit</a>
+		</div>
+
+		<div class="col-sm-3 col-sm-offset-8 text-right" ng-if="regVm.action === 'edit'">
+			<a class="btn btn-success" ng-click="regVm.save('insurance');">Save</a>
+			<a class="btn btn-grey" ng-click="regVm.cancelEdit()">Cancel</a>
+		</div>
+	</div>
+
+	<ng-include src="view.get('patients/insurances/' + regVm.action + '.html')" onLoad=""></ng-include>
+</div>

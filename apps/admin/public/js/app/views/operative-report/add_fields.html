@@ -1,0 +1,40 @@
+<form name="add_fields">
+	<div class="modal-header">
+		<h4 class="modal-title">Add Fields</h4>
+	</div>
+	<div class="modal-body">
+		<div class="data-row">
+			<label>Type:</label>
+			<opk-select ng-model="reportVm.type_field" key-value-options="reportVm.templateConst.TYPE_FIELDS_LIST" ng-change="reportVm.changeTypeField()"></opk-select>
+		</div>
+		<div ng-if="reportVm.type_field == reportVm.templateConst.TYPE_FIELDS.TEXT_FIELD">
+			<div class="data-row">
+				<label>Select:</label>
+				<opk-select class="multiple" placeholder="Select from List" ng-model="reportVm.fieldsToAdd" options="field.name for field in reportVm.availableFields" ng-disabled="reportVm.newCustomFieldName" multiple></opk-select>
+			</div>
+			<div class="data-row"><label>or</label></div>
+			<div class="data-row">
+				<label>Custom Field:</label>
+				<input type="text" ng-disabled="reportVm.fieldsToAdd.length" placeholder="Type Custom Name" class="form-control" ng-model="reportVm.newCustomFieldName">
+			</div>
+		</div>
+		<div ng-if="reportVm.type_field == reportVm.templateConst.TYPE_FIELDS.LIST" class="data-row">
+			<label>List Name:</label>
+			<input type="text" class="form-control" ng-required="true" ng-model="reportVm.newListItem.name">
+		</div>
+		<div ng-if="reportVm.type_field == reportVm.templateConst.TYPE_FIELDS.LIST" class="data-row">
+			<label>Columns:</label>
+			<opk-select ng-model="reportVm.newListItem.list_value.count_columns" key-value-options="{1:'1', 2:'2'}"></opk-select>
+		</div>
+		<div class="data-row" ng-if="reportVm.type_field == reportVm.templateConst.TYPE_FIELDS.LIST || reportVm.newCustomFieldName">
+			<label>Section:</label>
+			<opk-select ng-model="reportVm.fieldSection" ng-required="true" key-value-options="reportVm.templateConst.FIELD_SECTIONS"></opk-select>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="text-center">
+			<button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+			<button class="btn btn-success" ng-click="reportVm.saveAdditionalFields()" ng-disabled="add_fields.$invalid">Save</button>
+		</div>
+	</div>
+</form>

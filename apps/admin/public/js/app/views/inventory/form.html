@@ -1,0 +1,55 @@
+<div class="main-control">
+	<button type="button" class="btn btn-danger inventory-delete" ng-if="invVm.inventory.id && permissions.hasAccess('inventory', 'delete')" ng-click="invVm.deleteInventory(invVm.inventory.id)"><i class="glyphicon glyphicon-trash"></i> Delete Item</button>
+
+	<a class='btn btn-grey' href='' ng-click="invVm.cancel()">Cancel</a>
+	<a class='btn btn-success' href='' ng-click="invVm.save()">Save</a>
+</div>
+
+<errors src="invVm.errors"></errors>
+
+<uib-tabset class="opk-tabs form-horizontal inventory-tabs">
+	<uib-tab select="ctrl.changeTab('details')" active="ctrl.tabActivity.details">
+		<uib-tab-heading>
+			Item Details
+		</uib-tab-heading>
+		<ng-include src="view.get('inventory/form/item_details.html')" ></ng-include>
+	</uib-tab>
+	<uib-tab select="ctrl.changeTab('purchasing')" active="ctrl.tabActivity.purchasing" disable="true">
+		<uib-tab-heading>
+			Purchasing
+		</uib-tab-heading>
+	</uib-tab>
+</uib-tabset>
+
+<div ng-show="invVm.showSubstitutions" class="opk-table substitutions-block">
+	<div class="headline">Substitutes</div>
+	<a ng-if="permissions.user.is_internal" class="btn btn-success pull-right" ng-click="invVm.addSubstitutions()"><i class="glyphicon glyphicon-plus"></i> Add Substitute</a>
+	<table class="opake substitutions-table" ng-if="invVm.inventory.substitutes.length">
+		<thead>
+		<tr>
+			<th>Name</th>
+			<th>Manufacturer</th>
+			<th>Unit Price</th>
+			<th>Quantity Available</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in invVm.inventory.substitutes">
+				<td>{{ item.name}}</td>
+				<td>{{ item.manf.name}}</td>
+				<td>{{ item.unit_price | usd}}</td>
+				<td>{{ item.total_units}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<h4 ng-if="invVm.inventory.substitutes && !invVm.inventory.substitutes.length">Items not found</h4>
+</div>
+
+<div ng-if="invVm.inventory.type === 'Kit'"
+	 ng-controller="KitItemsCrtl as itemsVm"
+	 ng-init="itemsVm.init(invVm.inventory.kit_items);"
+	 ng-include="view.get('inventory/form/kit.html')"
+	 class="opk-table">
+</div>
+
+<ng-include src="view.get('inventory/form/_pack_info.html')"></ng-include>

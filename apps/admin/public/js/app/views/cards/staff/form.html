@@ -1,0 +1,52 @@
+<form name="card_form" warning-unsaved-form="cardVm.card" warning-msg="Preference card form has been changed. All changes will not be saved.">
+	<errors src="cardVm.errors"></errors>
+	<div class="panel-data">
+		<div class="row">
+			<div class="col-sm-6">
+				<div ng-if="!cardVm.card.id">
+					<a class='btn btn-grey btn-file' select-file on-select="cardVm.uploadTemplate(files)">
+						Upload Template
+						<input type="file" name="file" />
+					</a>
+					<a class='btn btn-grey' href='/cards/{{::org_id}}/downloadTemplate/'>Download Template</a>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="pref-card-actions bottom">
+					<a class='btn btn-grey' href="" ng-click="cardVm.cancel()">Cancel</a>
+					<a class='btn btn-success' href="" ng-click="cardVm.save(card)" ng-disabled="!cardVm.canSave()">Save</a>
+				</div>
+			</div>
+		</div>
+		<span class="headline">{{cardVm.card.user.full_name}}</span>
+		<div class="row pref-card-info">
+			<div class="col-sm-6">
+				<div class="data-row">
+					<label>Template Name:</label>
+					<input type="text" ng-model="cardVm.card.name" class='form-control' placeholder=''/>
+				</div>
+				<div class="data-row">
+					<label>Procedure:</label>
+					<div class="opk-codes--select">
+						<opk-select select-options="{fixedDropdownWidth: true, searchFilter: 'opkSelectCpt', reorder: true}"
+									ng-model="cardVm.card.case_types" multiple options="type.full_name for type in source.getCaseTypes($query)" placeholder="Type or Select">
+						</opk-select>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div>Patient Name</div>
+				<div>Age/Sex</div>
+				<div>DOB</div>
+			</div>
+			<div class="col-sm-3">
+				<div>MRN</div>
+				<div>DOS</div>
+			</div>
+		</div>
+	</div>
+</form>
+<div ng-controller="CardItemsCrtl as itemsVm"
+	ng-init="itemsVm.init(cardVm.card.items, cardVm.card.notes, cardVm.card.stages);"
+	ng-include="view.get('cards/items/edit.html')">
+</div>

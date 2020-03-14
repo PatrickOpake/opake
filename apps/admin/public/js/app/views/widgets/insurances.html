@@ -1,0 +1,59 @@
+<div class="patient-insurances-container" ng-init="patientInsurancesVm.init()">
+	<div ng-if="!isOnlyView">
+		<div ng-if="!patientInsurancesVm.currentEditInsurance">
+			<div class="insurance-source-cards">
+				<div ng-repeat="item in patientInsurancesVm.insurances"
+					 class="insurance-source-card"
+					 ng-class="{'selected-card': item.order}"
+					 ng-click="patientInsurancesVm.toggleSelectInsurance(item)"
+					 ng-if="!item.is_empty_insurance && !item.is_deleted">
+					<a href=""
+					   class="delete-link"
+					   ng-click="patientInsurancesVm.deleteInsurance(item, $event)">delete</a>
+					<a href=""
+					   class="edit-link"
+					   ng-click="patientInsurancesVm.editInsurance(item, $event)">edit</a>
+					<div class="title-container">
+						<span class="title">{{item.title}}</span>
+					</div>
+					<div class="order-title" ng-if="item.order">
+						<i ng-class="{'icon-blue-sign': item.order == 1, 'icon-grey-sign': item.order != 1}"></i> <span>{{patientInsurancesVm.getInsuranceOrderTitle(item)}}</span>
+					</div>
+				</div><div class="insurance-source-card create-new" ng-click="patientInsurancesVm.createNewInsurance()">
+				<div class="title-container">
+					<span class="title">+ Create New Insurance</span>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div ng-if="patientInsurancesVm.currentEditInsurance" class="insurance-form-edit">
+			<errors src="patientInsurancesVm.currentEditErrors"></errors>
+			<div class="remove-button">
+				<button ng-click="patientInsurancesVm.saveCurrentEditInsurance()" class="btn btn-primary">Done</button>
+				<button ng-click="patientInsurancesVm.collapseCurrentEditInsurance()" class="btn btn-grey">Cancel</button>
+			</div>
+			<ng-include src="view.get('patients/insurances/common/edit.html')"></ng-include>
+			<div ng-if="item.type">
+				<ng-include src="patientInsurancesVm.getDataTemplateSrc(item, true)"></ng-include>
+			</div>
+		</div>
+	</div>
+	<div ng-if="isOnlyView">
+		<div ng-if="patientInsurancesVm.insurances.length > 0">
+			<div class="insurance-source-cards">
+				<div ng-repeat="item in patientInsurancesVm.insurances"
+					 class="insurance-source-card"
+					 ng-if="!item.is_empty_insurance">
+					<div class="title-container">
+						<span class="title">{{item.title}}</span>
+					</div>
+					<div class="order-title" ng-if="item.order">
+						<i ng-class="{'icon-blue-sign': item.order == 1, 'icon-grey-sign': item.order != 1}"></i> <span>{{patientInsurancesVm.getInsuranceOrderTitle(item)}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="patientInsurancesVm.insurances.length === 0">No insurances found</div>
+	</div>
+</div>

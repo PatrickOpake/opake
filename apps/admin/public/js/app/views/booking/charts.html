@@ -1,0 +1,66 @@
+<div class="booking-charts-modal">
+	<div class="modal-header">
+		<h4>Upload Files</h4>
+	</div>
+
+	<errors src="chartsVm.errors"></errors>
+
+	<div class="modal-body">
+		<div class="charts-uploading-block">
+			<div class="file-drop-box" ngf-multiple="true"
+				 ngf-drop="chartsVm.uploadFiles($files)" ngf-drag-over-class="'drag-over'">
+				<div class="file-drop-box--help">
+					<i class="icon-file-upload-cloud"></i> <br/>
+					<span class="bold-text">
+						Drag and drop files from your desktop <br/>
+						or use the
+						<button class="btn-file" select-file on-select="chartsVm.uploadFileChanged(files)"> file browser
+							<input type="file" multiple name="fileDoc" />
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="charts-table" ng-if="chartsVm.charts.length" ng-form name="">
+			<table class="opake">
+				<thead>
+				<tr>
+					<th></th>
+					<th>Display Name</th>
+					<th></th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="chart in chartsVm.charts" ng-form name="ChartRenameForm">
+					<td class="icon"><i class="icon-pdf"></i></td>
+					<td class="name">
+						<div ng-if="!chart.rename_mode">
+							<a ng-if="chart.url" class="" href="" ng-click="chartsVm.preview(chart)">{{ chart.name }}</a>
+							<span ng-if="!chart.url">{{ chart.name }}</span>
+						</div>
+						<div ng-if="chart.rename_mode">
+							<input ng-required="true" type="text" class="form-control input-sm" ng-model="chart.new_name">
+						</div>
+						<span class="original-filename">{{ chart.file_name }}</span>
+					</td>
+					<td class="rename">
+						<a ng-if="!chart.rename_mode" href="" ng-click="chartsVm.renameMode(chart)">Rename</a>
+						<button ng-if="chart.rename_mode" class="btn btn-success rename-button" ng-click="chartsVm.renameChart(chart)">Save</button>
+					</td>
+					<td class="delete">
+						<a ng-if="!chart.rename_mode" href="" ng-click="chartsVm.removeChart(chart)">Delete</a>
+						<button ng-if="chart.rename_mode" class="btn btn-grey rename-button" ng-click="chartsVm.cancelRenameChart(chart)">Cancel</button>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+		<button class="btn btn-success" ng-click="chartsVm.saveUploadedCharts()">Upload</button>
+	</div>
+</div>

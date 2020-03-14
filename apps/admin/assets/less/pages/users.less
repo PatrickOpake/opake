@@ -1,0 +1,108 @@
+.user-profile {
+	.block-panel {
+		padding-bottom: 50px;
+	}
+
+	.username-field,
+	.password-field {
+
+		.rules-notice {
+			font-style: italic;
+			font-size: 10px;
+			line-height: 1.5em;
+			margin-bottom: 5px;
+			color: #333;
+
+			&.has-error {
+				color: red;
+			}
+		}
+
+		.error-message {
+			color: red;
+			min-height: 1.5em;
+			font-style: italic;
+			padding-left: 5px;
+		}
+
+		input.form-control {
+			display: inline-block;
+		}
+
+		i {
+			vertical-align: middle;
+			margin-left: 5px;
+		}
+
+	}
+	.user-phone {
+		margin: 0;
+		.col-sm-6 {
+			padding: 0;
+		}
+	}
+	.phone-type {
+		&.without-border {
+			border: none !important;
+		}
+		label {
+			width: 60px !important;
+		}
+		.opk-select {
+		  width: 200px !important;
+			.select-search {
+				min-height: 33px;
+			}
+		}
+	}
+}
+
+.password-change-modal {
+	.password-hint {
+		font-style: italic;
+		font-size: 10px;
+		line-height: 1.5em;
+	}
+}
+
+.organization-profile {
+	.eligible-service-codes {
+		input.form-control {
+			display: inline-block;
+			width: 300px;
+		}
+
+		.eligible-link {
+			margin-left: 10px;
+		}
+	}
+
+	.federal-tax {
+		input.form-control {
+			display: inline-block;
+			width: 300px;
+		}
+		.accept-assignment-title {
+			display: inline-block;
+			width: 270px;
+			margin-left: 20px;
+			line-height: 1;
+			vertical-align: middle;
+		}
+		.accept-assignment-options {
+			display: inline-block;
+			line-height: @line-height-base;
+			label {
+				font-size: 12px;
+				font-weight: normal !important;
+			}
+		}
+	}
+}
+
+.user-profile,
+.organization-profile {
+	.inactive-practice-group {
+		font-style: italic;
+	}
+}

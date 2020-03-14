@@ -1,0 +1,102 @@
+.panel-data {
+	display: table;
+	width: 100%;
+	background: #fff;
+	padding: 10px 15px;
+	margin-bottom: 15px;
+	line-height: 2.5em;
+
+	.data-row {
+		line-height: 2em;
+		padding: 2px 0 3px;
+	}
+
+	/* Всевозможные вложенные элементы */
+	label {
+		margin: 0;
+		width: 100px;
+	}
+	img, i[class^="icon-"] {
+		float: left;
+		margin-right: 13px;
+	}
+	.mce-content-body img {
+		float: none;
+		margin: 0;
+	}
+	.actions {
+		text-align: right;
+		width: 160px;
+		line-height: @line-height-base;
+		&.bottom {
+			vertical-align: bottom;
+		}
+		[type="submit"] {
+			background: none;
+			border: none;
+			color: blue;
+			text-decoration: underline;
+			cursor: pointer;
+			font-weight: bold;
+		}
+		.icon-edit {
+			float: none;
+			margin-right: 5px;
+		}
+	}
+	.radio, .checkbox {
+		line-height: 1.8rem;
+	}
+	.upload-logo {
+		padding-left: 20px;
+		width: 1%;
+
+		img {
+			margin: 0;
+		}
+	}
+	.pull-right {
+		line-height: 1;
+	}
+}
+.modal-content .panel-data {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.data-row {
+	display: table;
+	width: 100%;
+
+	> * {
+		display: table-cell;
+		vertical-align: top;
+	}
+	> .middle {
+		vertical-align: middle;
+	}
+}
+
+.headline, h3 {
+	font-size: 16px;
+	font-weight: bold;
+	color: @green;
+	margin: 15px 0 4px;
+	position: relative;
+}
+.headline span {
+	color: #808080;
+	float: right;
+	padding-top: 3px;
+	font-size: 13px;
+	clear: both;
+	&.order-id {
+		font-size: 14px;
+		float: none;
+	}
+}
+
+.content-shadow {
+	.box-shadow(3px 3px 4px rgba(0, 0, 0, 0.125));
+}

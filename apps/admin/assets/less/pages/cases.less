@@ -1,0 +1,1182 @@
+.patient-data label {
+	width: 140px;
+}
+
+.cases-calendar-main {
+	position: relative;
+}
+
+.cases-calendar--modal, .cases-calendar--preview{
+	.modal-header {
+		margin: 0 10px;
+		padding: 12px 5px 6px;
+		font-size: 16px;
+		font-weight: bold;
+		height: 40px;
+
+		.modal-title {
+			float: left;
+			i {
+				vertical-align: bottom;
+			}
+		}
+		a {
+			float: right;
+			&.send-mail-icon {
+				float: left;
+				padding-left: 5px;
+			}
+		}
+	}
+	.modal-body {
+		padding-top: 5px;
+		padding-bottom: 5px;
+
+		label {
+			width: 88px;
+			color: @text-color;
+			vertical-align: middle;
+			font-weight: normal !important;
+			line-height: 1.2;
+		}
+		.data-row {
+			margin: 15px 0;
+
+			&.no-margin {
+				margin: 0;
+			}
+		}
+		.controls {
+			display: table;
+			width: 100%;
+			text-align: right;
+			text-decoration: underline;
+		}
+		.data-row ~ .controls {
+			margin-top: -14px;
+		}
+		.double-columns {
+			margin-bottom: -15px;
+
+			> div {
+				&:first-child {
+					padding-right: 4px;
+				}
+				&:last-child {
+					padding-left: 8px;
+					label {
+						width: 60px;
+					}
+				}
+			}
+		}
+	}
+	.modal-footer {
+		border-top: none;
+
+		.delete_case {
+			margin: 9px 0 0 9px;
+		}
+
+	}
+}
+
+.cases-calendar--modal {
+	.modal-dialog {
+		width: 560px;
+	}
+	&.modal-buttons .modal-dialog {
+		width: 300px;
+	}
+}
+
+.cases-calendar--preview {
+	&:extend(.modal-content);
+	position: absolute;
+	z-index: 10;
+	width: 450px;
+	top: -10000px;
+
+	.form-control {
+		width: auto;
+	}
+	.case-details {
+		border: 1px solid #fff;
+		margin: -5px;
+		padding: 5px;
+
+		&:hover {
+			cursor: pointer;
+			border-color: #e5e5e5;
+		}
+
+		.description {
+			font-style: italic;
+		}
+	}
+	.modal-header {
+		.icon {
+			margin-right: 10px;
+		}
+	}
+	.alert-tooltip {
+		width: 450px;
+	}
+}
+.cases-calendar--modal-alert {
+	&:extend(.cases-calendar--modal all);
+
+	.modal-body, .modal-footer {
+		padding-left: 120px;
+		padding-right: 120px;
+	}
+}
+.cases-calendar--blocking-modal {
+	&:extend(.cases-calendar--modal all);
+	.modal-dialog {
+		width: 650px;
+	}
+	.modal-body {
+		label {
+			width: 105px;
+		}
+	}
+}
+.cases-calendar--blocking-preview {
+	&:extend(.cases-calendar--preview all);
+	width: 650px;
+	.modal-body {
+		label {
+			width: 105px;
+		}
+	}
+}
+.cases-calendar--modal-options {
+	.list-unstyled();
+	margin-bottom: 5px;
+
+	li {
+		padding: 6px 0;
+		> i, > span {
+			vertical-align: middle;
+			margin-right: 5px;
+		}
+		span {
+			word-break: break-all;
+		}
+	}
+}
+
+/* Cases Management */
+.case-panel {
+	padding: 25px 30px 10px !important;
+	margin-bottom: 15px;
+	position: relative;
+
+	&.with-collapse {
+		padding: 0 !important;
+	}
+
+	label {
+		vertical-align: middle;
+		color: #909090;
+		font-weight: bold;
+		width: 124px;
+	}
+	.data-row {
+		margin: 15px 0;
+		.calendar--appointments-buttons {
+			width: 50%;
+		}
+	}
+	.opk-timepicker {
+		.opk-select {
+			width: 130px !important;
+			float: left;
+			margin-right: 12px;
+
+			.select-dropdown {
+				min-width: 100px;
+			}
+		}
+	}
+	.actions {
+		width: 100%;
+		text-align: right;
+		padding: 6px 0;
+
+		&.view {
+			padding-top: 27px;
+		}
+	}
+
+	.case-top-buttons {
+		margin-top: 20px;
+	}
+
+	.alert {
+		margin-top: 30px;
+	}
+
+	.patient-details-min {
+		padding: 10px 30px 0;
+	}
+
+	.patient-details-max {
+		padding: 0 30px 0;
+		position: relative;
+		bottom: 15px;
+	}
+
+	.patient-details-header {
+		border-radius: 0;
+		text-transform: uppercase;
+		background-color: #fbfbfb;
+		color: #333;
+		border-bottom: 1px solid #e6e6e6;
+		font-size: 14px;
+		text-decoration: none !important;
+		padding: 7px;
+		cursor: pointer;
+		&:hover {
+			color: #fff;
+			background-color: #00a0ce;
+		}
+		.icon {
+			padding-right: 7px;
+			display: inline;
+			position: relative;
+			top: 2px;
+		}
+	}
+	.surgeon-details-link {
+		margin-top: 20px;
+	}
+	.surgery-details {
+		border-top: 1px solid #ddd;
+		padding-top: 10px;
+		margin-top: 20px;
+		.data-row  {
+			label {
+				width: 210px;
+			}
+			.checkbox {
+				label {
+					font-weight: normal !important;
+					color: #5f5f5f;
+				}
+			}
+			.studies-ordered {
+				.col-sm-1 {
+					width: 10.5%;
+					&.dig-level {
+						width: 14%;
+					}
+				}
+			}
+		}
+	}
+}
+
+.case-panel-container {
+	padding: 0;
+	.btn-cancel-link {
+		float: right;
+		color: #666;
+		text-decoration: underline;
+		&:hover {
+			color: #006583
+		}
+	}
+}
+
+.case-panel--ids {
+	padding: 0 20px;
+	background: #f1f1f1;
+	position: absolute;
+	right: 0;
+	top: 0;
+	line-height: 1.3;
+	color: #909090;
+
+	span {
+		font-weight: bold;
+	}
+}
+
+.cases-management {
+	width: 100%;
+
+	.case-panel-buttons-container {
+		margin-top: 10px;
+		margin-bottom: 10px;
+
+		.actions {
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+
+		.appointment-buttons .btn {
+			margin-right: 15px;
+		}
+	}
+}
+
+.cases-management--stages {
+	&:extend(.content-block);
+	.list-unstyled();
+	text-align: center;
+	padding: 0;
+
+	li {
+		display: inline-block;
+		width: 24%;
+		margin: 0 4%;
+		padding: 12px 0 8px;
+		font-size: 16px;
+
+		&.active {
+			color: @blue;
+			border-bottom: 3px solid @blue;
+
+			&:before {
+				vertical-align: middle;
+				margin-right: 5px;
+				font-family: 'Glyphicons Halflings';
+				content: "\e031";
+			}
+		}
+	}
+}
+
+.card-management--phases-control,
+.operative-report {
+	display: table;
+	width: 100%;
+	margin-bottom: 16px;
+
+	.back, .next {
+		display: table-cell;
+		width: 1%;
+		font-size: 16px;
+		text-decoration: none;
+
+		&:after, &:before {
+			font-size: 24px;
+			vertical-align: middle;
+			font-family: 'Glyphicons Halflings';
+		}
+		span {
+			vertical-align: middle;
+		}
+	}
+	.next:after {
+		content: "\e258";
+	}
+	.back:before {
+		content: "\e257";
+	}
+	.buttons {
+		text-align: right;
+		button, a {
+			margin-right: 15px;
+		}
+	}
+}
+
+.cases-management--table {
+	margin: 5px 0 20px;
+
+	tr {
+		border-bottom: 1px solid #c8c8c8;
+
+		&:first-child {
+			border-top: 1px solid #c8c8c8;
+		}
+	}
+
+	th, td {
+		&.icon, &.actions {
+			width: 1%;
+			font-size: 35px;
+			line-height: 0;
+		}
+		&.actions {
+			padding-right: 0px;
+			text-align: right;
+		}
+	}
+	td {
+		padding: 14px;
+	}
+	th {
+		padding: 8px 14px;
+	}
+
+	a {
+		vertical-align: middle;
+	}
+	.glyphicon-file {
+		color: @blue;
+	}
+	.form-control {
+		width: 60px;
+	}
+}
+
+.cases-management--docs,
+.submitted-op-reports-list,
+.case-registration-list,
+.open-op-reports-list {
+	position: relative;
+
+	.waiting-layer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1050;
+		background-color: #FFFFFF;
+		opacity: 0.5;
+
+		.spinner {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -18px;
+			margin-left: -18px;
+			opacity: 1;
+		}
+	}
+
+	table {
+		width: 100%;
+		tr:first-child {
+			border-top: none;
+		}
+	}
+	.control {
+		padding-right: 5px;
+
+		a {
+			display: inline-block;
+			margin: 0 5px;
+			line-height: 0;
+		}
+		.v-separator {
+			vertical-align: middle;
+		}
+	}
+	.doc-icon {
+		float: left;
+		margin-right: 10px;
+	}
+	.uploaded-date {
+		display: inline;
+	}
+	.upload-new a {
+		color: #666;
+	}
+	.status-icon {
+		text-align: center;
+		a {
+			&:not(.uploaded) {
+				display: inline-block;
+				padding: 5px;
+				&:hover {
+					border: 1px solid #e7e7e7;
+				}
+			}
+		}
+	}
+}
+
+.submitted-op-reports-list, .open-op-reports-list {
+	td.mrn {
+	  white-space: nowrap;
+	}
+}
+
+.cases-management--cards-control {
+	display: table;
+	width: 100%;
+
+	.select-all {
+		float: right;
+
+		.title {
+			vertical-align: top;
+			line-height: 1.5;
+			padding-right: 10px;
+		}
+	}
+}
+
+.cases-management--cards-data {
+	margin-bottom: 20px;
+}
+
+.op-report-template--save-modal {
+	.template-name {
+		margin-bottom: 20px;
+		display: table;
+		label {
+			vertical-align: middle;
+			color: #666;
+			display: table-cell;
+			text-align: left;
+		}
+	}
+	.table-title {
+		font-weight: bold;
+		color: #666;
+		text-align: left;
+	}
+	.templates-table {
+		display: block;
+		max-height: 300px;
+		overflow-y: auto;
+		border: 1px solid #e6e6e6;
+		table td {
+			text-align: left;
+		}
+		th {
+			font-size: 12px;
+		}
+		tr:nth-child(even) {
+			background-color: #f8f8f8;
+		}
+	}
+}
+
+.cases-management--item-log {
+	label {
+		font-weight: bold !important;
+		color: #909090;
+		font-size: 16px;
+	}
+}
+
+.cases-management--item-log--section {
+	margin-top: 30px;
+	min-height: 125px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+.cases-management--item-log--control {
+	line-height: 2.5;
+
+	.btn {
+		float: right;
+	}
+
+	&.surgeon {
+		margin: 14px 0 9px;
+	}
+}
+
+.cases-management--item-log--table {
+	.col-item {
+		width: 25%;
+	}
+	.col-type {
+		width: 25%;
+	}
+	.col-manufacturer {
+		width: 25%;
+	}
+	.col-quantity {
+		width: 20%;
+	}
+	.col-actions {
+		width: 5%;
+	}
+}
+
+.cases-management--item-log--modal {
+	.cancel {
+		float: right;
+		color: #666;
+		font-size: 20px;
+		margin-bottom: 6px;
+	}
+	.quantity {
+		width: 100px;
+	}
+}
+
+.cases-management--pref-card--header {
+	.pref-card-info {
+		margin: 30px 0 0 45px;
+	}
+	.patient-info {
+		label {
+			color: @text-color;
+			font-weight: normal !important;
+		}
+	}
+	.back {
+		font-size: 16px;
+	}
+}
+
+.cases-management--pref-card--additional-notes {
+	min-height: 75px;
+}
+
+.cases-management--pref-card--var-cost {
+	width: 200px;
+	border:0;
+}
+
+.cases-management--time-log {
+	padding: 10px 15px 70px;
+	line-height: 2.4;
+
+	label {
+		color: #666;
+	}
+	.row {
+		padding: 10px 0;
+		border-bottom: 1px solid #f7f7f7;
+	}
+	.row.header {
+		padding: 5px 0;
+		label {
+			font-size: 11px;
+		}
+	}
+	.title {
+		color: #666;
+		font-size: 18px;
+		padding: 0 0 20px;
+	}
+	.total-case-time {
+		padding: 20px 0;
+		border-bottom: none;
+
+		span {
+			margin-right: 12px;
+		}
+	}
+}
+
+.case-intake {
+	padding: 10px 30px 10px !important;
+	margin-bottom: 15px;
+	position: relative;
+
+	.data-row {
+		margin: 40px 0;
+		label {
+			vertical-align: middle;
+			color: #909090;
+			font-weight: bold !important;
+			width: 220px;
+		}
+	}
+
+	.uploaded-file {
+		margin-top: 15px;
+		.doc-icon {
+			float: left;
+			margin-right: 10px;
+		}
+		.uploaded-date {
+			display: inline;
+		}
+		.upload-new a {
+			color: #666;
+		}
+		.status-icon {
+			text-align: center;
+			a {
+				&:not(.uploaded) {
+					display: inline-block;
+					padding: 5px;
+					&:hover {
+						border: 1px solid #e7e7e7;
+					}
+				}
+			}
+		}
+	}
+}
+
+.case-blocking--edit-choice {
+	.edit-types {
+		margin-top: 20px;
+		.radio {
+			padding-left: 135px;
+			text-align: left;
+			label {
+				color: #666;
+				font-weight: normal !important;
+			}
+		}
+	}
+}
+
+.opk-timepicker {
+	.select-dropdown-optgroup-option {
+		letter-spacing: 0.058em;
+
+		.current-active-label {
+			letter-spacing: normal;
+			word-spacing: normal;
+		}
+	}
+}
+
+.color-purple {
+	background-color: #BB96CE !important;
+}
+.color-sky-blue {
+	background-color: #8FAFE0 !important;
+}
+.color-apricot {
+	background-color: #ED7B7B !important;
+}
+.color-aquamarine {
+	background-color: #58F4B3 !important;
+}
+.color-gold-sand {
+	background-color: #E8C188 !important;
+}
+.color-grey {
+	background-color: #CECECE !important;
+}
+.color-aqua {
+	background-color: #00FFFF !important;
+}
+.color-azure {
+	background-color: #F0FFFF !important;
+}
+.color-beige  {
+	background-color: #F5F5DC !important;
+}
+.color-bisque {
+	background-color: #FFE4C4 !important;
+}
+.color-blue {
+	background-color: #0000FF !important;
+}
+.color-blue-violet {
+	background-color: #8A2BE2 !important;
+}
+.color-coral {
+	background-color: #FF7F50 !important;
+}
+.color-forest-green {
+	background-color: #228B22 !important;
+}
+.color-indian-red {
+	background-color: #CD5C5C !important;
+}
+.color-lavender {
+	background-color: #E6E6FA !important;
+}
+.color-green-yellow {
+	background-color: #ADFF2F !important;
+}
+.color-light-pink {
+	background-color: #FFB6C1 !important;
+}
+.color-light-sea-green {
+	background-color: #20B2AA !important;
+}
+.color-orange {
+	background-color: #FFA500 !important;
+}
+.color-orchid {
+	background-color: #DA70D6 !important;
+}
+.color-pale-green {
+	background-color: #98FB98 !important;
+}
+.color-teal {
+	background-color: #008080 !important;
+}
+.color-thistle {
+	background-color: #D8BFD8 !important;
+}
+.color-default-grey {
+	background-color: #E0E0E0 !important;
+}
+
+.cancel-appointment-modal {
+	text-align: left !important;
+
+	.modal-header {
+		height: 40px;
+		padding: 0;
+		.header {
+			float: left;
+			width: 96%;
+		}
+		a {
+			padding-top: 4px;
+			float: right;
+			color: #909090;
+		}
+	}
+	.modal-body {
+		label {
+			color: #666;
+		}
+		.cancel-status {
+			margin-bottom: 10px;
+		}
+		.cancel-attempts {
+			.patient-phone {
+				margin-top: 20px;
+				label {
+					width: 80px !important;
+				}
+			}
+			.attempts-table {
+				margin-top: 15px;
+				table {
+					th {
+						font-weight: normal;
+					}
+					td {
+						padding-right: 20px;
+						padding-top: 10px;
+					}
+					input {
+						width: 117px !important;
+					}
+				}
+			}
+		}
+		.case-info {
+			margin-bottom: 15px;
+			.row {
+				margin-bottom: 10px;
+				.bold-text {
+					font-weight: bold;
+				}
+				.text-right {
+					text-align: right;
+				}
+			}
+		}
+	}
+}
+
+
+.cases-management .case-errors.alert {
+	margin-bottom: 15px;
+	margin-top: 10px;
+}
+
+.canceled-cases {
+	.italic-text {
+		font-style: italic;
+	}
+	table {
+		.change-reason {
+			border: 1px solid #fff;
+			border-radius: 5px;
+			padding: 3px;
+			cursor: pointer;
+			min-height: 28px;
+			&:hover {
+				border: 1px solid #ccc;
+			}
+		}
+	}
+	.canceled-cases-print {
+		width: 50px;
+	}
+	.canceled-cases-export {
+		width: 70px;
+	}
+	.date-cancelled {
+		label {
+			width: 40px;
+			padding-right: 10px;
+		}
+		input {
+			width: 130px;
+		}
+	}
+	.loading-wheel {
+		display: inline-block;
+	}
+}
+
+.eligibility-checking-container {
+	margin-top: 15px;
+
+	.select-insurance-container {
+
+		span.select-insurance-label {
+			vertical-align: middle;
+			display: inline-block;
+			width: 150px;
+		}
+
+		.select-insurance-field {
+			width: 460px;
+			vertical-align: middle;
+			display: inline-block;
+		}
+	}
+	div.form-control {
+		white-space: pre-wrap;
+		word-wrap: break-word;
+		height: auto;
+		min-height: 30px;
+	}
+}
+
+.eligible-coverage-container {
+
+	.eligible-coverage-header {
+		margin-bottom: 10px;
+		.print-form {
+			display: inline-block;
+		}
+		.button-column {
+			display: inline-block;
+			float: right;
+		}
+	}
+
+	.update-date {
+		margin-right: 10px;
+	}
+
+}
+
+.accidental-cancellation {
+	float: left;
+	label {
+		color: #5f5f5f;
+		font-weight: normal !important;
+	}
+}
+
+.case-details--form, .booking-sheet--form {
+	.patient-information-section--header {
+		border-bottom: 1px solid #ddd;
+		padding-bottom: 5px;
+		h3 {
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+		.patient-mrn--field {
+			width: 200px;
+			label {
+				width: 50px;
+				display: inline-block;
+				font-weight: bold !important;
+			}
+		}
+		.case-note-block {
+			display: inline-block;
+			float: right;
+		}
+		.booking-charts {
+			display: inline-block;
+			float: right;
+			a {
+				outline: none !important;
+			}
+		}
+	  	.case-right-column {
+		  text-align: right;
+		  > div, a {
+			display: inline-block;
+			vertical-align: middle;
+			float: none;
+
+			i {
+			  vertical-align: middle;
+			}
+
+		  }
+		}
+	}
+	.insurance-information-section--header {
+		border-bottom: 1px solid #ddd;
+		padding-bottom: 5px;
+		h3 {
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+		.booking-charts {
+			display: inline-block;
+			a {
+				outline: none !important;
+				i {
+					position: relative;
+					top: 5px;
+				}
+			}
+		}
+	}
+	.with-radio-buttons {
+		.radio-column {
+			width: 13%;
+		}
+		.input-column {
+			width: 74%;
+		}
+	}
+	.back {
+		font-size: 16px;
+	}
+}
+
+.create-duplicate-patient-modal {
+	.modal-footer {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+.case-create-edit-modal {
+  .patient-name-row {
+	position: relative;
+	padding-right: 30px;
+
+	.case-audit-link {
+	  display: inline-block;
+	  position: absolute;
+	  top: 0;
+	  right: 10px;
+	}
+  }
+}
+
+.case-confirm-delete {
+
+  .case-details {
+	margin-top: 15px;
+	line-height: 24px;
+	text-align: left;
+
+	.patient-info {
+	  overflow: hidden;
+
+	  .patient-name {
+		float: left;
+		font-weight: bold;
+	  }
+
+	  .patient-mrn {
+		float: right;
+	  }
+	}
+  }
+
+}
+
+.claims-management-page {
+
+  .loading-wheel {
+	display: inline-block;
+	margin-left: 10px;
+  }
+
+  table.opake {
+	tbody {
+	  tr:hover {
+		background-color: #f1f1f1;
+	  }
+	  tr {
+		td.link {
+		  padding: 0;
+		  a {
+			height: 100%;
+			display: block;
+			cursor: pointer;
+			padding: 15px 5px;
+			text-decoration: none;
+			color: inherit;
+		  }
+		}
+	  }
+	}
+
+	.checkbox {
+	  margin: 0;
+	}
+  }
+
+  .claims-management-filters {
+	&.paper-claims {
+		.payer-field, .patient-dob-field {
+			width: 350px !important;
+		}
+	}
+
+	.filters-panel .filters-panel--content > * {
+	  width: 35%;
+	}
+
+	.data-row {
+	  min-height: 33px;
+	}
+
+	.date-filter {
+
+	  .from-field {
+
+		> * {
+		  display: table-cell;
+		  vertical-align: middle;
+		}
+
+		label {
+		  width: 130px;
+		}
+
+		label.dos {
+		  width: 100px;
+		}
+	  }
+
+	  .to-field {
+
+		> * {
+		  display: table-cell;
+		  vertical-align: middle;
+		}
+
+		label {
+		  width: 40px;
+		  padding-left: 10px;
+		}
+	  }
+	}
+
+	.number-input {
+
+	  .input-container > * {
+		display: inline-block;
+		vertical-align: middle;
+		margin-bottom: 0;
+	  }
+
+	  input {
+		width: 100px;
+	  }
+
+	}
+  }
+
+}
+
+.uib-datepicker {
+  .btn:focus {
+	outline: none;
+  }
+}

@@ -1,0 +1,28 @@
+<div class="headline">Select Items:</div>
+<div class="main-control">
+	<filters-panel ctrl="addingVm">
+		<div class="data-row">
+			<label>Keyword</label>
+			<input type="text" ng-model="addingVm.search_params.name" class='form-control input-sm' placeholder='Type' />
+		</div>
+		<div class="data-row">
+			<label>Type</label>
+			<opk-select ng-model="addingVm.search_params.type" options="item for item in source.getInventoryTypes()"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Manufacturer</label>
+			<opk-select ng-model="addingVm.search_params.manf" options="item.name as item.name for item in source.getVendors($query, 'manf')"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Site</label>
+			<opk-select ng-model="addingVm.search_params.site" options="item for item in source.getList('/clients/ajax/site/', $query)"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Room</label>
+			<opk-select ng-model="addingVm.search_params.location" options="item.name as item.name for item in source.getStorage()"></opk-select>
+		</div>
+	</filters-panel>
+	<a class="btn btn-primary" href="" ng-click="addingVm.addItems()">Next ></a>
+</div>
+
+<ng-include class="order-outgoing--selection" src="view.get('orders/selection.html')" onLoad="ctrl = addingVm;"></ng-include>

@@ -1,0 +1,49 @@
+<div class="create-batch-eligibility--modal" show-loading="batchVm.isEligibilityChecking">
+	<div class="modal-header">
+		<h4 class="modal-title">Create Batch</h4>
+		<a href="" ng-click="cancel()" class="close-button"><i class="glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="modal-body">
+		<errors src="batchVm.eligibleErrors"></errors>
+
+		<table class="opake">
+			<thead>
+			<tr>
+				<th>
+					<div class="checkbox">
+						<input id="add_to_check_all" type="checkbox" class="styled" ng-checked="batchVm.selectCasesAll" ng-click="batchVm.addToCheckEligibilityListAll()">
+						<label for="add_to_check_all"></label>
+					</div>
+				</th>
+				<th>DOS</th>
+				<th>Last Name</th>
+				<th>First Name</th>
+				<th>Insurance Name</th>
+				<th>Policy Number</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="item in batchVm.cases">
+				<td>
+					<div class="checkbox">
+						<input id="to_check_eligibility_{{$index}}"
+							   type="checkbox"
+							   class="styled"
+							   ng-checked="batchVm.isAddedToCheckEligibilityList(item)"
+							   ng-click="batchVm.addToCheckEligibilityList(item)">
+						<label for="to_check_eligibility_{{$index}}"></label>
+					</div>
+				</td>
+				<td>{{item.time_start}}</td>
+				<td>{{item.last_name}}</td>
+				<td>{{item.first_name}}</td>
+				<td>{{item.insurance_name}}</td>
+				<td>{{item.policy_number}}</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button type="button" ng-disabled="!batchVm.toCheckEligibilityList.length" class="btn btn-success" ng-click="batchVm.checkEligibility()">Check Eligibility</button>
+	</div>
+</div>

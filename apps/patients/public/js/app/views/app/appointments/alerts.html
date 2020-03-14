@@ -1,0 +1,10 @@
+<div class="appointment-alerts-container">
+	<div class="appointment-alert" ng-class-odd="'odd'" ng-repeat="alert in alertsVm.alerts">
+		<a href="" ng-click="alertsVm.openAppointment(alert)">
+			<span class="appointment-title">{{alert.label}}</span>
+		</a>
+		<button type="button" class="close" ng-click="alertsVm.hideAlert(alert)">
+			<span>×</span>
+		</button>
+	</div>
+</div>

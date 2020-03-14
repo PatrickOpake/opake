@@ -1,0 +1,43 @@
+<div class="panel-data">
+	<div class="data-row card-data">
+		<span class="headline">{{cardVm.card.user.full_name}}</span>
+		<div class="pref-card-actions">
+			<a class="btn btn-grey" href="/cards/{{::org_id}}/downloadFilledTemplate/{{::cardVm.card.id}}">Download Template</a>
+			<a href="" ng-click="cardVm.print()" class="btn btn-icon icon" uib-tooltip="Print">
+				<i class="icon-print-grey"></i>
+			</a>
+			<a class='btn btn-success' href="" ng-click="cardVm.edit()">Edit</a>
+		</div>
+	</div>
+
+	<div class="row pref-card-info">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Template Name:</label>
+				{{ cardVm.card.name }}
+			</div>
+			<div class="data-row">
+				<label>Procedure:</label>
+				<div>
+					<span ng-repeat="type in cardVm.card.case_types" uib-tooltip="{{ type.name }}" tooltip-placement="bottom" tooltip-class="white-for-cpt-codes">
+						{{ type.code }}{{ !$last ? ', ' : '' }}
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div>Patient Name</div>
+			<div>Age/Sex</div>
+			<div>DOB</div>
+		</div>
+		<div class="col-sm-3">
+			<div>MRN</div>
+			<div>DOS</div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="cardVm.card" ng-controller="CardItemsCrtl as itemsVm"
+	ng-init="itemsVm.init(cardVm.card.items, cardVm.card.notes, cardVm.card.stages);"
+	ng-include="view.get('cards/items/view.html')">
+</div>

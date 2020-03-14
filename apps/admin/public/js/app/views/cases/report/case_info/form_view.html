@@ -1,0 +1,100 @@
+<div class="row">
+	<div class="col-sm-6">
+		<div dnd-list="reportVm.chunkedCaseInfo[0]"
+			 dnd-allowed-types="[reportVm.templateConst.GROUPS.CASEINFO]">
+			<div ng-repeat="item in reportVm.chunkedCaseInfo[0]"
+				 dnd-draggable="item"
+				 dnd-moved="reportVm.chunkedCaseInfo[0].splice($index, 1);"
+				 dnd-effect-allowed="move"
+				 dnd-dragend="reportVm.reindexCaseInfoColumns()"
+				 dnd-type="item.group_id"
+				 ng-if="item.confirmed_active"
+				 dnd-nodrag
+				 class="row">
+				<ng-include src="'cases/report/case_info/outputFieldTemplate.html'"></ng-include>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div dnd-list="reportVm.chunkedCaseInfo[1]"
+			 dnd-allowed-types="[reportVm.templateConst.GROUPS.CASEINFO]">
+			<div ng-repeat="item in reportVm.chunkedCaseInfo[1]"
+				 dnd-draggable="item"
+				 dnd-moved="reportVm.chunkedCaseInfo[1].splice($index, 1);"
+				 dnd-effect-allowed="move"
+				 dnd-dragend="reportVm.reindexCaseInfoColumns()"
+				 dnd-type="item.group_id"
+				 ng-if="item.confirmed_active"
+				 dnd-nodrag
+				 class="row">
+				<ng-include src="'cases/report/case_info/outputFieldTemplate.html'"></ng-include>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/ng-template" id="cases/report/case_info/outputFieldTemplate.html">
+	<div class="col-sm-12">
+		<div class="data-row" ng-switch="item.field">
+			<label>{{item.name}}:</label>
+
+			<div class="col-sm-12" ng-switch-when="patient_name">
+				<div class="data-row">
+					{{ case.patient.last_name + ', ' + case.patient.first_name }}
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="dob">
+				<div class="data-row">
+					{{ case.patient.dob | date:'M/d/yyyy' }}
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="age_sex">
+				<div class="data-row">
+					{{ case.patient.age}} {{ case.patient.sex}}
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="mrn">
+				<div class="data-row">
+					{{ case.patient.full_mrn}}
+				</div>
+			</div>
+			<div class="col-sm-12"  ng-switch-when="acc_number">
+				<div class="data-row">
+					{{ caseVm.case.id || caseVm.case.acc_number }}
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="surgeon">
+				<div class="data-row">
+					<div><span ng-repeat="user in caseVm.case.users">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span></div>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="dos">
+				<div class="data-row">
+					<div>{{ caseVm.case.time_start | date:'M/d/yyyy' }}</div>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="time_scheduled">
+				<div class="data-row">
+					<div>{{ caseVm.case.time_start | date:'hh:mm a' }} &mdash; {{ caseVm.case.time_end | date:'hh:mm a' }}</div>
+				</div>
+			</div>
+			<div ng-switch-when="room" class="col-sm-12">
+				<div class="data-row">
+					<div>{{ caseVm.case.location.name }}</div>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="admit_type">
+				<div class="data-row">
+					<div>{{ caseRegistrationConst.ADMISSION_TYPE[caseVm.case.registration.admission_type]}}</div>
+				</div>
+			</div>
+			<div ng-switch-default class="col-sm-12">
+				<div class="data-row">
+					<div ng-if="item.field !== 'surgeon' && item.type == 'user'"><span ng-repeat="user in caseVm.case[item.field]">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

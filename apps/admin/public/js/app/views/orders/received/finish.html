@@ -1,0 +1,12 @@
+<div class="modal-header">
+	<h4 class="modal-title">Order Received</h4>
+</div>
+<div class="modal-body" >
+	<errors src="orderVm.errors"></errors>
+	<div class="row">This order will be marked as:</div>
+	<div class="row"><b>{{orderVm.order.getCurrentStatusName()}}</b></div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="ok()">OK</button>
+	<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,35 @@
+<filters-panel ctrl="listVm">
+	<div class="data-row">
+		<label>Patient Name</label>
+		<div class="group-field">
+			<div><input type="text" ng-model="listVm.search_params.patient_last_name" class='form-control input-sm' placeholder='Last Name' /></div>
+			<div><input type="text" ng-model="listVm.search_params.patient_first_name" class='form-control input-sm' placeholder='First Name' /></div>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Provider</label>
+		<opk-select ng-model="listVm.search_params.provider" options="surgeon.id as surgeon.fullname for surgeon in source.getSurgeons()"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Account #</label>
+		<input valid-number type="text" ng-model="listVm.search_params.id" class='form-control input-sm' placeholder='########' />
+	</div>
+	<div class="date-range data-row">
+		<label>From</label>
+		<date-field ng-model="listVm.search_params.dosFrom" icon="true"></date-field>
+		<label class="to">to</label>
+		<date-field ng-model="listVm.search_params.dosTo" icon="true"></date-field>
+	</div>
+	<div class="data-row">
+		<label>Status</label>
+		<opk-select ng-model="listVm.search_params.status" key-value-options="billingConst.STATUSES"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Insurance(s)</label>
+		<opk-select multiple
+					ng-model="listVm.search_params.insurances"
+					placeholder="Type or select"
+					select-options="{newItemFn: 'listVm.newInsurance($query)', newItem: true}"
+					options="value.name for value in source.getInsurances($query, false, true)"></opk-select>
+	</div>
+</filters-panel>

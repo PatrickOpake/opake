@@ -1,0 +1,299 @@
+.profile-page {
+
+	.heading-row {
+		margin-bottom: 10px;
+
+		.headline-container {
+			float: left;
+			margin-top: 15px;
+			margin-bottom: 15px;
+		}
+
+		.controls {
+			margin-top: 10px;
+			float: right;
+
+			.btn {
+				float: right;
+				margin-left: 12px;
+				line-height: 1.5em;
+			}
+		}
+
+		.additional-info {
+			color: #797979;
+			margin-top: 15px;
+			text-align: right;
+		}
+
+	}
+
+	.controls {
+		.additional-info {
+			color: #797979;
+			margin-top: 15px;
+			text-align: right;
+		}
+	}
+
+	.details-panel {
+		margin-top: 10px;
+
+		.data-row {
+			border-top: 1px solid #F2F2F2;
+			border-bottom: 1px solid #F2F2F2;
+			height: 70px;
+			display: table;
+			width: 100%;
+			line-height: 2em;
+
+			> label {
+				margin: 0;
+				width: 220px;
+				text-align: left;
+				font-weight: bold;
+			}
+
+			> * {
+				color: #797979;
+				display: table-cell;
+				vertical-align: middle;
+			}
+
+			> .search-choice {
+				border: 1px solid
+			}
+		}
+
+		.input-container {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			.data-row {
+				border-top: none;
+				border-bottom: none;
+				> .checkbox {
+					height: auto;
+					line-height: normal;
+					label {
+						color: #797979;
+						font-weight: normal !important;
+						&:after {
+							top: 2px;
+						}
+					}
+				}
+			}
+		}
+
+		.input-sep {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		select.form-control,
+		input.form-control,
+		textarea.form-control {
+			border: 1px solid #dddddd;
+		}
+
+		.date-field {
+			width: 250px;
+		}
+
+		.date > input.form-control {
+			width: 100%;
+		}
+
+		input.form-control,
+		.opk-select.multiple {
+			width: 80%;
+		}
+
+		.date input {
+			width: 100%;
+		}
+
+		.date {
+			width: 140px;
+		}
+
+		.status-switch {
+
+			.switch-label {
+				cursor: pointer;
+				display: inline-block;
+				vertical-align: middle;
+				margin-left: 10px;
+				margin-right: 10px;
+			}
+
+			.switch-label.active {
+				color: #00a1cf;
+			}
+
+			.switch {
+				vertical-align: middle;
+			}
+
+		}
+
+		.upload-container {
+			width: 125px;
+			height: 125px;
+			position: relative;
+
+			> .upload-image {
+				position: absolute;
+				right: -17px;
+				top: 45px;
+				display: block;
+				width: 36px;
+				height: 36px;
+				background-color: #000000;
+				opacity: 0.5;
+				border-radius: 40px;
+				padding-top: 8px;
+				padding-left: 8px;
+			}
+		}
+
+	}
+
+	.block-panel {
+		background-color: #ffffff;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 35px;
+		padding-right: 30px;
+		margin-bottom: 10px;
+	}
+
+	.headline-title {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		color: #666666;
+		font-size: 22px;
+		font-weight: bold;
+	}
+
+	table.opake {
+		tr td {
+			padding: 20px 10px;
+		}
+		tr th {
+			font-variant: small-caps;
+			text-transform: lowercase;
+
+			> i {
+				vertical-align: middle;
+			}
+		}
+	}
+
+	.organization-permissions {
+
+		.child-level {
+			padding-left: 40px;
+		}
+
+		.permission-label {
+			margin-left: 16px;
+			font-weight: bold;
+		}
+
+		.permission-hint {
+			margin-left: 60px;
+			font-size: 12px;
+			font-style: italic;
+		}
+	}
+
+	label {
+		color: #797979;
+	}
+
+}
+.user-profile.profile-page{
+	table.opake {
+		tr td {
+			padding: 20px 0px;
+		}
+
+	}
+
+
+
+}
+
+.switch.checked {
+	border-color: #2BCCB1;
+	background-color: #2BCCB1;
+}
+
+.switch.disabled {
+	background-color: #d9d9d9;
+	border-color: #d9d9d9;
+}
+
+.switch {
+	border-color: #F85959;
+	background-color: #F85959;
+}
+
+.switch .off,
+.switch .on {
+	color: #ffffff;
+}
+
+.user-tiny-image {
+	width: 35px;
+	height: 35px;
+	border-radius: 35px;
+}
+
+.profile-image-upload {
+  width: 125px;
+  height: 125px;
+
+  .crop-image-container {
+	position: relative;
+
+
+	.cropit-preview-image-container {
+	  z-index: 50;
+	  border-radius: 100px;
+	  overflow: hidden;
+	}
+
+	.cropit-preview {
+	  border-radius: 100px;
+	  overflow: hidden;
+
+	  &.cropit-image-loaded.enable-moving {
+		cursor: move;
+	  }
+	}
+
+	.camera-container {
+	  z-index: 100;
+	  position: absolute;
+	  right: -17px;
+	  top: 45px;
+	  display: block;
+	  width: 35px;
+	  height: 35px;
+	  background-color: #000000;
+	  opacity: 0.5;
+	  border-radius: 40px;
+	  padding-top: 8px;
+	  padding-left: 7px;
+	}
+  }
+
+}
+
+.organization-profile .profile-image-upload,
+.user-profile .profile-image-upload,
+.patient-profile .profile-image-upload {
+  float: left;
+}

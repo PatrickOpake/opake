@@ -1,0 +1,24 @@
+<div class="inner-left">
+	<div class="inner-left--background"></div>
+	<div ng-if="menuVm.menuType === 'default'" class="left-menu">
+		<ul>
+			<li ng-repeat="(key, item) in menuVm.menuItems" class="left-menu--item" ng-class="{'active': menuVm.activeMenu == key}">
+				<span class="icon-container">
+					<span class="icon {{::key}}"></span>
+				</span>
+				<a href="{{::item.firstItemLink}}">{{::item.title}}</a>
+				<span class="icon chevron"></span>
+			</li>
+		</ul>
+		<side-calendar ng-if="menuVm.showParams.showSideCalendar"></side-calendar>
+		<case-list-side-calendar ng-if="menuVm.showParams.showCaseListSideCalendar"></case-list-side-calendar>
+		<schedule-legend ng-if="menuVm.showParams.showScheduleLegend"></schedule-legend>
+	</div>
+	<div ng-if="menuVm.menuType === 'settings'" class="left-menu">
+		<ul>
+			<li ng-repeat="(key, item) in menuVm.menuItems" class="left-menu--item" ng-class="{'active': menuVm.activeMenu == key}">
+				<a href="{{::item.firstItemLink}}">{{::item.title}}</a>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+<div show-loading="listVm.isFileUploading">
+	<div class="modal-header">
+		<h4>Upload CPT Database</h4>
+	</div>
+	<div class="modal-body">
+		<errors src="listVm.errors"></errors>
+		<div>
+			<div ng-if="!listVm.newDb.file" class="file-drop-box"
+				 ngf-drop="listVm.uploadFile($files)" ngf-drag-over-class="'drag-over'">
+				<div class="file-drop-box--help">
+					<i class="icon-file-upload-cloud"></i> <br/>
+					<span class="bold-text">Drag and drop a file here</span> <br/>
+					or <br/>
+					<button class="btn btn-grey btn-file" select-file on-select="listVm.uploadFormFileChanged(files)"> Select File
+						<input type="file" name="fileDoc"/>
+					</button>
+				</div>
+			</div>
+			<div ng-if="listVm.newDb.file" class="data-row upload-file--filename">
+				{{listVm.newDb.file.name}}
+				<a ng-click="listVm.removeUploadedFile()" href="" class="remove">
+					<i class="glyphicon glyphicon-remove-circle"></i>
+				</a>
+			</div>
+			<div class="upload-forms--upload-inputs" >
+				<div class="data-row">
+					<label>Select Year*:</label>
+					<opk-select ng-model="listVm.newDb.year" options="item for item in listVm.availableYears"></opk-select>
+				</div>
+				<div class="data-row">
+					<label>Notes:</label>
+					<input type="text" class="form-control input-sm" name="name" ng-model="listVm.newDb.notes">
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+		<button class="btn btn-success" ng-click="listVm.uploadNewDb()" ng-disabled="!listVm.newDb.file || !listVm.newDb.year">Upload</button>
+	</div>
+</div>

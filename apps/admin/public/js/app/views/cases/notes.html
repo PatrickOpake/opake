@@ -1,0 +1,82 @@
+<div class="notes-modal">
+    <div class="modal-header">
+        <div class="user-info">
+            <img ng-if="::loggedUser.image" class="user-photo" ng-src="{{ ::loggedUser.image }}" alt=""/>
+            <span ng-if="::(!loggedUser.image)" class="default-user-photo"></span>
+            <span class="user-name">{{ ::loggedUser.fullname }}</span>
+        </div>
+        <a href="" ng-click="cancel()"><i class="glyphicon glyphicon-remove"></i></a>
+    </div>
+    <div class="modal-body" ng-form name="NoteForm">
+        <div class="notes-container case-note-container" scroll-down>
+            <div class="flagged-notes">
+                <div ng-repeat="note in noteVm.flaggedNotes | orderBy: 'id'" class="note-container" ctrl="noteVm" note="note">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <span class="note-metadata">{{ ::(note.user.first_name + ' ' + note.user.last_name) }}</span>
+                            <span class="note-addition-time">{{ noteVm.getDate(note) }}</span>
+                        </div>
+                        <div class="col-sm-3 note-icons">
+                            <reminder-icon ng-if="note.show_bell_icon || note.showFlagAndReminderIcon()" note="note" ng-model="note.reminderDate" ctrl="noteVm" ></reminder-icon>
+                            <a href="" ng-click="noteVm.unflagNote(note)" class="icon">
+                                <i class="icon-note-flag-filled" uib-tooltip="Permanent Pin" tooltip-class="red" tooltip-append-to-body="true"></i>
+                            </a>
+                            <a href="" ng-click="noteVm.editMode(note)" class="icon" ng-if="note.show_edit_icons">
+                                <i class="icon-note-edit" uib-tooltip="Edit" tooltip-append-to-body="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div ng-if="!note.edit && !note.delete">{{ note.text }}</div>
+                    <div ng-if="note.edit" ng-form name="NoteEditForm" class="notes--add-row">
+                        <div class="data-row">
+                            <input ng-required="true" type="text" class="form-control" ng-model="note.text" ng-blur="noteVm.cancelEdit($event, note)">
+                            <div><button class="btn btn-success" ng-mousedown="noteVm.editNote(note);$event.stopPropagation();" ng-disabled="NoteEditForm.$invalid">Add</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-repeat="note in noteVm.notes | orderBy: 'id'" class="note-container" ctrl="noteVm" note="note">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <span class="note-metadata">{{ ::(note.user.first_name + ' ' + note.user.last_name) }}</span>
+                        <span class="note-addition-time">{{ noteVm.getDate(note) }}</span>
+                    </div>
+                    <div class="col-sm-3 note-icons">
+                        <reminder-icon ng-if="note.show_bell_icon || note.showFlagAndReminderIcon()" note="note" ng-model="note.reminderDate" ctrl="noteVm" ></reminder-icon>
+                        <a href="" ng-click="noteVm.flagNote(note)" class="icon" ng-if="note.show_flag_icon">
+                            <i class="icon-note-flag-outline" uib-tooltip="Permanent Pin" tooltip-class="red" tooltip-append-to-body="true"></i>
+                        </a>
+                        <a href="" ng-click="noteVm.editMode(note)" class="icon" ng-if="note.show_edit_icons">
+                            <i class="icon-note-edit" uib-tooltip="Edit" tooltip-append-to-body="true"></i>
+                        </a>
+                        <a href="" ng-click="noteVm.deleteMode(note)" class="icon" ng-if="note.show_edit_icons">
+                            <i class="icon-note-delete" uib-tooltip="Delete" tooltip-class="red" tooltip-append-to-body="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div ng-if="!note.edit && !note.delete">{{ note.text }}</div>
+                <div ng-if="note.edit" ng-form name="NoteEditForm" class="notes--add-row">
+                    <div class="data-row">
+                        <input ng-required="true" type="text" class="form-control" ng-model="note.text" ng-blur="noteVm.cancelEdit($event, note)">
+                        <div><button class="btn btn-success" ng-mousedown="noteVm.editNote(note);$event.stopPropagation();" ng-disabled="NoteEditForm.$invalid">Add</button></div>
+                    </div>
+                </div>
+                <div ng-if="note.delete" class="delete-note">
+                    <span class="confirm-message">
+                        Are you sure you want to delete this message? This cannot be undone
+                    </span>
+                    <div class="confirm-buttons">
+                        <button class="btn btn-grey" ng-click="noteVm.cancelDelete(note)">Cancel</button>
+                        <button class="btn btn-danger" ng-click="noteVm.deleteNote(note)">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notes--add-row">
+            <div class="data-row">
+                <input ng-keydown="noteVm.noteInputKeyDown($event)" ng-required="true" type="text" class="form-control" ng-model="noteVm.note_temp_text" placeholder="{{::noteVm.placeholderText}}">
+                <div><button class="btn btn-success" ng-click="noteVm.addNote()" ng-disabled="NoteForm.$invalid">Add</button></div>
+            </div>
+        </div>
+    </div>
+</div>

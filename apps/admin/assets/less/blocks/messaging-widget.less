@@ -1,0 +1,257 @@
+@messaging-width: 255px;
+
+.messaging-widget {
+	position: fixed;
+  	bottom: 0;
+	right: (@grid-gutter-width / 2);
+	width: @messaging-width;
+	z-index: 999;
+}
+.messaging-input {
+	min-height: 28px;
+	width: 100%;
+	border: none;
+	padding: 8px;
+	outline: none;
+}
+.messages-badge {
+	&:extend(.badge);
+	background-color: #fb5855;
+	line-height: 1.2;
+	padding: 3px 6px;
+}
+
+// Window
+.messaging-window {
+	width: 100%;
+	margin-bottom: 5px;
+	color: @text-color;
+	background: #fff;
+	.box-shadow(0 0 10px rgba(0,0,0,.3));
+}
+.messaging-window--head {
+	display: block;
+	width: 100%;
+  	padding: 5px 30px 5px 10px;
+  	color: #fff;
+	background: @blue;
+	cursor: pointer;
+  	position: relative;
+
+	.title {
+		display: inline-block;
+	  	vertical-align: middle;
+	}
+
+	.icon-visible {
+		position: relative;
+		display: inline-block;
+		margin-left: 5px;
+	  	vertical-align: middle;
+
+		&.inactive:after{
+			content:"";
+			position:absolute;
+			border-top:1px solid #ebebeb;
+			width:40px;
+			transform: rotate(-43deg);
+			-webkit-transform: rotate(-43deg);
+			-ms-transform: rotate(-43deg);
+			transform-origin: 100% 0%;
+			-webkit-transform-origin: 100% 0%;
+			-ms-transform-origin: 100% 0%;
+			right: 1px;
+			top: -2px;
+			width: 120%;
+		}
+	}
+
+	.messaging-window--head--close {
+	  display: inline-block;
+	  position: absolute;
+	  right: 10px;
+	  top: -1px;
+	  font-size: 24px;
+	}
+
+}
+
+// Control
+.messaging-control--user-search {
+	position: relative;
+	border-bottom: 1px solid #e6e6e6;
+
+	.glyphicon {
+		position: absolute;
+		left: 12px;
+		top: 10px;
+		font-size: 16px;
+		color: #ccc;
+	}
+}
+.messaging-control--user-search-input {
+	&:extend(.messaging-input);
+	padding-left: 32px;
+}
+.messaging-control--user-list {
+	.list-unstyled();
+	height: 280px;
+	overflow-y: auto;
+	margin-bottom: 0;
+}
+.messaging-control--user {
+	display: table;
+	width: 100%;
+	padding: 6px 8px;
+	cursor: pointer;
+	color: inherit;
+
+	&:hover {
+		background-color: #f8f8f8;
+	}
+
+	&.online {
+		font-weight: bold;
+	}
+
+	&.inactive {
+		color: #cacaca;
+	}
+
+	.user-name {
+		display: inline-block;
+	  	vertical-align: middle;
+	  	max-width: 140px;
+	    text-overflow: ellipsis;
+	  	overflow: hidden;
+	}
+
+	.icon-invisible {
+		float: left;
+		margin: 6px 0 0 4px;
+	}
+
+	.messages-badge {
+		float: right;
+		margin-top: 2px;
+	}
+
+}
+.messaging-control--user--image {
+	display: inline-block;
+	margin-right: 6px;
+    vertical-align: middle;
+	width: 27px;
+	height: 26px;
+	border-radius: 30px;
+}
+
+// Dialog
+.messaging-dialog {
+	position: relative;
+}
+.messaging-dialog--message-list {
+	height: 280px;
+	overflow-y: auto;
+	padding: 10px;
+}
+.messaging-dialog--message {
+	position: relative;
+	float: left;
+	font-size: 13px;
+	border-radius: 15px;
+	background: #f1f1f1;
+	padding: 10px 14px;
+	margin: 10px 0;
+	max-width: 90%;
+	word-wrap: break-word;
+	clear: both;
+
+	&:after {
+		content: attr(date);
+		position: absolute;
+		bottom: -16px;
+		left: 0;
+		font-size: 11px;
+		color: #aba9a9;
+		white-space: nowrap;
+	}
+
+	&.my {
+		float: right;
+		color: #fff;
+		background: #00a0ce;
+
+		&:after {
+			left: initial;
+			right: 0;
+			color: #aba9a9;
+		}
+	}
+}
+.messaging-dialog--tooltip {
+	display: table;
+	position: absolute;
+	top: -20px;
+	right: 12px;
+	background: #fff;
+	border-radius: 5px;
+	line-height: 0;
+	.box-shadow(0 0 10px rgba(0,0,0,.3));
+}
+.messaging-dialog--tooltip-action {
+	display: table-cell;
+	width: 50%;
+	padding: 7px 8px;
+	cursor: pointer;
+
+	&:first-child {
+		border-right: 1px solid #e6e6e6;
+	}
+
+	&:hover {
+		.icon-trash-16x16 {
+			background-position: -251px -496px;
+		}
+		.icon-edit-16x16 {
+			background-position: -253px -475px;
+		}
+	}
+}
+.messaging-dialog--remove-confirm {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(255,255,255,.9);
+	text-align: center;
+	padding: 90px 35px;
+	line-height: 1.3;
+}
+.messaging-dialog--remove-confirm--buttons {
+	margin-top: 30px;
+
+	:first-child {
+		float: left;
+	}
+	:last-child {
+		float: right;
+	}
+}
+.messaging-dialog--input {
+	&:extend(.messaging-input);
+
+	border-top: 1px solid #e6e6e6;
+}
+
+.messaging-window {
+  .tooltip.messaging-tooltip-close {
+	white-space: nowrap;
+	min-width: 60px;
+	width: 60px;
+	.tooltip-inner {
+	  padding: 10px 5px;
+	}
+  }
+}

@@ -1,0 +1,27 @@
+<table class="opake" ng-if="listVm.items.length">
+	<thead sorter="listVm.search_params" callback="listVm.search()">
+		<tr>
+			<th sort="date">Order Date</th>
+			<th sort="id" class="text-center">Order ID</th>
+			<th sort="vendor" class="text-center">Vendor</th>
+			<th sort="po_id" class="text-center">PO #</th>
+			<th sort="item_count" class="text-center"># of Unique Items</th>
+			<th class="text-center">Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in listVm.items">
+			<td><a href='/orders/{{ ::org_id }}/view/{{ ::item.id }}'>{{ ::item.date }}</a></td>
+			<td class="text-center">{{ ::item.id }}</td>
+			<td class="text-center">{{ ::item.vendor }}</td>
+			<td class="text-center">{{ ::item.po_id ? item.po_id : 'N/A' }}</td>
+			<td class="text-center">{{ ::item.item_count }}</td>
+			<td ng-if="item.status_name === 'Complete'" class="text-center">{{ ::item.status_name }}</td>
+			<td ng-if="item.status_name === 'Open' || item.status_name === 'Incomplete'" class="text-center">
+				<a href="/orders/{{ ::org_id }}/view/{{ ::item.id }}/#?action=receive" class="btn btn-success nounderline">Receive</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<pages count="listVm.total_count" page="listVm.search_params.p" limit="listVm.search_params.l" callback="listVm.search()"></pages>
+<h4 ng-if="listVm.items && !listVm.items.length">No orders found</h4>

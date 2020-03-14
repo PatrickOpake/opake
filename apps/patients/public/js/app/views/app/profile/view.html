@@ -1,0 +1,120 @@
+<div class="profile-page patient-profile">
+    <div class="block-panel">
+        <div class="heading-row clearfix">
+	        <profile-image-upload
+			        options="profileVm.profileImageOptions"
+			        ng-if="profileVm.profileImageOptions"
+			        is-view-only="true"></profile-image-upload>
+
+            <div class="controls">
+                <div class="buttons clearfix">
+                    <a class='btn btn-success btn-shadow' href='' ng-click="profileVm.edit()">Edit</a>
+                </div>
+                <div class="additional-info">
+                    <span>Date Created: {{profileVm.profile.date_created}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-panel">
+            <div class="data-row">
+                <label>First Name:</label>
+                <div>{{profileVm.profile.first_name}}</div>
+            </div>
+            <div class="data-row">
+                <label>Last Name:</label>
+                <div>{{profileVm.profile.last_name}}</div>
+            </div>
+            <div class="data-row">
+                <label>Gender:</label>
+                <div>{{patientConst.GENDERS[profileVm.profile.gender]}}</div>
+            </div>
+            <div class="data-row">
+                <label>DOB:</label>
+                <div>{{profileVm.profile.dob | date:'M/d/yyyy'}}</div>
+            </div>
+            <div class="data-row">
+                <label>SSN:</label>
+                <div>{{profileVm.profile.ssn | ssn}}</div>
+            </div>
+            <div class="data-row">
+                <label>Marital Status:</label>
+                <div>{{patientConst.STATUSES_MARITAL[profileVm.profile.status_marital]}}</div>
+            </div>
+            <div class="data-row">
+                <label>Ethnicity:</label>
+                <div>{{patientConst.ETHNICITIES[profileVm.profile.ethnicity]}}</div>
+            </div>
+            <div class="data-row">
+                <label>Race:</label>
+                <div>{{patientConst.RACES[profileVm.profile.race]}}</div>
+            </div>
+            <div class="data-row">
+                <label>Language:</label>
+                <div>{{profileVm.profile.language.name}}</div>
+            </div>
+            <div class="data-row">
+                <label>Email:</label>
+                <div>{{profileVm.profile.home_email}}</div>
+            </div>
+            <div class="data-row">
+                <label>Phone:</label>
+                <div>{{profileVm.profile.home_phone | phone}}</div>
+            </div>
+            <div class="data-row">
+                <label>Address:</label>
+                <div>{{profileVm.profile.home_address}}</div>
+            </div>
+            <div class="data-row">
+                <label>Apartment #:</label>
+                <div>{{profileVm.profile.home_apt_number}}</div>
+            </div>
+            <div geo model="profileVm.profile" props="{country: 'home_country', state: 'home_state', city: 'home_city', custom_state: 'custom_home_state', custom_city: 'custom_home_city'}">
+                <div class="data-row country">
+                    <label>Country:</label>
+                    <div>{{profileVm.profile.home_country.name}}</div>
+                </div>
+                <div ng-if="profileVm.profile.home_country.id == 235" class="data-row geo-field state">
+                    <label>State:</label>
+                    <div>{{profileVm.profile.home_state.name}}</div>
+                </div>
+                <div ng-if="profileVm.profile.home_country.id != 235" class="data-row custom-state">
+                    <label>State:</label>
+                    <div>{{profileVm.profile.custom_home_state}}</div>
+                </div>
+                <div ng-if="profileVm.profile.home_country.id == 235" class="data-row geo-field city">
+                    <label>City:</label>
+                    <div>{{ profileVm.profile.home_city.name}}</div>
+                </div>
+                <div ng-if="profileVm.profile.home_country.id != 235" class="data-row custom-city">
+                    <label>City:</label>
+                    <div>{{ profileVm.profile.custom_home_city}}</div>
+                </div>
+            </div>
+            <div class="data-row geo-field zip-code">
+                <label>ZIP code:</label>
+                <div>{{ profileVm.profile.home_zip_code}}</div>
+            </div>
+            <div class="data-row">
+                <label>Emergency Contact:</label>
+                <div>{{profileVm.profile.ec_name}}</div>
+            </div>
+            <div class="data-row">
+                <label>Emergency Phone Contact:</label>
+                <div>{{profileVm.profile.ec_phone_number}}</div>
+            </div>
+            <div class="data-row">
+                <label>Relationship to Patient:</label>
+                <div>{{caseRegistrationConst.RELATIONSHIP_TO_INSURED[profileVm.profile.ec_relationship]}}</div>
+            </div>
+            <div class="data-row">
+                <label>Occupation <span class="optional">(optional)</span>:</label>
+                <div>{{patientConst.STATUSES_EMPLOYMENT[profileVm.profile.status_employment]}}</div>
+            </div>
+            <div class="data-row">
+                <label>Employer/School <span class="optional">(optional)</span>:</label>
+                <div>{{profileVm.profile.employer}}</div>
+            </div>
+        </div>
+    </div>
+</div>

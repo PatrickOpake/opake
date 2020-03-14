@@ -1,0 +1,195 @@
+.patient-charts {
+	min-height: 350px;
+	.patient-charts-header {
+		margin-left: 0;
+		margin-right: 0;
+		.check-all {
+			width: 3%;
+		}
+		.icons {
+			position: relative;
+			top: 2px;
+			width: 72%;
+			.icon {
+				text-decoration: none !important;
+				margin-right: 6px;
+				padding: 2px;
+				i {
+					border: 1px solid #fff;
+					border-radius: 3px;
+					&.active {
+						border: 1px solid #ddd;
+					}
+				}
+			}
+		}
+		.button {
+			text-align: right;
+		}
+	}
+	
+	.patient-charts--list-style {
+		.charts-table {
+			margin-top: 10px;
+			margin-bottom: 40px;
+			th {
+				border-top: none;
+			}
+			td {
+				&.check {
+					width: 5%;
+				}
+				&.name {
+					width: 40%;
+				}
+				&.date {
+					width: 40%;
+				}
+				&.upload-new {
+					width: 10%;
+				}
+				&.delete {
+					width: 5%;
+				}
+			}
+		}
+	}
+	
+	.patient-charts--grid-style {
+		.charts-block {
+			margin-top: 10px;
+			margin-bottom: 40px;
+			.charts-block-header {
+				border-bottom: 1px solid #e6e6e6;
+				font-weight: bold;
+				color: #666;
+				padding: 10px;
+			}
+			.charts {
+				margin: 10px 0;
+				.chart-container {
+					padding: 10px !important;
+					.chart {
+						padding: 0 10px;
+						border: 1px solid #ddd;
+						.chart-header {
+							.ellipses {
+								text-align: right;
+								a {
+									color: #999;
+									font-size: 20px;
+									text-decoration: none;
+									font-weight: bold;
+								}
+							}
+						}
+						.chart-body-view {
+							text-align: center;
+							margin-top: 30px;
+							height: 160px;
+							.chart-info {
+								margin-top: 30px;
+								.name {
+									font-weight: bold;
+								}
+							}
+						}
+						.chart-body-edit {
+							margin-top: 30px;
+							height: 130px;
+							.upload-new {
+								margin-top: 60px;
+								margin-bottom: 70px;
+								text-align: center;
+							}
+							.delete {
+								text-align: right;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.charts-uploading-block {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1050;
+		background-color: #FFF;
+		opacity: 0.8;
+		.file-drop-box {
+			height: 100%;
+			background-color: #FFF;
+			&.drag-over {
+				border: 3px solid #94c0f1;
+				background-color: rgba(148,192,241, 0.3);
+			}
+			.cancel-upload {
+				float: right;
+				margin: 10px 25px 0 0;
+			}
+			.file-drop-box--help {
+				padding-top: 200px;
+
+				.btn-file {
+					border: none;
+					background: none;
+					color: #00a1cf;
+				}
+				.btn-file:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+	
+	.charts-to-upload {
+		border: 3px dashed #E1E1E1;
+		padding: 5px;
+		table {
+			th {
+				border-top: none;
+			}
+			td {
+			  &.icon {
+				  width: 5%;
+			  }
+			  &.name {
+				  width: 35%;
+			  }
+			  &.case {
+				  width: 45%;
+			  }
+			  &.rename {
+				  width: 10%;
+				  text-align: right;
+			  }
+			  &.delete {
+				  width: 5%;
+			  }
+			}
+		}
+	}
+	.waiting-layer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1050;
+		background-color: #FFFFFF;
+		opacity: 0.5;
+		.spinner {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -18px;
+			margin-left: -18px;
+			opacity: 1;
+		}
+	}
+}

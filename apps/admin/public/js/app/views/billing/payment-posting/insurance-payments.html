@@ -1,0 +1,105 @@
+<div class="content-block payment-enter-step insurances-posting">
+	<div class="list-control">
+		<span class="title">Insurance Payment</span>
+		<div class="loading-wheel" ng-if="listVm.isShowLoading">
+			<div class="loading-spinner"></div>
+		</div>
+		<a class="btn btn-success" ng-click="listVm.addNewPayment()" ng-hide="true">Add Payment</a>
+	</div>
+	<table class="opake">
+		<thead>
+		<tr>
+			<th class="payment-id-column">Payment ID</th>
+			<th class="date-paid-column">Date Paid</th>
+			<th class="insurance-name-column">Insurance Name</th>
+			<th class="insurance-code-column">Insurance Code</th>
+			<th class="payment-type-column">Payment Type</th>
+			<th class="description-column">Description</th>
+			<th class="amount-column">Total Amt Paid</th>
+			<th class="amount-column">Unapplied Amt</th>
+			<th class="amount-column">Applied Amt</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat-start="item in listVm.enteredPayments">
+			<td>
+				<input type="text" ng-model="item.payment_id" class='form-control input-sm' />
+			</td>
+			<td>
+				<date-field ng-model="item.date_paid" placeholder="mm/dd/yyyy" small="true" icon="true"></date-field>
+			</td>
+			<td>
+				<opk-select select-options="{newItemFn: 'listVm.newInsuranceCompany($query)', newItemUseLabel: true, newItemLabel: 'Add Insurance'}"
+				            ng-model="item.insurance"
+				            options="item.name for item in source.getInsurances($query, true)"></opk-select>
+			</td>
+			<td>
+				<input type="text" ng-model="item.insurance_code" class='form-control input-sm' />
+			</td>
+			<td>
+				<opk-select select-options="{appendToBody: true}"
+				            ng-model="item.payment_type" change="listVm.paymentTypeChanged(item)" options="opt.id as opt.title for opt in BillingConst.PAYMENT_POSTING_INSURANCE_PAYMENT_TYPE_OPTIONS" placeholder="Type"></opk-select>
+						<span class="card-info" ng-if="item.authorization_number">
+							Authorization Number: {{item.authorization_number}}
+						</span>
+						<span class="card-info" ng-if="item.check_number">
+							Check Number: {{item.check_number}}
+						</span>
+			</td>
+			<td>
+				<input type="text" ng-model="item.description" class='form-control input-sm' />
+			</td>
+			<td>
+				<input type="text" ng-model="item.total_amount_paid" valid-number type-number="float" digits-max-length="10" class='form-control input-sm' ng-change="listVm.totalAmountPaidChanged(item)" />
+			</td>
+			<td>
+				<input type="text" ng-model="item.unapplied_amount" valid-number type-number="float" digits-max-length="10" class='form-control input-sm' ng-change="listVm.unappliedAmountChanged(item)" />
+			</td>
+			<td>
+				<input type="text" ng-model="item.applied_amount" valid-number type-number="float" digits-max-length="10" class='form-control input-sm' ng-change="listVm.appliedAmountChanged(item)" />
+			</td>
+			<td>
+				<a href="" ng-click="listVm.removeEnteredPayment($index)"><span class="icon-remove"></span></a>
+			</td>
+		</tr>
+		<tr ng-repeat-end>
+			<td colspan="10">
+				<div class="procedures-table-container">
+					<ng-include src="view.get('billing/payment-posting/procedures-list.html')"></ng-include>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<script type="text/ng-template" id="billing/payment-posting/insurance/check-number.html">
+	<div class="payment-posting-modal">
+		<div class="modal-body">
+			<div class="data-row">
+				<label>Check Number:</label>
+				<input type="text" ng-model="modalVm.number" class='form-control input-sm' />
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="modalVm.ok()">Save</button>
+			<button class="btn btn-grey" ng-click="modalVm.cancel()" type="button">Cancel</button>
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="billing/payment-posting/insurance/authorization-number.html">
+	<div class="payment-posting-modal">
+		<div class="modal-body">
+			<div class="data-row">
+				<label>Authorization Number:</label>
+				<input type="text" ng-model="modalVm.number" class='form-control input-sm' />
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="modalVm.ok()">Save</button>
+			<button class="btn btn-grey" ng-click="modalVm.cancel()" type="button">Cancel</button>
+		</div>
+	</div>
+</script>

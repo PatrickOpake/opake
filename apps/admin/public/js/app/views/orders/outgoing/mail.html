@@ -1,0 +1,30 @@
+<div class="modal-body">
+	<errors src="orderVm.errors"></errors>
+
+	<div class="headline" ng-repeat-start="email in orderVm.emails">{{ ::email.vendor.name }}</div>
+	<email-form email="email" name="orderVm.email_form_{{ $index }}" ng-repeat-end></email-form>
+	<!--
+	<table class="opake" ng-repeat-end>
+		<thead>
+			<tr>
+				<th></th>
+				<th>Item</th>
+				<th>Description</th>
+				<th>Ordering</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in orderVm.order.items | filter:{vendor: {name: email.vendor.name}}">
+				<td><img src="{{ ::item.inventory.image }}" /></td>
+				<td>{{ ::item.inventory.name }}</td>
+				<td>{{ ::item.inventory.desc }}</td>
+				<td>{{ item.count }}</td>
+			</tr>
+		</tbody>
+	</table>
+	-->
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-link pull-left" ng-class="{disabled: !orderVm.validEmailForms()}" ng-click="orderVm.saveWithoutSending()" >Save Without Sending</button>
+	<button type="button" class="btn btn-success" ng-click="orderVm.sendEmails()" ng-disabled="!orderVm.validEmailForms() || orderVm.sending">Send</button>
+</div>

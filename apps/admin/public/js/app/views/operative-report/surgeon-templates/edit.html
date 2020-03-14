@@ -1,0 +1,70 @@
+<script src='/vendors/tinymce/js/tinymce/tinymce.min.js' type='text/javascript'></script>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div ng-repeat="(group_id,group) in reportVm.template"  ng-if="reportVm.templateConst.GROUPS.CASEINFO != group_id && reportVm.hasActiveFields(group_id)">
+			<h4 class="section-header">{{reportVm.templateConst.GROUPS_NAME[group_id]}}</h4>
+			<div dnd-list="reportVm.template[group_id]"
+				 dnd-allowed-types="reportVm.allowedTypes"
+				 class="section-container">
+				<div ng-repeat="field in group"
+					 ng-show="field.confirmed_active"
+					 dnd-draggable="field"
+					 dnd-moved="reportVm.template[group_id].splice($index, 1); reportVm.movedField()"
+					 dnd-effect-allowed="move"
+					 dnd-type="field.group_id"
+					 dnd-nodrag>
+						<div class="data-row">
+							<switch class="green" ng-model="field.active"></switch>
+							<label>{{field.name}}</label>
+						</div>
+						<div class="data-row">
+							<div ng-if="reportVm.isUnDefined(field.field) && field.field != 'custom' && field.field != 'list'"
+								 ng-class="{textarea: field.show == 'textarea', disabled: reportVm.isUnDefined(field.field)}"
+								 class="form-control input-sm editor">
+								{{reportVm.plug_text}}
+							</div>
+
+							<div ng-if="!reportVm.isUnDefined(field.field) && field.field !== 'custom'" class="editor">
+								<editor-inline ng-model="reportVm.report[field.field]" dictation></editor-inline>
+							</div>
+							<div ng-if="field.field === 'custom'" class="editor">
+								<editor-inline ng-model="field.custom_value" dictation></editor-inline>
+							</div>
+							<div ng-if="field.field === 'list'" class="row">
+								<div class="col-sm-6 column">
+									<div ng-repeat="item in field.list_value.column1" class="data-row">
+										<div class="checkbox">
+											<input  id="item1_{{$parent.$index}}_{{$index}}" type="checkbox" ng-model="item.active" class="styled" disabled />
+											<label for="item1_{{$parent.$index}}_{{$index}}"></label>
+										</div>
+										<input type="text"  class="form-control" ng-model="item.text" />
+										<textarea class="form-control" placeholder="Description for item above" ng-model="item.description"></textarea>
+									</div>
+									<a href="" ng-click="reportVm.addNewListItem(field.list_value.column1)">+ Add new list item</a>
+								</div>
+								<div class="col-sm-6 column" ng-if="field.list_value.count_columns == 2">
+									<div ng-repeat="item in field.list_value.column2" class="data-row">
+										<div class="checkbox">
+											<input  id="item2_{{$parent.$index}}_{{$index}}" type="checkbox" ng-model="item.active" class="styled" disabled />
+											<label for="item2_{{$parent.$index}}_{{$index}}"></label>
+										</div>
+										<input type="text"  class="form-control" ng-model="item.text" />
+										<textarea class="form-control" placeholder="Description for item above" ng-model="item.description"></textarea>
+									</div>
+									<a href="" ng-click="reportVm.addNewListItem(field.list_value.column2)">+ Add new list item</a>
+								</div>
+							</div>
+							<div dnd-handle class="handle"><i class="icon-drag-n-drop"></i></div>
+							<div ng-if="field.field === 'custom'" class="remove-delete-custom-field">
+								<a href=""
+								   ng-click="reportVm.removeCustomField(field)">
+									<i class="icon-remove"></i>
+								</a>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

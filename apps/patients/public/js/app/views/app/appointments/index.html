@@ -1,0 +1,36 @@
+<div class="profile-page">
+	<div class="content-block top-info-panel">
+		<h4>This is your appointments page.</h4>
+		<p>Here you can view details and fill out paper work for any of your upcoming visits.</p>
+	</div>
+
+	<div class="content-block appointments-list" class="case-registration-list">
+		<table class="opake">
+			<thead sorter="listVm.searchParams" callback="listVm.load()">
+			<tr>
+				<th sort="acc_number" class="text-center">Account Number</th>
+				<th sort="dos" class="text-center">DOS</th>
+				<th sort="procedure" class="text-center">Procedure</th>
+				<th sort="status" class="text-center">Registration</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="item in listVm.appointments" ng-if="listVm.appointments.length">
+				<td class="text-center">
+					<a ui-sref="app.view-appointment({appointment: item.id})">{{ ::item.case.id }}</a>
+				</td>
+				<td class="text-center">{{ ::item.case.time_start | date:'M/d/yyyy' }}</td>
+				<td class="text-center">{{ ::item.case.type.name }}</td>
+				<td class="text-center control">
+					<a ui-sref="app.view-appointment({appointment: item.id})" class="btn"
+					   ng-class="{'btn-primary': item.patient_appointment_status == 1, 'btn-success': item.patient_appointment_status == 0, 'btn-link': item.patient_appointment_status == 2}">
+						{{ ::caseRegistrationConst.STATUSES[item.patient_appointment_status] }}
+					</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<pages count="listVm.totalCount" page="listVm.searchParams.p" limit="listVm.searchParams.l"
+			   callback="listVm.load()"></pages>
+	</div>
+</div>

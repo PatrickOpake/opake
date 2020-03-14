@@ -1,0 +1,35 @@
+<div ng-controller="CaseTimeLogCtrl as logVm" ng-init="logVm.init(cmVm.case.id);"
+     class="content-block cases-management--time-log">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<h3 class="title">Time Log</h3>
+		</div>
+	</div>
+	<div class="row header">
+		<div class="col-sm-3">
+			<label>STAGE</label>
+		</div>
+		<div class="col-sm-3">
+			<label>TIME</label>
+		</div>
+		<div class="col-sm-6">
+			<label>STAFF</label>
+		</div>
+	</div>
+	<div class="row" ng-repeat="item in logVm.timeLogConst.STAGES" ng-if="logVm.timeLog">
+		<div class="col-sm-3"><label>{{ ::item.name }}</label></div>
+		<div class="col-sm-3">
+			<opk-timepicker removable empty-row ng-model="logVm.timeLog[item.code].time"></opk-timepicker>
+		</div>
+		<div class="col-sm-6">
+			<opk-select ng-model="logVm.timeLog[item.code].staff" multiple options="user.fullname for user in source.getSurgeons()"></opk-select>
+		</div>
+	</div>
+	<div class="row total-case-time">
+		<div class="col-sm-12">
+			<label>Total Case Time:</label> <span>(Enter OR to Exit OR)</span>
+			<label ng-if="logVm.isShowCaseTotal()">{{ logVm.timeLog['enter_or'].time | timeLength: logVm.timeLog['operation_room_exit'].time }}</label>
+		</div>
+	</div>
+</div>

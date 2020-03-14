@@ -1,0 +1,100 @@
+<div class="main-control">
+	<a href="" class="back" ng-click="invVm.back()"><i class="glyphicon glyphicon-chevron-left"></i>Back</a>
+
+	<a class='btn btn-success' ng-if="permissions.hasAccess('inventory', 'edit')"  href='' ng-click="invVm.edit()">Edit</a>
+	<a ng-controller="InventoryOrderCrtl as orderVm" ng-if="permissions.hasAccess('inventory', 'order')" ng-init="orderVm.init(invVm.inventory.id)" ng-click="orderVm.order()" class='btn btn-danger'>Order</a>
+</div>
+
+<uib-tabset class="opk-tabs form-horizontal inventory-tabs">
+	<uib-tab select="ctrl.changeTab('details')" active="ctrl.tabActivity.details">
+		<uib-tab-heading>
+			Item Details
+		</uib-tab-heading>
+		<ng-include src="view.get('inventory/view/item_details.html')" ></ng-include>
+	</uib-tab>
+	<uib-tab select="ctrl.changeTab('purchasing')" active="ctrl.tabActivity.purchasing" disable="true">
+		<uib-tab-heading>
+			Purchasing
+		</uib-tab-heading>
+	</uib-tab>
+</uib-tabset>
+
+<div class="opk-table substitutions-block">
+	<div class="headline">Substitutes</div>
+	<table class="opake substitutions-table" ng-if="invVm.inventory.substitutes.length">
+		<thead>
+		<tr>
+			<th>Name</th>
+			<th>Manufacturer</th>
+			<th>Unit Price</th>
+			<th>Quantity Available</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="item in invVm.inventory.substitutes">
+			<td>{{ item.name}}</td>
+			<td>{{ item.manf.name}}</td>
+			<td>{{ item.unit_price | usd}}</td>
+			<td>{{ item.total_units}}</td>
+		</tr>
+		</tbody>
+	</table>
+	<h4 ng-if="invVm.inventory.substitutes && !invVm.inventory.substitutes.length">Items not found</h4>
+</div>
+
+<div ng-if="invVm.inventory.type === 'Kit'"
+	 ng-controller="KitItemsCrtl as itemsVm"
+	 ng-init="itemsVm.init(invVm.inventory.kit_items);"
+	 ng-include="view.get('inventory/view/kit.html')"
+	 class="opk-table">
+</div>
+
+<div class="data-row edit-quantities" ng-if="permissions.hasAccess('inventory', 'edit_quantities')">
+	<div class="main-control">
+		<a class='btn btn-success' href='' ng-if="!invVm.isShowQuantitiesForm" ng-click="invVm.editQuantities()">Edit</a>
+		<a class='btn btn-success' href='' ng-if="invVm.isShowQuantitiesForm" ng-click="invVm.save()">Save</a>
+	</div>
+</div>
+
+<ng-include ng-if="!invVm.isShowQuantitiesForm" src="view.get('inventory/_pack_info.html')"></ng-include>
+<ng-include ng-if="invVm.isShowQuantitiesForm" src="view.get('inventory/form/_pack_info.html')"></ng-include>
+
+
+<div class="opk-table" ng-controller="InventoryInvoiceListCrtl as listVm" ng-init="listVm.init(invVm.inventory.id);" show-loading="listVm.isShowLoading">
+	<div class="headline">Invoices</div>
+	<table class="opake inventory-item-invoices-table" ng-if="listVm.items.length">
+		<thead>
+			<tr>
+				<th>Invoice Name</th>
+				<th>Date of Upload</th>
+				<th>Preview</th>
+				<th>Download</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in listVm.items">
+				<td>{{ ::item.name }}</td>
+				<td>{{ ::item.date | date:'M/d/yyyy' }}</td>
+				<td><a href="" ng-click="listVm.showPreview(item)">Preview</a></td>
+				<td><a href="/file/view?id={{::item.uploaded_file_id}}">Download</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<pages count="listVm.total_count" page="listVm.search_params.p" limit="listVm.search_params.l" callback="listVm.search()"></pages>
+	<h4 ng-if="listVm.items && !listVm.items.length">Invoices not found</h4>
+</div>
+
+<script type="text/ng-template" id="inventory/delete-item-modal.html">
+	<div>
+		<div class="modal-header">
+			<h4 class="modal-title">Delete Item</h4>
+		</div>
+		<div class="modal-body">
+			<b>Are you sure you would like to delete the item?</b>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="ok()">Delete</button>
+			<button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+		</div>
+	</div>
+</script>

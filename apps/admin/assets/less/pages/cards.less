@@ -1,0 +1,305 @@
+.card-list {
+	.staff-list {
+		img {
+			margin-right: 18px;
+		}
+	}
+	.headline {
+		float: left;
+		margin-top: 10px;
+	}
+}
+
+.card-data > div {
+	line-height: 1.6em;
+	&:first-child {
+		width: 1%;
+	}
+}
+
+.card-data {
+	.headline {
+		vertical-align: middle;
+	}
+}
+
+.pref-card-info {
+	.data-row {
+		label {
+			width: 130px;
+		}
+	}
+}
+
+table.staff-pref-cards {
+	td {
+		&.check {
+			width: 3%;
+		}
+		&.name {
+			width: 87%;
+		}
+		&.last-edit {
+			width: 10%;
+		}
+	}
+}
+
+table.pref-card-notes {
+	tr:first-child td {
+		border-top: none;
+	}
+	tr:last-child td {
+		border-bottom: none;
+	}
+	.note-name {
+		color: #00a1cf;
+		font-weight: bold;
+	}
+	td {
+		&.name {
+			width: 20%;
+		}
+		&.text {
+			width: 60%;
+		}
+		&.actions {
+			width: 20%;
+			text-align: right;
+		}
+		&.buttons {
+			width: 20%;
+			text-align: right;
+		  button {
+				margin: 0 !important;
+			}
+		}
+	}
+}
+
+table.pref-card-items {
+	tr:first-child th {
+		border-top: none;
+	}
+	td, th {
+		&.stage {
+			width: 14%;
+		}
+		&.number {
+			width: 14%;
+			&.view-mode {
+				width: 10%;
+				word-break: break-all;
+			}
+		}
+		&.name {
+			width: 10%;
+			&.view-mode {
+				width: 24%;
+			}
+		}
+		&.manufacturer {
+			width: 11%;
+		}
+		&.description {
+			width: 12%;
+			&.view-mode {
+				width: 29%;
+			}
+		}
+		&.no-inventory {
+			width: 33%;
+			font-weight: bold;
+			text-align: center;
+			&.view-mode {
+				width: 47%;
+			}
+		}
+		&.default-qty {
+			width: 6%;
+		}
+		&.uom {
+			width: 8%;
+		}
+		&.actual-use {
+			width: 6%;
+		}
+		&.actions {
+			width: 19%;
+			&.view-mode {
+				width: 6%;
+			}
+		}
+		&.buttons {
+			width: 19%;
+			text-align: right;
+			button {
+				margin: 0 !important;
+			}
+		}
+	}
+	td.actions {
+		text-align: right;
+	}
+	a.handle {
+		cursor: pointer;
+		position: relative;
+		bottom: 5px;
+	}
+}
+
+li.dndPlaceholder {
+	min-height: 50px;
+	background-color: #eee;
+	list-style-type: none;
+}
+.dndDragging {
+	opacity: 0.99;
+}
+
+div.pref-card-items {
+	.row {
+		border-bottom: 1px solid #e6e6e6;
+		margin-left: 0;
+		margin-right: 0;
+		> div {
+			padding: 10px;
+		}
+		.stage {
+			width: 14%;
+		}
+		.number {
+			width: 14%;
+			&.view-mode {
+				width: 10%;
+				word-break: break-all;
+			}
+		}
+		.name {
+			width: 10%;
+			&.view-mode {
+				width: 24%;
+			}
+		}
+		.manufacturer {
+			width: 11%;
+		}
+		.description {
+			width: 12%;
+			&.view-mode {
+				width: 29%;
+			}
+		}
+		.no-inventory {
+			width: 33%;
+			font-weight: bold;
+			text-align: center;
+			&.view-mode {
+				width: 47%;
+			}
+		}
+		.default-qty {
+			width: 6%;
+		}
+		.uom {
+			width: 8%;
+		}
+		.actual-use {
+			width: 6%;
+		}
+		.actions {
+			width: 19%;
+			text-align: right;
+			&.view-mode {
+				width: 6%;
+			}
+		}
+		.buttons {
+			width: 19%;
+			text-align: right;
+			button {
+				margin: 0 !important;
+			}
+		}
+	}
+	a.handle {
+		cursor: pointer;
+		position: relative;
+		bottom: 5px;
+	}
+}
+
+.stage-header {
+	height: 50px;
+	background-color: #f1f1f1;
+	color: #00a1cf;
+	font-size: 16px;
+	font-weight: bold;
+	margin-left: 0;
+	margin-right: 0;
+	.col-sm-11 {
+		padding-top: 15px;
+		padding-left: 25px;
+		height: 100%;
+	}
+	.col-sm-1 {
+		padding-top: 15px;
+	}
+	.handle {
+		cursor: pointer;
+		position: relative;
+		left: 5px;
+		text-align: right;
+	}
+	.no-dragged-column {
+		height: 100%;
+	}
+}
+
+.preference-cards--notes-header {
+	.header-text {
+		width: 190px;
+	}
+	.checkbox {
+		margin-bottom: 0;
+		position: relative;
+		top: 3px;
+		label {
+			color: #666;
+		}
+	}
+}
+
+.preference-cards--notes {
+	margin-bottom: 7px;
+	padding: 5px 15px;
+	background-color: #fff;
+}
+
+.preference-cards--items {
+	margin-bottom: 7px;
+	padding: 5px 15px;
+	background-color: #fff;
+	table {
+		.form-control {
+			width: 60px;
+			height: 34px;
+			padding: 6px 12px;
+			font-size: 14px;
+			color: #555555;
+			border: 1px solid #cccccc;
+		}
+	}
+}
+
+.pref-card-actions {
+	text-align: right;
+	margin-bottom: 10px;
+	.btn-icon {
+		padding: 0;
+		margin: 0 20px;
+		i {
+			margin-right: 0;
+		}
+	}
+}

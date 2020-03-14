@@ -1,0 +1,6 @@
+<div ng-controller="CasePrefCardCtrl as cardVm" ng-init="cardVm.init(cmVm.case);"
+	 class="cases-management--pref-card" show-loading="cardVm.isCardPrinting" ng-cloak>
+
+		<ng-include src="cardVm.getView()"></ng-include>
+
+</div>

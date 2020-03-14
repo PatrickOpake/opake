@@ -1,0 +1,31 @@
+<div class="modal-body" ng-form name="CaseTypeForm">
+    <div class="case-type--name">
+        <label>Name:</label>
+        <input ng-required="true" type="text" class="form-control input-sm" ng-model="listVm.caseType.name">
+    </div>
+    <div class="case-type--status">
+        <label>Status</label>
+        <div class="status-switch">
+            <span class="switch-label" ng-class="{active: !listVm.caseType.is_active}" ng-click="listVm.deactivateCaseType()">Inactive</span> 
+            <switch ng-model="listVm.caseType.is_active"></switch> 
+            <span ng-class="{active: listVm.caseType.is_active}" class="switch-label" ng-click="listVm.activateCaseType()">Active</span>
+        </div>
+    </div>
+    <div class="cpt-codes--choice">
+        <label>HCPCS/CPT Code:</label>
+        <div class="data-row">
+            <div class="opk-codes--select">
+                <input ng-required="true" type="text" class="form-control input-sm" ng-model="listVm.caseType.code"
+                       maxlength="6" limit-to-max-len valid-alphanum ng-trim="false">
+            </div>
+        </div>
+    </div>
+    <div class="data-row case-type--length">
+        <label>Case Length:</label>
+        <case-length time="listVm.caseType.length"></case-length>
+    </div>
+</div>
+<div class="modal-footer case-type-modal--buttons">
+    <button class="btn btn-success" ng-click="listVm.clickSave(CaseTypeForm)" ng-disabled="CaseTypeForm.$invalid">Save</button>
+    <button class="btn btn-danger" ng-click="cancel()" type="button">Cancel</button>
+</div>

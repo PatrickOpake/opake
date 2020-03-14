@@ -1,0 +1,158 @@
+.chat-widget {
+	position: absolute;
+	bottom: 0;
+	width: 190px;
+	background: @blue;
+	border-bottom: 1px solid #fff;
+	z-index: 100;
+	margin-left: -10px;
+
+	&.open {
+		border-bottom: none;
+
+		.chat-widget--head-toggle {
+			border: none;
+			border-top: none;
+			border-bottom: 3px solid #fff;
+		}
+	}
+}
+
+.chat-widget--head {
+	height: 35px;
+	padding: 8px 10px 8px 20px;
+	font-weight: bold;
+	color: #fff;
+	cursor: pointer;
+
+	.badge {
+		background-color: #C8C8C8;
+		margin-left: 10px;
+	}
+}
+
+.chat-widget--head-toggle {
+	float: right;
+	border: 3px solid #fff;
+	border-top: 7px solid #fff;
+	width: 20px;
+	height: 18px;
+}
+
+.chat-widget--body {
+	border-left: 2px solid @blue;
+	border-right: 2px solid @blue;
+	background: #f1f1f1;
+	font-size: 14px;
+	color: #666;
+}
+
+.chat-widget--list {
+	height: 250px;
+	overflow-y: scroll;
+	padding: 10px;
+}
+
+.chat-widget--list-item {
+	display: table;
+	margin-bottom: 5px;
+}
+
+.chat-widget--list-item--img {
+	margin-right: 5px;
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+}
+
+.chat-widget--list-item--message-group {
+	position: relative;
+	display: table-cell;
+	background: #fff;
+	border-radius: 0 5px 5px 5px;
+	line-height: 1.2;
+	padding: 7px 9px;
+	border: 1px solid #e7e7e7;
+
+	.name {
+		font-weight: bold;
+	}
+
+	&:before, &:after {
+		border-color: transparent;
+		border-style: solid;
+		content: '';
+		display: block;
+		position: absolute;
+		width: 0;
+		height: 0;
+		border-right-width: 0 !important;
+	}
+	&:before {
+		border-width: 9px;
+		border-top-color: #e7e7e7;
+		left: -9px;
+		top: -1px;
+	}
+	&:after {
+		border-width: 7px;
+		border-top-color: #fff;
+		left: -7px;
+		top: 0;
+	}
+}
+
+.chat-widget--list-item--message {
+	margin-bottom: 8px;
+
+	.date {
+		color: #ccc;
+		margin: 2px 0;
+		font-size: 13px;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.chat-widget--list-item.my {
+	width: 100%;
+	padding-left: 60px;
+	padding-right: 10px;
+
+	.chat-widget--list-item--message-group {
+		background: #f2fcff;
+		float: right;
+		border-radius: 5px 0 5px 5px;
+
+		.date {
+			width: 100%;
+			text-align: right;
+		}
+
+		&:before, &:after {
+			border-right-width: 9px !important;
+			border-left-width: 0 !important;
+		}
+		&:before {
+			border-top-color: #e7e7e7;
+			left: auto !important;
+			right: -9px;
+		}
+		&:after {
+			border-top-color: #f2fcff;
+			left: auto !important;
+			right: -7px;
+		}
+	}
+}
+
+.chat-widget--input {
+	min-height: 28px;
+	width: 100%;
+	border: none;
+	padding: 8px;
+	font-style: italic;
+	outline: none;
+}

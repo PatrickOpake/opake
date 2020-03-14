@@ -1,0 +1,61 @@
+<form name="card_form" class="cases-management--pref-card--header">
+	<errors src="cardVm.errors"></errors>
+	<div class="panel-data">
+		<a href="" ng-if="cardVm.fromCardsQueue" class="back" ng-click="cardVm.toCardsQueue()"><i class="glyphicon glyphicon-chevron-left"></i>Back</a>
+		<div class="data-row card-data">
+			<span class="headline">{{cmVm.case.users[0].full_name}}</span>
+			<div class="pref-card-actions">
+				<a class='btn btn-grey' href="" ng-click="cardVm.cancel()">Cancel</a>
+				<a class='btn btn-success' href="" ng-click="cardVm.save(cardVm.cardConst.CARD_STATUSES.STATUS_DRAFT)" ng-disabled="!cardVm.canSave()">Save</a>
+				<a class='btn btn-success' href="" ng-click="cardVm.save(cardVm.cardConst.CARD_STATUSES.STATUS_SUBMITTED, true)">Finish</a>
+			</div>
+		</div>
+		<div class="row pref-card-info">
+			<div class="col-sm-5">
+				<div class="data-row">
+					<label>Procedure:</label>
+					<div>
+						<span ng-repeat="type in cmVm.case.additional_cpts" uib-tooltip="{{ type.name }}" tooltip-placement="bottom" tooltip-class="white-for-cpt-codes">
+							{{ type.code }}{{ !$last ? ', ' : '' }}
+						</span>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Template Name:</label>
+					<opk-select ng-model="cardVm.card.template"
+								placeholder="Choose a template from the list"
+								options="item.name for item in cardVm.templates"
+								ng-change="cardVm.selectTemplate()"></opk-select>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="row patient-info">
+					<div class="col-sm-6">
+						<div class="data-row"><label>Patient Name</label> <b>{{ cmVm.case.patient.last_name + ', ' + cmVm.case.patient.first_name }}</b></div>
+						<div class="data-row"><label>Age/Sex</label> <b>{{ cmVm.case.patient.age}}/{{ cmVm.case.patient.sex}}</b></div>
+						<div class="data-row"><label>DOB</label> <b>{{ cmVm.case.patient.dob | date:'M/d/yyyy' }}</b></div>
+					</div>
+					<div class="col-sm-6">
+						<div class="data-row"><label>MRN</label> <b>{{ cmVm.case.patient.full_mrn}}</b></div>
+						<div class="data-row"><label>DOS</label> <b>{{ cmVm.case.time_start | date:'M/d/yyyy' }}</b></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<div ng-controller="CardItemsCrtl as itemsVm"
+	ng-init="itemsVm.init(cardVm.card.items, cardVm.card.notes, cardVm.card.stages);"
+	ng-include="view.get('cards/items/edit.html')" onLoad="isCaseCard = true">
+</div>
+
+<h3>Additional Notes:</h3>
+<div class="panel-data cases-management--pref-card--additional-notes">
+	<textarea class="form-control medium" ng-model="cardVm.card.additional_note"></textarea>
+</div>
+
+<h3>Variable Cost:</h3>
+<div class="panel-data cases-management--pref-card--var-cost">
+	<input type="text" class="form-control" ng-model="cardVm.card.var_cost" valid-number type-number="float" digits-max-length="12" />
+</div>

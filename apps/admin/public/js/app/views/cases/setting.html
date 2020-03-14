@@ -1,0 +1,94 @@
+<errors src="settingVm.errors"></errors>
+<h3 class="title">Calendar Settings</h3>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="setting-column">
+			<div class="data-row"><label class="dark">Block Scheduling</label></div>
+			<div class="form-group">
+				<label>Open Block at:</label>
+				<opk-select ng-model="settingVm.setting.block_timing"
+					    key-value-options="caseSettingConst.BLOCK_TIMING" int-keys></opk-select>
+				<div class="data-row">
+					If no cases are scheduled in the block by the time above.
+					The block restriction will be removed for that day
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="setting-column case-colors">
+			<div class="data-row"><label class="dark">Case colors</label></div>
+			<div class="btn-group cases-color-for">
+				<label class="btn" ng-model="settingVm.colorType" uib-btn-radio="'doctor'" ng-change="settingVm.changeColorType()">Staff</label>
+				<label class="btn" ng-model="settingVm.colorType" uib-btn-radio="'room'" ng-change="settingVm.changeColorType()">Rooms</label>
+				<label class="btn" ng-model="settingVm.colorType" uib-btn-radio="'practice'" ng-change="settingVm.changeColorType()">Practices</label>
+			</div>
+			<div ng-if="settingVm.colorType === 'doctor'">
+				<div class="data-row">Select colors to display each staff members case.</div>
+				<div class="data-row" ng-repeat="doctor in settingVm.setting.doctors">
+					<label>{{ doctor.fullname }}</label>
+					<div>
+						<div class="dropdown" uib-dropdown>
+							<div class="color-container" id="dropdown-colors" uib-dropdown-toggle>
+								<div class="color-value" ng-class="settingVm.getSurgeonColorClass(doctor)"></div>
+							</div>
+							<ul class="colors-palette" aria-labelledby="dropdown-colors" uib-dropdown-menu>
+								<li ng-repeat="color in calendarConst.COLORS" ng-click="settingVm.updateSurgeonColor(doctor, color)">
+									<div class="color-container option-container" ng-class="{'selected': doctor.case_color == color.key}">
+										<div class="color-value color-option" ng-class="settingVm.getClassNameForColor(color)"></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="color-name">{{ settingVm.getSurgeonColorName(doctor) }}</div>
+					</div>
+				</div>
+			</div>
+			<div ng-if="settingVm.colorType === 'room'">
+				<div class="data-row">Select colors to display each room.</div>
+				<div class="data-row" ng-repeat="room in settingVm.setting.rooms">
+					<label>{{ room.name }}</label>
+					<div>
+						<div class="dropdown" uib-dropdown>
+							<div class="color-container" id="dropdown-room-colors" uib-dropdown-toggle>
+								<div class="color-value" ng-class="settingVm.getRoomColorClass(room)"></div>
+							</div>
+							<ul class="colors-palette" aria-labelledby="dropdown-room-colors" uib-dropdown-menu>
+								<li ng-repeat="color in calendarConst.COLORS" ng-click="settingVm.updateRoomColor(room, color)">
+									<div class="color-container option-container" ng-class="{'selected': room.case_color == color.key}">
+										<div class="color-value color-option" ng-class="settingVm.getClassNameForColor(color)"></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="color-name">{{ settingVm.getRoomColorName(room) }}</div>
+					</div>
+				</div>
+			</div>
+			<div ng-if="settingVm.colorType === 'practice'">
+				<div class="data-row">Select colors to display each practice.</div>
+				<div class="data-row" ng-repeat="practice in settingVm.setting.practices">
+					<label>{{ practice.name }}</label>
+					<div>
+						<div class="dropdown" uib-dropdown>
+							<div class="color-container" id="dropdown-practice-colors" uib-dropdown-toggle>
+								<div class="color-value" ng-class="settingVm.getPracticeColorClass(practice)"></div>
+							</div>
+							<ul class="colors-palette" aria-labelledby="dropdown-room-colors" uib-dropdown-menu>
+								<li ng-repeat="color in calendarConst.COLORS" ng-click="settingVm.updatePracticeColor(practice, color)">
+									<div class="color-container option-container" ng-class="{'selected': practice.case_color == color.key}">
+										<div class="color-value color-option" ng-class="settingVm.getClassNameForColor(color)"></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="color-name">{{ settingVm.getPracticeColorName(practice) }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="main-control pull-right">
+	<button ng-click="settingVm.save()" class="btn btn-success">Save</button>
+</div>

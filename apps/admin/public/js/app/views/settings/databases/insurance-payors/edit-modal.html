@@ -1,0 +1,129 @@
+<div class="insurance-payor-edit--modal">
+	<div class="modal-header">
+		<h4 class="modal-title" ng-if="modalVm.payor.name">{{::modalVm.payor.name}}</h4>
+		<h4 class="modal-title" ng-if="!modalVm.payor.name">Create new Insurance</h4>
+		<a href="" ng-click="modalVm.cancel()" class="close-button"><i class="glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="modal-body form-group" ng-form name="InsurancePayorForm">
+		<div class="modal-errors">
+			<errors src="modalVm.errors"></errors>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-6">
+						<label class="control-label" ng-class="{'invalid': !modalVm.payor.name}">Insurance Company Name*</label>
+						<input type="text" ng-model="modalVm.payor.name" class='form-control input-sm name-field'
+							   ng-required="true" placeholder='Type' />
+					</div>
+					<div class="col-sm-6">
+						<label class="control-label">Insurance Type</label>
+						<opk-select class="small"
+									ng-model="modalVm.payor.insurance_type"
+									options="item.id as item.name for item in patientConst.INSURANCE_TYPE_OPTIONS"
+									placeholder='Type or select'></opk-select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<label class="control-label">Navicure UB04 Code</label>
+						<input type="text" ng-model="modalVm.payor.ub04_payer_id" class='form-control input-sm'
+							   valid-alphanum ng-trim="false" placeholder='Type' />
+					</div>
+					<div class="col-sm-3">
+						<label class="control-label">Navicure CMS1500 Code</label>
+						<input type="text" ng-model="modalVm.payor.cms1500_payer_id" class='form-control input-sm'
+							   valid-alphanum ng-trim="false" placeholder='Type' />
+					</div>
+					<div class="col-sm-3">
+						<label class="control-label">Navicure Eligibility ID</label>
+						<input type="text" ng-model="modalVm.payor.navicure_eligibility_payor_id"
+							   class='form-control input-sm' valid-alphanum ng-trim="false" placeholder='Type' />
+					</div>
+					<div class="col-sm-3">
+						<label class="control-label">Insurance Card Payer ID</label>
+						<input type="text" ng-model="modalVm.payor.carrier_code" class='form-control input-sm'
+							   valid-alphanum ng-trim="false" placeholder='Type' />
+					</div>
+				</div>
+				<div class="row" ng-if="modalVm.addressAction == 'edit' || modalVm.addressAction == 'create'" ng-form name="InsurancePayorAddressForm">
+					<div class="address-form-edit">
+						<errors src="modalVm.addressEditErrors"></errors>
+						<div class="remove-button">
+							<button ng-click="modalVm.saveCurrentAddress()" class="btn btn-primary"
+									ng-disabled="InsurancePayorAddressForm.$invalid">Done</button>
+							<button ng-click="modalVm.collapseCurrentAddress()" class="btn btn-grey">Cancel</button>
+						</div>
+
+						<div geo model="modalVm.address" props="{state: 'state', city: 'city'}">
+							<div class="row">
+								<div class="col-sm-6">
+									<label class="control-label" ng-class="{'invalid': !modalVm.address.address}">Address*</label>
+									<input type="text" ng-model="modalVm.address.address" ng-required="true" class='form-control input-sm'/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">
+									<label class="control-label">State</label>
+									<opk-select class="small" ng-model="modalVm.address.state"
+												options="item.name for item in source.getStates()">
+									</opk-select>
+								</div>
+								<div class="col-sm-2">
+									<label class="control-label">City</label>
+									<opk-select class="small"
+												select-options="{fixedDropdownWidth: true,
+													autocompleteOnly: true, newItemFn: 'geoVm.newCity($query)',
+													newItemUseLabel: true, newItemLabel: 'Add City'}"
+												ng-model="modalVm.address.city"
+												options="city.name for city in geoVm.cities"
+												placeholder="Type"></opk-select>
+								</div>
+								<div class="col-sm-2">
+									<label class="control-label">ZIP</label>
+									<input type="text" ng-model="modalVm.address.zip_code" class='form-control input-sm'/>
+								</div>
+								<div class="col-sm-6">
+									<label class="control-label">Phone #</label>
+									<phone ng-model="modalVm.address.phone"></phone>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-if="modalVm.addressAction == 'view'">
+					<div class="address-cards">
+						<div ng-repeat="item in modalVm.payor.addresses"
+							 class="address-card">
+							<a href=""
+							   class="delete-link"
+							   ng-click="modalVm.deleteAddress(item, $event)">delete</a>
+							<a href=""
+							   class="edit-link"
+							   ng-click="modalVm.editAddress(item, $event)">edit</a>
+							<div class="title-container">
+								<span class="title">{{item.address}}, {{item.city.name}}, {{item.state.name}}</span>
+							</div>
+							<div class="order-title" ng-if="item.order">
+								<i ng-class="{'icon-blue-sign': item.order == 1, 'icon-grey-sign': item.order != 1}"></i> <span>{{patientInsurancesVm.getInsuranceOrderTitle(item)}}</span>
+							</div>
+						</div>
+						<div class="address-card create-new" ng-click="modalVm.createNewAddress()" ng-if="modalVm.payor.addresses.length < 15">
+							<div class="title-container">
+								<span class="title">+ Create New Address</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-grey" ng-click="modalVm.cancel()">Cancel</button>
+		<button class="btn btn-primary"
+				ng-disabled="InsurancePayorForm.$invalid || modalVm.addressAction != 'view'"
+				ng-click="modalVm.save()">Save</button>
+	</div>
+</div>

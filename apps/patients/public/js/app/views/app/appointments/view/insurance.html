@@ -1,0 +1,15 @@
+<h4>Insurances</h4>
+<div class="buttons data-row">
+	<div class="left-control">
+		<a class="btn btn-default" href="" ui-sref="app.view-appointment"><i class="glyphicon glyphicon-chevron-left"></i> Case Overview</a>
+	</div>
+	<div class="right-control text-right" ng-if="!insuranceVm.isShowForm">
+		<button class="btn btn-success" ng-click="insuranceVm.confirm()">Confirm</button>
+		<button class="btn btn-grey" ng-click="insuranceVm.edit()">Edit</button>
+	</div>
+	<div class="right-control text-right" ng-if="insuranceVm.isShowForm">
+		<button class="btn btn-success" ng-click="insuranceVm.save()">Save</button>
+		<button class="btn btn-grey" ng-click="insuranceVm.cancel()">Cancel</button>
+	</div>
+</div>
+<div class="form-content" ng-include="insuranceVm.getView()" ng-init="ctrl = insuranceVm" ng-if="insuranceVm.patient"></div>

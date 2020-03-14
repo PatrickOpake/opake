@@ -1,0 +1,36 @@
+<filters-panel ctrl="listVm">
+	<div class="data-row">
+		<label>DOS</label>
+		<div>
+			<date-field ng-model="listVm.search_params.dos"  icon="true" placeholder="mm/dd/yyyy" small="true"></date-field>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>DOB</label>
+		<div>
+			<date-field ng-model="listVm.search_params.dob" without-calendar="true" placeholder="mm/dd/yyyy" small="true"></date-field>
+		</div>
+	</div>
+
+	<div class="data-row">
+		<label>Patient Name</label>
+		<div class="group-field">
+			<div>
+				<input type="text" ng-model="listVm.search_params.last_name" class='form-control input-sm' placeholder='Last Name' />
+			</div>
+			<div>
+				<input type="text" ng-model="listVm.search_params.first_name" class='form-control input-sm' placeholder='First Name' />
+			</div>
+		</div>
+	</div>
+
+	<div class="data-row">
+		<label>Procedure</label>
+		<input type="text" ng-model="listVm.search_params.search_procedure" class="form-control input-sm" placeholder='Type Procedure' />
+	</div>
+
+	<div class="data-row">
+		<label>Status</label>
+		<opk-select ng-model="listVm.search_params.status" key-value-options="listVm.caseRegistrationConst.STATUSES"></opk-select>
+	</div>
+</filters-panel>

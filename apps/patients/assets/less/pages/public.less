@@ -1,0 +1,298 @@
+.public-header {
+	.navbar {
+		width: 100%;
+		margin: 0;
+		min-height: 70px;
+		border: none;
+		background-color: #00aad9;
+		border-radius: 0;
+	}
+
+	a {
+		color: #fff !important;
+	}
+	.navbar-brand {
+		position: relative;
+		padding: 8px 0 0 15px;
+		color: #fff;
+
+		&:after {
+			font-family: Arial, sans-serif;
+			content: "\00ae";
+			font-size: 18px;
+			font-weight: normal;
+			position: absolute;
+			top: 6px;
+			right: -14px;
+		}
+
+		.logo-title {
+			font-size: 11px;
+			font-weight: bold;
+			letter-spacing: 2px;
+			margin-left: -3px;
+			line-height: 1.5;
+		}
+	}
+	.navbar-item {
+		font-weight: bold;
+		padding-top: 35px;
+		&:hover {
+			color: #2BCCB1 !important;
+		}
+	}
+	.divider-vertical {
+		height: 20px;
+		margin: 35px 9px 0;
+		border-right: 1px solid #ffffff;
+	}
+}
+
+.public-footer {
+	padding: 25px 0 10px;
+	background-color: #45494d;
+	color: #fff;
+
+	a {
+		color: #fff !important;
+	}
+	.links {
+		display: table;
+		content: " ";
+		width: 100%;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #888;
+	}
+	.menu {
+		float: left;
+		padding: 0;
+		font-weight: bold;
+		list-style: none;
+		li {
+			float: left;
+			display: inline-block;
+			margin-right: 40px;
+		}
+		a:hover {
+			color: #2BCCB1 !important;
+		}
+	}
+	.socials {
+		margin-top: -10px;
+		padding: 0;
+		list-style: none;
+		float: right;
+		li {
+			float: left;
+			margin-left: 10px;
+		}
+	}
+	.bottom {
+		display: table;
+		width: 100%;
+		padding-top: 12px;
+
+		.copyright-ama {
+			display: table-cell;
+		}
+		.copyright-ama > div {
+			color: #ccc;
+			margin-bottom: 10px;
+		}
+		.copyright {
+			display: table-cell;
+			width: 120px;
+			text-align: right;
+			color: #777;
+		}
+	}
+}
+
+.btn-opk {
+	font-weight: bold;
+	text-transform: uppercase;
+	background-color: #2BCCB1;
+	color: #fff;
+	padding: 9px 31px;
+	border-radius: 2px;
+
+	&:hover {
+		background-color: #009b85;
+		color: #fff;
+	}
+}
+
+.auth-section {
+	display: table;
+	content: " ";
+	background-image: url("/common/i/main.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 100%;
+	height: 900px;
+}
+
+.auth--panel {
+	background: #fff;
+	width: 750px;
+	margin: 50px auto 0;
+	padding: 20px 160px;
+
+	.title {
+		text-align: center;
+		color: @blue;
+		font-size: 36px;
+	}
+}
+.auth--panel--client-info {
+	margin-bottom: 25px;
+	text-align: center;
+
+	.icon {
+		display: inline-block;
+		border: 1px solid #c8c8c8;
+		margin: 20px auto 10px;
+
+		&.default {
+			padding: 12px;
+		}
+	}
+	.name {
+		font-size: 18px;
+	}
+}
+.auth--panel--form {
+	.big-text {
+		font-size: 18px;
+	}
+	.suggestion {
+		color: #ff0000;
+		font-size: 16px;
+	}
+	.suggestion {
+		color: #ff0000;
+		font-size: 16px;
+	}
+	.btn {
+		font-weight: normal;
+		font-size: 18px;
+		padding: 14px;
+		margin: 20px 0;
+	}
+	.back-to-login {
+		text-align: center;
+	}
+}
+
+.contact-section {
+	font-family: 'Lato';
+	font-size: 18px;
+	padding: 40px 0;
+	color: #777;
+	background-color: #f1f2ee;
+
+	> div > .title {
+		font-size: 2.8em;
+		font-weight: bold;
+		color: #00aad9;
+		text-transform: uppercase;
+		text-align: center;
+		margin: 12px 0;
+	}
+}
+.contact-section--content {
+	margin: 35px 0;
+	.map {
+		width: 100%;
+		max-width: 522px;
+	}
+}
+
+.contact-section--form {
+	.row {
+		margin-bottom: 15px;
+	}
+	.form-group {
+		margin-bottom: 13px;
+	}
+	.help {
+		color: #A94442 !important;
+		font-size: 14px;
+		height: 14px;
+	}
+	input, textarea {
+		color: #777 !important;
+	}
+	textarea {
+		height: 170px;
+	}
+	.result {
+		padding-top: 7px;
+		font-size: 18px;
+	}
+	.control {
+		text-align: right;
+	}
+}
+
+/* Mobile adaptation */
+@media (max-width: 767px) {
+
+	/*.navbar-collapse .nav > .divider-vertical {
+		display: none;
+	}
+	.navbar-nav > li > a {
+		padding-top: 15px;
+	}
+	.navbar-toggle {
+		margin-top: 18px;
+	}
+	.navbar-default .navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+	.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+		background: #009cca;
+	}*/
+
+	.public-footer {
+		padding: 35px 0 20px;
+		.links {
+			text-align: center;
+		}
+		.menu {
+			float: none;
+			li {
+				float: none;
+				margin: 0 15px 5px;
+			}
+		}
+		.socials {
+			display: inline-block;
+			float: none;
+			margin: 5px 0 0;
+			li {
+				margin: 0 5px;
+			}
+		}
+		.bottom {
+			text-align: center;
+			.copyright {
+				display: table-row;
+			}
+		}
+	}
+
+	.contact-form {
+		margin-top: 20px;
+		.row {
+			margin-bottom: 0;
+		}
+		.row:first-child {
+			margin-bottom: 10px;
+		}
+		.control {
+			text-align: center;
+		}
+	}
+}

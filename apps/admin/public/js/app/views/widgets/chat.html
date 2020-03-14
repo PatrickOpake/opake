@@ -1,0 +1,30 @@
+<div class="chat-widget" ng-class="{open: ctrl.open}">
+<div class="chat-widget" ng-class="{open: ctrl.open}">
+	<div class="chat-widget--head" ng-click="ctrl.toggleWindow()">
+		Chat <span class="badge" ng-if="ctrl.getUnreadedCount()">{{ ctrl.getUnreadedCount() }}</span>
+		<div class="chat-widget--head-toggle"></div>
+	</div>
+	<div class="chat-widget--body" ng-if="ctrl.open">
+		<div class="chat-widget--list" scroll-down>
+			<div class="chat-widget--list-item" ng-repeat-start="group in ctrl.messageGroups" ng-if="group.user.id !== loggedUser.id">
+				<img class="chat-widget--list-item--img" ng-src="{{ ::group.user.image }}" />
+				<div class="chat-widget--list-item--message-group">
+					<div class="name">{{ ::group.user.full_name }}</div>
+					<div class="chat-widget--list-item--message" ng-repeat="message in group.messages">
+						<div class="date">{{ ::ctrl.getDate(message) }}</div>
+						{{ ::message.text}}
+					</div>
+				</div>
+			</div>
+			<div class="chat-widget--list-item my" ng-if="group.user.id === loggedUser.id" ng-repeat-end>
+				<div class="chat-widget--list-item--message-group">
+					<div class="chat-widget--list-item--message" ng-repeat="message in group.messages">
+						<div class="date">{{ ::ctrl.getDate(message) }}</div>
+						{{ ::message.text}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<input class="chat-widget--input" ng-model="ctrl.input_text" ng-keydown="$event.keyCode === 13 && ctrl.addMessages()" placeholder="Type a message" />
+	</div>
+</div>

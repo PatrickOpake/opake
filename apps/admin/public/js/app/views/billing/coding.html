@@ -1,0 +1,458 @@
+<div ng-if="codingVm.coding" ng-show="codingVm.isFormContentLoaded"
+	 warning-unsaved-form="codingVm.coding" warning-msg="Coding form has been changed. All changes will not be saved.">
+	<div class="coding-header">
+		<a ng-if="billingVm" href="" class="back" ng-click="billingVm.toBillingsQueue()"><i class="glyphicon glyphicon-chevron-left"></i>Back</a>
+		<div class="case-panel--ids">
+			<div><span>Account#:</span> {{ ::regVm.registration.case_id }}</div>
+			<div><span>MRN#:</span> {{ ::regVm.registration.patient.full_mrn }}</div>
+		</div>
+
+		<div class="coding-header--title">Case Details</div>
+
+		<div class="panel-data">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="data-row">
+						<label>Patient Name:</label>
+						<div ng-if="permissions.hasAccess('billing', 'notes')" ng-controller="BillingNoteCrtl as noteVm">
+							<span class="patient-name">{{ regVm.registration.last_name + ', ' + regVm.registration.first_name}}</span>
+							<a class="add-note-link" href="" ng-click="noteVm.openNotesDialog(regVm.case.id)">
+								<span ng-class="{'icon-note': !noteVm.billingNotes.hasFlaggedNotes(regVm.case, regVm.case.id), 'icon-notes-red': noteVm.billingNotes.hasFlaggedNotes(regVm.case, regVm.case.id)}"></span>
+								<span class="badge" ng-if="codingVm.billingNotes.getNotesCount(regVm.case.id, regVm.case.billing_notes_count)" ng-class="{'blue': codingVm.billingNotes.hasUnreadNotes[regVm.case.id]}">
+									{{ codingVm.billingNotes.getNotesCount(regVm.case.id, regVm.case.billing_notes_count)}}
+								</span>
+							</a>
+						</div>
+					</div>
+					<div class="data-row">
+						<label>Procedure:</label>
+						<div>
+							<span ng-repeat="type in caseVm.case.additional_cpts" uib-tooltip="{{ type.name }}" tooltip-placement="bottom" tooltip-class="white-for-cpt-codes">
+								{{ type.code }}{{ !$last ? ', ' : '' }}
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="data-row">
+						<label>Date of Service:</label>
+						<div><a href="" ng-click="caseVm.goToCalendar()">{{ caseVm.case.time_start | date:'M/d/yyyy' }}</a></div>
+					</div>
+					<div class="data-row">
+						<label>Time:</label>
+						<div>{{caseVm.case.time_start | date:'h:mm a'}}</div>
+					</div>
+					<div class="data-row">
+						<label>Provider:</label>
+						<div>{{caseVm.case.users[0].full_name}}</div>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<div class="pull-right" ng-if="caseVm.hasCaseEditAccess && !caseVm.case.isAppointmentCanceled()">
+						<a class="btn btn-grey" href="" ng-click="codingVm.editCase()">Edit</a>
+					</div>
+				</div>
+			</div>
+			<div>
+				<a href="" ng-click="codingVm.viewClinicalCharts(regVm.registration.patient.id)">View Clinical Charts</a>
+			</div>
+			<div>
+				<a href="" ng-click="codingVm.viewFinancialDocuments(regVm.registration.patient.id)">View Financial Documents</a>
+			</div>
+		</div>
+	</div>
+
+	<errors src="codingVm.errors"></errors>
+
+	<div class="coding-body">
+		<div class="headline">Insurance Information</div>
+		<div class="checkbox">
+			<input id="authorization-release-information-payment" type="checkbox" ng-model="codingVm.coding.authorization_release_information_payment">
+			<label for="authorization-release-information-payment">Authorization to Release Information / Payment</label>
+		</div>
+		<div class="coding-insurances">
+			<insurances-widget
+					patient-id="regVm.registration.patient.id"
+					is-booking-patient="false"
+					insurances="codingVm.coding.case_insurances"></insurances-widget>
+		</div>
+
+		<div class="headline">Code Inputs</div>
+		<div class="coding-code-inputs">
+			<div class="data-row">
+				<label class="control-label">Discharge Status:</label>
+				<opk-select ng-model="codingVm.coding.discharge_code"
+							select-options="{listFilter: 'opkSelectEmptyFieldIdName'}"
+							options="code.full_name for code in source.getDischargeStatusCodes($query)"></opk-select>
+			</div>
+			<div class="data-row">
+				<label class="control-label">Condition Codes:</label>
+				<div class="opk-codes--select">
+					<opk-select select-options="{fixedDropdownWidth: true, searchFilter: 'opkSelectConditionCodes'}"
+								ng-model="codingVm.coding.condition_codes" multiple multiple-limit="11" options="type.full_name for type in source.getConditionCodes($query)" placeholder="Type"></opk-select>
+				</div>
+			</div>
+
+			<div class="row coding-occurrences">
+				<div class="col-sm-3" ng-repeat="group in codingVm.occurrencesGroups">
+					<table>
+						<thead>
+						<tr>
+							<th>Occurrence Code</th>
+							<th>Date</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="row in group">
+							<td class="code">
+								<opk-select class="small"
+											ng-model="row.occurrence_code"
+								            select-options="{searchFilter: 'opkSelectOccurrenceCodes', listFilter:'opkSelectEmptyFieldIdName:[0]'}"
+											options="code.full_name for code in source.getOccurrenceCodes($query, codingVm.getUsedOccurrenceCodesIds())"></opk-select>
+							</td>
+							<td class="date"><date-field ng-model="row.date" icon="true"></date-field></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row coding-occurrences">
+				<div class="col-sm-3" ng-repeat="group in codingVm.valuesGroups">
+					<table>
+						<thead>
+						<tr>
+							<th>Value Code</th>
+							<th>Amount</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="row in group">
+							<td class="code">
+								<opk-select class="small"
+											ng-model="row.value_code"
+								            select-options="{searchFilter: 'opkSelectOccurrenceCodes', listFilter:'opkSelectEmptyFieldIdName:[0]'}"
+											options="code.full_name for code in source.getValueCodes($query, codingVm.getUsedValueCodesIds())"></opk-select>
+							</td>
+							<td class="date">
+								<input class="form-control input-sm" ng-model="row.amount" valid-number type-number="float" digits-max-length="10"/>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="headline">Diagnosis Coding</div>
+		<div class="coding-diagnosis">
+			<table ng-repeat="group in codingVm.diagnosisGroups">
+				<thead>
+				<tr>
+					<th>Row</th>
+					<th>ICD-10 Code</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="row in group">
+					<td>{{::row.title}}</td>
+					<td class="code">
+						<opk-select select-options="{fixedDropdownWidth: true, searchFilter: 'opkSelectOccurrenceCodes', listFilter:'opkSelectEmptyFieldIdName'}" ng-model="codingVm.coding.getDiagnosis(row.id).icd"
+									options="type.full_name for type in source.getIcds($query, caseVm.getYearAddingForICDs(), codingVm.getUsedIcdCodesIds())" placeholder="Search ICD-10 Codes"></opk-select>
+					</td>
+					<td>{{codingVm.coding.getDiagnosis(row.id).icd.desc}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="headline">Billing</div>
+		<div class="coding-billing-form">
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="data-row">
+						<label class="middle">Type of Bill</label>
+						<opk-select class="small" ng-model="codingVm.coding.bill_type" key-value-options="codingConst.BILL_TYPE" change="codingVm.billTypeChanged()"></opk-select>
+					</div>
+				</div>
+				<div class="col-sm-5" ng-if="codingVm.isOriginalClaimRequired()">
+					<div class="data-row">
+						<label class="middle ref-number-label">Original Claim#</label>
+						<opk-select ng-model="codingVm.coding.original_claim_id"
+									ng-required="codingVm.isOriginalClaimRequired()"
+									ng-class="{'has-error': codingVm.isOriginalClaimRequired() && !codingVm.coding.original_claim_id}"
+									options="item.id as item.title for item in codingVm.getSentClaims()"></opk-select>
+					</div>
+				</div>
+				<div class="col-sm-5" ng-if="codingVm.isReferenceNumberRequired()">
+					<div class="data-row">
+						<label class="middle ref-number-label">Reference Number</label>
+						<input class="form-control input-sm" ng-model="codingVm.coding.reference_number" valid-number />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<label class="lab-services-label">Were lab services performed by an outside lab?</label>
+				</div>
+				<div class="col-sm-1">
+					<div class="radio">
+						<input id="lab-services-no" type="radio" name="lab-services-radio" ng-model="codingVm.coding.has_lab_services_outside" ng-value="false" ng-change="codingVm.resetLabServicesOutsideAmount()">
+						<label for="lab-services-no">No</label>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<div class="radio">
+						<input id="lab-services-yes" type="radio" name="lab-services-radio" ng-model="codingVm.coding.has_lab_services_outside" ng-value="true">
+						<label for="lab-services-yes">Yes</label>
+					</div>
+				</div>
+				<div class="col-sm-3" ng-if="codingVm.coding.has_lab_services_outside">
+					<input class="form-control" type="text" ng-model="codingVm.coding.lab_services_outside_amount" placeholder="Amount" valid-number type-number="float" digits-max-length="10" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="data-row">
+						<label class="middle">Amount Paid</label>
+						<input class="form-control input-sm" ng-model="codingVm.coding.amount_paid" valid-number type-number="float" digits-max-length="10" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="coding-billing">
+			<table>
+				<thead>
+				<tr>
+					<th></th>
+					<th class="hcpcs-column">HCPCS</th>
+					<th class="quantity-column">Qty</th>
+					<th class="revenue-code-column">Revenue Code</th>
+					<th class="modifier-column">Modifiers</th>
+					<th class="diagnosis-column">Diagnosis</th>
+					<th>Rendering Provider</th>
+					<th>Single Charge</th>
+					<th>Total Charge</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody dnd-list="codingVm.coding.bills">
+				<tr ng-repeat="item in codingVm.coding.bills"
+					dnd-draggable="item"
+					dnd-moved="codingVm.coding.bills.splice($index, 1);"
+					dnd-effect-allowed="move"
+					dnd-dragstart="codingVm.dndDragStart(event)"
+					dnd-nodrag>
+					<td><div dnd-handle class="handle"><i class="icon-drag-n-drop"></i></div></td>
+					<td>
+						<opk-select select-options="{appendToBody: true, listFilter:'opkSelectEmptyFieldIdTitle'}"
+									ng-model="item.charge_master_entry"
+									ng-change="codingVm.billHCPCSUpdated(item)"
+									options="type.title for type in source.getCaseBillingCodes($query, caseVm.case.id)" placeholder="Type"></opk-select>
+					</td>
+					<td><input class="form-control input-sm" ng-model="item.quantity" valid-number ng-change="codingVm.quantityOrChargeChanged(item)" /></td>
+					<td><input class="form-control input-sm" ng-model="item.revenue_code" /></td>
+					<td>
+						<opk-select class="small"
+									select-options="{appendToBody: true, listFilter:'opkSelectEmptyFieldIdName', newItemFn: 'codingVm.newModifier($query)', newItemUseLabel: true, newItemLabel: 'New Modifier'}"
+									ng-model="item.mod"
+									ng-change="codingVm.billModifierUpdated(item)"
+									options="mod.name for mod in item.modifiers" placeholder="Type"></opk-select>
+					</td>
+					<td><opk-select ng-model="item.diagnoses_rows"
+					                multiple
+					                multiple-limit="4"
+									options="item.id as item.title for item in codingVm.getAvailableDiagnosesRows()"></opk-select></td>
+					<td>{{::codingVm.coding.first_surgeon}}</td>
+					<td><input class="form-control input-sm" ng-model="item.charge" valid-number type-number="float" digits-max-length="10" ng-change="codingVm.quantityOrChargeChanged(item)" /></td>
+					<td><div class="form-control input-sm">{{item.amount|money}}</div></td>
+					<td><a href="" ng-click="codingVm.removeHCPCSRow(item)"><i class="icon-remove"></i></a></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="text-right"><a class="btn btn-success" href="" ng-click="codingVm.addBill()">Add Additional HCPCS</a></div>
+
+		<div class="headline">Addition Claim Information</div>
+		<textarea class="form-control" ng-model="codingVm.coding.addition_claim_information"></textarea>
+
+		<div class="headline">Remarks</div>
+		<textarea class="form-control" ng-model="codingVm.coding.remarks"></textarea>
+
+		<div class="row coding--assign-to-insurance-order">
+			<div class="col-sm-1">
+				<label class="insurance-order-label">Assign to</label>
+			</div>
+			<div class="col-sm-2">
+				<div class="radio">
+					<input id="assign_to_primary_insurance" type="radio" name="assign_to_primary_insurance" ng-model="codingVm.coding.insurance_order" ng-value="1">
+					<label for="assign_to_primary_insurance">Primary Insurance</label>
+				</div>
+				<div class="radio">
+					<input id="assign_to_secondary_insurance" type="radio" name="assign_to_primary_insurance" ng-model="codingVm.coding.insurance_order" ng-value="2">
+					<label for="assign_to_secondary_insurance">Secondary Insurance</label>
+				</div>
+				<div class="radio">
+					<input id="assign_to_tertiary_insurance" type="radio" name="assign_to_primary_insurance" ng-model="codingVm.coding.insurance_order" ng-value="3">
+					<label for="assign_to_tertiary_insurance">Tertiary Insurance</label>
+				</div>
+				<div class="radio">
+					<input id="assign_to_quaternary_insurance" type="radio" name="assign_to_primary_insurance" ng-model="codingVm.coding.insurance_order" ng-value="4">
+					<label for="assign_to_quaternary_insurance">Quaternary Insurance</label>
+				</div>
+				<input ng-if="codingVm.coding.insurance_order != 1" class="form-control input-sm" type="text" ng-model="codingVm.coding.amount_paid_by_other_insurance" placeholder="Total amount paid by other insurance(s)" valid-number type-number="float" digits-max-length="10" />
+			</div>
+		</div>
+
+		<div class="buttons" ng-if="codingVm.coding.id && !codingVm.isChanged()">
+			<a class="btn btn-primary" href="" ng-click="codingVm.generate1500()">Preview 1500</a>
+			<a class="btn btn-primary" href="" ng-click="codingVm.generateUB04()">Preview UB-04</a>
+		</div>
+		<div class="buttons" ng-if="!codingVm.coding.id || codingVm.isChanged()">
+			<span uib-tooltip="{{codingVm.coding.id ? 'Save or Cancel Changes First' : 'Fill Out and Save First'}}">
+				<a class="btn btn-primary" href="" disabled>Preview 1500</a>
+			</span>
+			<span uib-tooltip="{{codingVm.coding.id ? 'Save or Cancel Changes First' : 'Fill Out and Save First'}}">
+				<a class="btn btn-primary" href="" disabled>Preview UB-04</a>
+			</span>
+			<a class="btn btn-success" href="" ng-disabled="codingVm.isSaving" ng-click="codingVm.save()">Save</a>
+			<a class="btn btn-grey" href="" ng-disabled="codingVm.isSaving" ng-if="codingVm.coding.id" ng-click="codingVm.cancel()">Cancel</a>
+		</div>
+	</div>
+</div>
+<div ng-if="codingVm.hasSavedCoding && permissions.hasAccess('billing', 'send_claim')">
+	<div ng-controller="CaseCodingClaimCtrl as codingClaimVm" ng-init="codingClaimVm.init(regVm.registration.case_id)">
+		<div class="coding-claim-block" show-loading="!codingClaimVm.isInitDone || codingClaimVm.isLoading">
+			<div class="headline">Claim</div>
+			<div class="coding-claim-block-body">
+				<div ng-show="codingClaimVm.isInitDone">
+					<div class="state new-claim">
+						<div class="status-fields">
+							<div ng-if="codingClaimVm.warnings.common && codingClaimVm.warnings.common.length && (codingClaimVm.electronicProfessionalClaim || codingClaimVm.electronicInstitutionalClaim)">
+								<errors src="codingClaimVm.warnings.common" type="warning"></errors>
+							</div>
+							<div ng-if="codingClaimVm.warnings.professional && codingClaimVm.warnings.professional.length && (codingClaimVm.electronicProfessionalClaim)">
+								<errors src="codingClaimVm.warnings.professional" type="warning"></errors>
+							</div>
+							<div ng-if="codingClaimVm.warnings.institutional && codingClaimVm.warnings.institutional.length && (codingClaimVm.electronicInstitutionalClaim)">
+								<errors src="codingClaimVm.warnings.institutional" type="warning"></errors>
+							</div>
+							<div ng-if="codingClaimVm.errors && codingClaimVm.errors.length">
+								<span class="title">An error occurred while sending:</span>
+								<errors src="codingClaimVm.errors"></errors>
+							</div>
+							<div ng-if="codingClaimVm.markedTypeOfClaims.electronicProfessionalClaim || codingVm.coding.is_ready_professional_claim">
+								<span class="title">Electronic 1500 Claim - Ready to Send</span>
+							</div>
+							<div ng-if="codingClaimVm.markedTypeOfClaims.electronicInstitutionalClaim || codingVm.coding.is_ready_institutional_claim">
+								<span class="title">Electronic UB04 Claim - Ready to Send</span>
+							</div>
+						</div>
+						<div class="buttons coding-claim--send-block">
+							<!--<div class="data-row">-->
+								<div class="checkbox">
+									<input id="paper_ub04_claim" type="checkbox" class="styled" ng-model="codingClaimVm.paperUB04Claim">
+									<label for="paper_ub04_claim">Paper UB04</label>
+								</div>
+								<div class="checkbox">
+									<input id="paper_1500_claim" type="checkbox" class="styled" ng-model="codingClaimVm.paper1500Claim" >
+									<label for="paper_1500_claim">Paper 1500</label>
+								</div>
+							<div class="checkbox" ng-show="codingClaimVm.isAllowedToSendProfessionalClaim">
+								<input id="electronic_professional_claim" type="checkbox" class="styled" ng-model="codingClaimVm.electronicProfessionalClaim">
+								<label for="electronic_professional_claim">Electronic 1500</label>
+							</div>
+							<div class="checkbox" ng-show="codingClaimVm.isAllowedToSendInstitutionalClaim">
+								<input id="electronic_institutional_claim" type="checkbox" class="styled" ng-model="codingClaimVm.electronicInstitutionalClaim">
+								<label for="electronic_institutional_claim">Electronic UB04</label>
+							</div>
+							<a class="btn btn-success" ng-disabled="( (!codingClaimVm.electronicProfessionalClaim && !codingClaimVm.electronicInstitutionalClaim) )" href="" ng-click="codingVm.saveDuplicate() && codingClaimVm.markAsReadyToSend()">Mark as Ready to Send</a>
+							<b class="or">Or</b>
+							<a class="btn btn-success" ng-disabled="(codingClaimVm.warnings && codingClaimVm.warnings.length && (codingClaimVm.electronicProfessionalClaim || codingClaimVm.electronicInstitutionalClaim) || !codingClaimVm.isSelectedClaimType())" href="" ng-click="codingClaimVm.sendNewClaim()">Submit claim</a>
+							<a class="btn btn-success" href="" ng-show="codingClaimVm.activeClaims.length" ng-click="codingClaimVm.forceUpdateState()">Update electronic claims</a>
+							<!--</div>-->
+						</div>
+					</div>
+					<div ng-if="codingClaimVm.activeClaims.length">
+						<div class="state claim-sent active-claim" ng-repeat="claim in codingClaimVm.activeClaims">
+							<div class="status-fields">
+								<div class="claim-type-title" ng-if="claim.type == 4">
+									Electronic 1500 Claim
+								</div>
+								<div class="claim-type-title" ng-if="claim.type == 3">
+									Electronic UB04 Claim
+								</div>
+								<div>
+									<span class="title">Claim #:</span> {{claim.id}}
+								</div>
+								<div>
+									<span class="title">Status:</span> {{claim.status_description}} <span ng-if="claim.additional_status_description">({{claim.additional_status_description}})</span>
+								</div>
+								<div ng-if="claim.sending_date">
+									<span class="title">Sending Date:</span> {{claim.sending_date }}
+								</div>
+								<div ng-if="claim.last_transaction_date ">
+									<span class="title">Last Transaction Date:</span> {{claim.last_transaction_date }}
+								</div>
+								<div ng-if="claim.status_acknowledgment.statuses">
+									<span class="title">Claim Status Details:</span>
+									<div class="table-wrap">
+										<table class="opake claim-status-detail-table">
+											<thead>
+											<tr>
+												<th>Date</th>
+												<th>Amount</th>
+												<th>Status</th>
+												<th>Note</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-repeat="item in claim.status_acknowledgment.statuses">
+												<td>{{item.date}}</td>
+												<td>{{item.amount}}</td>
+												<td>{{item.status_text}}</td>
+												<td>{{item.note}}</td>
+											</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div ng-if="claim.status_acknowledgment.services">
+									<span class="title">Services Details:</span>
+									<div class="table-wrap">
+										<table class="opake claim-status-detail-table">
+											<thead>
+											<tr>
+												<th>Date</th>
+												<th>Service Code</th>
+												<th>Amount</th>
+												<th>Status</th>
+												<th>Note</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-repeat="item in claim.status_acknowledgment.services">
+												<td>{{item.date}}</td>
+												<td>{{item.service_code}}</td>
+												<td>{{item.amount}}</td>
+												<td>{{item.status_text}}</td>
+												<td>{{item.note}}</td>
+											</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div ng-if="claim.errors && claim.errors.length">
+									<span class="title">Reason of rejection:</span>
+									<errors src="claim.errors"></errors>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

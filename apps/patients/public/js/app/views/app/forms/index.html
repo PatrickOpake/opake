@@ -1,0 +1,57 @@
+<div class="my-documents profile-page">
+	<div class="content-block">
+		<div class="my-forms-label">My Forms</div>
+		<div class="buttons data-row">
+			<div class="left-control">
+				<button class="btn btn-success" ng-disabled="!listVm.documentsToDownload.length" ng-click="listVm.download()">Download</button>
+			</div>
+			<div class="right-control text-right">
+
+			</div>
+		</div>
+		<table class="opake documents-table">
+			<thead sorter="listVm.searchParams" callback="listVm.load()">
+			<tr>
+				<th>
+					<div class="checkbox">
+						<input id="docs-select-all" type="checkbox" class="styled" ng-checked="listVm.isAllSelected" ng-click="listVm.addAllToDownload()">
+						<label for="docs-select-all"></label>
+					</div>
+				</th>
+				<th>Form</th>
+				<th>Uploaded Date</th>
+				<th class="surgeon-column">Surgeon</th>
+				<th class="procedure-column">Procedure</th>
+				<th>Date of Service</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="doc in listVm.documents" ng-if="doc.url && doc.uploaded_date">
+				<td>
+					<div class="checkbox">
+						<input id="docs-select-{{$index}}" type="checkbox"
+							   class="styled"
+							   ng-disabled="!doc.url"
+							   ng-checked="listVm.isAddedToDownload(doc)"
+							   ng-click="listVm.addToDownload(doc)">
+						<label for="docs-select-{{$index}}"></label>
+					</div>
+				</td>
+				<td>
+					<div class="form-preview-link">
+						<i class="icon-note" ng-click="listVm.preview(doc)"></i><a class="" href="" ng-click="listVm.preview(doc)">{{doc.name}}</a>
+					</div>
+				</td>
+				<td>
+					{{ doc.uploaded_date | date:'M/d/yyyy'}}
+				</td>
+				<td>{{ ::doc.getSurgeonNames() }}</td>
+				<td>{{ ::doc.procedure.name }}</td>
+				<td>{{ ::doc.dos | date:'M/d/yyyy' }}</td>
+			</tr>
+			</tbody>
+		</table>
+		<pages count="listVm.totalCount" page="listVm.searchParams.p" limit="listVm.searchParams.l"
+			   callback="listVm.load()"></pages>
+	</div>
+</div>

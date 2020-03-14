@@ -1,0 +1,384 @@
+<div class="out-of-network eligible-coverage">
+	<errors src="VerificationVm.errors"></errors>
+
+	<div class="row top-buffer">
+		<div class="col-sm-3">
+			<div class="data-row">
+				<div class="checkbox">
+					<input id="oon_benefits" type="checkbox" ng-model="VerificationVm.data.oon_benefits">
+					<label for="oon_benefits">Out of Network Benefits?</label>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="col-sm-3">
+				<div class="data-row">
+					<div class="checkbox">
+						<input id="pre_certification_required" type="checkbox" ng-model="VerificationVm.data.pre_certification_required">
+						<label for="pre_certification_required">Pre-Certification Required?</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="data-row">
+					<div class="checkbox">
+						<input id="pre_certification_obtained" type="checkbox" ng-model="VerificationVm.data.pre_certification_obtained">
+						<label for="pre_certification_obtained">Pre-Certification Obtained?</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="data-row">
+					<div class="checkbox">
+						<input id="self_funded" type="checkbox" ng-model="VerificationVm.data.self_funded">
+						<label for="self_funded">Self Funded?</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-6">
+					<label class="control-label">Coverage Type</label>
+					<opk-select ng-model="VerificationVm.data.coverage_type" key-value-options="eligibleCoverageConst.TYPES"></opk-select>
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">Out-Of-Network Reimbursement</label>
+					<opk-select ng-model="VerificationVm.data.oon_reimbursement" key-value-options="insuranceConst.REIMBURSEMENT"></opk-select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-6">
+					<label class="control-label">Effective Date</label>
+					<input type="text" ng-model="VerificationVm.data.effective_date" class='form-control input-sm' placeholder='mm/dd/yyyy' />
+				</div>
+				<div class="col-sm-6">
+					<label class="control-label">Term Date</label>
+					<input type="text" ng-model="VerificationVm.data.term_date" class='form-control input-sm' placeholder='mm/dd/yyyy' />
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-6">
+					<label class="control-label">Renewal Date</label>
+					<input type="text" ng-model="VerificationVm.data.renewal_date" class='form-control input-sm' placeholder='mm/dd/yyyy' />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Co-Pay ($)</label>
+			<input type="text" ng-model="VerificationVm.data.co_pay" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Co-Insurance (%)</label>
+			<input type="text" ng-model="VerificationVm.data.co_insurance" ng-change="ctrl.updatePatientsResponsibility()" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" limit="100" />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Patients Responsibility (%)</label>
+			<input type="text" ng-model="VerificationVm.data.patients_responsibility" ng-change="ctrl.updateCoInsurance()" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" limit="100" />
+		</div>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Individual Deductible ($)</label>
+			<input type="text" ng-model="VerificationVm.data.individual_deductible" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Met-to-Date ($)</label>
+			<input type="text" ng-model="VerificationVm.data.individual_met_to_date" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Remaining ($)</label>
+			<input type="text" ng-model="VerificationVm.data.individual_remaining_1" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3 col-sm-offset-3">
+			<label class="control-label">Out of Pocket Maximum ($)</label>
+			<input type="text" ng-model="VerificationVm.data.individual_out_of_pocket_maximum" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Remaining ($)</label>
+			<input type="text" ng-model="VerificationVm.data.individual_remaining_2" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Family Deductible ($)</label>
+			<input type="text" ng-model="VerificationVm.data.family_deductible" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Met-to-Date ($)</label>
+			<input type="text" ng-model="VerificationVm.data.family_met_to_date" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Remaining ($)</label>
+			<input type="text" ng-model="VerificationVm.data.family_remaining_1" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3 col-sm-offset-3">
+			<label class="control-label">Out of Pocket Maximum ($)</label>
+			<input type="text" ng-model="VerificationVm.data.family_out_of_pocket_maximum" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Remaining ($)</label>
+			<input type="text" ng-model="VerificationVm.data.family_remaining_2" class='form-control input-sm name-field' placeholder='Type' valid-number type-number="float" />
+		</div>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Yearly Maximum ($)</label>
+			<input type="text" ng-model="VerificationVm.data.yearly_maximum" class='form-control input-sm name-field' placeholder='Type' />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Lifetime Maximum ($)</label>
+			<input type="text" ng-model="VerificationVm.data.lifetime_maximum" class='form-control input-sm name-field' placeholder='Type' />
+		</div>
+	</div>
+	<div class="row top-buffer ">
+		<div class="col-sm-4">
+			<div class="data-row">
+				<div class="cell-block">
+					<label>IS THERE AN OON BENEFITS CAP ON THE PATIENT’S POLICY?</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3 col-md-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<div class="checkbox">
+						<input id="is_oon_benefits_cap_no" type="radio" ng-model="VerificationVm.data.is_oon_benefits_cap" ng-value="0" >
+						<label for="is_oon_benefits_cap_no">No</label>
+					</div>
+					<div class="checkbox">
+						<input id="is_oon_benefits_cap_yes" type="radio" ng-model="VerificationVm.data.is_oon_benefits_cap" ng-value="1" >
+						<label for="is_oon_benefits_cap_yes">Yes</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<input type="text"
+						   placeholder="{{VerificationVm.data.is_oon_benefits_cap ? 'How much?' : ''}}"
+						   ng-model="VerificationVm.data.oon_benefits_cap"
+						   class="form-control input-sm"
+						   ng-disabled="!VerificationVm.data.is_oon_benefits_cap" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row top-buffer">
+		<div class="col-sm-4">
+			<div class="data-row">
+				<div class="cell-block">
+					<label>IS THERE AN ASC BENEFITS CAP ON THE PATIENT’S POLICY?</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3 col-md-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<div class="checkbox">
+						<input id="is_asc_benefits_cap_no" type="radio" ng-model="VerificationVm.data.is_asc_benefits_cap" ng-value="0" >
+						<label for="is_asc_benefits_cap_no">No</label>
+					</div>
+					<div class="checkbox">
+						<input id="is_asc_benefits_cap_yes" type="radio" ng-model="VerificationVm.data.is_asc_benefits_cap" ng-value="1" >
+						<label for="is_asc_benefits_cap_yes">Yes</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<input type="text"
+						   placeholder="{{VerificationVm.data.is_asc_benefits_cap ? 'How much?' : ''}}"
+						   ng-model="VerificationVm.data.asc_benefits_cap"
+						   class="form-control input-sm"
+						   ng-disabled="!VerificationVm.data.is_asc_benefits_cap" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row top-buffer">
+		<div class="col-sm-4">
+			<div class="data-row">
+				<div class="cell-block">
+					<label>ARE THERE ANY PRE-EXISTING CLAUSES UNDER PATIENT’S POLICY?</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3 col-md-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<div class="checkbox">
+						<input id="is_pre_existing_clauses_no" type="radio" ng-model="VerificationVm.data.is_pre_existing_clauses" ng-value="0" >
+						<label for="is_pre_existing_clauses_no">No</label>
+					</div>
+					<div class="checkbox">
+						<input id="is_pre_existing_clauses_yes" type="radio" ng-model="VerificationVm.data.is_pre_existing_clauses" ng-value="1" >
+						<label for="is_pre_existing_clauses_yes">Yes</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<input type="text"
+						   placeholder="{{VerificationVm.data.is_pre_existing_clauses ? 'How much?' : ''}}"
+						   ng-model="VerificationVm.data.pre_existing_clauses"
+						   class="form-control input-sm"
+						   ng-disabled="!VerificationVm.data.is_pre_existing_clauses" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row top-buffer">
+		<div class="col-sm-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<label>IF YES, WHAT BODY PART?</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<input type="text" ng-model="VerificationVm.data.body_part" class="form-control input-sm" ng-disabled="!VerificationVm.data.is_pre_existing_clauses" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row top-buffer">
+		<div class="col-sm-4">
+			<div class="data-row">
+				<div class="cell-block">
+					<label>ARE THERE ANY CLAUSES PERTAINING TO MEDICARE ENTITLEMENT?</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3 col-md-2">
+			<div class="data-row">
+				<div class="cell-block">
+					<div class="checkbox">
+						<input id="is_clauses_pertaining_no" type="radio" ng-model="VerificationVm.data.is_clauses_pertaining" ng-value="0" >
+						<label for="is_clauses_pertaining_no">No</label>
+					</div>
+					<div class="checkbox">
+						<input id="is_clauses_pertaining_yes" type="radio" ng-model="VerificationVm.data.is_clauses_pertaining" ng-value="1" >
+						<label for="is_clauses_pertaining_yes">Yes</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<label class="control-label">Subscribers Name</label>
+			<input type="text" ng-model="VerificationVm.data.subscribers_name" class='form-control input-sm' placeholder='Type' />
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Authorization #</label>
+			<input type="text" ng-model="VerificationVm.data.authorization_number" class='form-control input-sm' placeholder='Type' />
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Expiration</label>
+			<input type="text" ng-model="VerificationVm.data.expiration" class='form-control input-sm' placeholder='Type' />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">
+			<label class="control-label">Spoke With</label>
+			<input type="text" ng-model="VerificationVm.data.spoke_with" class='form-control input-sm' placeholder='Type' />
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Reference #</label>
+			<input type="text" ng-model="VerificationVm.data.reference_number" class='form-control input-sm' placeholder='Type' />
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Staff Member Name</label>
+			<input type="text" ng-model="VerificationVm.data.staff_member_name" class='form-control input-sm' placeholder='Type' />
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Date</label>
+			<input type="text" ng-model="VerificationVm.data.date" class='form-control input-sm' placeholder='Type' />
+		</div>
+	</div>
+	<div class="cpt-codes" ng-cloak>
+		<div class="row top-buffer" ng-repeat="cpt_item in VerificationVm.data.cpts">
+			<div class="col-sm-2">
+				<div class="data-row">
+					<div class="cell-block">
+						<label>CPT<span class="registered-sign"></span> Codes:</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="opk-codes--select data-row">
+					<div class="cell-block">
+						<opk-select class="long-options"
+									ng-model="cpt_item.case_type"
+									placeholder="Type"
+									select-options="{searchFilter: 'opkSelectCpt', appendToBody: true}"
+									options="cpt.code + ' - ' +  cpt.name for cpt in source.getCpts($query)"></opk-select>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="data-row">
+					<div class="cell-block">
+						<label>Need Pre-Authorization?</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3 col-md-2">
+				<div class="data-row">
+					<div class="cell-block">
+						<div class="checkbox">
+							<input id="is_pre_authorization_no_{{$index}}" type="radio" ng-model="cpt_item.is_pre_authorization" ng-value="0" >
+							<label for="is_pre_authorization_no_{{$index}}">No</label>
+						</div>
+						<div class="checkbox">
+							<input id="is_pre_authorization_yes_{{$index}}" type="radio" ng-model="cpt_item.is_pre_authorization" ng-value="1" >
+							<label for="is_pre_authorization_yes_{{$index}}">Yes</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="data-row">
+					<div class="cell-block">
+						<input type="text" ng-model="cpt_item.pre_authorization" class="form-control input-sm" ng-disabled="!cpt_item.is_pre_authorization" />
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-1">
+				<div ng-if="!cpt_item.is_case_procedure" class="data-row">
+					<a href="" class="cell-block" ng-click="VerificationVm.deleteCpt($index, cpt_item)" ><i class="icon-circle-remove"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<a href="" ng-click="VerificationVm.addAdditionalCode(insurances.getAdditionalCodeMaster(null, 0))">+ Additional Codes</a>
+			</div>
+		</div>
+	</div>
+</div>

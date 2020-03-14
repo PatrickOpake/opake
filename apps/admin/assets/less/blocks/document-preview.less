@@ -1,0 +1,30 @@
+.document-preview {
+	display: table;
+	clear: both;
+}
+
+.document-preview--pages {
+	float: right;
+	font-weight: bold;
+
+	a{
+		margin: 0 10px;
+
+		&[disabled] {
+			color: #aaa;
+			text-decoration: none;
+			cursor: default;
+		}
+	}
+	i {
+		vertical-align: middle;
+		margin-top: -5px;
+	}
+}
+
+.document-preview--preview-area {
+	display: table;
+	border: 1px solid #ccc;
+	width: 1024px;
+	height: 800px;
+}

@@ -1,0 +1,26 @@
+<div class="modal-body send-portal-email-modal">
+	<div class="email-form">
+		<div class="field">
+			<label>To:</label>
+			<div class="form-control input-sm">{{ctrl.loginEmail.to}}</div>
+		</div>
+		<div class="field">
+			<label>From:</label>
+			<div class="form-control input-sm">{{ctrl.loginEmail.from}}</div>
+		</div>
+		<div class="field">
+			<label>Subject:</label>
+			<input type="text" class="form-control input-sm" ng-model="ctrl.loginEmail.subject"/>
+		</div>
+		<div class="mail-text">
+			<label>Text:</label>
+		<textarea ng-model="ctrl.loginEmail.body" class="form-control">
+
+		</textarea>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ctrl.send()">Send</button>
+	<button class="btn btn-grey" ng-click="ctrl.cancel()">Cancel</button>
+</div>

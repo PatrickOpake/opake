@@ -1,0 +1,347 @@
+<div ng-controller="PatientChartsCtrl as chartsVm" ng-init="chartsVm.init(patientVm.patient.id)" class="patient-charts">
+
+	<div ng-if="!chartsVm.docsToUpload.length">
+		<div class="patient-charts-header row">
+			<div class="col-sm-1 check-all">
+				<div class="checkbox">
+					<input id="print_all" type="checkbox" class="styled" ng-checked="chartsVm.selectAll" ng-click="chartsVm.addToPrintAll()">
+					<label for="print_all"></label>
+				</div>
+			</div>
+			<div class="col-sm-8 icons">
+				<a href="" ng-click="chartsVm.print()" class="icon">
+					<i class="icon-print-grey"></i>
+				</a>
+				<a href="" ng-click="chartsVm.viewType = 'list'" class="icon">
+					<i class="icon-list-style" ng-class="{'active': chartsVm.viewType == 'list'}"></i>
+				</a>
+				<a href="" ng-click="chartsVm.viewType = 'grid'" class="icon">
+					<i class="icon-grid-style" ng-class="{'active': chartsVm.viewType == 'grid'}"></i>
+				</a>
+			</div>
+			<div class="col-sm-3 button">
+				<a class="btn btn-success" ng-if="!chartsVm.uploadingMode" ng-click="chartsVm.openUploadingMode()">Upload Charts</a>
+			</div>
+		</div>
+	
+		<div class="patient-charts--list-style" ng-if="chartsVm.viewType == 'list'">
+			<table class="opake charts-table" ng-if="chartsVm.general_docs.length">
+				<thead>
+					<tr>
+						<th colspan="5">General Charts</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="chart in chartsVm.general_docs">
+						<td class="check">
+							<div class="checkbox">
+								<input id="patient_chart_{{$index}}"
+									   type="checkbox"
+									   class="styled"
+									   ng-disabled="!chart.url"
+									   ng-checked="chartsVm.isAddedToPrint(chart)"
+									   ng-click="chartsVm.addToPrint(chart)">
+								<label for="patient_chart_{{$index}}"></label>
+							</div>
+						</td>
+						<td class="name">
+							<span>{{ chart.name }}</span>
+						</td>
+						<td class="date">{{ chart.uploaded_date | date:'MMMM d, yyyy' }}</td>
+						<td class="upload-new">
+							<a href="" ng-click="chartsVm.openUploadNewModal(chart)">
+								Replace File
+							</a>
+						</td>
+						<td class="delete">
+							<a href=""ng-click="chartsVm.removeDoc(chart)">
+								<i class="icon-remove"></i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table class="opake charts-table" ng-repeat="case in chartsVm.cases" ng-if="case.charts.length || (case.report && case.report.id)">
+				<thead>
+				<tr>
+					<th colspan="5">
+						{{ case.time_start | date:'M/d/yyyy'}} -
+						{{ case.first_surgeon_name }} -
+						{{ case.type_name }}
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td class="check">
+						<div class="checkbox">
+							<input id="case_chart_{{case.id}}_{{case.report.id}}_{{$index}}"
+								   type="checkbox"
+								   class="styled"
+								   ng-checked="chartsVm.isAddedToPrint(case.report)"
+								   ng-click="chartsVm.addToPrint(case.report)">
+							<label for="case_chart_{{case.id}}_{{case.report.id}}_{{$index}}"></label>
+						</div>
+					</td>
+					<td class="name">
+						<a ng-click="chartsVm.viewOperativeReport(case.report)" href="">{{ case.report.name }}</a>
+					</td>
+					<td class="date">{{ case.report.uploaded_date | date:'MMMM d, yyyy' }}</td>
+					<td class="upload-new"></td>
+					<td class="delete"></td>
+				</tr>
+				<tr ng-repeat="chart in case.charts" ng-if="!chart.is_booking_sheet">
+					<td class="check">
+						<div class="checkbox">
+							<input id="case_chart_{{case.id}}_{{$index}}"
+								   type="checkbox"
+								   class="styled"
+								   ng-disabled="!chart.url"
+								   ng-checked="chartsVm.isAddedToPrint(chart)"
+								   ng-click="chartsVm.addToPrint(chart)">
+							<label for="case_chart_{{case.id}}_{{$index}}"></label>
+						</div>
+					</td>
+					<td class="name">
+						<span>{{ chart.name }}</span>
+					</td>
+					<td class="date">{{ chart.uploaded_date | date:'MMMM d, yyyy' }}</td>
+					<td class="upload-new">
+						<a href="" ng-click="chartsVm.openUploadNewModal(chart)">
+							Replace File
+						</a>
+					</td>
+					<td class="delete">
+						<a href=""ng-click="chartsVm.removeDoc(chart)">
+							<i class="icon-remove"></i>
+						</a>
+					</td>
+				</tr>
+				<tr ng-repeat="chart in case.charts" ng-if="chart.is_booking_sheet">
+					<td class="check">
+						<div class="checkbox">
+							<input id="case_chart_bs_{{case.id}}_{{$index}}"
+								   type="checkbox"
+								   class="styled"
+								   ng-disabled="!chart.url"
+								   ng-checked="chartsVm.isAddedToPrint(chart)"
+								   ng-click="chartsVm.addToPrint(chart)">
+							<label for="case_chart_{{case.id}}_{{$index}}"></label>
+						</div>
+					</td>
+					<td class="name">{{ chart.name }}</td>
+					<td class="date" ng-if="!case.isAppointmentCanceled()">{{ chart.uploaded_date | date:'MMMM d, yyyy' }}</td>
+					<td class="date" ng-if="case.isAppointmentCanceled()">Canceled</td>
+					<td></td>
+					<td></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="patient-charts--grid-style" ng-if="chartsVm.viewType == 'grid'">
+			<div class="charts-block" ng-if="chartsVm.general_docs.length">
+				<div class="charts-block-header">General Charts</div>
+				<div class="charts row">
+					<div class="chart-container col-sm-3" ng-repeat="chart in chartsVm.general_docs">
+						<div class="chart">
+							<div class="chart-header row">
+								<div class="col-sm-2 checkbox-container">
+									<div class="checkbox">
+										<input id="grid_patient_chart_{{$index}}"
+											   type="checkbox"
+											   class="styled"
+											   ng-disabled="!chart.url"
+											   ng-checked="chartsVm.isAddedToPrint(chart)"
+											   ng-click="chartsVm.addToPrint(chart)">
+										<label for="grid_patient_chart_{{$index}}"></label>
+									</div>
+								</div>
+								<div class="ellipses col-sm-10">
+									<a href="" ng-click="chart.edit_mode = !chart.edit_mode"> ... </a>
+								</div>
+							</div>
+							<div class="chart-body-view" ng-if="!chart.edit_mode">
+								<i class="icon-pdf"></i>
+								<div class="chart-info">
+									<span class="name">
+										<a class="" href="" ng-click="chartsVm.preview(chart)"><span>{{ chart.name }}</span></a>
+									</span> <br/>
+									<span class="date">{{ chart.uploaded_date | date:'MMMM d, yyyy' }}</span>
+								</div>
+							</div>
+							<div class="chart-body-edit" ng-if="chart.edit_mode">
+								<div class="upload-new">
+									<a href="" ng-click="chartsVm.openUploadNewModal(chart)">
+										Replace File
+									</a>
+								</div>
+								<div class="delete">
+									<a href=""ng-click="chartsVm.removeDoc(chart)">
+										<i class="icon-remove"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="charts-block" ng-repeat="case in chartsVm.cases" ng-if="case.charts.length || (case.report && case.report.id)">
+				<div class="charts-block-header">
+					{{ case.time_start | date:'M/d/yyyy'}} -
+					{{ case.first_surgeon_name }} -
+					{{ case.type_name }}
+				</div>
+				<div class="charts row">
+					<div class="chart-container col-sm-3">
+						<div class="chart">
+							<div class="chart-header row">
+								<div class="col-sm-2 checkbox-container">
+									<div class="checkbox">
+										<input id="grid_case_chart_{{case.id}}_{{case.report.id}}_{{$index}}"
+											   type="checkbox"
+											   class="styled"
+											   ng-checked="chartsVm.isAddedToPrint(case.report)"
+											   ng-click="chartsVm.addToPrint(case.report)">
+										<label for="grid_case_chart_{{case.id}}_{{case.report.id}}_{{$index}}"></label>
+									</div>
+								</div>
+							</div>
+							<div class="chart-body-view">
+								<i class="icon-pdf"></i>
+								<div class="chart-info">
+									<span class="name">
+										<a ng-click="chartsVm.viewOperativeReport(case.report)" href="">{{ case.report.name }}</a>
+									</span> <br/>
+									<span class="date">{{ case.report.uploaded_date | date:'MMMM d, yyyy' }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="chart-container col-sm-3" ng-repeat="chart in case.charts" ng-if="!chart.is_booking_sheet">
+						<div class="chart">
+							<div class="chart-header row">
+								<div class="col-sm-2 checkbox-container">
+									<div class="checkbox">
+										<input id="grid_case_chart_{{case.id}}_{{$index}}"
+											   type="checkbox"
+											   class="styled"
+											   ng-disabled="!chart.url"
+											   ng-checked="chartsVm.isAddedToPrint(chart)"
+											   ng-click="chartsVm.addToPrint(chart)">
+										<label for="grid_case_chart_{{case.id}}_{{$index}}"></label>
+									</div>
+								</div>
+								<div class="ellipses col-sm-10">
+									<a href=""ng-click="chart.edit_mode = !chart.edit_mode"> ... </a>
+								</div>
+							</div>
+							<div class="chart-body-view" ng-if="!chart.edit_mode">
+								<i class="icon-pdf"></i>
+								<div class="chart-info">
+									<span class="name"><a class="" href="" ng-click="chartsVm.preview(chart)">{{ chart.name }}</a></span> <br/>
+									<span class="date">{{ chart.uploaded_date | date:'MMMM d, yyyy' }}</span>
+								</div>
+							</div>
+							<div class="chart-body-edit" ng-if="chart.edit_mode">
+								<div class="upload-new">
+									<a href="" ng-click="chartsVm.openUploadNewModal(chart)">
+										Replace File
+									</a>
+								</div>
+								<div class="delete">
+									<a href="" ng-click="chartsVm.removeDoc(chart)">
+										<i class="icon-remove"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="chart-container col-sm-3" ng-repeat="chart in case.charts" ng-if="chart.is_booking_sheet">
+						<div class="chart">
+							<div class="chart-header row">
+								<div class="col-sm-2 checkbox-container">
+									<div class="checkbox">
+										<input id="grid_case_chart_bs_{{case.id}}_{{$index}}"
+											   type="checkbox"
+											   class="styled"
+											   ng-disabled="!chart.url"
+											   ng-checked="chartsVm.isAddedToPrint(chart)"
+											   ng-click="chartsVm.addToPrint(chart)">
+										<label for="grid_case_chart_{{case.id}}_{{$index}}"></label>
+									</div>
+								</div>
+							</div>
+							<div class="chart-body-view" ng-if="!chart.edit_mode">
+								<i class="icon-pdf"></i>
+								<div class="chart-info">
+									<span class="name"><a class="" href="" ng-click="chartsVm.preview(chart)">{{ chart.name }}</a></span> <br/>
+									<span class="date" ng-if="!case.isAppointmentCanceled()">{{ chart.uploaded_date | date:'MMMM d, yyyy' }}</span>
+									<span class="date" ng-if="case.isAppointmentCanceled()">Canceled</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="charts-uploading-block" ng-if="chartsVm.uploadingMode">
+			<div class="file-drop-box" ngf-drop="chartsVm.uploadFiles($files)" ngf-drag-over-class="'drag-over'" ngf-multiple="true">
+				<a href="" class="btn btn-grey cancel-upload" ng-click="chartsVm.closeUploadingMode()">Cancel</a>
+				<div class="file-drop-box--help">
+					<i class="icon-file-upload-cloud"></i> <br/>
+					<span class="bold-text">Drag and drop files from your desktop <br/>
+					or use the
+					<button class="btn-file" select-file on-select="chartsVm.uploadFiles(files)"> file browser
+						<input type="file" multiple name="fileDoc" />
+					</button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="charts-to-upload" ng-if="chartsVm.docsToUpload.length" ng-form name="ChartsForUploadForm">
+		<div class="text-right">
+			<a class="btn btn-success" href="" ng-click="chartsVm.saveUploadedDocs()" ng-disabled="ChartsForUploadForm.$invalid">Done</a>
+		</div>
+		<table class="opake">
+			<thead>
+			<tr>
+				<th></th>
+				<th>File Name</th>
+				<th>Case Name</th>
+				<th></th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="chart in chartsVm.docsToUpload">
+				<td class="icon"><i class="icon-pdf"></i></td>
+				<td class="name">{{ chart.name }}</td>
+				<td class="case">
+					<opk-select ng-model="chart.folder_id" options="folder.folder_id as folder.text for folder in chartsVm.foldersChoiceList" 
+						ng-required="true" placeholder="Select Case"></opk-select>
+				</td>
+				<td class="rename">
+					<a href="" ng-click="chartsVm.renameUploadedDoc(chart)">
+						Rename
+					</a>
+				</td>
+				<td class="delete">
+					<a href=""ng-click="chartsVm.removeUploadedDoc(chart)">
+						<i class="icon-remove"></i>
+					</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="waiting-layer" ng-show="chartsVm.isDocumentsLoading">
+		<img class="spinner" src="/common/i/spinner.gif" alt=""/>
+	</div>
+</div>

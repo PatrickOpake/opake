@@ -1,0 +1,34 @@
+<div class="operative-report">
+	<div class="row" ng-if="reportVm.action == 'edit'">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Template:</label>
+				<opk-select ng-model="reportVm.future_template_picker"
+							placeholder="Choose a template from the list"
+							options="item.name for item in reportVm.future_templates"
+							ng-change="reportVm.selectFutureTemplate(reportVm.report.case)"
+							select-options="{listFilter: 'opkSelectEmptyFieldIdName'}"></opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="data-row">
+		<div class="case-ids"><b>ACCOUNT#: {{ caseVm.case.id || caseVm.case.acc_number }} | MRN#: {{ caseVm.case.patient.full_mrn }}</b></div>
+		<div class="buttons">
+			<button ng-if="reportVm.action === 'edit'" class="btn btn-success" ng-click="reportVm.saveFinishLater(caseVm)">Save & Finish Later</button>
+			<button ng-if="reportVm.action === 'edit'" class="btn btn-success" ng-click="reportVm.submitForm(caseVm)">Submit</button>
+			<a ng-if="reportVm.action === 'edit'" ng-click="reportVm.addAdditionalField()" href="" >+ Add Additional Field</a>
+			<a href="" print-iframe="{{reportVm.getPrintUrl(reportVm.report.id)}}" class="print-icon"></a>
+			<button ng-show="permissions.user.is_internal ||  permissions.hasAccess('operative_reports', 'edit', reportVm.report)"
+					ng-if="reportVm.action === 'view' && reportVm.isShowEdit" class="btn btn-success"
+					ng-click="reportVm.edit(caseVm);">Edit</button>
+			<button ng-if="reportVm.action === 'edit'" class="btn btn-grey" ng-click="reportVm.cancel();caseVm.cancel();">Cancel</button>
+		</div>
+	</div>
+	<errors src="reportVm.errors"></errors>
+	<ng-include class="case-data" src="view.get('cases/report/case_info/form_' + reportVm.action + '.html')" onLoad="case = caseVm.toedit || caseVm.case;"></ng-include>
+	<ng-include src="view.get('cases/report/' + reportVm.action + '.html')" class="report-fields"></ng-include>
+	<div class="text-center top-buffer bottom-buttons" ng-if="reportVm.action === 'edit'">
+		<button class="btn btn-success" ng-click="reportVm.saveFinishLater(caseVm)">Save & Finish Later</button>
+		<button class="btn btn-success" ng-click="reportVm.submitForm(caseVm)">Submit</button>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+<div class="top-buffer">
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Insurance Order*</label>
+			<div class="form-control input-sm">{{ patientConst.INSURANCE_PRIMARY[regVm.registration.auto_is_primary] }}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Auto Insurance Name*</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_insurance_name }}</div>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Auto Adjuster Name*</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_adjust_name }}</div>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Auto Claim #*</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_claim }}</div>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Auto Adjuster Phone #*</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_adjuster_phone | phone }}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<label class="control-label">Auto Insurance Address*</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_insurance_address }}</div>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">State*</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_state.name }}</div>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">City*</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_city.name }}</div>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">ZIP*</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_zip }}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">
+			<label class="control-label">Accident Date*</label>
+			<div class="form-control input-sm">{{ regVm.registration.accident_date | date:'M/d/yyyy' }}</div>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Attorney Name</label>
+			<div class="form-control input-sm">{{ regVm.registration.attorney_name }}</div>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Attorney Phone</label>
+			<div class="form-control input-sm">{{ regVm.registration.attorney_phone | phone }}</div>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Insurance Company Phone #</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_insurance_company_phone | phone }}</div>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Authorization #</label>
+			<div class="form-control input-sm">{{ regVm.registration.auto_authorization_number }}</div>
+		</div>
+	</div>
+</div>

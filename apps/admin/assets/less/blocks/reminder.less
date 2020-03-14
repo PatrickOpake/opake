@@ -1,0 +1,54 @@
+.reminder-header-button {
+  cursor: pointer;
+	.messages-badge {
+		top: -3px;
+		right: -13px;
+	}
+}
+
+.reminder-widget {
+	z-index: 200;
+	position: fixed;
+	top: 50px;
+	left: 30%;
+	right: 30%;
+	padding: 5px;
+
+	.content {
+		color: #666;
+		z-index: 1;
+		padding: 10px;
+		border: 1px solid #ccc;
+		position: relative;
+		background: #fff;
+
+		.window-content {
+			min-height: 300px;
+		}
+
+		.window-controls {
+			text-align: center;
+
+			a {
+				float: right;
+				font-size: 18px;
+				text-decoration: none;
+				color: #666;
+				margin-left: 5px;
+			}
+		}
+
+		.reminders-list {
+			padding: 10px 25px 50px;
+			>.row {
+				margin-top: 20px;
+				.msg-block {
+					margin-left: 20px;
+					margin-top: 10px;
+				}
+			}
+		}
+	}
+
+
+}

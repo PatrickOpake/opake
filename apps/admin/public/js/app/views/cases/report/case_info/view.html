@@ -1,0 +1,12 @@
+<div class="case-panel--ids">
+	<div><span>Account#:</span> {{ caseVm.case.id || caseVm.case.acc_number }}</div>
+	<div><span>MRN#:</span> {{ caseVm.case.patient.full_mrn }}</div>
+</div>
+
+<ng-include src="view.get('cases/report/case_info/form_view.html')"></ng-include>
+
+<div class="actions view" ng-if="caseVm.hasCaseEditAccess">
+	<a href="" class="edit" ng-click="caseVm.edit()"><i class="icon-edit"></i>Edit</a>
+</div>
+
+<div  ng-if="caseVm.confirm_alert" class="confirm-alert" ng-include="view.get('cases/' + caseVm.confirm_alert + '.html')"></div>

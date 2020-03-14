@@ -1,0 +1,166 @@
+<div class="list-control">
+	<a href="" class="icon" ng-click="listVm.printSelected()" ng-disabled="!listVm.toSelected.length">
+		<i class="icon-print-grey" uib-tooltip="Print"></i>
+	</a>
+	<div class="loading-wheel" ng-if="listVm.isShowLoading">
+		<div class="loading-spinner"></div>
+	</div>
+</div>
+
+<div show-loading-list="listVm.isInitLoading">
+	<div>
+		<table class="opake payments-table">
+			<thead>
+			<tr>
+				<th>
+					<div class="checkbox">
+						<input id="print_all" type="checkbox" class="styled" ng-checked="listVm.selectAll" ng-click="listVm.addToSelectedAll()">
+						<label for="print_all"></label>
+					</div>
+				</th>
+				<th>Claim ID</th>
+				<th>Patient Last Name</th>
+				<th>Patient First Name</th>
+				<th>Account #</th>
+				<th>Insurance</th>
+				<th>DOS</th>
+				<th>Total Charge Amt</th>
+				<th>Total Payment</th>
+				<th>Total Deductible</th>
+				<th>Total Co-Pay/Co-Ins</th>
+				<th>Reason Code</th>
+				<th>Status</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-if="listVm.items.length" ng-repeat-start="item in listVm.items">
+				<td>
+					<div>
+						<div class="checkbox">
+							<input id="print_{{$index}}"
+							       type="checkbox"
+							       class="styled"
+							       ng-checked="listVm.isAddedToSelected(item)"
+							       ng-click="listVm.addToSelected(item)">
+							<label for="print_{{$index}}"></label>
+						</div>
+					</div>
+				</td>
+				<td>
+					<a class="claim-link" href="" ng-click="listVm.toggleShowServices(item)">{{ ::item.claim_id }} <i class="glyphicon" ng-class="{'glyphicon-triangle-bottom': !item._isShowServices, 'glyphicon-triangle-top': item._isShowServices}"></i></a>
+				</td>
+				<td>
+					{{ ::item.patient_last_name }}
+				</td>
+				<td>
+					{{ ::item.patient_first_name }}
+				</td>
+				<td>
+					{{ ::item.mrn }}
+				</td>
+				<td>
+					{{ ::item.insurance_company_name }}
+				</td>
+				<td>
+					{{ ::item.dos }}
+				</td>
+				<td>
+					{{ ::item.total_charge_amount }}
+				</td>
+				<td>
+					{{ ::item.total_allowed_amount }}
+				</td>
+				<td>
+					{{ ::item.total_deduct }}
+				</td>
+				<td>
+					{{ ::item.total_co_pay_co_ins }}
+				</td>
+				<td>
+					{{ ::item.provider_status_code }}
+				</td>
+				<td>
+					{{ ::item.status_text }}
+				</td>
+			</tr>
+			<tr class="service-row" ng-show="item._isShowServices" ng-repeat-end>
+				<td></td>
+				<td colspan="13">
+					<table class="services-table">
+						<thead>
+						<tr>
+							<th>HCPCS</th>
+							<th>Qty</th>
+							<th>Charge Amt</th>
+							<th>Allowed Amt</th>
+							<th>Payment</th>
+							<th>Deductible Amt</th>
+							<th>Co-Pay/Co-Ins Amt</th>
+							<th>Adjustment</th>
+							<th>Balance</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-if="item.services && item.services.length" ng-repeat-start="service in item.services">
+							<td>{{ ::service.hcpcs }}</td>
+							<td>{{ ::service.quantity }}</td>
+							<td>{{ ::service.charge_amount }}</td>
+							<td>{{ ::service.allowed_amount }}</td>
+							<td>{{ ::service.payment }}</td>
+							<td>{{ ::service.deduct_adjustments }}</td>
+							<td>{{ ::service.co_pay_co_ins_adjustments }}</td>
+							<td>{{ ::service.adjustment }}</td>
+							<td>{{ ::service.balance }}</td>
+						</tr>
+						<tr ng-repeat-end="" ng-if="service.adjustments.length">
+							<td colspan="9" class="adjustments-container">
+								<h4>Adjustments</h4>
+								<table class="adjustments-table">
+									<thead>
+									<tr>
+										<th>#</th>
+										<th class="type-column">Type</th>
+										<th class="amount-column">Amount</th>
+										<th class="quantity-column">Quantity</th>
+										<th class="reason-code-column">Reason Code</th>
+										<th>Description</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ng-repeat="adjustment in service.adjustments">
+										<td>{{ ::($index + 1) }}</td>
+										<td>{{ ::adjustment.type_name }}</td>
+										<td>{{ ::adjustment.amount }}</td>
+										<td>{{ ::adjustment.quantity }}</td>
+										<td>{{ ::adjustment.reason_code }}</td>
+										<td>{{ ::adjustment.reason_code_description }}</td>
+									</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr ng-if="!item.services || !item.services.length">
+							<td colspan="9">
+								<h4>Claim file has no services description</h4>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr ng-if="!listVm.items.length">
+				<td colspan="13">
+					<h4>No claims</h4>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<pages count="listVm.total_count" page="listVm.search_params.p" limit="listVm.search_params.l"
+		       callback="listVm.search()"></pages>
+		<div class="action-buttons">
+			<div class="pull-right">
+				<button ng-show="listVm.showResubmitButton" class="btn btn-grey" ng-disabled="listVm.isShowLoading || !listVm.items.length || !listVm.toSelected.length" ng-click="listVm.resubmitSelected()">Resubmit Claims</button>
+			</div>
+		</div>
+	</div>
+</div>

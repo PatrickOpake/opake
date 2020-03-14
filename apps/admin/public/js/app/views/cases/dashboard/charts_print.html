@@ -1,0 +1,56 @@
+<div class="dashboard--forms-print-modal charts-print-modal" show-loading="printVm.isLoading">
+	<div class="modal-header">
+		<h4 class="modal-title">Print Charts</h4>
+		<a href="" ng-click="printVm.close()"><i class="glyphicon glyphicon-remove"></i></a>
+	</div>
+	<errors src="printVm.errors"></errors>
+	<div class="modal-body cases-management--docs">
+		<div class="header-buttons">
+			<a href="" ng-click="printVm.printSelected()" class="icon dashboard--forms-print-button">
+				<i class="icon-circle-print-blue" uib-tooltip="Print"></i>
+			</a>
+			<div class="pull-right">
+				<a class="btn btn-grey" ng-click="printVm.printLabels()">Print Labels</a>
+			</div>
+		</div>
+
+		<table class="opake">
+			<tr>
+				<td>
+					Chart Groups
+				</td>
+				<td>
+					<opk-select ng-model="printVm.selectedChartGroup"
+								options="item.id as item.name for item in printVm.chartGroups"></opk-select>
+				</td>
+			</tr>
+			<tr ng-if="printVm.selectedChartGroup">
+				<td colspan="2">
+					<div class="chart-description">
+						{{printVm.getChartGroupDocumentsList(printVm.selectedChartGroup)}}
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Additional Chart
+				</td>
+				<td>
+					<opk-select multiple
+								ng-model="printVm.selectedCharts"
+								options="item.id as item.name for item in printVm.charts"></opk-select>
+				</td>
+			</tr>
+			<tr ng-hide="true">
+				<td>
+					Preference Cards
+				</td>
+				<td>
+					<opk-select multiple
+					            ng-model="printVm.selectedPrefCards"
+					            options="item.id as item.name for item in printVm.prefCards"></opk-select>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

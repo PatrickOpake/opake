@@ -1,0 +1,11 @@
+<div class="inactivity-reminder-modal">
+	<div class="modal-header">
+		<h4 class="modal-title">Session Timeout Warning</h4>
+	</div>
+	<div class="modal-body">
+		You've been inactive for a while. For your security, we'll automatically log you off in {{ctrl.idleCountdown}} seconds unless you click "Stay Online" to continue.
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ctrl.stayOnline()">Stay Online</button>
+	</div>
+</div>

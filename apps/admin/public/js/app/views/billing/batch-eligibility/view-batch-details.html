@@ -1,0 +1,30 @@
+<div class="create-batch-eligibility--modal">
+	<div class="modal-header">
+		<h4 class="modal-title">View Batch Details</h4>
+		<a href="" ng-click="cancel()" class="close-button"><i class="glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="modal-body">
+		<table class="opake">
+			<thead>
+			<tr>
+				<th>DOS</th>
+				<th>Last Name</th>
+				<th>First Name</th>
+				<th>Insurance Name</th>
+				<th>Policy Number</th>
+				<th>Status</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="item in batchVm.caseInsurancesViewDetails">
+				<td>{{item.time_start}}</td>
+				<td>{{item.last_name}}</td>
+				<td>{{item.first_name}}</td>
+				<td>{{item.insurance_name}}</td>
+				<td>{{item.policy_number}}</td>
+				<td>Eligible</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

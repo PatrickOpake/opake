@@ -1,0 +1,62 @@
+<div class="cases-calendar--blocking-preview" ng-controller="PreviewCaseBlockingCtrl as blockingVm" ng-init="blockingVm.init(blocking, blockingItem)">
+	<div class="modal-header">
+		<span class="modal-title">Case Block</span>
+		<a href="" class="close-preview"><i class="icon-x"></i></a>
+	</div>
+	<div class="modal-body">
+		<errors src="blockingVm.errors"></errors>
+		<div class="row double-columns">
+			<div class="col-sm-6">
+				<div class="data-row">
+					<label>Surgeon or Practice Group:</label>
+					<div class="form-control">{{ ::blockingVm.blockingItem.surgeon_or_practice.fullname}}</div>
+				</div>
+				<div class="data-row">
+					<label>Time:</label>
+					<div class="form-control">{{::blockingVm.blockingItem.start| date:'h:mm a'}}</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="data-row">
+					<label>Room:</label>
+					<div class="form-control">{{ ::blockingVm.blockingItem.location.name}}</div>
+				</div>
+				<div class="data-row">
+					<label>Length:</label>
+					<div class="form-control">{{::blockingVm.blockingItem.start| timeLength : blockingVm.blockingItem.end}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="data-row">
+			<label>Description:</label>
+			<div class="form-control block-description">{{ blockingVm.blockingItem.description}}</div>
+		</div>
+		<div class="row double-columns">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<span>Allow Overwrite:
+						<i class="glyphicon glyphicon-info-sign"
+						   uib-tooltip="If turned on system will warn users of scheduled block but allow them to schedule during time"
+						   tooltip-placement="top"
+						   tooltip-class="white-for-cpt-codes">
+						</i>
+					</span>
+					<br/>
+					<switch ng-model="blockingVm.blockingItem.overwrite" ng-disabled="true"></switch>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="data-row no-margin">
+					<label>Color:</label>
+					<div class="form-control select-color">
+						<span class="color-value color-{{::blockingVm.blockingItem.color}}"></span>
+						<span class="color-name">{{::(calendarConst.COLORS | filter:{key: blockingVm.blockingItem.color})[0].name}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a class="btn btn-grey pull-left" ng-if="blockingVm.hasBlockEditPermission" href="" ng-click="blockingVm.edit()">Edit</a>
+	</div>
+</div>

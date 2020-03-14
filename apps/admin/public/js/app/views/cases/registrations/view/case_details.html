@@ -1,0 +1,63 @@
+<div class="patient-form content-block booking-sheet--form case-details--form" ng-controller="CaseManagementIntakeCaseDetailsCtrl as intakeCaseDetailsVm" ng-init="intakeCaseDetailsVm.init(caseVm)" show-loading="!intakeCaseDetailsVm.isFormContentLoaded" ng-cloak>
+    <a href="" ng-if="intakeCaseDetailsVm.fromCardsQueue" class="back" ng-click="intakeCaseDetailsVm.toCardsQueue()"><i class="glyphicon glyphicon-chevron-left"></i>Back</a>
+    <div ng-if="caseVm.case" ng-show="intakeCaseDetailsVm.isFormContentLoaded" warning-unsaved-form="caseVm.toedit" warning-msg="Case form has been changed. All changes will not be saved.">
+        <div class="form-horizontal booking-sheet" ng-cloak>
+            <div class="row patient-information-section--header">
+                <div class="col-sm-6">
+                    <h3>Patient Information</h3>
+                </div>
+                <div class="col-sm-6 pull-right case-right-column">
+                    <div class="booking-charts" ng-controller="CaseChartsCtrl as chartsVm">
+                        <a href="" ng-click="chartsVm.init(caseVm.toedit.id)">
+                            <i ng-if="!caseVm.toedit.charts_count" class="icon-cloud-upload-grey" uib-tooltip="Upload Files"></i>
+                            <i ng-if="caseVm.toedit.charts_count" class="icon-cloud-upload-blue" uib-tooltip="Files Uploaded"></i>
+                        </a>
+                    </div>
+	                <a ng-if="permissions.hasAccess('case_management_audit', 'view')" href="/analytics/{{::org_id}}/userActivity/#?case={{::caseVm.case.id}}"
+	                   target="_blank"
+	                   class="case-audit-link"><i class="icon-loupe" uib-tooltip="Case Audit Log" tooltip-placement="top"></i></a>
+                    <div class="case-note-block" ng-controller="CaseNoteCrtl as noteVm">
+                        <a class="add-note-link" href="" ng-click="noteVm.openNotesDialog(caseVm.case.id)">
+                            <i ng-class="{'icon-note': !noteVm.caseNotes.hasFlaggedNotes(caseVm.case), 'icon-notes-red': noteVm.caseNotes.hasFlaggedNotes(caseVm.case)}"></i>
+                            <span class="badge" ng-if="noteVm.caseNotes.getNotesCount(caseVm.case)"
+                                  ng-class="{'blue': noteVm.caseNotes.hasUnreadNotes[caseVm.case.id]}">
+                                {{ noteVm.caseNotes.getNotesCount(caseVm.case) }}
+                            </span>
+                        </a>
+                    </div>
+	                <div class="patient-mrn--field text-right" ng-if="!loggedUser.isSatelliteOffice()">
+		                <label class="control-label">MRN </label>
+		                <input type="text" ng-model="caseVm.toedit.patient.mrn" class='form-control input-sm' placeholder='Type' />
+		                <span class="mrn-year-sep">-</span>
+		                <input type="text" ng-model="caseVm.toedit.patient.mrn_year" class='form-control input-sm mrn-year-field' placeholder='' />
+	                </div>
+                </div>
+            </div>
+            <ng-include src="view.get('cases/registrations/view/case_details/patient_info.html')"></ng-include>
+            <h3>Case Information</h3>
+            <ng-include src="view.get('cases/registrations/view/case_details/case_info.html')"></ng-include>
+
+            <div class="row insurance-information-section--header">
+                <div class="col-sm-3">
+                    <h3>Insurance Information</h3>
+                </div>
+                <div class="col-sm-9">
+                    <div class="booking-charts" ng-controller="CaseChartsCtrl as chartsVm">
+                        <a href="" ng-click="chartsVm.init(caseVm.toedit.id)">
+                            <i ng-if="!caseVm.toedit.charts_count" class="icon-cloud-upload-grey" uib-tooltip="Upload Files"></i>
+                            <i ng-if="caseVm.toedit.charts_count" class="icon-cloud-upload-blue" uib-tooltip="Files Uploaded"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <ng-include  src="view.get('cases/registrations/view/case_details/insurances.html')"></ng-include>
+        </div>
+        <div class="bottom-buttons top-buffer" ng-if="caseVm.hasCaseEditAccess">
+            <div class="pull-right">
+                <a class="btn btn-grey" href="" ng-click="caseVm.cancelCaseDetails()">Cancel</a>
+                <a class="btn btn-success" href="" ng-click="caseVm.saveCaseDetails()" ng-disabled="!caseVm.isCaseChanged()">Save</a>
+            </div>
+        </div>
+    </div>
+</div>

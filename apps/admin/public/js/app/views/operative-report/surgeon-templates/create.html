@@ -1,0 +1,14 @@
+<div class="modal-body op-report-template--create-modal" ng-form name="OpReportTemplateForm">
+    <div class="data-row">
+        <label>Procedure:</label>
+        <opk-select ng-model="listVm.template.case_type" select-options="{listFilter: 'opkSelectEmptyFieldIdName'}" options="type.full_name for type in source.getCaseTypes($query)"></opk-select>
+    </div>
+    <div class="data-row">
+        <label>Template Name:</label>
+        <input ng-required="true" type="text" class="form-control" ng-model="listVm.template.name" placeholder="Give a descriptive name">
+    </div>
+</div>
+<div class="modal-footer case-type-modal--buttons">
+    <button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+    <button class="btn btn-success" ng-click="ok()" ng-disabled="OpReportTemplateForm.$invalid">Save</button>
+</div>

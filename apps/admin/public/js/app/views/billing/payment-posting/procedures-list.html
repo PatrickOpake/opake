@@ -1,0 +1,93 @@
+<div class="payment-posting-procedures-list" ng-if="postingVm.patient">
+	<div class="modal-body" ng-controller="BillingPaymentPostingProceduresListCtrl as proceduresListVm" ng-init="proceduresListVm.init(item, postingVm.patient)">
+		<div show-loading-list="proceduresListVm.isShowLoading && proceduresListVm.isInitLoading">
+			<div class="applied-procedures">
+				<div class="list-control">
+					<span class="title">Applied Procedures</span>
+					<div class="charges-amount">
+						<span>Total Amount: <span class="amount-value">${{proceduresListVm.getTotalAmount()}}</span></span>
+						<span>Remaining Amount: <span class="amount-value">${{proceduresListVm.getRemainingAmount()}}</span></span>
+					</div>
+				</div>
+				<table class="opake">
+					<thead>
+					<tr>
+						<th>DOS</th>
+						<th>Provider</th>
+						<th>HCPCS / CPT <span class="registered-sign"></span></th>
+						<th>Modifier</th>
+						<th class="short-description-column">Short Description</th>
+						<th>Billed</th>
+						<th>Balance</th>
+						<th class="amount-posted-column">Amt Posted</th>
+						<th>Notes</th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="item in proceduresListVm.paymentItem.applied_procedures">
+						<td>{{::item.bill.dos}}</td>
+						<td>{{::item.bill.provider}}</td>
+						<td>{{::item.bill.code}}</td>
+						<td>{{::item.bill.modifiers}}</td>
+						<td>{{::item.bill.description}}</td>
+						<td>${{::item.bill.billed_amount}}</td>
+						<td>${{proceduresListVm.calculateBalance(item)}}</td>
+						<td>
+							$ <input type="text" ng-model="item.amount_posted" valid-number type-number="float" digits-max-length="10" class='form-control input-sm amount amount-posted' />
+						</td>
+						<td>
+							<a ng-controller="BillingPaymentPostingCommentsCtrl as noteVm" ng-click="noteVm.openNotesDialog(item)" href="#" class="pointer applied-payments-notes">
+								<div class="icon"><span class="badge notes-counter" ng-if="item.notes.length">{{item.notes.length}}</span><i class="icon-note"></i></div>
+							</a>
+						</td>
+						<td>
+							<a href="" ng-click="proceduresListVm.removeProcedure(item, $index)"><span class="icon-remove"></span></a>
+						</td>
+					</tr>
+					<tr ng-if="!proceduresListVm.paymentItem.applied_procedures.length">
+						<td colspan="9">No applied procedures for this payment</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="all-procedures">
+				<div class="list-control">
+					<span class="title">All Procedures</span>
+				</div>
+				<table class="opake">
+					<thead>
+					<tr>
+						<th>DOS</th>
+						<th>Provider</th>
+						<th>HCPCS / CPT <span class="registered-sign"></span></th>
+						<th>Modifier</th>
+						<th class="short-description-column">Short Description</th>
+						<th>Billed</th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="item in proceduresListVm.items">
+						<td>{{::item.dos}}</td>
+						<td>{{::item.provider}}</td>
+						<td>{{::item.code}}</td>
+						<td>{{::item.modifiers}}</td>
+						<td>{{::item.description}}</td>
+						<td>${{::item.billed_amount}}</td>
+						<td>
+							<button ng-disabled="proceduresListVm.isAlreadyApplied(item)" class="btn btn-success" ng-click="proceduresListVm.addProcedure(item)">Add</button>
+						</td>
+					</tr>
+					<tr ng-if="!proceduresListVm.items.length">
+						<td colspan="7">No procedures for this patient</td>
+					</tr>
+					</tbody>
+				</table>
+				<pages count="proceduresListVm.total_count" page="proceduresListVm.search_params.p" limit="proceduresListVm.search_params.l"
+				       callback="proceduresListVm.search(true)"></pages>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,78 @@
+<div class="row">
+	<div class="col-sm-3">
+		<label class="control-label">Workers Comp Insurance Name*</label>
+		<div class="form-control input-sm">{{ item.data.insurance_name }}</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Workers Comp Adjusters Name*</label>
+		<div class="form-control input-sm">{{ item.data.adjuster_name }}</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Workers Comp Claim #*</label>
+		<div class="form-control input-sm">{{ item.data.claim }}</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Workers Comp Adjuster Phone #*</label>
+		<div class="form-control input-sm">{{ item.data.adjuster_phone | phone }}</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label">Workers Comp Insurance Address*</label>
+		<div class="form-control input-sm">{{ item.data.insurance_address }}</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">State*</label>
+		<div class="form-control input-sm">{{ item.data.state.name }}</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">City*</label>
+		<div class="form-control input-sm">{{ item.data.city.name }}</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">ZIP*</label>
+		<div class="form-control input-sm">{{ item.data.zip }}</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2">
+		<label class="control-label">Accident Date*</label>
+		<div class="form-control input-sm">{{ item.data.accident_date | date:'M/d/yyyy' }}</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Employee ID#*</label>
+		<div class="form-control input-sm">{{ item.data.employee_id }}</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Employer Name*</label>
+		<div class="form-control input-sm">{{ item.data.employer_name }}</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label">Employer Address*</label>
+		<div class="form-control input-sm">{{ item.data.employer_address }}</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">State*</label>
+		<div class="form-control input-sm">{{ item.data.employer_state.name }}</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">City*</label>
+		<div class="form-control input-sm">{{ item.data.employer_city.name }}</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">ZIP*</label>
+		<div class="form-control input-sm">{{ item.data.employer_zip }}</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2">
+		<label class="control-label">Insurance Company Phone #</label>
+		<div class="form-control input-sm">{{ item.data.insurance_company_phone | phone }}</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">Authorization #</label>
+		<div class="form-control input-sm">{{ item.data.authorization_number }}</div>
+	</div>
+</div>

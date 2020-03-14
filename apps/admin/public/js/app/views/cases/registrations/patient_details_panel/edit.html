@@ -1,0 +1,5 @@
+<div ng-if="caseVm.hasCaseEditAccess" class="main-control pull-right registration-edit-buttons">
+	<a class="btn btn-success" href="" ng-click="caseVm.save()" >Save</a>
+	<a class="btn btn-grey" href="" ng-click="caseVm.cancel()">Cancel</a>
+</div>
+<div ng-include="view.get('cases/form.html')" onLoad="case = caseVm.toedit; ctrl=caseVm;" warning-unsaved-form="caseVm.toedit" warning-msg="Case form has been changed. All changes will not be saved."></div>

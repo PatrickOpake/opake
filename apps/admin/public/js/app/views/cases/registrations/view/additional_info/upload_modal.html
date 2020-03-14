@@ -1,0 +1,45 @@
+<div class="modal-upload-document">
+	<div class="modal-header">
+		<h4>{{ ::doc.name }}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="data-row">
+			<div class="radio">
+				<input type="radio" ng-model="docsVm.upload_type" id="select_existing_form" value="select_existing_form">
+				<label for="select_existing_form"></label>
+			</div>
+			<div>
+				<div class="text-left">Select Existing Form</div>
+				<div class="data-row">
+					<opk-select class="small" ng-model="docsVm.selected_doc"
+								options="document for document in docsVm.getExistedDocs(doc)"
+								select-options="{searchFilter: 'opkSelectUploadedDocument', dropdownFilter: 'opkSelectUploadedDocument'}"
+								change="docsVm.changeUploadType('select_existing_form')"
+							></opk-select>
+				</div>
+			</div>
+		</div>
+		<div class="row top-buffer"><b>OR</b></div>
+		<div class="data-row">
+				<div class="radio">
+					<input type="radio" ng-model="docsVm.upload_type" id="upload_new_form" value="upload_new_form">
+					<label for="upload_new_form"></label>
+				</div>
+				<div>
+					<div class="text-left">Upload a New Form</div>
+					<div class="data-row upload-forms--attach">
+						<button class="btn btn-grey btn-file" select-file on-select="docsVm.uploadFormFileChanged(files)"> Attach File
+							<input type="file" name="file" />
+						</button>
+					</div>
+					<div ng-if="docsVm.uploadedFile" class="data-row upload-forms--uploaded-filename">
+						{{docsVm.uploadedFile.name}}
+					</div>
+				</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+		<button class="btn btn-success" ng-click="ok()">Upload</button>
+	</div>
+</div>

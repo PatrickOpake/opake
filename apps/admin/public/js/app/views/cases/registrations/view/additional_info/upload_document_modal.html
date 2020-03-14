@@ -1,0 +1,32 @@
+<div>
+	<div class="modal-header">
+		<h4>Upload Chart</h4>
+	</div>
+	<div class="modal-body">
+		<errors src="docsVm.errors"></errors>
+		<div>
+			<div ng-if="!docsVm.currentDoc.file" class="file-drop-box"
+				 ngf-drop="docsVm.uploadFile($files, docsVm.currentDoc)" ngf-drag-over-class="'drag-over'">
+				<div class="file-drop-box--help">
+					<i class="icon-file-upload-cloud"></i> <br/>
+					<span class="bold-text">Drag and drop a file here</span> <br/>
+					or <br/>
+					<button class="btn btn-grey btn-file" select-file on-select="docsVm.uploadFileChanged(files)"> Select File
+						<input type="file" name="fileDoc" />
+					</button>
+				</div>
+			</div>
+			<div ng-if="docsVm.currentDoc.file" class="data-row upload-file--filename">
+				{{ docsVm.currentDoc.file.name }}
+				<a ng-click="docsVm.removeUploadedFile(docsVm.currentDoc)" href="" class="remove">
+					<i class="glyphicon glyphicon-remove-circle"></i>
+				</a>
+			</div>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+		<button class="btn btn-success" ng-click="docsVm.uploadNewDocument(docsVm.currentDoc)">Upload</button>
+	</div>
+</div>

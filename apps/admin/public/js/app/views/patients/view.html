@@ -1,0 +1,98 @@
+<uib-tabset class="opk-tabs form-horizontal patient-view-info" active="patientVm.activeTab">
+	<uib-tab index="0" heading="Encounters" deselect="patientVm.deselectTab($event, $selectedIndex, 'encounters')" ng-show="patientVm.patient.id"   >
+		<ng-include src="view.get('patients/encounters.html')"></ng-include>
+	</uib-tab>
+	<uib-tab index="1" heading="Patient Details" deselect="patientVm.deselectTab($event, $selectedIndex, 'patientDetail')">
+
+		<errors src="patientVm.patientDetailErrors"></errors>
+
+		<div ng-if="!patientVm.form">
+			<div class="clearfix">
+				<div class="patient-mrn--field">
+					<label ng-class="{'invalid': patientVm.errors['patient'].mrn}">MRN*</label>
+					<span class='form-control input-sm'>{{patientVm.patient.mrn}}</span>
+					<span class="mrn-year-sep">-</span>
+					<span class='form-control input-sm mrn-year-field' >{{patientVm.patient.mrn_year}}</span>
+				</div>
+				<div class="bottom patient-buttons-container" ng-controller="PatientInvitationCrtl as inviteVm" ng-init="inviteVm.init(patientVm.patient)">
+					<div>
+						<a href="" ng-if="inviteVm.isShowPortalButton() && permissions.hasAccess('patient-portal', 'send_login_email')"
+						   ng-click="inviteVm.openPatientPortalEmailWindow()"
+						   ng-class="{'disabled-icon': !inviteVm.isEnablePortalButton()}"
+						   class="icon invite-patient-portal-icon"><i class="icon-send-mail" uib-tooltip="{{inviteVm.getPatientPortalTitle()}}" tooltip-placement="top center" tooltip-append-to-body="true"></i></a><a href="" class="btn btn-grey" ng-click="patientVm.edit()">Edit</a>
+					</div>
+				</div>
+			</div>
+			<ng-include src="view.get('patients/patient_info/view.html')" onLoad="error_model='patient'"></ng-include>
+		</div>
+
+		<div ng-if="patientVm.form">
+			<div class="clearfix">
+				<div class="patient-mrn--field" ng-if="!loggedUser.isSatelliteOffice()">
+					<label ng-class="{'invalid': patientVm.errors['patient'].mrn}">MRN*</label>
+					<input type="text" ng-model="patientVm.patient.mrn" class='form-control input-sm' placeholder='Type' />
+					<span class="mrn-year-sep">-</span>
+					<input type="text" ng-model="patientVm.patient.mrn_year" class='form-control input-sm mrn-year-field' placeholder='' />
+				</div>
+				<div class="bottom pull-right">
+					<a href="" ng-disabled="patientVm.saveButtonDisabled" ng-click="patientVm.savePatientDetails()" class="btn btn-success">Save</a>
+					<a href="" ng-click="patientVm.cancel()" class="btn btn-grey">Cancel</a>
+				</div>
+			</div>
+
+			<ng-include src="view.get('patients/patient_info/edit.html')"
+			            onLoad="error_model='patient'"
+			            warning-unsaved-form="patientVm.patient"
+			            warning-msg="Are you sure you want to continue without saving your changes?"
+					></ng-include>
+		</div>
+
+	</uib-tab>
+	<uib-tab index="2" heading="Insurance" deselect="patientVm.deselectTab($event, $selectedIndex, 'insurance')">
+
+		<errors src="patientVm.insuranceErrors"></errors>
+
+		<div ng-if="!patientVm.form">
+			<div class="clearfix">
+				<div class="bottom pull-right">
+					<a href="" class="btn btn-grey" ng-click="patientVm.edit()">Edit</a>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="patientVm.form">
+			<div class="clearfix">
+				<div class="bottom pull-right">
+					<a href="" ng-disabled="patientVm.saveButtonDisabled" ng-click="patientVm.saveInsurances()" class="btn btn-success">Save</a>
+					<a href="" ng-click="patientVm.cancel()" class="btn btn-grey">Cancel</a>
+				</div>
+			</div>
+		</div>
+
+		<div ng-controller="PatientInsurancesCtrl as patientInsurancesVm"
+		     ng-init="patientInsurancesVm.initPatientForm(ctrl.model.insurances)">
+			<ng-include ng-if="!patientVm.form" src="view.get('patients/insurances/view.html')"></ng-include>
+			<ng-include ng-if="patientVm.form"
+						src="view.get('patients/insurances/edit.html')"></ng-include>
+		</div>
+
+	</uib-tab>
+	<uib-tab index="3" heading="Charts">
+		<ng-include src="view.get('patients/charts.html')"></ng-include>
+	</uib-tab>
+	<uib-tab index="4" heading="Financial documents" ng-if="permissions.hasAccess('financial_documents', 'index')">
+		<ng-include src="view.get('patients/financial-documents.html')"></ng-include>
+	</uib-tab>
+	<uib-tab index="5" class="patient-notes">
+		<uib-tab-heading>
+			<i ng-class="{'icon-note': !patientVm.patient.has_flagged_comments, 'icon-notes-red': patientVm.patient.has_flagged_comments}"></i>
+		</uib-tab-heading>
+		<ng-include src="view.get('patients/notes.html')"></ng-include>
+	</uib-tab>
+	<uib-tab index="6" class="patient-notes" ng-if="permissions.hasAccess('billing', 'notes')">
+		<uib-tab-heading>
+			<i ng-class="{'icon-dollar': !patientVm.patient.has_billing_flagged_comments, 'icon-dollar-red': patientVm.patient.has_billing_flagged_comments}"></i>
+		</uib-tab-heading>
+		<ng-include src="view.get('patients/billing-notes.html')"></ng-include>
+	</uib-tab>
+</uib-tabset>

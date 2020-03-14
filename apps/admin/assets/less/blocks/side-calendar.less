@@ -1,0 +1,73 @@
+.side-calendar {
+	margin-top: 10px;
+	margin-left: -5px;
+	background-color: #f1f1f1;
+	float: left;
+	width: 182px;
+
+	table{
+		outline: none;
+
+		thead {
+			font-size: 12px;
+		}
+		.btn {
+			font-weight: normal;
+			background-color: #f1f1f1;
+			border-color: #f1f1f1;
+			padding: 4px;
+			font-size: 12px;
+			line-height: 1;
+		}
+		.btn-info {
+			color: @text-color;
+			background: none;
+			border-color: #999;
+			font-weight: normal;
+		}
+
+		.text-info {
+			color: #5f5f5f;
+			font-weight: bold;
+		}
+	}
+
+	.uib-weeks {
+		.btn:hover {
+			color: #00a1cf;
+			text-shadow: 1px 1px 5px rgba(0,161,207, 0.6);
+
+			.text-muted,
+			.text-info {
+				color: #00a1cf;
+			}
+		}
+
+		.btn.active {
+			-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.225);
+			box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.225);
+			font-weight: normal;
+		}
+	}
+
+	.uib-monthpicker {
+		.btn {
+			padding: 2px;
+			font-size: 11px;
+		}
+	}
+	.uib-yearpicker {
+		.btn {
+			font-size: 10px;
+		}
+	}
+	.uib-daypicker {
+		width: 182px;
+
+		.uib-title {
+			padding-left: 1px;
+			padding-right: 1px;
+			font-size: 14px;
+		}
+	}
+}

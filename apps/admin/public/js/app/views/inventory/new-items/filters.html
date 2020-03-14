@@ -1,0 +1,41 @@
+<filters-panel ctrl="listVm">
+
+	<div class="data-row">
+		<label>From</label>
+		<div>
+			<date-field ng-model="listVm.search_params.date_created_from" placeholder="mm/dd/yyyy" small="true"></date-field>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>To</label>
+		<div>
+			<date-field ng-model="listVm.search_params.date_created_to" placeholder="mm/dd/yyyy" small="true"></date-field>
+		</div>
+	</div>
+
+	<div class="data-row">
+		<label>Item Number</label>
+		<input type="text" ng-model="listVm.search_params.item_number" class='form-control input-sm' placeholder='Type' />
+	</div>
+
+	<div class="data-row">
+		<label>Item Name</label>
+		<input type="text" ng-model="listVm.search_params.item_name" class='form-control input-sm' placeholder='Type' />
+	</div>
+
+	<div class="data-row">
+		<label>Status</label>
+		<opk-select ng-model="listVm.search_params.complete_status" key-value-options="listVm.inventoryConst.COMPLETE_STATUS"></opk-select>
+	</div>
+
+	<div class="data-row">
+		<label>Item Type</label>
+		<opk-select ng-model="listVm.search_params.type" options="item for item in listVm.getInventoryTypeOptions()"></opk-select>
+	</div>
+
+	<div class="data-row">
+		<label>Manufacturer</label>
+		<opk-select ng-model="listVm.search_params.manufacturer" options="item.name for item in listVm.getManufacturerOptions($query)"></opk-select>
+	</div>
+
+</filters-panel>

@@ -1,0 +1,147 @@
+.case-registration-list {
+	.main-control {
+		margin-bottom: 20px;
+
+		.download {
+			float: left;
+			margin-left: 0;
+		}
+	}
+	.control button {
+		width: 100px;
+	}
+	.send-mail {
+		outline: none !important;
+		.icon-send-mail {
+			position: relative;
+			bottom: 7px;
+			left: 5px;
+		}
+	}
+}
+
+.select-all-intake {
+	font-weight: bold;
+}
+
+.insurance-remove-link {
+	font-size: 14px;
+	color: #ED1C24;
+	font-weight: normal;
+
+	a {
+		color: #ED1C24;
+	}
+}
+
+.registration-view-intake {
+	padding-bottom: 30px;
+	.tab-state {
+		&.completed {
+			&:after {
+				border: 2px solid;
+				border-radius: 13px;
+			}
+		}
+	}
+}
+
+&.registration-buttons-container {
+	padding: 0 30px 20px 0 !important;
+	margin-top: 0 !important;
+}
+
+.registration-complete-buttons {
+	text-align: center;
+}
+
+.registration-edit-buttons {
+	margin-bottom: 0;
+	.btn {
+		min-width: 0;
+		margin-left: 3px;
+	}
+}
+
+.send-portal-email-modal {
+
+	.email-form {
+		display: table;
+		width: 100%;
+
+		.field {
+			line-height: 2em;
+			padding: 2px 0 3px;
+
+			> label {
+				display: inline-block;
+				width: 20%;
+			}
+
+			> .form-control {
+				display: inline-block;
+				width: 75%;
+			}
+		}
+
+		.mail-text {
+			> textarea {
+				height: 300px;
+			}
+		}
+	}
+}
+
+.patient-mrn--field,
+.case-mrn-field {
+
+	.mrn-number-field {
+		display: inline-block;
+		width: 70px;
+	}
+
+	.mrn-year-sep {
+		display: inline-block;
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+
+	.mrn-year-field {
+		display: inline-block;
+		width: 50px;
+	}
+
+}
+
+.check-eligibility {
+	margin-top: 20px;
+}
+
+.patient-insurances-container {
+	position: relative;
+
+	.waiting-layer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1050;
+		background-color: #FFFFFF;
+		opacity: 0.5;
+
+		.spinner {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -18px;
+			margin-left: -18px;
+			opacity: 1;
+		}
+	}
+}
+
+.eligible-coverage .opk-select .select-search {
+	min-height: 34px;
+}
+

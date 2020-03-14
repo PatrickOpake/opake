@@ -1,0 +1,17 @@
+<tr ng-repeat="item in listVm.items">
+	<td>{{::item.cdm}}</td>
+	<td class="description">{{::item.desc}}</td>
+	<td>{{::item.amount | usd}}</td>
+	<td>{{::item.revenue_code}}</td>
+	<td>{{::item.department}}</td>
+	<td>{{::item.cpt}}</td>
+	<td>{{::item.cpt_modifier1}}</td>
+	<td>{{::item.cpt_modifier2}}</td>
+	<td>{{::item.unit_price | usd}}</td>
+	<td>{{::item.ndc}}</td>
+	<td>{{::item.active}}</td>
+	<td>{{::item.general_ledger}}</td>
+	<td>{{::item.notes}}</td>
+	<td>{{::item.last_edited_date | date:'M/d/yyyy'}}</td>
+	<td>{{::item.historical_price}}</td>
+</tr>

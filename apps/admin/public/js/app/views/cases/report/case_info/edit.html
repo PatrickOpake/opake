@@ -1,0 +1,5 @@
+<div ng-include="view.get('cases/report/case_info/form.html')" onLoad="case = caseVm.toedit;" warning-unsaved-form="caseVm.toedit" warning-msg="Case form has been changed. All changes will not be saved."></div>
+<div ng-if="caseVm.hasCaseEditAccess" class="actions pull-right">
+	<a href="" ng-click="caseVm.cancel()" class="cancel">Cancel</a>
+	<a href="" ng-click="caseVm.save()" >Save</a>
+</div>

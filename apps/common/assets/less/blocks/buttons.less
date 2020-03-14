@@ -1,0 +1,131 @@
+.btn[disabled] {
+	background-color: #999 !important;
+	border-color: #aaa !important;
+}
+
+.btn-group {
+	margin-bottom: 12px;
+
+	.btn {
+		color: #888;
+		min-width: 75px;
+		box-shadow: none;
+	}
+	.btn.active {
+		background: @light-blue;
+		color: #fff;
+	}
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+
+	input[type=file] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		min-width: 100%;
+		min-height: 100%;
+		font-size: 100px;
+		text-align: right;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		outline: none;
+		background: white;
+		cursor: inherit;
+		display: block;
+	}
+}
+.nounderline {
+	text-decoration: none !important;
+}
+
+.button-wrapper .btn {
+	margin-top:10px;
+}
+
+.btn-success,
+.btn-danger,
+.btn-info,
+.btn-primary,
+.btn-warning,
+.btn-grey {
+	font-weight: bold;
+	padding: 8px 18px;
+	.box-shadow(1px 1px 2px 0 rgba(1, 1, 1, 0.15));
+	.box-shadow(0px -5px 1px -2px  rgba(1, 1, 1, 0.15) inset);
+	&.btn-sm {
+		padding: 5px 10px;
+	}
+}
+
+.filter-opk-dropdown {
+	position: relative;
+
+	.dropdown-input {
+		padding-right: 25px;
+	}
+
+	.dropdown-caret {
+		cursor: pointer;
+		outline: 0;
+		border: none;
+		position: absolute;
+		right: 8px;
+		top: 2px;
+		height: 25px;
+		padding-top: 5px;
+	}
+
+	.dropdown-menu {
+		min-width: 100%;
+	}
+}
+
+.btn-success {
+	background-color: #2bccb1;
+	border-color: #2bccb1;
+}
+
+.btn-grey {
+	color: #797979;
+	background-color: #e1e1e1;
+	border-color: #e1e1e1;
+	&:hover {
+		background-color: #bdbdbd;
+	}
+	&[disabled] {
+		background-color: #e1e1e1 !important;
+	}
+}
+
+.checkbox {
+	input[type="checkbox"] {
+		&:checked + label::after {
+			color: #36beab;
+		}
+		&:checked + label::before {
+			color: #36beab;
+			box-shadow: 0 0 1px 1px rgb(111, 219, 201);
+		}
+	}
+	input[type="radio"] {
+		&:checked + label::after {
+			color: #36beab;
+		}
+		&:checked + label::before {
+			color: #36beab;
+			box-shadow: 0 0 1px 1px rgb(111, 219, 201);
+		}
+	}
+}
+
+.select-file-button {
+
+  input[type="file"] {
+	display: none;
+  }
+
+}

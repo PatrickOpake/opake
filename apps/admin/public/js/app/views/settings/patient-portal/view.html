@@ -1,0 +1,48 @@
+<div class="profile-page patient-portal-page">
+	<div class="block-panel">
+		<div class="heading-row clearfix">
+			<div class="headline-container">
+				<div class="headline-title">
+					Patient Portal Settings
+				</div>
+				<p>
+					Configure your patient portal settings and url here.
+				</p>
+			</div>
+
+			<div class="controls">
+				<div class="buttons clearfix">
+					<a class='btn btn-success' href='' ng-if="settingsVm.portalSettings && !settingsVm.portalSettings.active" ng-click="settingsVm.publishPortal()">Publish</a>
+					<a class='btn btn-danger' href='' ng-if="settingsVm.portalSettings && settingsVm.portalSettings.active" ng-click="settingsVm.unpublishPortal()">Unpublish</a>
+					<a class='btn btn-primary' href='' ng-click="settingsVm.edit()">Edit</a>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="details-panel">
+
+			<div class="data-row">
+				<label>Portal Name:</label>
+				<div>{{settingsVm.portalSettings.title}}</div>
+			</div>
+
+			<div class="data-row">
+				<label>URL:</label>
+				<div><a href="{{settingsVm.portalSettings.portal_org_url}}" target="_blank">{{settingsVm.portalSettings.portal_org_url}}</a></div>
+			</div>
+
+			<div class="data-row">
+				<label>Logo:</label>
+				<div>
+					<profile-image-upload
+							options="settingsVm.profileImageOptions"
+							ng-if="settingsVm.profileImageOptions"
+							is-view-only="true"></profile-image-upload>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

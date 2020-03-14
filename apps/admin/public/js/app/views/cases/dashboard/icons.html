@@ -1,0 +1,16 @@
+<div class="case-calendar-period-select" ctrl="listVm"></div>
+<div class="cases-filter tool-item" ng-show="::(!loggedUser.isSatelliteOffice())">
+	<a href="" class="btn-filters icon" ng-click="listVm.showFilter()">
+		<i class="icon-filter" ng-class="{'tablet': view.isTablet()}" ng-class="{active: listVm.isFilterShowed}" uib-tooltip="Filter"></i>
+	</a>
+</div>
+<div class="cases-settings tool-item" ng-show="permissions.hasAccess('schedule', 'view_settings')">
+	<a href="" class="btn-settings icon" ng-click="listVm.showSettings()">
+		<i class="icon-gear" ng-class="{'tablet': view.isTablet()}" ng-class="{active: listVm.isSettingsShowed}" uib-tooltip="Settings"></i>
+	</a>
+</div>
+<div class="cases-print tool-item">
+	<a href="" class="btn-print icon" ng-click="listVm.updateNotesForCases()" print-overview="{{listVm.getPrintUrl()}}">
+		<i class="icon-circle-print-small" ng-class="{'tablet': view.isTablet()}" uib-tooltip="Print"></i>
+	</a>
+</div>

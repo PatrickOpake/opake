@@ -1,0 +1,38 @@
+<div class="buttons">
+	<div class="pull-left">
+		<button type="button" class="btn btn-primary" ng-click="templateVm.preview()" ng-disabled="templateVm.isButtonsDisabled">Preview</button>
+	</div>
+	<div class="pull-right">
+		<button type="button" class="btn btn-grey" ng-click="templateVm.cancel()" ng-disabled="templateVm.isButtonsDisabled">Cancel</button>
+		<button type="button" class="btn btn-success" ng-click="templateVm.save()" ng-disabled="templateVm.isButtonsDisabled">Save</button>
+	</div>
+</div>
+<errors src="templateVm.errors"></errors>
+<div class="template-form" ng-if="templateVm.isConfigLoaded">
+	<div class="template-name">
+		<span class="title">Template Name</span>
+		<input type="text" class="form-control" ng-model="templateVm.template.name" />
+	</div>
+	<div class="fields">
+		<form-fields-grid
+				active-items="templateVm.template.patientInfo.activeItems"
+				inactive-items="templateVm.template.patientInfo.inactiveItems"
+				options="templateVm.template.patientInfo.options"
+				control="templateVm.template.patientInfo.control"></form-fields-grid>
+		<form-fields-grid
+				active-items="templateVm.template.caseInfo.activeItems"
+				inactive-items="templateVm.template.caseInfo.inactiveItems"
+				options="templateVm.template.caseInfo.options"
+				control="templateVm.template.caseInfo.control"></form-fields-grid>
+	</div>
+	<div class="insurance-placeholder">
+		<span class="section-title">Insurance Information</span>
+		<div class="insurance-create-placeholder">
+			<div class="title-container">
+				<div class="title">
+					New Insurance
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

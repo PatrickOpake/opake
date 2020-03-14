@@ -1,0 +1,137 @@
+<div class="row preference-cards--notes-header">
+	<div class="col-sm-3 header-text">
+		<h3>Instructions / Notes:</h3>
+	</div>
+	<div ng-if="isCaseCard" class="col-sm-9 check-all">
+		<div class="checkbox">
+			<input id="print_all" type="checkbox" class="styled" ng-checked="itemsVm.selectAllNotes" ng-click="itemsVm.addAllNotesToCheck()">
+			<label for="print_all">Select All</label>
+		</div>
+	</div>
+</div>
+
+<div class="preference-cards--notes">
+	<table class="opake pref-card-notes" ng-if="itemsVm.notes.length > 0">
+		<tbody>
+			<tr ng-repeat="item in itemsVm.notes" ng-form="note_form_inline">
+				<td ng-if="isCaseCard" class="check">
+					<div class="checkbox">
+						<input id="card_item_note_{{$index}}"
+							   type="checkbox"
+							   class="styled"
+							   ng-model="item.is_checked"
+							   ng-click="itemsVm.checkNotesCheckboxes()">
+						<label for="card_item_note_{{$index}}"></label>
+					</div>
+				</td>
+				<td class="note-name name">
+					<span ng-if="!item.edit_mode">{{ item.name }}:</span>
+					<input ng-if="item.edit_mode" type="text" class="form-control" ng-model="item.name" ng-required="true"/>
+				</td>
+				<td class="text">
+					<span ng-if="!item.edit_mode">{{ item.text }}</span>
+					<input ng-if="item.edit_mode" type="text" class="form-control" ng-model="item.text" ng-required="true"/>
+				</td>
+				<td class="actions" ng-if="!item.edit_mode">
+					<a href="" class="edit" ng-click="itemsVm.editNote(item)"><i class="icon-edit-card-item"></i></a>
+					<a href="" class="remove" ng-click="itemsVm.removeNote(item)"><i class="icon-remove"></i></a>
+				</td>
+				<td class="buttons" ng-if="item.edit_mode">
+					<button type="button" class="btn btn-grey" ng-click="itemsVm.cancelEditNote(item)">Cancel</button>
+					<button type="button" class="btn btn-success" ng-click="itemsVm.saveNote(item)" ng-disabled="note_form_inline.$invalid">Save</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-if="itemsVm.notes.length === 0">No items found</div>
+</div>
+<div>
+	<button type="button" class="btn btn-success" ng-click="itemsVm.addNote()"><i class="glyphicon glyphicon-plus"></i> Add Instruction / Note</button>
+</div>
+
+<h3>Items:</h3>
+<div class="preference-cards--items">
+	<div dnd-list="itemsVm.stagesWithItems"
+		 dnd-allowed-types="['stages']">
+		<div ng-repeat="stageWithItems in itemsVm.stagesWithItems"
+			 dnd-draggable="stageWithItems"
+			 dnd-moved="itemsVm.stagesWithItems.splice($index, 1);"
+			 dnd-effect-allowed="move"
+			 dnd-dragend="cardVm.stagesChanged(itemsVm.stagesWithItems)"
+			 dnd-type="'stages'">
+			<div class="stage-header row">
+				<div class="col-sm-11" dnd-nodrag>
+					<span>{{ stageWithItems.stage.name }}</span>
+				</div>
+				<div class="col-sm-1" ng-if="!itemsVm.hasItemsInEditMode(stageWithItems.items)">
+					<div class="handle"><i class="icon-drag-n-drop"></i></div>
+				</div>
+				<div class="col-sm-1 no-dragged-column" ng-if="itemsVm.hasItemsInEditMode(stageWithItems.items)" dnd-nodrag></div>
+			</div>
+			<table class="opake pref-card-items" ng-if="itemsVm.items.length > 0">
+				<thead>
+				<tr>
+					<th class="stage">Stage</th>
+					<th class="number">Item #</th>
+					<th class="name">Item Name</th>
+					<th class="manufacturer">Manufacturer</th>
+					<th class="description">Description</th>
+					<th class="default-qty text-center">Default Qty</th>
+					<th class="uom text-center">Unit of Measure</th>
+					<th class="actual-use text-center">Actual Use</th>
+					<th class="actions text-center">Actions</th>
+				</tr>
+				</thead>
+			</table>
+			<div class="pref-card-items" dnd-list="stageWithItems.items"
+				   dnd-allowed-types="itemsVm.stagesIds">
+				<div class="row" ng-repeat="item in stageWithItems.items"
+					ng-form="item_form_inline"
+					dnd-draggable="item"
+					dnd-moved="stageWithItems.items.splice($index, 1);"
+					dnd-effect-allowed="move"
+					dnd-dragend="cardVm.itemsPositionsChanged(itemsVm.stagesWithItems)"
+					dnd-type="item.stage_id">
+					<div class="col-sm-1 stage" dnd-nodrag>
+						<div ng-if="item.edit_mode">
+							<opk-select ng-model="item.stage_id" select-options="{appendToBody: true}"
+										options="stage.id as stage.name for stage in source.getPrefCardStages()">
+							</opk-select>
+						</div>
+					</div>
+					<div class="col-sm-1 number" dnd-nodrag>
+						<span ng-if="!item.edit_mode && itemsVm.itemHasInventory(item)">{{item.inventory.number}}</span>
+						<opk-select ng-if="item.edit_mode" ng-required="true"
+									select-options="{appendToBody: true, newItemFn: 'itemsVm.newItem($query)', newItemUseLabel: true, newItemLabel: 'Add Item'}"
+									ng-model="item.inventory" options="item.full_name for item in source.getInventoryItems($query)" placeholder="Type or Select">
+						</opk-select>
+					</div>
+					<div ng-if="itemsVm.itemHasInventory(item)" class="col-sm-2 name" ng-if="itemsVm.itemHasInventory(item)" dnd-nodrag>{{item.inventory.name}}</div>
+					<div ng-if="itemsVm.itemHasInventory(item)" class="col-sm-2 manufacturer" ng-if="itemsVm.itemHasInventory(item)" dnd-nodrag>{{item.inventory.manufacturer}}</div>
+					<div ng-if="itemsVm.itemHasInventory(item)" class="col-sm-2 description" ng-if="itemsVm.itemHasInventory(item)" dnd-nodrag>{{item.inventory.desc}}</div>
+					<div ng-if="!itemsVm.itemHasInventory(item)" class="col-sm-6 no-inventory" dnd-nodrag>Item number does not exist</div>
+					<div class="col-sm-1 default-qty text-center" dnd-nodrag>
+						<span ng-if="!item.edit_mode">{{item.default_qty ? item.default_qty : '' }}</span>
+						<input ng-if="item.edit_mode" type="text" class="form-control" ng-model="item.default_qty" valid-number/>
+					</div>
+					<div class="col-sm-1 uom text-center" dnd-nodrag>{{item.inventory.uom}}</div>
+					<div pref-card-actual-use class="col-sm-1 actual-use text-center" dnd-nodrag>
+						<input ng-if="isCaseCard" type="text" class="form-control" ng-model="item.actual_use" valid-number/>
+					</div>
+					<div class="col-sm-1 actions" ng-if="!item.edit_mode">
+						<a href="" class="edit" ng-click="itemsVm.editItem(item)"><i class="icon-edit-card-item"></i></a>
+						<a href="" class="remove" ng-click="itemsVm.removeItem(item)"><i class="icon-remove"></i></a>
+						<a class="handle"><i class="icon-drag-n-drop"></i></a>
+					</div>
+					<div class="col-sm-1 buttons" ng-if="item.edit_mode" dnd-nodrag>
+						<button type="button" class="btn btn-grey" ng-click="itemsVm.cancelEditItem(item)">Cancel</button>
+						<button type="button" class="btn btn-success" ng-click="itemsVm.saveItem(item)" ng-disabled="item_form_inline.$invalid">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="itemsVm.items.length === 0">No items found</div>
+</div>
+<a class="btn btn-success" ng-click="itemsVm.addItem()"><i class="glyphicon glyphicon-plus"></i> Add Item</a>
+

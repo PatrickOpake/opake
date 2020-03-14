@@ -1,0 +1,44 @@
+<div class="modal-header">
+	<span class="modal-title">Schedule In Service</span>
+	<a href="" ng-click="cancel()"><i class="icon-x"></i></a>
+</div>
+<div class="modal-body">
+	<errors src="serviceVm.errors"></errors>
+	<div class="data-row">
+		<label>Type:</label>
+		<opk-select ng-model="serviceVm.item.service_type"
+					key-value-options="caseRegistrationConst.IN_SERVICE_TYPES" placeholder="Select">
+		</opk-select>
+	</div>
+	<div class="data-row">
+		<label>Description:</label>
+		<textarea class="form-control" ng-model="serviceVm.item.description" placeholder="Type"></textarea>
+	</div>
+	<div class="row double-columns">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Room:</label>
+				<opk-select ng-model="serviceVm.item.location" options="location.name for location in source.getLocations()"></opk-select>
+			</div>
+			<div class="data-row">
+				<label>DOS:</label>
+				<div>
+					<date-field ng-model="serviceVm.item.start" icon="true" ng-change="serviceVm.caseDateOfServiceChanged(serviceVm.item.start)" left-right-buttons="true"></date-field>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Time:</label>
+				<opk-timepicker ng-model="serviceVm.item.start"></opk-timepicker>
+			</div>
+			<div class="data-row">
+				<label>Length:</label>
+				<time-length start="serviceVm.item.start" end="serviceVm.item.end" minutes-step="5"></time-length>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-success" href="" ng-click="serviceVm.save()">Save</a>
+</div>

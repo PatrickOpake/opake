@@ -1,0 +1,27 @@
+<div show-loading="listVm.isLoading" class="modal--result-bulk-claims">
+	<div class="modal-header">
+		<a href="" class="x-close pull-right" ng-click="cancel()"><i class="glyphicon glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="modal-body">
+		<div ng-if="listVm.successClaimResult.length">
+			<h3>Claims sent successfully for the following cases:</h3>
+			<div class="sent-claim" ng-repeat="item in listVm.successClaimResult">
+				<span>#{{item.case_id}} ({{item.type}})</span>
+			</div>
+		</div>
+		<div ng-if="listVm.errorClaimResult.length">
+			<h3 class="error-title">The following cases were returned with errors:</h3>
+			<div class="error-claim" ng-repeat="item in listVm.errorClaimResult">
+				<a href="/billings/{{::org_id}}/view/{{item.case_id}}">#{{item.case_id}} ({{item.type}})</a>
+				<div>
+					<ul ng-if="item.errors && item.errors.length">
+						<li ng-repeat="error in item.errors">{{::error}}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="waiting-layer" ng-show="docVm.isDocumentsLoading">
+				<img class="spinner" src="/common/i/spinner.gif" alt=""/>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,207 @@
+.booking-sheet--form {
+	min-height: 600px;
+
+	.patient-mrn--field {
+		width: 185px;
+		float: right;
+		label {
+			text-align: right;
+		}
+	}
+	.hidden-mrn-field {
+		height: 40px;
+	}
+	.note-block {
+		margin-top: 25px;
+	}
+	.print-icon {
+		display: inline-block;
+		vertical-align: bottom;
+		margin: 0 15px;
+	}
+	.col-sm-6 {
+		&.without-left-padding {
+			padding-left: 0;
+		}
+		&.without-right-padding {
+			padding-right: 0;
+		}
+	}
+	.col-sm-12 {
+		&.without-left-padding {
+			padding-left: 0;
+		}
+	}
+}
+
+.booking-sheet {
+	> h3:first-child {
+		margin-top: -20px;
+	}
+
+  	&.preloader {
+
+	  .loading-wheel {
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 10px;
+	  }
+
+	}
+}
+
+.booking-charts-modal {
+	.charts-uploading-block {
+		.btn-file {
+			border: none;
+			background: none;
+			color: #00a1cf;
+		}
+		.btn-file:hover {
+			text-decoration: underline;
+		}
+	}
+	.charts-table {
+		margin-top: 10px;
+		table {
+			th {
+				font-weight: normal;
+				text-transform: uppercase;
+				border-top: none;
+			}
+			td {
+				text-align: left;
+				&.icon {
+					width: 10%;
+				}
+				&.name {
+					width: 70%;
+					word-break: break-all;
+					.original-filename {
+						font-size: 12px;
+						color: #999;
+					}
+				}
+				&.rename {
+					width: 10%;
+				}
+				&.delete {
+					width: 10%;
+				}
+				.rename-button {
+					padding: 5px 10px;
+				}
+			}
+		}
+	}
+}
+.booking-filter {
+	.date-range {
+		label.to {
+			text-align: center;
+		}
+		.datepicker-field {
+			display: block;
+			input {
+				min-width: 120px;
+			}
+		}
+	}
+	.filters-panel--content > * {
+		float: none;
+		width: auto;
+	}
+	.group-field {
+		width: 100%;
+		margin: 0;
+	}
+}
+
+.booking-existing-patients-modal {
+	.modal-dialog {
+		width: 700px;
+		.modal-header {
+			text-align: center;
+			font-size: 18px;
+		}
+		.modal-footer {
+			text-align: center;
+			.or {
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+		}
+	}
+}
+
+.booking-sheet-list {
+	.loading-wheel {
+		display: inline-block;
+		margin-left: 10px;
+	}
+}
+
+.booking-template-selection {
+
+
+  	.available-templates-list {
+	  text-align: center;
+	  margin: auto;
+	  width: 300px;
+	  margin-top: 100px;
+
+	  h4 {
+		margin-bottom: 15px;
+	  }
+
+	  .template {
+		margin-bottom: 10px;
+	  }
+	}
+
+}
+
+.booking-form-widget {
+
+  	.empty-row {
+	  height: 55px;
+	}
+
+	.row {
+		.field {
+			&.x-offset-1 {
+				left: 8.33%
+			}
+			&.x-offset-2 {
+				left: 16.66%
+			}
+			&.x-offset-3 {
+				left: 25%
+			}
+			&.x-offset-4 {
+				left: 33.33%
+			}
+			&.x-offset-5 {
+				left: 41.65%
+			}
+			&.x-offset-6 {
+				left: 50%
+			}
+			&.x-offset-7 {
+				left: 58.32%
+			}
+			&.x-offset-8 {
+				left: 66.66%
+			}
+			&.x-offset-9 {
+				left: 75%
+			}
+			&.x-offset-10 {
+				left: 83.33%
+			}
+			&.x-offset-11 {
+				left: 91.64%
+			}
+		}
+	}
+}

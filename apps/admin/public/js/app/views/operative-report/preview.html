@@ -1,0 +1,144 @@
+<div class="modal-body preview-report">
+	<a href="" ng-click="cancel()" class="cancel"><i class="glyphicon glyphicon-remove"></i></a>
+	<table class="header">
+		<tr>
+			<td width="25%">
+				RE: {{ ::listVm.report.case.patient.last_name }}, {{ ::listVm.report.case.patient.first_name }} <br/>
+				Operative Report <br/>
+			</td>
+			<td class="organization-name" width="50%">
+				{{ ::listVm.organization.name }} <br/>
+				<span class="pre-wrap">{{::listVm.report.case.provider }}</span>
+			</td>
+			<td class="account" width="25%">
+				MRN #: {{ ::listVm.report.case.patient.full_mrn }}<br/>
+				Account #: {{ ::listVm.report.case.id }}
+			</td>
+		</tr>
+	</table>
+
+	<div ng-repeat="(group_id,group) in listVm.previewTemplate">
+		<table>
+			<tr ng-repeat="field in group" ng-if="field.active">
+				<td ng-if="group_id == listVm.templateConst.GROUPS.CASEINFO" ng-switch="field.field" colspan="{{field.field == 'surgeon' ? 2 : 5}}">
+					<b>{{::field.name}}</b>
+					<span ng-switch-when="patient_name">
+							{{:: listVm.report.case.patient.fullname}}
+					</span>
+					<span ng-switch-when="age_sex">
+						{{:: listVm.report.case.patient.age}} / {{:: listVm.report.case.patient.sex}}
+					</span>
+					<span ng-switch-when="dob">
+						{{:: listVm.report.case.patient.dob | date:'M/d/yyyy'}}
+					</span>
+					<span ng-switch-when="mrn">
+						{{:: listVm.report.case.patient.full_mrn}}
+					</span>
+					<span ng-switch-when="room">
+						{{:: listVm.report.case.location.name}}
+					</span>
+					<span ng-switch-when="dos">
+						{{:: listVm.report.case.time_start | date:'M/d/yyyy'}}
+					</span>
+					<span ng-switch-when="time_scheduled">
+						{{:: listVm.report.case.time_start | date:'hh:mm a'}} - {{:: listVm.report.case.time_end | date:'hh:mm a'}}
+					</span>
+					<span ng-switch-when="acc_number">
+						{{:: listVm.report.case.id || listVm.report.case.acc_number }}
+					</span>
+					<span ng-switch-when="surgeon">
+						<span ng-repeat="user in listVm.report.case.users">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span>
+					</span>
+					<span ng-switch-when="co_surgeon">
+						<span ng-repeat="user in listVm.report.case.co_surgeon">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span>
+					</span>
+					<span ng-switch-when="supervising_surgeon">
+						<span ng-repeat="user in listVm.report.case.supervising_surgeon">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span>
+					</span>
+					<span ng-switch-when="first_assistant_surgeon">
+						<span ng-repeat="user in listVm.report.case.first_assistant_surgeon">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span>
+					</span>
+					<span ng-switch-when="assistant">
+						<span ng-repeat="user in listVm.report.case.assistant">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span>
+					</span>
+					<span ng-switch-when="anesthesiologist">
+						<span ng-repeat="user in listVm.report.case.anesthesiologist">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span>
+					</span>
+					<span ng-switch-when="dictated_by">
+						<span ng-repeat="user in listVm.report.case.dictated_by">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span>
+					</span>
+					<span ng-switch-when="other_staff">
+						<span ng-repeat="user in listVm.report.case.other_staff">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span>
+					</span>
+
+				</td>
+				<td ng-if="group_id != listVm.templateConst.GROUPS.CASEINFO">
+					<b>{{ ::field.name }}</b>
+					<div ng-if="field.type == 'case_type' && listVm.report.case.additional_cpts" ng-repeat="item in listVm.report.case.additional_cpts track by $index">
+						{{ ::item.code }} - {{ ::item.name }}
+					</div>
+					<div ng-if="field.type == 'diagnosis' && listVm.report[field.field].length" ng-repeat="diagnosis in listVm.report[field.field] track by $index">
+						{{ ::diagnosis.code }} - {{ ::diagnosis.desc }}
+					</div>
+					<span ng-if="field.type == 'text' && field.field !== 'custom' && field.field !== 'list' && listVm.report[field.field]"
+						  ng-bind-html="listVm.trustAsHtml(listVm.report[field.field])"></span>
+					<span ng-if="field.field == 'custom' && field.custom_value"
+						  ng-bind-html="listVm.trustAsHtml(field.custom_value)"></span>
+					<div ng-if="field.field === 'list'" class="row top-buffer">
+						<div class="col-sm-6 column">
+							<div ng-repeat="item in field.list_value.column1" class="data-row">
+								<div class="checkbox">
+									<input  id="item1_{{$parent.$index}}_{{$index}}" type="checkbox" ng-model="item.active" class="styled" disabled />
+									<label for="item1_{{$parent.$index}}_{{$index}}"></label>
+								</div>
+								<div class="input-container">
+									<div class="input-sm" ng-bind-html="listVm.trustAsHtml(item.text)"></div>
+									<div ng-if="item.active" class="input-sm description" ng-bind-html="listVm.trustAsHtml(item.description)"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 column" ng-if="field.list_value.count_columns == 2">
+							<div ng-repeat="item in field.list_value.column2" class="data-row">
+								<div class="checkbox">
+									<input  id="item2_{{$parent.$index}}_{{$index}}" type="checkbox" ng-model="item.active" class="styled" disabled />
+									<label for="item2_{{$parent.$index}}_{{$index}}"></label>
+								</div>
+								<div class="input-container">
+									<div class="input-sm" ng-bind-html="listVm.trustAsHtml(item.text)"></div>
+									<div ng-if="item.active" class="input-sm description" ng-bind-html="listVm.trustAsHtml(item.description)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="signatures">
+		<div class="left"> Signed By: {{ ::listVm.report.signed_user.fullname }}</div>
+		<div class="right"> Date: {{ ::listVm.report.time_signed | date:'M/d/yyyy' }}</div>
+	</div>
+
+	<div ng-repeat="amendment in listVm.report.amendments">
+		<table class="top-buffer">
+			<tbody>
+				<tr>
+					<td>
+						<b>Amendment - {{ ::amendment.time_signed | date:'M/d/yyyy' }}</b>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span ng-bind-html="listVm.trustAsHtml(amendment.text)"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="signatures">
+			<div class="left"> Signed By: {{ ::amendment.signed_user.fullname }}</div>
+			<div class="right"> Date: {{ ::amendment.time_signed | date:'M/d/yyyy' }}</div>
+		</div>
+	</div>
+
+	<div class="copyright">CPT copyright {{::app.year}} American Medical Association. All rights reserved.</div>
+</div>

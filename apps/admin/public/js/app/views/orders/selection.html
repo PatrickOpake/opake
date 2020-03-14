@@ -1,0 +1,28 @@
+<div class="headline">
+	Search Results
+	<span># of Items Selected: {{ ctrl.selection.length}} <a class="reset" href="" ng-click="ctrl.resetSelection()">reset</a></span>
+</div>
+<table class="opake" ng-if="ctrl.search_items.length">
+	<thead sorter="ctrl.search_params" callback="ctrl.search()">
+		<tr>
+			<th></th>
+			<th sort="name">Item</th>
+			<th sort="desc">Description</th>
+			<th sort="min_level" class="text-center">Par Min</th>
+			<th sort="quantity" class="text-center">In Stock</th>
+			<th class="text-center">Add to Order</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in ctrl.search_items">
+			<td><img src="{{ ::item.image }}" /></td>
+			<td><a href="/inventory/{{ ::org_id }}/view/{{ ::item.id }}">{{ ::item.name }}</a></td>
+			<td>{{ ::item.desc }}</td>
+			<td class="text-center">{{ ::item.min_level }}</td>
+			<td class="text-center">{{ ::item.quantity }}</td>
+			<td class="text-center"><input type="checkbox" ng-checked="ctrl.selection.indexOf(item.id) > -1" ng-click="ctrl.toggleSelection(item.id)" /></td>
+		</tr>
+	</tbody>
+</table>
+<pages count="ctrl.total_count" page="ctrl.search_params.p" limit="ctrl.search_params.l" callback="ctrl.search()"></pages>
+<div ng-if="addingVm.search_items.length === 0">No items found</div>

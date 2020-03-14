@@ -1,0 +1,172 @@
+input.ng-dirty.ng-invalid {
+	border-color: red;
+}
+
+textarea {
+	resize: vertical;
+	min-height: 4em;
+
+	&.medium {
+		min-height: 100px;
+	}
+	&.large {
+		min-height: 160px;
+	}
+}
+
+select.chosen.w100 {
+	width: 100%;
+}
+
+#fileupload,
+.fileupload,
+#uiMceImageUpload {
+	position: absolute;
+	top: 0;
+	left: -4000px;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+
+form .upload-logo {
+	margin-bottom: 15px;
+	img {
+		width: 160px;
+		max-height: 200px;
+	}
+	a {
+		display: block;
+		clear: both;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+}
+
+label {
+	color: #00a1cf;
+	font-weight: bold !important;
+	&.dark {
+		color: #333;
+	}
+}
+
+input.w100 {
+	width: 100px !important;
+}
+
+input.w70 {
+	width: 70px !important;
+}
+
+a.input-group-addon {
+	padding: 5px 12px;
+}
+
+div.short-date {
+	input {
+		padding: 5px 5px;
+	}
+	a.input-group-addon {
+		padding: 5px 9px;
+	}
+}
+
+div.date {
+	position: relative;
+
+	&.has-left-right-buttons {
+
+		.datepicker-field {
+			margin-left: 22px;
+			margin-right: 22px;
+		}
+	}
+
+	.next-day-button,
+	.prev-day-button {
+		color: #747474;
+		padding: 2px;
+		position: absolute;
+
+	}
+
+	.prev-day-button {
+		top: 5px;
+		left: 0;
+	}
+
+	.next-day-button {
+		top: 5px;
+		right: 0;
+	}
+
+	.datepicker-field {
+		position: relative;
+		display: inline-block;
+
+
+
+		i {
+			margin: 0 !important;
+			float: none !important;
+			position: absolute;
+			right: 0;
+			top: 9px;
+			padding: 10px 12px;
+			pointer-events: none;
+		}
+
+		input {
+			padding-right: 30px;
+		}
+
+	}
+}
+
+.chart-groups {
+
+	.chart-groups-title {
+		text-align: right;
+		margin-bottom: 10px;
+		padding-right: 20px;
+	}
+
+	.chart-groups-table {
+
+		.name-column {
+			width: 220px;
+		}
+
+		.charts-column {
+			.opk-select {
+				max-width: 600px;
+			}
+		}
+
+		.button-column {
+			width: 100px;
+		}
+
+		.edit-buttons-column {
+			width: 120px;
+		}
+
+		.buttons {
+			text-align: center;
+
+			button {
+				margin-left: 5px;
+				margin-right: 5px;
+			}
+
+		}
+
+	}
+
+}
+
+.opk-editor-inline .mce-edit-focus,
+.opk-editor-inline .mce-content-body:focus {
+	margin-top: 32px;
+}

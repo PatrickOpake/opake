@@ -1,0 +1,18 @@
+<div class="modal-body case-blocking--edit-choice">
+    <h4>This is one appointment in a series.</h4>
+    <h4>What do you wish to edit?</h4>
+    <div class="edit-types">
+        <div class="data-row radio">
+            <input type="radio" ng-model="blockingVm.edit_type" id="item" value="item">
+            <label for="item">Just this one</label>
+        </div>
+        <div class="data-row radio">
+            <input type="radio" ng-model="blockingVm.edit_type" id="series" value="series">
+            <label for="series">The entire series</label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok()" type="button" ng-disabled="!blockingVm.edit_type">OK</button>
+    <button class="btn btn-grey" ng-click="cancel()" type="button">Cancel</button>
+</div>

@@ -1,0 +1,63 @@
+<div class="top-buffer">
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Insurance Order*</label>
+			<opk-select class="small" ng-model="ctrl.model.work_comp_is_primary" key-value-options="patientConst.INSURANCE_PRIMARY"></opk-select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Workers Comp Insurance Name*</label>
+			<input type="text" ng-model="ctrl.model.work_comp_insurance_name" class='form-control input-sm name-field'/>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Workers Comp Adjusters Name*</label>
+			<input type="text" ng-model="ctrl.model.work_comp_adjusters_name" class='form-control input-sm name-field'/>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Workers Comp Claim #*</label>
+			<input type="text" ng-model="ctrl.model.work_comp_claim" class='form-control input-sm'/>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Workers Comp Adjuster Phone #*</label>
+			<phone ng-model="ctrl.model.work_comp_adjuster_phone"></phone>
+		</div>
+	</div>
+	<div class="row" geo model="ctrl.model" props="{country: 'work_comp_country', state: 'work_comp_state', city: 'work_comp_city'}">
+		<div class="col-sm-6">
+			<label class="control-label">Workers Comp Insurance Address*</label>
+			<input type="text" ng-model="ctrl.model.work_comp_insurance_address" class='form-control input-sm'/>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">State*</label>
+			<opk-select select-options="{appendToBody: true}" class="small" ng-model="ctrl.model.work_comp_state"
+						options="item.name for item in source.getStates()">
+			</opk-select>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">City*</label>
+			<opk-select select-options="{autocompleteOnly: true, newItemFn: 'geoVm.newCity($query)', newItemUseLabel: true, newItemLabel: 'Add City'}"
+						ng-model="ctrl.model.work_comp_city"
+						options="city as city.name for city in geoVm.cities"
+						placeholder="Type"></opk-select>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">ZIP*</label>
+			<input type="text" ng-model="ctrl.model.work_comp_zip" class='form-control input-sm'/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2">
+			<label class="control-label">Accident Date*</label>
+			<div class="short-date"><date-field ng-model="ctrl.model.work_comp_accident_date" small="true" without-calendar="true"></date-field></div>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Insurance Company Phone #</label>
+			<phone ng-model="ctrl.model.insurance_company_phone"></phone>
+		</div>
+		<div class="col-sm-2">
+			<label class="control-label">Authorization #</label>
+			<input type="text" ng-model="ctrl.model.authorization_number" class='form-control input-sm'/>
+		</div>
+	</div>
+</div>

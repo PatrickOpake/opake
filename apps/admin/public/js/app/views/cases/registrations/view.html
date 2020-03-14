@@ -1,0 +1,55 @@
+<uib-tabset class="opk-tabs form-horizontal registration-view-intake" justified="true" active="regVm.activeTab">
+	<uib-tab index="0" deselect="regVm.deselectTab($event, $selectedIndex, 'patient')" >
+		<uib-tab-heading>
+			<span class="tab-state" ng-class="{completed: regVm.validation.is_patient_details_valid}"> 1 </span>
+			Patient Details
+		</uib-tab-heading>
+		<div class="row">
+
+			<div class="col-sm-9">
+				<a href="" print-iframe="{{regVm.getPatientDetailsPrintUrl(regVm.registration.case_id)}}" class="icon">
+					<i class="icon-circle-print-blue" uib-tooltip="Print"></i>
+				</a>
+			</div>
+			<!-- view -->
+			<div class="col-sm-3 text-right" ng-if="regVm.action === 'view' && !regVm.isEditDisabled">
+				<a class="btn btn-success" ng-click="regVm.edit()">Edit</a>
+			</div>
+
+			<!-- edit -->
+			<div class="col-sm-3 text-right" ng-if="regVm.action === 'edit'">
+				<a class="btn btn-success" ng-click="regVm.save('patient_detail')">Save</a>
+				<a class="btn btn-grey" ng-click="regVm.cancelEdit()">Cancel</a>
+			</div>
+
+		</div>
+		<ng-include src="view.get('patients/patient_info/' + regVm.action + '.html')"
+					onLoad="error_model='cases_registration'"
+					warning-unsaved-form="regVm.registration"
+					warning-msg="Are you sure you want to continue without saving your changes?"
+		></ng-include>
+		<ng-include src="view.get('cases/registrations/admission_type/' + regVm.action + '.html')"></ng-include>
+	</uib-tab>
+	<uib-tab index="1" deselect="regVm.deselectTab($event, $selectedIndex, 'insurance')">
+		<uib-tab-heading>
+			<span class="tab-state" ng-class="{completed: regVm.validation.is_insurance_valid}"> 2 </span>
+			Insurance
+		</uib-tab-heading>
+		<ng-include src="view.get('cases/registrations/insurance.html')" ></ng-include>
+	</uib-tab>
+	<uib-tab index="2" deselect="regVm.deselectTab($event, $selectedIndex, 'eligibility')">
+		<uib-tab-heading>
+			<span class="tab-state" ng-class="{completed: regVm.validation.is_eligibility_valid}"> 3 </span>
+			Eligibility & Pre-Auth
+		</uib-tab-heading>
+		<ng-include src="view.get('cases/registrations/eligibility.html')"></ng-include>
+	</uib-tab>
+	<uib-tab index="3" deselect="regVm.deselectTab($event, $selectedIndex, 'forms')">
+		<uib-tab-heading>
+			<span class="tab-state" ng-class="{completed: regVm.validation.is_forms_valid}"> 4 </span>
+			Forms
+		</uib-tab-heading>
+		<ng-include src="view.get('cases/registrations/view/additional_info/form.html')"></ng-include>
+	</uib-tab>
+
+</uib-tabset>

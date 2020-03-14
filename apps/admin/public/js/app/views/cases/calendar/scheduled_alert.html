@@ -1,0 +1,18 @@
+<div class="modal-header text-center">
+	<span class="modal-title"><i class="icon-green-checkmark"></i> Case successfully scheduled</span>
+	<a href="" ng-click="cancel()"><i class="icon-close-x"></i></a>
+</div>
+<div class="modal-body">
+	<ul class="cases-calendar--modal-options">
+		<li><b>{{::(alertVm.item.patient.last_name  + ', ' + alertVm.item.patient.first_name)}}</b></li>
+		<li><span>{{alertVm.item.location.name}}</span></li>
+		<li><i class="icon-case-procedure"></i><span>{{::(alertVm.item.type.name + ' - ' + alertVm.item.type.code)}}</span></li>
+		<li><i class="icon-case-surgeon"></i><span>{{::alertVm.item.getSurgeonNames()}}</span></li>
+		<li><i class="icon-case-date"></i><span>{{::alertVm.item.time_start| date:'M/d/yyyy'}}</span></li>
+		<li><i class="icon-case-time"></i><span>{{::alertVm.item.time_start| date:'h:mma'}} - {{::alertVm.item.time_end| date:'h:mma'}} ({{::alertVm.item.time_start| timeLength : alertVm.item.time_end}})</span></li>
+	</ul>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-grey pull-left" href="" ng-click="cancel()">Finish</a>
+	<a class="btn btn-success" href="" ng-click="ok()">Go to Case Details</a>
+</div>

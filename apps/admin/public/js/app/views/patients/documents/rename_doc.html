@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h4 class="modal-title">Rename uploaded file</h4>
+</div>
+<div ng-form name="DocRenameForm">
+    <div class="modal-body">
+        <input type="text" ng-model="chartsVm.currentDocName" class='form-control input-sm' ng-required="true"/>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-grey" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-success" ng-click="ok()" ng-disabled="DocRenameForm.$invalid">Save</button>
+    </div>
+</div>

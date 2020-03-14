@@ -1,0 +1,70 @@
+<div warning-unsaved-form="addingVm.order" warning-msg="Received form has been changed. All changes will not be saved."></div>
+
+<div class="data-row">
+	<div>
+		<h3 class="title">Order Info:</h3>
+		<table>
+			<tr>
+				<td class="po-field">
+					<table>
+						<tr>
+							<td><label class="control-label">P.O.#*:</label></td>
+							<td><input class='form-control col-xs-2' valid-number ng-model="addingVm.order.po_id" type='text' placeholder="P.O.#" /></td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td><label>Shipping type:</label></td>
+							<td>
+								<opk-select ng-model="addingVm.order.shipping_type" options="shipping_type.name for shipping_type in source.getShippingTypes()"></opk-select>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td><label>Vendor:</label> {{ ::addingVm.order.vendor.name }}</td>
+				<td><label># of Unique Items:</label> {{ addingVm.order.items.length }}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="control">
+		<a class="btn btn-success place-order" href="" ng-click="addingVm.save()">Save Order</a>
+		<a class="btn btn-primary add-items" href="" ng-click="addingVm.setStep(2); addingVm.errors = [];">< Back </a>
+	</div>
+</div>
+
+<div class="main-control">
+	<div class="headline" >{{ ::addingVm.order.vendor.name }}</div>
+	<table class="opake">
+		<thead>
+		<tr>
+			<th></th>
+			<th>Item</th>
+			<th>Description</th>
+			<th class="text-center">Par Min</th>
+			<th class="text-center">In Stock</th>
+			<th class="text-center">Received</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="item in addingVm.order.items | orderBy: '-id'">
+			<td><img src="{{ ::item.inventory.image }}" /></td>
+			<td><a href="/inventory/{{ ::org_id }}/view/{{ ::item.inventory.id }}">{{ ::item.inventory.name }}</a></td>
+			<td>{{ ::item.inventory.desc }}</td>
+			<td class="text-center">{{ ::item.inventory.min_level }}</td>
+			<td class="text-center">{{ ::item.inventory.stock }}</td>
+			<td class="text-center">
+				<a href="#" editable-number="item.received" e-required e-min="1" >{{ item.received }}</a>
+			</td>
+			<td class="text-center">
+				<a href="" class="remove" ng-click="addingVm.delete(item)"><i class="icon-remove"></i></a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<div ng-if="addingVm.order.items.length === 0">No selected items</div>
+</div>

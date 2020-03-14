@@ -1,0 +1,9 @@
+<div class="outbound-faxes">
+	<div class="window-controls">
+		<a href="" ng-show="!widgetVm.isContentCollapsed" ng-click="widgetVm.collapseContent()"><i class="glyphicon glyphicon glyphicon-collapse-up"></i></a>
+		<a href="" ng-show="widgetVm.isContentCollapsed" ng-click="widgetVm.expandContent()"><i class="glyphicon glyphicon glyphicon-collapse-down"></i></a>
+		<a href="" ng-click="widgetVm.toggleShowWidget()"><i class="glyphicon glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="window-content" ng-show="!widgetVm.isContentCollapsed">
+	</div>
+</div>

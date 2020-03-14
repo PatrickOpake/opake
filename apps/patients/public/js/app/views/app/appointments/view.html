@@ -1,0 +1,54 @@
+<div class="profile-page view-appointment" ng-if="appointmentVm.appointment">
+	<div class="appointment-title">
+		{{:: appointmentVm.appointment.case.type.name}}
+	</div>
+	<div class="appointment-details">
+		<div class="detail">
+			<span class="key">Case Date:</span> <span class="value">{{ ::appointmentVm.appointment.case.time_start | date:'M/d/yyyy' }}</span>
+		</div>
+		<div class="detail">
+			<span class="key">Time:</span> <span class="value">{{ ::appointmentVm.appointment.case.time_start | date:'HH:mm' }}</span>
+		</div>
+		<div class="detail">
+			<span class="key">Location:</span> <span class="value">{{ ::appointmentVm.appointment.case.location.name }}</span>
+		</div>
+		<div class="detail" ng-if="appointmentVm.appointment.case.surgeons">
+			<span class="key">Surgeon:</span> <span class="value">{{ ::appointmentVm.appointment.getSurgeonNames() }}</span>
+		</div>
+	</div>
+	<div class="appointment-forms content-block" ui-view>
+		<a href="" ui-sref="app.view-appointment.info" class="step-wrapper">
+			<div class="step odd">
+				<i ng-class="{'icon-red-warning': !appointmentVm.appointment.is_patient_info_confirmed, 'icon-green-checkmark': appointmentVm.appointment.is_patient_info_confirmed}"></i>
+				<span class="title">1. Confirm Your Information</span>
+				<i class="forward glyphicon glyphicon-chevron-right"></i>
+			</div>
+		</a>
+		<a href=""  ui-sref="app.view-appointment.insurance" class="step-wrapper">
+			<div class="step">
+				<i ng-class="{'icon-red-warning': !appointmentVm.appointment.is_insurances_confirmed, 'icon-green-checkmark': appointmentVm.appointment.is_insurances_confirmed}"></i>
+				<span class="title">2. Confirm Your Insurance</span>
+				<i class="forward glyphicon glyphicon-chevron-right"></i>
+			</div>
+		</a>
+		<a href="" ng-click="appointmentVm.toggleFormSelection()" class="step-wrapper forms-wrapper">
+			<div class="step odd">
+				<i ng-class="{'icon-red-warning': !appointmentVm.appointment.is_forms_confirmed, 'icon-green-checkmark': appointmentVm.appointment.is_forms_confirmed}"></i>
+				<span class="title">3. Complete Pre-Operative Forms</span>
+				<i ng-class="{'glyphicon-chevron-down': appointmentVm.isShowFormSelection, 'glyphicon-chevron-right': !appointmentVm.isShowFormSelection}" class="forward glyphicon"></i>
+			</div>
+			<a href="" ui-sref="app.view-appointment.forms.pre-operative" class="step-wrapper" ng-show="appointmentVm.isShowFormSelection">
+				<div class="inside-step step">
+						<span class="title">Pre-Operative Questionnaire</span>
+						<i class="forward glyphicon glyphicon-chevron-right"></i>
+				</div>
+			</a>
+			<a href="" ui-sref="app.view-appointment.forms.influenza" class="step-wrapper" ng-show="appointmentVm.isShowFormSelection">
+				<div class="inside-step step">
+						<span class="title">Influenza Triage Questionnaire</span>
+						<i class="forward glyphicon glyphicon-chevron-right"></i>
+				</div>
+			</a>
+		</a>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+<form class="panel-data">
+	<div class="data-row">
+		<label>To:</label>
+		<email-list ng-model="ef.email.to" class="form-control" ng-required="true"></email-list>
+		<a href="" class="text-center" ng-click="ef.setCC()" ng-show="!ef.email.cc">CC</a>
+		<a href="" class="text-center" ng-click="ef.setBCC()" ng-show="!ef.email.bcc">BCC</a>
+	</div>
+	<div class="data-row" ng-show="ef.email.cc">
+		<label>CC:</label>
+		<email-list ng-model="ef.email.cc" class="form-control"></email-list>
+	</div>
+	<div class="data-row" ng-show="ef.email.bcc">
+		<label>BCC:</label>
+		<email-list ng-model="ef.email.bcc" class="form-control"></email-list>
+	</div>
+	<div class="data-row">
+		<label>Subject:</label>
+		<input type="text" class="form-control" ng-model="ef.email.subject" />
+	</div>
+	<textarea class="form-control medium" ng-model="ef.email.body"></textarea>
+</form>

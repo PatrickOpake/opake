@@ -1,0 +1,119 @@
+<div class="row">
+	<div class="col-sm-4">
+		<label class="control-label">Workers Comp Insurance Company</label>
+		<div>
+			<opk-select select-options="{newItemFn: 'item.newInsuranceCompany($query)', newItemUseLabel: true, newItemLabel: 'Add Insurance'}"
+			            class="small"
+			            ng-model="item.data.insurance_company"
+			            ng-change="patientInsurancesVm.fillInsurancePayorData(item)"
+			            options="item.name for item in source.getInsurances($query, true)"></opk-select>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Workers Comp Adjusters Name</label>
+		<input type="text" ng-model="item.data.adjuster_name" class='form-control input-sm name-field'/>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">Workers Comp Claim #</label>
+		<input type="text" ng-model="item.data.claim" class='form-control input-sm'/>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Workers Comp Adjuster Phone #</label>
+		<phone ng-model="item.data.adjuster_phone"></phone>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label">Workers Comp Insurance Address</label>
+		<div>
+			<opk-select class="small"
+			            ng-model="item.data.address_insurance_selected"
+			            select-options="{newItemFn: 'patientInsurancesVm.newInsuranceAddress(item, $query)', newItemUseLabel: true, newItemLabel: 'Add New Address'}"
+			            ng-change="patientInsurancesVm.fillInsuranceAddressFromSelected(item)"
+			            options="item.address for item in source.getInsuranceCompanyPossibleAddresses(item.data.insurance_company.id)"
+			            placeholder='Type or select'></opk-select>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">Electronic 1500 Payer ID #</label>
+		<input type="text" ng-model="item.data.cms1500_payer_id" class="form-control input-sm" placeholder='Type' />
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">Electronic UB04 Payer ID #</label>
+		<input type="text" ng-model="item.data.ub04_payer_id" class="form-control input-sm" placeholder='Type' />
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">Eligibility Payer ID #</label>
+		<input type="text" ng-model="item.data.eligibility_payer_id" class="form-control input-sm" placeholder='Type' />
+	</div>
+</div>
+<div class="row" geo model="item.data" props="{state: 'state', city: 'city'}">
+	<div class="col-sm-2">
+		<label class="control-label">State</label>
+		<opk-select select-options="{appendToBody: true}"
+		            class="small"
+		            ng-model="item.data.state"
+		            options="item.name for item in source.getStates()">
+		</opk-select>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">City</label>
+		<opk-select class="small"
+					select-options="{autocompleteOnly: true, newItemFn: 'geoVm.newCity($query)', newItemUseLabel: true, newItemLabel: 'Add City'}"
+		            ng-model="item.data.city"
+		            options="city as city.name for city in geoVm.cities"
+		            placeholder="Type"></opk-select>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">ZIP</label>
+		<input type="text" ng-model="item.data.zip" class='form-control input-sm'/>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Insurance Company Phone #</label>
+		<phone ng-model="item.data.insurance_company_phone"></phone>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Authorization #</label>
+		<input type="text" ng-model="item.data.authorization_number" class='form-control input-sm'/>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-2">
+		<label class="control-label">Accident Date</label>
+		<div class="short-date"><date-field ng-model="item.data.accident_date" small="true" without-calendar="true"></date-field></div>
+	</div>
+	<div class="col-sm-4">
+		<label class="control-label">Employee ID#</label>
+		<input type="text" ng-model="item.data.employee_id" class='form-control input-sm'/>
+	</div>
+	<div class="col-sm-4">
+		<label class="control-label">Employer Name</label>
+		<input type="text" ng-model="item.data.employer_name" class='form-control input-sm'/>
+	</div>
+</div>
+<div class="row" geo model="item.data" props="{state: 'employer_state', city: 'employer_city'}">
+	<div class="col-sm-6">
+		<label class="control-label">Employer Address</label>
+		<input type="text" ng-model="item.data.employer_address" class='form-control input-sm'/>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">State</label>
+		<opk-select select-options="{appendToBody: true}"
+		            class="small"
+		            ng-model="item.data.employer_state"
+		            options="item.name for item in source.getStates()">
+		</opk-select>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">City</label>
+		<opk-select class="small"
+					select-options="{autocompleteOnly: true, newItemFn: 'geoVm.newCity($query)', newItemUseLabel: true, newItemLabel: 'Add City', appendToBody: true}"
+		            ng-model="item.data.employer_city"
+		            options="city as city.name for city in geoVm.cities"
+		            placeholder="Type"></opk-select>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">ZIP</label>
+		<input type="text" ng-model="item.data.employer_zip" class='form-control input-sm'/>
+	</div>
+</div>

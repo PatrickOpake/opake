@@ -1,0 +1,28 @@
+<div class="cases-calendar--preview" ng-controller="PreviewCaseCrtl as caseVm" ng-init="caseVm.init(item)">
+	<div class="modal-header">
+		<span class="modal-title">{{::(caseVm.item.patient.last_name + ', ' + caseVm.item.patient.first_name)}}</span>
+		<span ng-controller="PatientInvitationCrtl as inviteVm" ng-init="inviteVm.init(caseVm.item.patient)">
+			<span ng-if="inviteVm.isShowPortalButton() && inviteVm.isEnablePortalButton()">
+				<a href="" ng-if="permissions.hasAccess('patient-portal', 'send_login_email')" ng-click="inviteVm.openPatientPortalEmailWindow()" class="icon send-mail-icon">
+					<i class="icon-send-mail" uib-tooltip="Email Patient Portal invite"></i>
+				</a>
+			</span>
+		</span>
+		<a href="" class="close-preview"><i class="icon-x"></i></a>
+		<span ng-if="caseVm.item.alerts.length" class="icon pull-right"><i class="icon-red-warning-pastel"  uib-tooltip-html="caseVm.getFormattedAlertMessages()" tooltip-placement="bottom"  tooltip-class="red alert-tooltip"></i></span>
+	</div>
+	<div class="modal-body">
+		<div class="case-details" uib-tooltip="Click for Case Details" ng-click="caseVm.goToCaseManagement()">
+			<ul class="cases-calendar--modal-options">
+				<li><span>{{::(caseVm.item.patient.dob ? ((caseVm.item.patient.dob | date:'M/d/yyyy') + " - " + caseVm.item.patient.age + "yo | ") : '') + 'MRN: ' + caseVm.item.patient.full_mrn}}</span></li>
+				<li><i class="icon-case-time"></i><span>{{::caseVm.item.time_start| date:'h:mma'}} - {{::caseVm.item.time_end| date:'h:mma'}} ({{::caseVm.item.time_start| timeLength : caseVm.item.time_end}}) | {{::caseVm.item.getSurgeonNames()}}</span></li>
+				<li><i class="icon-case-procedure"></i><span>{{::(caseVm.item.type.name + (caseVm.item.type.code ? (' - ' + caseVm.item.type.code) : ''))}}<span class="description">{{::(caseVm.item.description ? (' - ' + caseVm.item.description) : '')}}</span></span></li>
+			</ul>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a class="btn btn-danger pull-left"ng-if="caseVm.hasCancelAppointmentAccess && !caseVm.item.isAppointmentCanceled()" href="" ng-click="caseVm.cancel()">Cancel Case</a>
+		<a href="" class="delete_case pull-left" ng-if="caseVm.hasCaseDeleteAccess" ng-click="caseVm.delete()">Delete Case</a>
+		<a class="btn btn-grey" href="" ng-if="caseVm.hasCaseEditAccess" ng-click="caseVm.edit()">Edit</a>
+	</div>
+</div>

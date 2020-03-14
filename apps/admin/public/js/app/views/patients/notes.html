@@ -1,0 +1,36 @@
+<div ng-controller="PatientNotesCtrl as notesVm" ng-init="notesVm.init(patientVm.patient.id)" class="patient-notes">
+	<div class="heading">
+		<h3>General Comments</h3>
+	</div>
+	<ul class="general-comments">
+		<li ng-repeat="note in notesVm.generalNotes | orderBy: 'id'">
+			{{ note.text }}
+		</li>
+	</ul>
+	<div class="heading">
+		<h3>Flagged Comments</h3>
+	</div>
+	<ul class="flagged-comments">
+		<li ng-repeat="note in notesVm.flaggedNotes | orderBy: 'id'">
+			{{ note.text }}
+		</li>
+	</ul>
+	<div class="heading">
+		<h3>Comment History</h3>
+	</div>
+	<div class="comment-history">
+		<div ng-repeat="notesByCase in notesVm.notesByCases | orderBy: '-case_id'">
+			<div class="account-number">
+				<i class="icon-caret-down"></i>
+				Account #<a href="/cases/{{ ::org_id }}/cm/{{ notesByCase.case_id }}">{{ notesByCase.case_id }}</a>
+			</div>
+			<div class="case-notes">
+				<div class="case-note" ng-repeat="note in notesByCase.notes | orderBy: '-id'">
+					<b>{{ note.time_add | date:'MMM d, yyyy' }}</b><br/>
+					<span>{{ note.text }}</span>
+					<i ng-if="note.flagged" class="icon-note-flag-filled"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

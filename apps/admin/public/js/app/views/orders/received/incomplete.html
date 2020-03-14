@@ -1,0 +1,26 @@
+<div ng-form="incomplete_form">
+	<div class="modal-header">
+		<h4 class="modal-title">Incomplete</h4>
+	</div>
+	<div class="modal-body order-incomplete-form">
+		<div ng-show="orderVm.isAnyItemFieldFilled(orderVm.item)" class="text-danger">At least one of fields must be filled out</div>
+		<div class="data-row">
+			<label>Item:</label>
+			<div class="text-left">{{ orderVm.item.inventory.name }}</div>
+		</div>
+		<div class="data-row">
+				<label>Ordered:</label>
+				<div class="text-left">{{ orderVm.item.ordered }}</div>
+		</div>
+		<div class="data-row">
+			<label class="middle">Received:</label>
+			<div><input class="form-control" ng-required="orderVm.isAnyItemFieldFilled(orderVm.item)"  type="text" valid-number  ng-model="orderVm.item.received" /></div>
+			<label class="middle">Damaged:</label>
+			<div><input class="form-control" ng-required="orderVm.isAnyItemFieldFilled(orderVm.item)" type="text" valid-number ng-model="orderVm.item.damaged" /></div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-success" ng-click="ok()" ng-disabled="incomplete_form.$invalid">OK</button>
+		<button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

@@ -1,0 +1,15 @@
+<div class="insurance-tab" show-loading="eligibilityCoverageVm.isEligibilityChecking">
+
+	<div class="row">
+		<div class="col-sm-3 col-sm-offset-9 text-right" ng-if="regVm.action === 'view' && !regVm.isEditDisabled">
+			<a  class="btn btn-success" ng-click="regVm.edit()">Edit</a>
+		</div>
+		<div class="col-sm-3 col-sm-offset-9 text-right" ng-if="regVm.action === 'edit'">
+			<a class="btn btn-success" ng-click="regVm.save('insurance');">Save</a>
+			<a class="btn btn-grey" ng-click="regVm.cancelEdit()">Cancel</a>
+		</div>
+	</div>
+
+	<ng-include src="view.get('patients/eligibility/' + regVm.action + '.html')"></ng-include>
+
+</div>

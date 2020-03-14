@@ -1,0 +1,24 @@
+<div>
+	Select insurance:
+</div>
+
+<div ng-if="VerificationVm.insurances.length === 0">No insurances found</div>
+
+<div class="patient-insurances-container" ng-init="patientInsurancesVm.init()">
+	<div class="insurance-source-cards">
+		<div ng-repeat="item in VerificationVm.insurances"
+			 class="insurance-source-card"
+			 ng-if="!item.is_empty_insurance && !item.is_deleted && item.order"
+			 ng-click="VerificationVm.selectInsurance(item)">
+			<a href=""
+			   class="edit-link"
+			   ng-click="VerificationVm.selectInsurance(item)">view</a>
+			<div class="title-container">
+				<span class="title">{{item.title}}</span>
+			</div>
+			<div class="order-title" ng-if="item.verification.insurance_verified && item.verification.is_pre_authorization_completed">
+				<i class="icon-blue-sign"></i> <span>Insurance Verified</span><br>
+			</div>
+		</div>
+	</div>
+</div>

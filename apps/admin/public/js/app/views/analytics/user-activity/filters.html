@@ -1,0 +1,48 @@
+<filters-panel ctrl="listVm">
+	<div class="data-row" ng-if="listVm.isInternal">
+		<label>Organization</label>
+		<opk-select ng-model="listVm.search_params.organization"
+					options="item.id as item.name for item in source.getOrganizations()"></opk-select>
+	</div>
+	<div class="data-row" ng-if="!listVm.isInternal">
+		<label>User</label>
+		<opk-select ng-model="listVm.search_params.user"
+					options="item.id as item.fullname for item in source.getUsers()"></opk-select>
+	</div>
+	<div class="data-row" ng-if="listVm.isInternal">
+		<label>User</label>
+		<opk-select ng-model="listVm.search_params.user"
+					options="item.id as item.fullname for item in source.getUsersForAllOrganizations()"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Activity</label>
+		<opk-select ng-model="listVm.search_params.action"
+					options="item.id as item.name for item in source.getUserActivityTypes()"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>From</label>
+		<div>
+			<date-field ng-model="listVm.search_params.date_from"  icon="true" placeholder="mm/dd/yyyy" small="true"></date-field>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>To</label>
+		<div>
+			<date-field ng-model="listVm.search_params.date_to"  icon="true" placeholder="mm/dd/yyyy" small="true"></date-field>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Case</label>
+		<input type="text" class="form-control" ng-model="listVm.search_params.case" />
+	</div>
+	<div class="data-row" ng-if="!listVm.isInternal">
+		<label>Patient</label>
+		<opk-select ng-model="listVm.search_params.patient"
+			    options="item.first_name + ' ' + item.last_name for item in source.getPatients({query: $query}) track by item.id"></opk-select>
+	</div>
+	<div class="data-row" ng-if="listVm.isInternal">
+		<label>Patient</label>
+		<opk-select ng-model="listVm.search_params.patient"
+		            options="item.first_name + ' ' + item.last_name for item in source.getPatientsForAllOrganizations($query) track by item.id"></opk-select>
+	</div>
+</filters-panel>

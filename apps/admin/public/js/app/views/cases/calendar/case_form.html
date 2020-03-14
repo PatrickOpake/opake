@@ -1,0 +1,95 @@
+<div class="case-create-edit-modal">
+	<div class="modal-header">
+		<span class="modal-title">{{::(caseVm.isCreation()  ? 'Create' : 'Edit')}} Case</span>
+		<a href="" ng-click="cancel()"><i class="icon-x"></i></a>
+	</div>
+	<div class="modal-body">
+		<errors src="caseVm.errors"></errors>
+		<div>
+			<div ng-if="caseVm.isCreation() && !caseVm.isFromBooking()">
+				<div class="data-row patient-select">
+					<label>Patient:</label>
+					<opk-select ng-model="caseVm.patient" change="caseVm.changePatient()"
+					            options="item.first_name+' '+item.last_name for item in source.getPatients({query: $query}) track by item.id"></opk-select>
+				</div>
+				<div class="controls"><a href="/patients/{{::org_id}}/create">Create Patient</a></div>
+			</div>
+			<div ng-if="!caseVm.isCreation() || caseVm.isFromBooking()">
+				<div class="data-row patient-name-row">
+					<label>Patient:</label>
+					<div>{{::(caseVm.item.patient.last_name + ', ' + caseVm.item.patient.first_name)}}</div>
+					<a ng-if="!caseVm.isCreation() && permissions.hasAccess('case_management_audit', 'view')"
+					   href="/analytics/{{::org_id}}/userActivity/#?case={{::caseVm.item.id}}"
+					   target="_blank"
+					   class="case-audit-link"><i class="icon-loupe" uib-tooltip="Case Audit Log" tooltip-append-to-body="true" tooltip-placement="top"></i></a>
+				</div>
+			</div>
+			<div class="data-row">
+				<label>Surgeon:</label>
+				<opk-select ng-model="caseVm.item.users" multiple options="user.fullname for user in source.getSurgeons()"></opk-select>
+			</div>
+			<div class="data-row">
+				<label>Procedure:</label>
+				<opk-select ng-model="caseVm.item.type" change="caseVm.item.changeType()" options="type.full_name for type in source.getCaseTypes($query)"></opk-select>
+			</div>
+			<div class="controls"><a href="" ng-click="caseVm.showAdditionalProcedures = !caseVm.showAdditionalProcedures">{{ caseVm.showAdditionalProcedures ? '-' : '+' }} Procedure Codes</a></div>
+
+			<div class="data-row" ng-if="caseVm.showAdditionalProcedures">
+				<label>Procedure Codes:</label>
+				<div class="opk-codes--select">
+					<opk-select select-options="{fixedDropdownWidth: true, autocompleteOnly: true, searchFilter: 'opkSelectCpt', reorder: true}"
+					            ng-model="caseVm.item.additional_cpts" multiple options="type.full_name for type in source.getCaseTypes($query)" placeholder="Type"></opk-select>
+				</div>
+			</div>
+		</div>
+		<div class="row double-columns">
+			<div class="col-sm-6">
+				<div class="data-row">
+					<label>Room:</label>
+					<opk-select class="small" ng-model="caseVm.item.location" options="location.name for location in source.getLocations()"></opk-select>
+				</div>
+				<div class="data-row">
+					<label>DOS:</label>
+					<div>
+						<date-field ng-model="caseVm.item.time_start" icon="true" ng-change="caseVm.caseDateOfServiceChanged(caseVm.item.time_start)" left-right-buttons="true"></date-field>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="data-row">
+					<label>Time:</label>
+					<opk-timepicker ng-model="caseVm.item.time_start"></opk-timepicker>
+				</div>
+				<div class="data-row">
+					<label>Length:</label>
+					<time-length start="caseVm.item.time_start" end="caseVm.item.time_end" minutes-step="5"></time-length>
+				</div>
+			</div>
+		</div>
+		<div class="data-row">
+			<label>Other Staff:</label>
+			<opk-select ng-model="caseVm.item.other_staff" multiple options="user.fullname for user in source.getUsers()"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Surgeon Assistant:</label>
+			<opk-select ng-model="caseVm.item.assistant" multiple options="user.fullname for user in source.getSurgeonsAndAssistant()"></opk-select>
+		</div>
+		<div class="data-row">
+			<label>Description:</label>
+			<textarea class="form-control" ng-model="caseVm.item.description" placeholder="Type"></textarea>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div ng-if="!caseVm.isCreation()">
+		<span ng-if="!caseVm.calendarService.cancellationId" class="pull-left">
+			<a class="btn btn-danger" ng-if="caseVm.hasCancelAppointmentAccess" href="" ng-click="caseVm.cancel()">Cancel Case</a>
+			<a href="" class="delete_case" ng-if="caseVm.hasCaseDeleteAccess" ng-click="caseVm.delete()">Delete Case</a>
+		</span>
+			<div class="checkbox accidental-cancellation" ng-if="caseVm.calendarService.cancellationId">
+				<input id="accidental_cancellation" type="checkbox" ng-model="caseVm.item.accidental_cancellation">
+				<label for="accidental_cancellation">Accidental Cancellation</label>
+			</div>
+		</div>
+		<a ng-if="caseVm.hasCaseEditAccess" class="btn btn-success" href="" ng-disabled="caseVm.saveButtonDisabled" ng-click="caseVm.save()">Save</a>
+	</div>
+</div>

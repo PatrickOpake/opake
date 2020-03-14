@@ -1,0 +1,84 @@
+.opk-tabs {
+	position: relative;
+	margin-bottom: -1px;
+	z-index: 100;
+	color: #999;
+
+	> ul {
+		li {
+			&.active a {
+				color: @blue !important;
+
+				&:hover {
+					color: @blue;
+				}
+			}
+
+			&:not(:last-child) a {
+				border-right: 1px solid #c8c8c8 !important;
+			}
+		}
+		a {
+			font-size: 14px;
+			font-weight: bold;
+			color: #909090;
+			background: #f1f1f1;
+			vertical-align: bottom;
+			border: none !important;
+			white-space: nowrap;
+
+			i {
+				vertical-align: middle;
+				margin-right: 10px;
+			}
+		}
+	}
+
+	// Для директивы tabset
+	.nav-tabs {
+		position: relative;
+		z-index: 100;
+	}
+	.tab-content {
+		&:extend(.content-block);
+		margin-top: -1px;
+	}
+
+	.tab-state {
+		position: relative;
+		display: inline-block;
+		width: 26px;
+		height: 26px;
+		text-align: center;
+		border: 2px solid;
+		border-radius: 13px;
+		line-height: 1.7;
+
+		&.completed {
+			visibility: hidden;
+
+			&:after {
+				visibility: visible;
+				position: absolute;
+				top: -2px;
+				left: -2px;
+				font-family: 'Glyphicons Halflings';
+				content: "\e013";
+				width: 26px;
+				height: 26px;
+				font-size: 13px;
+				border: 2px solid;
+				border-radius: 13px;
+				font-weight: normal;
+			}
+		}
+	}
+}
+
+.nav .badge {
+	position: absolute;
+	right: 15px;
+	min-width: 24px;
+	padding: 6px;
+	border-radius: 13px;
+}

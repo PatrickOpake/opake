@@ -1,0 +1,63 @@
+.site-body {
+
+	.alert-flash {
+		background-color: #2BCCB1;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		z-index: 1000;
+		opacity: 1;
+
+		&.fixed {
+			position: fixed;
+		}
+
+		&.ng-hide {
+			opacity: 0;
+		}
+
+		&.ng-hide-add,
+		&.ng-hide-remove {
+			-webkit-transition: 0.5s linear all;
+			transition: 0.5s linear all;
+		}
+
+		.message-container {
+			position: relative;
+
+		}
+
+		.message-container {
+			position: relative;
+
+		}
+
+		.close-button {
+			position: absolute;
+			top: 8px;
+			right: 10px;
+			font-size: 22px;
+			line-height: 1;
+			color: #FFFFFF;
+			text-shadow: 0 1px 0 #ffffff;
+			opacity: 0.4;
+			text-decoration: none;
+
+		}
+
+		.close-button:hover {
+			opacity: 0.8;
+		}
+
+		.message {
+			font-size: 16px;
+			color: #FFFFFF;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			display: block;
+			text-align: center;
+		}
+	}
+
+}

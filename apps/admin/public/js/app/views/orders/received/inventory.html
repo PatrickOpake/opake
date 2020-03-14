@@ -1,0 +1,75 @@
+<table ng-if="ctrl.order_status !== 'Incomplete'" class="opake content-shadow" >
+	<thead sorter="ctrl.search_params" callback="ctrl.searchItems()">
+		<tr>
+			<th sort="name">Name</th>
+			<th sort="desc">Description</th>
+			<th sort="ordered">Ordered</th>
+			<th ng-show="ctrl.order.po_id && !ctrl.order.isComplete()" class="text-center">Incomplete</th>
+			<th ng-show="ctrl.order.po_id && !ctrl.order.isComplete()" class="text-center">Received</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	<tr ng-repeat="item in ctrl.order.items">
+		<td><a href='/inventory/{{::org_id}}/view/{{ ::item.inventory.id }}'>{{::item.inventory.name}}</a></td>
+		<td>{{::item.inventory.desc}}</td>
+		<td>{{::item.ordered}}</td>
+		<td ng-show="ctrl.order.po_id && !ctrl.order.isComplete()" class="text-center">
+			<input type="checkbox" ng-disabled="!ctrl.order.po_id" ng-click="ctrl.toggleItemStatus($event, item)" value="incomplete" ng-model="item.status" ng-true-value="1" ng-false-value="0" />
+		</td>
+		<td ng-show="ctrl.order.po_id && !ctrl.order.isComplete()" class="text-center">
+			<input type="checkbox" ng-disabled="!ctrl.order.po_id" ng-click="ctrl.toggleItemStatus($event, item)" value="received" ng-model="item.status" ng-true-value="2" ng-false-value="0" />
+		</td>
+	</tr>
+
+	</tbody>
+</table>
+<div ng-if="ctrl.order.items.length === 0">No items found</div>
+
+<div ng-if="ctrl.order_status === 'Incomplete'">
+	<div class="header--table-opake"><b>Open items:</b></div>
+	<table  class="opake" >
+		<thead sorter="ctrl.search_params" callback="ctrl.searchItems()">
+			<tr>
+				<th sort="name">Name</th>
+				<th sort="desc">Description</th>
+				<th sort="ordered">Ordered</th>
+				<th ng-show="ctrl.order.po_id && ctrl.is_selected_order" class="text-center">Incomplete</th>
+				<th ng-show="ctrl.order.po_id && ctrl.is_selected_order" class="text-center">Received</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in ctrl.order.getItemsByType('Open')">
+				<td><a href='/inventory/{{::org_id}}/view/{{ ::item.inventory.id }}'>{{::item.inventory.name}}</a></td>
+				<td>{{::item.inventory.desc}}</td>
+				<td>{{::item.ordered}}</td>
+				<td ng-show="ctrl.order.po_id && ctrl.is_selected_order" class="text-center">
+					<input type="checkbox" ng-disabled="!ctrl.order.po_id" ng-click="ctrl.toggleItemStatus($event, item)" value="incomplete" ng-model="item.status" ng-true-value="1" ng-false-value="0" />
+				</td>
+				<td ng-show="ctrl.order.po_id && ctrl.is_selected_order" class="text-center">
+					<input type="checkbox" ng-disabled="!ctrl.order.po_id" ng-click="ctrl.toggleItemStatus($event, item)" value="received" ng-model="item.status" ng-true-value="2" ng-false-value="0" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-if="ctrl.order.getItemsByType('Open').length === 0" class="container">No items found</div>
+
+	<div class="header--table-opake"><b>Received in P.O.: {{ctrl.order.po_id ? ctrl.order.po_id : 'N/A'}}</b></div>
+	<table class="opake" >
+		<thead sorter="ctrl.search_params" callback="ctrl.searchItems()">
+			<tr>
+				<th sort="name">Name</th>
+				<th sort="desc">Description</th>
+				<th sort="ordered">Ordered</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in ctrl.order.getItemsByType('Complete')">
+				<td><a href='/inventory/{{::org_id}}/view/{{ ::item.inventory.id }}'>{{::item.inventory.name}}</a></td>
+				<td>{{::item.inventory.desc}}</td>
+				<td>{{::item.ordered}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-if="ctrl.order.getItemsByType('Complete').length === 0" class="container">No items found</div>
+</div>

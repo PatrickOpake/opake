@@ -1,0 +1,148 @@
+<div class="modal-header">
+	<span class="modal-title">Case Block</span>
+	<a href="" ng-click="cancel()"><i class="icon-x"></i></a>
+</div>
+<div class="modal-body">
+	<errors src="blockingVm.errors"></errors>
+	<div class="row double-columns">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Surgeon or Practice Group:</label>
+				<opk-select ng-if="blockingVm.isCreation()" class="small"
+					    ng-model="blockingVm.blocking.surgeon_or_practice" change="blockingVm.changeUser()"
+					    options="user.fullname for user in source.getSurgeonsAndPracticeGroups(true)">
+				</opk-select>
+				<opk-select ng-if="!blockingVm.isCreation()"
+					    ng-disabled="!permissions.hasAccess('cases', 'edit_assigned_users')"
+					    ng-model="blockingVm.blocking.surgeon_or_practice"
+					    change="blockingVm.changeUser()"
+					    options="user.fullname for user in source.getSurgeonsAndPracticeGroups(true)">
+				</opk-select>
+			</div>
+			<div class="data-row">
+				<label>Time:</label>
+				<opk-timepicker ng-model="blockingVm.blocking.time_from"></opk-timepicker>
+			</div>
+			<div class="data-row">
+				<label>Start Date:</label>
+				<date-field placeholder="Select Start Date" ng-model="blockingVm.blocking.date_from" icon="true"></date-field>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Room:</label>
+				<opk-select ng-model="blockingVm.blocking.location"
+					    options="location.name for location in source.getLocations()">
+				</opk-select>
+			</div>
+			<div class="data-row">
+				<label>Length:</label>
+				<time-length start="blockingVm.blocking.time_from" end="blockingVm.blocking.time_to" minutes-step="5"></time-length>
+			</div>
+			<div class="data-row">
+				<label>End Date:</label>
+				<date-field placeholder="Select End Date" ng-model="blockingVm.blocking.date_to" icon="true"></date-field>
+			</div>
+		</div>
+	</div>
+	<div class="data-row cases-calendar--blocking-reoccurance">
+		<label>Recurrence:</label>
+		<div>
+			<opk-select ng-model="blockingVm.blocking.recurrence_every"
+				    key-value-options="caseBlockingConst.RECURRENCE">
+			</opk-select>
+
+			<div class="top-buffer daily" ng-if="caseBlockingConst.RECURRENCE[blockingVm.blocking.recurrence_every] === 'Daily'">
+				<div class="data-row radio">
+					<input type="radio" ng-model="blockingVm.blocking.daily_every" id="daily_day" value="day">
+					<label for="daily_day">Every</label>
+					<input type="text" class="form-control input-sm" ng-model="blockingVm.blocking.day_number" ng-maxlength="3" limit-to-max-len valid-number>
+					<span class="bold-text">day(s)</span>
+				</div>
+				<div class="data-row radio">
+					<input type="radio" ng-model="blockingVm.blocking.daily_every" id="daily_weekday" value="weekday">
+					<label for="daily_weekday">Every weekday</label>
+				</div>
+			</div>
+
+			<div class="top-buffer weekly" ng-if="caseBlockingConst.RECURRENCE[blockingVm.blocking.recurrence_every] === 'Weekly'">
+				<div class="data-row">
+					<span class="bold-text">Every</span>
+					<input type="text" class="form-control input-sm" ng-model="blockingVm.blocking.week_number" ng-maxlength="2" limit-to-max-len valid-number>
+					<span class="bold-text">week(s) on:</span>
+				</div>
+				<div class="data-row days-of-week">
+					<label ng-repeat="(key, value) in ::caseBlockingConst.SHORT_WEEKLY_DAYS" class="day-title">
+						<div class="checkbox">
+							<input id="week_day_{{::key}}" type="checkbox" class="styled"
+							       ng-checked="blockingVm.isWeekDayChecked(+key)"
+							       ng-click="blockingVm.toggleWeekDays(+key)" />
+							<label for="week_day_{{::key}}">{{::value}}</label>
+						</div>
+					</label>
+				</div>
+			</div>
+
+			<div class="monthly top-buffer" ng-if="caseBlockingConst.RECURRENCE[blockingVm.blocking.recurrence_every] === 'Monthly'">
+				<div class="data-row radio">
+					<input type="radio" ng-model="blockingVm.blocking.monthly_every" id="monthly_day" value="day">
+					<label for="monthly_day">Day</label>
+					<opk-select ng-model="blockingVm.blocking.recurrence_monthly_day"
+						    key-value-options="caseBlockingConst.MONTHLY_DAYS" placeholder="Select">
+					</opk-select>
+					<span class="bold-text">of every</span>
+					<input type="text" class="form-control input-sm" ng-model="blockingVm.blocking.month_number_1" ng-maxlength="2" limit-to-max-len valid-number>
+					<span class="bold-text">month(s)</span>
+				</div>
+				<div class="data-row radio">
+					<input type="radio" ng-model="blockingVm.blocking.monthly_every" id="monthly_weekday" value="weekday">
+					<label for="monthly_weekday">The</label>
+					<opk-select ng-model="blockingVm.blocking.monthly_week"
+						    key-value-options="caseBlockingConst.NUMBER_OF_MONTH_WEEK" placeholder="Select">
+					</opk-select>
+					<opk-select ng-model="blockingVm.blocking.monthly_day"
+						    key-value-options="caseBlockingConst.WEEKLY_DAYS" placeholder="Select">
+					</opk-select>
+				</div>
+				<div class="data-row">
+					<span class="bold-text">of every</span>
+					<input type="text" class="form-control input-sm" ng-model="blockingVm.blocking.month_number_2" ng-maxlength="2" limit-to-max-len valid-number>
+					<span class="bold-text">month(s)</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="data-row">
+		<label>Description:</label>
+		<textarea class="form-control" ng-model="blockingVm.blocking.description"></textarea>
+	</div>
+	<div class="row double-columns">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<span>Allow Overwrite:
+					<i class="glyphicon glyphicon-info-sign"
+					   uib-tooltip="If turned on system will warn users of scheduled block but allow them to schedule during time"
+					   tooltip-placement="top"
+					   tooltip-class="white-for-cpt-codes">
+					</i>
+				</span>
+				<br />
+				<switch ng-model="blockingVm.blocking.overwrite"></switch>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row no-margin">
+				<label>Color:</label>
+				<opk-select class="select-color" ng-model="blockingVm.blocking.color"
+					    ng-disabled="blockingVm.blocking.surgeon_or_practice.case_color && blockingVm.blocking.surgeon_or_practice.case_color !== calendarConst.DEFAULT_COLOR"
+					    placeholder="Select"
+					    select-options="{dropdownFilter: 'opkSelectColor', searchFilter: 'opkSelectColor' }"
+					    options="color.key as color.key for color in calendarConst.COLORS"></opk-select>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<a class="btn btn-danger pull-left" href="" ng-click="blockingVm.delete()" ng-if="!blockingVm.isCreation()">Delete Block</a>
+	<a class="btn btn-success" href="" ng-click="blockingVm.save()">Save</a>
+</div>

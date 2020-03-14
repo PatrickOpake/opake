@@ -1,0 +1,19 @@
+<div show-loading="modalVm.isShowLoading">
+	<div class="modal-header">
+		<h4>Preview Document</h4>
+		<div class="pull-right">
+			<button class="btn btn-success print-btn" print-iframe="{{modalVm.fileInfo.url}}">Print</button>
+			<a href="" ng-click="modalVm.cancel()" class="cancel"><i class="glyphicon glyphicon-remove"></i></a>
+		</div>
+	</div>
+	<div class="modal-body">
+		<embed type="{{modalVm.fileInfo.mimeType}}"
+		       src="{{modalVm.fileInfo.url}}"
+		       id="pdfDocument"
+		       width="100%"
+		       height="100%">
+		</embed>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>

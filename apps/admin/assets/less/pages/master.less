@@ -1,0 +1,38 @@
+.master-control {
+	margin-bottom: 8px;
+
+	.main-control {
+		margin: 8px 0;
+	}
+}
+
+table.master {
+	th {
+		white-space: nowrap;
+	}
+}
+
+.charge-master {
+	.charges-list {
+		display: block;
+		table {
+			display: block;
+			overflow-x: auto;
+			thead {
+				display: block;
+			}
+			tbody {
+				display: inline-block;
+				overflow-y: auto;
+				overflow-x: hidden;
+				height: 600px;
+			}
+			th, td {
+				min-width: 130px;
+				&.description {
+					word-break: break-all;
+				}
+			}
+		}
+	}
+}

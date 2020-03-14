@@ -1,0 +1,49 @@
+<div class="cases-management--item-log--modal">
+	<div class="modal-body">
+		<a href="" ng-click="cancel()" class="cancel"><i class="glyphicon glyphicon-remove"></i></a>
+
+		<filters-panel ctrl="itemsVm">
+			<div class="data-row">
+				<label>Keyword</label>
+				<input type="text" ng-model="itemsVm.search_params.name" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="data-row">
+				<label>Type</label>
+				<opk-select ng-model="itemsVm.search_params.type" options="item for item in source.getInventoryTypes()"></opk-select>
+			</div>
+			<div class="data-row">
+				<label>Manufacturer</label>
+				<opk-select ng-model="itemsVm.search_params.manf" options="item.name as item.name for item in source.getVendors($query, 'manf')"></opk-select>
+			</div>
+		</filters-panel>
+
+		<div ng-if="!itemsVm.search_items.length">
+			<h4>No inventory found</h4>
+		</div>
+	</div>
+
+	<table class="opake" ng-if="itemsVm.search_items.length">
+		<thead>
+		<tr>
+			<th></th>
+			<th class="width-25">Item</th>
+			<th>Type</th>
+			<th>Manufacturer</th>
+			<th class="quantity">Quantity</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="item in itemsVm.search_items">
+			<td><img src="{{ item.image }}" /></td>
+			<td><a href='/inventory/{{ ::org_id }}/view/{{ item.id }}' read-more>{{ item.name }}</a></td>
+			<td>{{ item.type }}</td>
+			<td>{{ item.manf.name }}</td>
+			<td><input type="number" class="form-control" ng-model="item.quantity" ng-disabled="!itemsVm.checkItem(item)" min="1" /></td>
+			<td class="text-right">
+				<button type="button" class="btn btn-success" ng-click="itemsVm.addItem(item)" ng-disabled="!itemsVm.checkItem(item) || !item.quantity"><i class="glyphicon glyphicon-plus"></i> Add Item</button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

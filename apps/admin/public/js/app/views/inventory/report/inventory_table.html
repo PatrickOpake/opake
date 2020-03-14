@@ -1,0 +1,33 @@
+<div class="top-icons">
+	<div class="pull-right">
+		<a href="" ng-click="listVm.search()" class="btn btn-grey">Select New Cases</a>
+		<a href="" ng-click="listVm.export()" class="btn btn-grey">Export Summary</a>
+	</div>
+</div>
+<table class="opake top-buffer" ng-if="listVm.inventories.length">
+	<thead sorter="listVm.search_params" callback="listVm.searchCaseItems()">
+	<tr>
+		<th>Item Number</th>
+		<th>Item Name</th>
+		<th>Item Description</th>
+		<th>Default Quantity</th>
+		<th>Qty Used</th>
+		<th>Unit Price</th>
+		<th>Total Cost</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="inventory in listVm.inventories">
+		<td>{{inventory.item_number}}</td>
+		<td><a href="/inventory/{{ org_id }}/view/{{ inventory.id }}">{{inventory.name}}</a></td>
+		<td>{{inventory.desc}}</td>
+		<td>{{inventory.default_qty}}</td>
+		<td>{{inventory.actual_use}}</td>
+		<td>{{inventory.unit_price | usd}}</td>
+		<td>{{inventory.total_cost | usd}}</td>
+	</tr>
+	</tbody>
+</table>
+<pages count="listVm.inventories_total_count" page="listVm.search_params.p" limit="listVm.search_params.l"
+	   callback="listVm.searchInventories()"></pages>
+<h4 ng-if="listVm.inventories && !listVm.inventories.length">Inventories not found</h4>

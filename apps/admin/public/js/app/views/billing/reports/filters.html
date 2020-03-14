@@ -1,0 +1,45 @@
+<filters-panel ctrl="listVm" class="booking-filter">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="date-range data-row">
+				<label>Date Range</label>
+				<date-field ng-model="listVm.search_params.dateFrom" icon="true"></date-field>
+				<label class="to">to</label>
+				<date-field ng-model="listVm.search_params.dateTo" icon="true"></date-field>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Practice Name</label>
+				<opk-select class="multiple" ng-model="listVm.search_params.practices"
+							options="value.id as value.name for value in source.getPracticeGroupsForOrganization(org_id)" multiple></opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Surgeon</label>
+				<opk-select class="multiple" ng-model="listVm.search_params.surgeons"
+							options="surgeon.id as surgeon.fullname for surgeon in source.getSurgeons()" multiple></opk-select>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>CPT</label>
+				<opk-select select-options="{appendToBody: true}" ng-model="listVm.search_params.cpt" 
+							options="type.code as type.full_name for type in source.getCptCodes($query, caseVm.getYearAddingForCPTs())" placeholder="Type or select">
+				</opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Insurance</label>
+				<opk-select class="multiple" ng-model="listVm.search_params.insurance"
+							options="item.id as item.name for item in source.getInsurances($query, false, true)"></opk-select>
+			</div>
+		</div>
+	</div>
+</filters-panel>

@@ -1,0 +1,50 @@
+<div class="buttons">
+	<div class="pull-left">
+		<button type="button"
+		        class="btn btn-primary"
+		        ng-click="templateVm.backToForm()"
+		        ng-disabled="templateVm.isButtonsDisabled"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
+	</div>
+</div>
+<errors src="templateVm.errors"></errors>
+<div class="template-preview" ng-if="templateVm.isConfigLoaded && templateVm.fieldsForPreview">
+	<div ng-controller="BookingSheetCtrl as bookingVm" ng-init="bookingVm.init(null, {isTemplatePreview: true})">
+		<div class="patient-form content-block booking-sheet--form">
+			<div class="form-horizontal booking-sheet preloader" ng-show="!bookingVm.isFormContentLoaded">
+				<div>
+					<h3>Patient Information
+						<div class="loading-wheel">
+							<div class="loading-spinner"></div>
+						</div>
+					</h3>
+				</div>
+				<div show-loading-list="true"></div>
+				<div>
+					<h3>Case Information
+						<div class="loading-wheel">
+							<div class="loading-spinner"></div>
+						</div>
+					</h3>
+				</div>
+				<div show-loading-list="true"></div>
+				<div>
+					<h3>Insurance Information
+						<div class="loading-wheel">
+							<div class="loading-spinner"></div>
+						</div>
+					</h3>
+				</div>
+				<div show-loading-list="true"></div>
+			</div>
+			<div class="form-horizontal booking-sheet" ng-show="bookingVm.isFormContentLoaded">
+				<h3>Patient Information</h3>
+				<booking-form-widget template="templateVm.fieldsForPreview" booking-vm="bookingVm"></booking-form-widget>
+				<h3>Insurance Information</h3>
+				<insurances-widget
+						patient-id="bookingVm.booking.patient.id"
+						is-booking-patient="bookingVm.booking.patient.is_booking_patient"
+						insurances="bookingVm.booking.insurances"></insurances-widget>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,287 @@
+.appointments-list {
+	table.opake {
+		tr td {
+			padding: 6px 3px;
+		}
+	}
+
+  	.control {
+
+	  .btn {
+		width: 100px;
+	  }
+
+	}
+}
+
+.view-appointment {
+	.appointment-title {
+	  	margin-top: 10px;
+		font-size: 20px;
+	}
+
+	.appointment-details {
+		margin-top: 10px;
+		.key {
+			font-weight: bold;
+		}
+	}
+
+	.appointment-forms {
+		margin-top: 10px;
+
+		.step-wrapper {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		.step-wrapper:hover {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		.step {
+			vertical-align: middle;
+			padding-top: 15px;
+			padding-bottom: 15px;
+		  	padding-left: 10px;
+
+			> * {
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+			.title {
+				margin-left: 10px;
+			}
+
+			.forward {
+				color: #777777;
+				float: right;
+				margin-right: 20px;
+				margin-top: 3px;
+			}
+
+			&.odd {
+				background-color: #eeeeee;
+			}
+
+			&.inside-step {
+				margin-left: 20px;
+				margin-right: 20px;
+			}
+		}
+
+		.form-content {
+			margin-top: 10px;
+
+			label {
+				color: #666;
+				font-weight: normal !important;
+			}
+
+			label.invalid {
+				color: red;
+			}
+
+			.row {
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+
+			.radio label {
+				padding-top: 0 !important;
+			}
+		}
+	}
+}
+
+.appointment-alerts-container {
+	.appointment-alert {
+	  	position: relative;
+	  	padding-top: 10px;
+	  	padding-bottom: 10px;
+	  	padding-left: 5px;
+	  	padding-right: 30px;
+
+
+		> a {
+			vertical-align: middle;
+			text-decoration: none;
+			color: #333333;
+			min-width: 340px;
+			display: inline-block;
+
+			span {
+				vertical-align: middle;
+			}
+		}
+
+		.close {
+			position: absolute;
+		  	top: 10px;
+		    right: 5px;
+		}
+
+		&.odd {
+			background-color: #eeeeee;
+		}
+	}
+}
+
+.appointment-alerts-button {
+	position: absolute;
+	right: 5px;
+	top: 10px;
+}
+
+.appointment-form.pre-operative-form {
+	color: #5f5f5f;
+
+	label {
+		color: #5f5f5f;
+	}
+
+	.form-main-title {
+		text-align: center;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.field.height-weight-field {
+		input {
+			display: inline-block;
+			width: 50px;
+		}
+
+		.height-inputs {
+			margin-left: 15px;
+		}
+
+		.weight {
+			margin-left: 50px;
+
+			input {
+				margin-left: 10px;
+			}
+		}
+	}
+
+	.field {
+		margin-bottom: 25px;
+
+		.radio {
+			margin-right: 5px;
+			display: inline-block;
+
+			label {
+				font-weight: normal !important;
+			}
+		}
+
+		.inputs {
+			max-width: 950px;
+			margin-left: 10px;
+
+			.description {
+				margin-bottom: 5px;
+			}
+
+			.input {
+				margin-bottom: 5px;
+			}
+
+			.additional-inputs {
+				text-align: right;
+			}
+		}
+
+		.allergic-question {
+			margin-bottom: 5px;
+
+			.allergic-yes-no {
+				display: inline-block;
+				width: 280px;
+			}
+		}
+
+		.smoke-drink-question {
+			margin-bottom: 5px;
+
+			.digit-input {
+				width: 50px;
+				display: inline-block;
+			}
+
+			.how-long {
+				margin-left: 30px;
+			}
+
+			.question-title {
+				display: inline-block;
+				margin-right: 10px;
+			}
+
+			.main-question-label {
+				width: 180px;
+			}
+
+			.description {
+				margin-left: 10px;
+				max-width: 950px;
+			}
+		}
+
+		&.conditions {
+
+			.condition-title {
+				display: inline-block;
+				width: 260px;
+			}
+
+			.description-input {
+				display: inline-block;
+				width: 380px;
+				margin-left: 20px;
+			}
+		}
+
+		&.contact-information {
+
+			.contact {
+				margin-bottom: 5px;
+
+				.contact-title {
+					width: 260px;
+					display: inline-block;
+				}
+
+				.contact-name {
+					display: inline-block;
+					width: 180px;
+				}
+
+				.phone-number {
+					margin-left: 15px;
+				}
+
+				.phone {
+					display: inline-block;
+				}
+			}
+
+		}
+
+		&.future-communication {
+
+			.phone-number {
+				margin-left: 30px;
+
+				.phone {
+					display: inline-block;
+				}
+			}
+		}
+
+	}
+}

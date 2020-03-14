@@ -1,0 +1,22 @@
+<div ng-controller="InsuranceCtrl as insuranceVm" ng-cloak ng-init="insuranceVm.init(appVm.loggedUser.patient.id)">
+	<div ng-if="insuranceVm.patient.show_insurance_banner == true" class="content-block top-info-panel">
+		<h4>Great! Now let's add your insurance info.</h4>
+	</div>
+	
+	<div class="content-block">
+		<div class="row">
+			<div class="col-sm-2 col-sm-offset-10" ng-if="!insuranceVm.isShowForm">
+				<a  class="btn btn-success btn-block" ng-click="insuranceVm.edit()">Edit</a>
+			</div>
+	
+			<div class="col-sm-3 col-sm-offset-9 text-right" ng-if="insuranceVm.isShowForm">
+				<a class="btn btn-success" ng-click="insuranceVm.save()">Save</a>
+				<a class="btn btn-grey" ng-click="insuranceVm.cancel()">Cancel</a>
+			</div>
+		</div>
+	
+		<div class="patient-form">
+			<ng-include ng-if="insuranceVm.patient" src="insuranceVm.getView()"></ng-include>
+		</div>
+	</div>
+</div>

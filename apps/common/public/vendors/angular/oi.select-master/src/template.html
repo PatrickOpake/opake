@@ -1,0 +1,57 @@
+<div class="select-search">
+    <ul class="select-search-list">
+        <li>
+            <ul ng-if="::isReorderEnabled" class="sortable-container" ng-sortable="sortableConfig">
+                <li class="btn btn-default btn-xs select-search-list-item select-search-list-item_selection"
+                    ng-hide="listItemHide"
+                    ng-repeat="item in output track by $index"
+                    ng-class="{focused: backspaceFocus && $last}"
+                    bind-html-compile="getSearchLabel(item)"></li>
+            </ul>
+	        <ul ng-if="::!isReorderEnabled">
+		        <li class="btn btn-default btn-xs select-search-list-item select-search-list-item_selection"
+		            ng-hide="listItemHide"
+		            ng-repeat="item in output track by $index"
+		            ng-class="{focused: backspaceFocus && $last}"
+		            bind-html-compile="getSearchLabel(item)"></li>
+	        </ul>
+        </li>
+
+        <li class="select-search-list-item select-search-list-item_input"
+            ng-class="{'select-search-list-item_hide': inputHide}"><input
+                autocomplete="off" ng-model="query" ng-keyup="keyUp($event)" ng-keydown="keyDown($event)">
+        </li><li class="select-search-list-item select-search-list-item_loader" ng-show="showLoader"></li>
+    </ul>
+</div>
+<div class="select-dropdown hidden" ng-class="{hidden: !isOpen}" ng-show="isOpen">
+    <div ng-if="::isMultipleWithCheckboxes" class="select-dropdown-multiple-control-labels">
+        <a class="select-all" href="" ng-click="selectAll()">Select All</a>
+        <a class="select-none" href="" ng-click="selectNone()">Select None</a>
+    </div>
+    <div class="select-dropdown-optgroup-container">
+        <ul ng-if="isOpen" class="select-dropdown-optgroup"
+            ng-repeat="(group, options) in groups">
+            <div class="select-dropdown-optgroup-header" ng-if="group && options.length"
+                 ng-bind-html="getGroupLabel(group, options)"></div>
+            <li class="select-dropdown-optgroup-option" ng-if="::!isMultipleWithCheckboxes"
+                ng-init="isDisabled = getDisableWhen(option)"
+                ng-repeat="option in options"
+                ng-class="{'active': selectorPosition === groupPos[group] + $index, 'disabled': isDisabled, 'ungroup': !group}"
+                ng-click="isDisabled || addItem(option)"
+                ng-mouseenter="setSelection(groupPos[group] + $index)"
+                ng-bind-html="getDropdownLabel(option)"></li>
+            <li class="select-dropdown-optgroup-option" ng-if="::isMultipleWithCheckboxes"
+                ng-init="isDisabled = getDisableWhen(option)"
+                ng-repeat="option in options"
+                ng-class="{'active': selectorPosition === groupPos[group] + $index, 'disabled': isDisabled, 'ungroup': !group}"
+                ng-click="getDisableWhen(option) || toggleItem(option)"
+                ng-mouseenter="setSelection(groupPos[group] + $index)">
+            <span class="multiple-value-selection checkbox">
+                <input type="checkbox" ng-checked="isSelected(option)" class="multiple-select-checkbox" />
+                <label ng-bind-html="getDropdownLabel(option)"></label>
+            </span>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="isNewItemUseLabel && query" class="new-item-label" ng-click="isDisabled || addNewOption()"><a class="new-item-label-link" href="">{{newItemLabel}}</a></div>
+</div>

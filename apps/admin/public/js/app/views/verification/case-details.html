@@ -1,0 +1,32 @@
+<div class="coding-header">
+	<div class="coding-header--title">Case Details</div>
+
+	<div class="panel-data">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="data-row">
+					<label>Date of Service:</label>
+					<div><a href="" ng-click="caseVm.goToCalendar()">{{ caseVm.case.time_start | date:'M/d/yyyy' }}</a></div>
+				</div>
+				<div class="data-row">
+					<label>Procedure:</label>
+					<div>
+							<span ng-repeat="type in caseVm.case.additional_cpts" uib-tooltip="{{ type.name }}" tooltip-placement="bottom" tooltip-class="white-for-cpt-codes">
+								{{ type.code }}{{ !$last ? ', ' : '' }}
+							</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="data-row">
+					<label>Time:</label>
+					<div>{{caseVm.case.time_start| date:'h:mm a'}}</div>
+				</div>
+				<div class="data-row">
+					<label>Provider:</label>
+					<div>{{caseVm.case.users[0].full_name}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

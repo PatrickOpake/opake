@@ -1,0 +1,38 @@
+<div ng-controller="CaseDischargeCrtl as docsVm" ng-init="docsVm.init(cmVm.case.id)" class="cases-management--docs">
+	<div class="card-management--phases-control">
+		<div class="buttons">
+			<button ng-if="mgmt.isCompleted(tab.key)" ng-click="mgmt.uncomplete(tab.key)" class="btn btn-success">Edit</button>
+		</div>
+	</div>
+	<table class="cases-management--table">
+		<tr ng-if="docsVm.form_docs" ng-repeat="doc in docsVm.form_docs">
+			<td class="icon"><i class="glyphicon glyphicon-save-file"></i></td>
+			<td colspan="2"><a href="" ng-click="formDocuments.downloadTemplate(doc, cmVm.case.id)">{{ ::doc.name }}</a></td>
+		</tr>
+		<tr ng-if="!mgmt.isCompleted(tab.key)">
+			<td class="icon"><i class="icon-upload-doc"></i></td>
+			<td colspan="2">
+				<a class="btn-file" select-file on-select="docsVm.upload(files)">Upload Document
+					<form method="post" enctype="multipart/form-data">
+						<input type="file" name="file_import" />
+					</form>
+				</a>
+			</td>
+		</tr>
+		<tr ng-repeat="doc in docsVm.docs" class="case-docs--list-item">
+			<td class="icon"><i class="icon-note"></i></td>
+			<td>
+				<a href="{{ ::doc.path }}">{{ ::doc.name }}</a>
+				<div>Uploaded: {{ ::doc.uploaded | date:'M/d/yyyy' }}</div>
+			</td>
+			<td class="control">
+				<a href="{{ ::doc.path }}" uib-tooltip="Download"><i class="icon-circle-download"></i></a>
+				<a href="#" ng-click="docsVm.print(doc)" uib-tooltip="Print"><i class="icon-circle-print"></i></a>
+				<span class="v-separator"></span>
+				<a href=""><i class="icon-circle-remove" uib-tooltip="Delete" tooltip-class="red" ng-click="docsVm.remove(doc.id);"></i></a>
+			</td>
+		</tr>
+	</table>
+
+	<h4 ng-if="mgmt.isCompleted(tab.key) && !docsVm.docs.length">No items found</h4>
+</div>

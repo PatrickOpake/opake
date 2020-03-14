@@ -1,0 +1,53 @@
+<div class="row">
+	<div class="col-sm-12">
+		<div ng-repeat="(group_id,group) in reportVm.template" ng-if="reportVm.templateConst.GROUPS.CASEINFO != group_id && reportVm.hasActiveFields(group_id)">
+			<h4 class="section-header">{{reportVm.templateConst.GROUPS_NAME[group_id]}}</h4>
+			<div ng-repeat="field in group"
+			 ng-if="field.confirmed_active">
+			<div class="data-row"><label>{{field.name}}</label></div>
+			<div ng-if="field.type == 'case_type'" class="opk-codes--select">
+				<div ng-repeat="item in case.additional_cpts">
+					<a href=""  uib-tooltip="{{ item.name }}" tooltip-placement="bottom">
+						{{ item.code}}
+					</a>
+				</div>
+			</div>
+			<div ng-if="field.type == 'diagnosis'" class="opk-codes--select">
+				<div ng-repeat="diagnosis in reportVm.report[field.field]">
+					<a href=""  uib-tooltip="{{ diagnosis.desc }}" tooltip-placement="bottom">
+						{{ diagnosis.code }}
+					</a>
+				</div>
+			</div>
+			<div ng-if="field.type == 'text' &&  field.field !== 'custom' && field.field !== 'list'" ng-bind-html="reportVm.trustAsHtml(reportVm.report[field.field])"></div>
+			<div ng-if="field.field == 'custom'" ng-bind-html="reportVm.trustAsHtml(field.custom_value)"></div>
+			<div ng-if="field.field === 'list'" class="row">
+				<div class="col-sm-6 column">
+					<div ng-repeat="item in field.list_value.column1" class="data-row">
+						<div class="checkbox">
+							<input  id="item1_{{$parent.$index}}_{{$index}}" type="checkbox" ng-model="item.active" class="styled" disabled />
+							<label for="item1_{{$parent.$index}}_{{$index}}"></label>
+						</div>
+						<div class="input-container">
+							<div class="form-control input-sm" ng-bind-html="reportVm.trustAsHtml(item.text)"></div>
+							<div class="form-control textarea" ng-bind-html="reportVm.trustAsHtml(item.description)"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 column" ng-if="field.list_value.count_columns == 2">
+					<div ng-repeat="item in field.list_value.column2" class="data-row">
+						<div class="checkbox">
+							<input  id="item2_{{$parent.$index}}_{{$index}}" type="checkbox" ng-model="item.active" class="styled" disabled />
+							<label for="item2_{{$parent.$index}}_{{$index}}"></label>
+						</div>
+						<div class="input-container">
+							<div class="form-control input-sm" ng-bind-html="reportVm.trustAsHtml(item.text)"></div>
+							<div class="form-control textarea" ng-bind-html="reportVm.trustAsHtml(item.description)"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>

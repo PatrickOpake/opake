@@ -1,0 +1,32 @@
+<div ng-show="widgetVm.isShowWidget">
+	<div class="reminder-widget" ng-if="widgetVm.isInitialized">
+			<div class="content" ng-controller="ReminderList as listVm" ng-init="listVm.init()">
+
+				<div class="reminders-list">
+					<div class="window-controls">
+						<b>You have {{listVm.count}} reminder today</b>
+						<a href="" ng-click="widgetVm.toggleShowWidget(); listVm.commitCompletedReminders()"><i class="glyphicon glyphicon glyphicon-remove"></i></a>
+					</div>
+
+					<div class="row" ng-repeat="item in listVm.items">
+						<div class="col-sm-2">
+							<div class="data-row">
+								<div class="checkbox">
+									<input id="to_complete_{{item.id}}" type="checkbox" class="styled"  ng-click="listVm.markAsCompleted(item)">
+									<label for="to_complete_{{item.id}}"></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-10">
+							<div>Account #<a href="/cases/{{listVm.org_id}}/cm/{{item.acc_id}}">{{item.acc_id}}</a></div>
+							<div class="msg-block">
+								<b>{{item.reminder_date | date:'MMMM dd, yyyy'}}</b>
+								<div>{{item.note_msg}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+	</div>
+</div>

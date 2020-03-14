@@ -1,0 +1,64 @@
+<filters-panel ctrl="listVm" class="billing-collections--filter">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="date-range data-row">
+				<label>DOS From</label>
+				<date-field ng-model="listVm.search_params.dosFrom" icon="true"></date-field>
+				<label class="to">To</label>
+				<date-field ng-model="listVm.search_params.dosTo" icon="true"></date-field>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Payer Type</label>
+				<opk-select ng-model="listVm.search_params.payer_type"
+							options="item.id as item.name for item in patientConst.INSURANCE_TYPE_OPTIONS" placeholder="Type or select">
+				</opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="data-row patient-name">
+				<label>Last Name</label>
+				<input type="text" ng-model="listVm.search_params.patientLastName" class='form-control input-sm' placeholder='Type' />
+				<label class="first-name">First Name</label>
+				<input type="text" ng-model="listVm.search_params.patientFirstName" class='form-control input-sm' placeholder='Type' />
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Payer Name</label>
+				<opk-select ng-model="listVm.search_params.payer_name"
+							options="item.name for item in source.getInsurances($query)" placeholder="Type or select">
+				</opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Surgeon</label>
+				<opk-select ng-disabled="permissions.user.isDoctor()" ng-model="listVm.search_params.surgeon"
+							options="surgeon.id as surgeon.fullname for surgeon in source.getSurgeons()"></opk-select>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>HCPCS/CPT</label>
+				<opk-select class="multiple" ng-model="listVm.search_params.charge"
+							options="item.cpt for item in source.getMaserChargeCPT($query)" multiple></opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-offset-6 col-sm-6">
+			<div class="data-row">
+				<label>Billing Status</label>
+				<opk-select ng-model="listVm.search_params.billing_status"
+							key-value-options="billingConst.MANUAL_BILLING_STATUSES" placeholder="Type or select">
+				</opk-select>
+			</div>
+		</div>
+	</div>
+</filters-panel>

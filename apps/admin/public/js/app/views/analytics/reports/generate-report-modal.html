@@ -1,0 +1,40 @@
+<div class="analytics-report-modal-container">
+	<div class="modal-body user-profile analytics-reports-modal">
+		<h4>{{::modalVm.reportType.name}}</h4>
+		<div class="columns">
+			<ul class="columns-list">
+				<li ng-repeat="column in modalVm.reportType.columns.standard">
+				<span class="checkbox">
+					<input id="report-column-{{column}}" type="checkbox" ng-model="modalVm.selectedColumns.standard[column]"/>
+					<label for="report-column-{{column}}">{{modalVm.columnLabels[column] || column}}</label>
+				</span>
+				</li>
+			</ul>
+		</div>
+		<div class="additional-columns">
+			<div class="additional-select">
+				<label>Demographics</label>
+				<opk-select multiple ng-model="modalVm.selectedColumns.demographic"
+							options="modalVm.columnLabels[column] for column in modalVm.reportType.columns.demographic"></opk-select>
+			</div>
+			<div class="additional-select">
+				<label>Case Details</label>
+				<opk-select multiple ng-model="modalVm.selectedColumns.caseDetails"
+							options="modalVm.columnLabels[column] for column in modalVm.reportType.columns.caseDetails"></opk-select>
+			</div>
+			<div class="additional-select">
+				<label>Billing</label>
+				<opk-select multiple ng-model="modalVm.selectedColumns.billing"
+							options="modalVm.columnLabels[column] for column in modalVm.reportType.columns.billing"></opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="modalVm.generate()">Generate</button>
+		<button class="btn" ng-click="modalVm.cancel()" type="button">Cancel</button>
+	</div>
+
+	<div class="waiting-layer" ng-show="modalVm.isReportGenerate">
+		<img class="spinner" src="/common/i/spinner.gif" alt=""/>
+	</div>
+</div>

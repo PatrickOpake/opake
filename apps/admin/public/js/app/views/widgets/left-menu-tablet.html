@@ -1,0 +1,32 @@
+<div class="left-menu-tablet" ng-class="{'show': $root.showLeftMenu}">
+	<div class="left-menu">
+		<uib-accordion close-others="true">
+			<ul>
+				<li ng-repeat="(key, item) in menuVm.menuItems"
+					class="left-menu--item {{item.active ? 'active' : ''}}"
+					uib-accordion-group
+					is-open="menuVm.status[key]"
+					template-url="/js/app/views/widgets/left-menu/group-template.html">
+						<uib-accordion-heading>
+							<a href="#" ng-click="menuVm.toggleOpen(key)" style="display: block;">
+								<span class="icon-container">
+									<span class="icon {{key}} tablet"></span>
+								</span>
+								{{item.title}}
+								<span class="icon" ng-class="{'chevron-down': menuVm.status[key], 'chevron': !menuVm.status[key]}"></span>
+							</a>
+
+						</uib-accordion-heading>
+						<ul ng-if="item.items.length !== 0" class="left-menu--child-items">
+							<li ng-repeat="(keyChild, itemChild) in item.items" class="left-menu--item" ng-class="{'active': itemChild.active}">
+								<a href="{{itemChild.url}}"><span ng-bind-html="itemChild.title"></span></a>
+							</li>
+						</ul>
+				</li>
+			</ul>
+		</uib-accordion>
+		<side-calendar ng-if="menuVm.showParams.showSideCalendar"></side-calendar>
+		<case-list-side-calendar ng-if="menuVm.showParams.showCaseListSideCalendar"></case-list-side-calendar>
+		<schedule-legend ng-if="menuVm.showParams.showScheduleLegend"></schedule-legend>
+	</div>
+</div>

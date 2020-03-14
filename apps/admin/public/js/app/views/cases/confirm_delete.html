@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h4 class="modal-title">Alert!</h4>
+</div>
+<div class="modal-body case-confirm-delete">
+    <h4>Are you sure you want to delete this case? It will be removed from the calendar and from all other workflow tools</h4>
+	<div class="case-details">
+		<div class="patient-info">
+			<span class="patient-name">{{::(modalVm.case.patient.last_name + ', ' + modalVm.case.patient.first_name)}}</span>
+			<span class="patient-mrn">MRN: {{::modalVm.case.patient.full_mrn}}</span>
+		</div>
+		<div class="case-info">
+			<span>{{::modalVm.case.time_start| date:'h:mma'}} - {{::modalVm.case.time_end| date:'h:mma'}} ({{::modalVm.case.time_start| timeLength : modalVm.case.time_end}}) | {{::modalVm.case.getSurgeonNames()}}</span>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="modalVm.confirm(); ok()">Yes</button>
+    <button class="btn btn-primary" ng-click="modalVm.cancel()" type="button">No</button>
+</div>

@@ -1,0 +1,12 @@
+<div class="data-row">
+	<div>
+		<h3 class="title">Select Vendor:</h3>
+		<div class="main-control">
+			<opk-select ng-model="addingVm.order.vendor" change="addingVm.changeVendor()"
+				    options="vendor.name for vendor in source.getVendors($query, 'dist')"></opk-select>
+		</div>
+	</div>
+	<div class="control">
+		<a class="btn btn-success" href="/orders/{{ ::org_id }}/#?type=received">< Back</a>
+	</div>
+</div>

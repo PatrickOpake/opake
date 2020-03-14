@@ -1,0 +1,28 @@
+<filters-panel ctrl="listVm">
+	<div class="data-row">
+		<label class="middle">Surgeon</label>
+		<opk-select ng-model="listVm.search_params.user_id"
+			    options="doctor.id as doctor.fullname for doctor in source.getSurgeons()"></opk-select>
+	</div>
+</filters-panel>
+<table class="opake highlight-rows staff-list">
+	<thead sorter="listVm.search_params" callback="listVm.search()">
+		<tr>
+			<th sort="full_name">Surgeon Name</th>
+			<th>Site</th>
+			<th sort="card_amount">Preference Cards</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in listVm.staff" ng-click="listVm.setStaff(item)">
+			<td>
+				<img src="{{ ::item.image}}" class="user-tiny-image" />
+				{{ ::item.full_name}}
+			</td>
+			<td><span ng-repeat="site in item.sites">{{ ::site.name }}{{ $last ? '' : ', ' }}</span></td>
+			<td>{{ ::item.card_amount }}</td>
+		</tr>
+	</tbody>
+</table>
+<pages count="listVm.staff_total_count" page="listVm.search_params.p" limit="listVm.search_params.l" callback="listVm.search()"></pages>
+<h4 ng-if="listVm.staff && !listVm.staff.length">No staff found</h4>

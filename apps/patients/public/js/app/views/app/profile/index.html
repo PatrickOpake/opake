@@ -1,0 +1,6 @@
+<div ng-controller="ProfileCtrl as profileVm" ng-init="profileVm.init(appVm.loggedUser.patient.id)">
+	<div ng-if="profileVm.hasPatientValidationErrors()" class="content-block top-info-panel">
+		<h4>Let's start by confirming your basic details:</h4>
+	</div>
+	<ng-include ng-if="profileVm.profile" src="profileVm.getView()"></ng-include>
+</div>

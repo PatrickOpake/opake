@@ -1,0 +1,157 @@
+<div class="case-panel--ids">
+	<div><span>Account#:</span> {{ caseVm.case.id || caseVm.case.acc_number }}</div>
+	<div><span>MRN#:</span> {{ caseVm.case.patient.full_mrn }}</div>
+</div>
+
+<div class="patient-details-header" ng-click="caseVm.patientDetailsClose = !caseVm.patientDetailsClose">
+	<span class="icon">
+		<i ng-if="!caseVm.patientDetailsClose" class="icon-caret-down"></i>
+		<i ng-if="caseVm.patientDetailsClose" class="icon-caret-right"></i>
+	</span>
+	Case details
+</div>
+
+<div class="row patient-details-min">
+	<div class="col-sm-6">
+		<div class="data-row case-notes">
+			<label>Patient Name:</label>
+			<div ng-controller="CaseNoteCrtl as noteVm">
+				<span class="patient-name">{{ caseVm.case.patient.last_name + ', ' + caseVm.case.patient.first_name }}</span>
+				<a class="add-note-link" href="" ng-click="noteVm.openNotesDialog(caseVm.case.id)">
+					<span class="icon-note"></span>
+					<span class="badge" ng-if="caseVm.caseNotes.getNotesCount(caseVm.case)" ng-class="{'blue': caseVm.caseNotes.hasUnreadNotes[caseVm.case.id]}">
+						{{ caseVm.caseNotes.getNotesCount(caseVm.case) }}
+					</span>
+				</a>
+			</div>
+		</div>
+		<div class="data-row">
+			<label>Surgeon:</label>
+			<div><span ng-repeat="user in caseVm.case.users">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span></div>
+		</div>
+	</div>
+	<div class="col-sm-5">
+		<div class="data-row">
+			<label>Room:</label>
+			<div>{{ caseVm.case.location.name }}</div>
+		</div>
+		<div class="data-row">
+			<label>Date of Service:</label>
+			<div><a href="" ng-click="caseVm.goToCalendar()">{{ caseVm.case.time_start | date:'M/d/yyyy' }}</a></div>
+		</div>
+	</div>
+	<div class="col-sm-1">
+		<div class="main-control pull-right registration-edit-buttons" ng-if="caseVm.hasCaseEditAccess && !caseVm.case.isAppointmentCanceled()">
+			<a href="" class="btn btn-grey" ng-click="caseVm.edit()">Edit</a>
+		</div>
+	</div>
+</div>
+
+<div uib-collapse="caseVm.patientDetailsClose" class="patient-details-max">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Procedure:</label>
+				<div>{{ caseVm.case.type.name }}</div>
+			</div>
+			<div class="data-row">
+				<label>Description:</label>
+				<div class="pre-wrap">{{ caseVm.case.description }}</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="data-row">
+				<label>Time Scheduled:</label>
+				<div>{{ caseVm.case.time_start | date:'hh:mm a' }} &mdash; {{ caseVm.case.time_end | date:'hh:mm a' }}</div>
+			</div>
+			<div ng-if="caseVm.template.other_staff" class="data-row">
+				<label>Other Staff:</label>
+				<div><span ng-repeat="user in caseVm.case.other_staff">{{ user.fullname }}{{ !$last ? ', ' : '' }}</span></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="surgeon-details-link"><a href="" ng-click="caseVm.surgeryDetailsOpen = !caseVm.surgeryDetailsOpen">Surgery details</a></div>
+
+	<div ng-if="caseVm.surgeryDetailsOpen" class="surgery-details">
+		<div class="data-row">
+			<label>Procedure Codes:</label>
+			<div><span ng-repeat="type in caseVm.case.additional_cpts" uib-tooltip="{{ type.name }}" tooltip-placement="bottom" tooltip-class="white-for-cpt-codes">
+			{{ type.code }}{{ !$last ? ', ' : '' }}
+			</span></div>
+		</div>
+		<div class="data-row">
+			<label>Other Staff:</label>
+			<div><span ng-repeat="user in caseVm.case.other_staff">{{ user.profession.name }} - {{ user.fullname }}<br/></span></div>
+		</div>
+		<div class="data-row">
+			<label>Pre-Op Data Required:</label>
+			<div><span ng-repeat="item in caseVm.case.pre_op_required_data">
+				{{ caseRegistrationConst.PRE_OP_DATA_REQUIRED[item] }}{{ !$last ? ', ' : '' }}
+			</span></div>
+		</div>
+		<div class="data-row">
+			<label>Studies Ordered:</label>
+			<div><span ng-repeat="item in caseVm.case.studies_ordered">
+				{{ caseRegistrationConst.STUDIES_ORDERED[item] }}{{ !$last ? ', ' : '' }}
+			</span></div>
+		</div>
+		<div class="data-row" ng-if="caseVm.case.studies_ordered_other">
+			<label>Studies Other:</label>
+			<div>{{ caseVm.case.studies_other }}</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="data-row">
+					<label>Anesthesia Type:</label>
+					<div>{{  caseRegistrationConst.ANESTHESIA_TYPE[caseVm.case.anesthesia_type] }}</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="data-row" ng-if="caseVm.case.anesthesia_type == 5">
+					<label>Anesthesia Other:</label>
+					<div>{{ caseVm.case.anesthesia_other }}</div>
+				</div>
+			</div>
+		</div>
+		<div class="data-row">
+			<label>Special Equipment Required:</label>
+			<div>{{ caseRegistrationConst.SPECIAL_EQUIPMENT_REQUIRED[caseVm.case.special_equipment_required]  }}</div>
+		</div>
+		<div class="data-row">
+			<label>Special Equipment / Implants:</label>
+			<div>{{ caseVm.case.special_equipment_implants }}</div>
+		</div>
+		<div class="data-row">
+			<label>Admitting Diagnosis:</label>
+			<div>
+				<span ng-repeat="diagnosis in caseVm.case.registration.admitting_diagnosis">
+					{{ diagnosis.code }} - {{ diagnosis.desc }}{{ !$last ? ', ' : '' }}
+				</span>
+			</div>
+		</div>
+		<div class="data-row">
+			<label>Secondary Diagnosis:</label>
+			<div>
+				<span ng-repeat="diagnosis in caseVm.case.registration.secondary_diagnosis">
+					{{ diagnosis.code }} - {{ diagnosis.desc }}{{ !$last ? ', ' : '' }}
+				</span>
+			</div>
+		</div>
+		<div class="data-row">
+			<label>Admission Type:</label>
+			{{ caseRegistrationConst.ADMISSION_TYPE[caseVm.case.registration.admission_type] }}
+		</div>
+	</div>
+
+	<div class="data-row case-panel-buttons-container">
+		<div class="left-controls appointment-buttons" ng-if="permissions.hasAccess('case_management', 'view_appointment_buttons') && caseVm.isShowAppointmentButtons()">
+			<div ng-if="caseVm.case.isAppointmentCanceled()">
+				<a class="btn btn-danger" ng-click="caseVm.delete()">Delete Case</a>
+				<a class="btn btn-grey" ng-click="caseVm.reschedule()">Reschedule</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="caseVm.confirm_alert" class="confirm-alert" ng-include="view.get('cases/' + caseVm.confirm_alert + '.html')"></div>

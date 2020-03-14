@@ -1,0 +1,70 @@
+<div class="messaging-widget">
+
+	<messaging-control-window window="widgetVm.controlWindow"></messaging-control-window>
+
+	<div ng-repeat="dialog in widgetVm.windows | filter: {type: 'dialog'}" messaging-dialog-window></div>
+
+	<!-- Control(Main) Window -->
+	<script type="text/ng-template" id="messaging/control-window.html">
+		<div class="messaging-window">
+			<div class="messaging-window--head" ng-click="widgetVm.toggleWindow(widgetVm.controlWindow)" uib-tooltip="Minimize" tooltip-class="white" tooltip-placement="top">
+				<div class="title">Buddy List</div>
+				<i class="icon-visible"
+					ng-class="{inactive: !messaging.isActive()}" ng-click="messaging.toggleActive();$event.stopPropagation();"
+					uib-tooltip="{{messaging.isActive() ? 'Available' : 'Do Not Disturb'}}" tooltip-class="white" tooltip-placement="top"
+				></i>
+				<i class="messaging-window--head--close" ng-click="messaging.toggleShowWidget();$event.stopPropagation();" uib-tooltip="Close" tooltip-class="white messaging-tooltip-close" tooltip-placement="top">×</i>
+			</div>
+			<div ng-if="widgetVm.controlWindow.open">
+				<div class="messaging-control--user-search">
+					<i class="glyphicon glyphicon-search"></i>
+					<input class="messaging-control--user-search-input" ng-model="controlVm.user_search" placeholder="Search User" />
+				</div>
+				<ul class="messaging-control--user-list">
+					<li class="messaging-control--user"
+						ng-repeat="user in messaging.getUsers() | filter: controlVm.user_search"
+						ng-class="{online: user.is_online, inactive: !user.is_active}"
+						ng-click="widgetVm.openDialogWindow(user, true)">
+						<img class="messaging-control--user--image" ng-src="{{::user.image}}" />
+						<div class="user-name">{{::user.full_name}}</div>
+						<i class="icon-invisible" ng-if="!user.is_active" uib-tooltip="Do Not Disturb" tooltip-class="white" tooltip-placement="top"></i>
+						<span class="messages-badge" ng-if="user.unread_count" ng-bind="user.unread_count"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+
+	<!-- Usual dialog window -->
+	<script type="text/ng-template" id="messaging/dialog-window.html">
+		<div class="messaging-window">
+			<div class="messaging-window--head" ng-click="widgetVm.toggleWindow(dialog)" uib-tooltip="Minimize" tooltip-class="white" tooltip-placement="top">
+				<div class="title">{{::dialog.user.full_name}}</div>
+				<i class="messaging-window--head--close" ng-click="widgetVm.closeDialogWindow(dialog)" uib-tooltip="Close" tooltip-class="white" tooltip-placement="top messaging-tooltip-close">×</i>
+			</div>
+			<messaging-dialog user="dialog.user" ng-if="dialog.open"></messaging-dialog>
+		</div>
+	</script>
+
+	<!-- Dialog: list of messages and template -->
+	<script type="text/ng-template" id="messaging/dialog.html">
+		<div class="messaging-dialog">
+			<div class="messaging-dialog--message-list" scroll-down>
+				<div ng-repeat="message in dialogVm.messages"
+					class="messaging-dialog--message" ng-class="::{my: message.sender_id === loggedUser.id}"
+					date={{::(message.send_date|messagingDate)}}>
+					{{message.text}}
+				</div>
+			</div>
+			<input class="messaging-dialog--input" ng-model="dialogVm.input_text" ng-keydown="($event.keyCode === 13 && dialogVm.save()) || ($event.keyCode === 27 && dialogVm.editCancel())" placeholder="Send a message..." />
+
+			<div ng-if="dialogVm.showRemoveConfirm" class="messaging-dialog--remove-confirm">
+				Are you sure you want to delete this message? This cannot be undone.
+				<div class="messaging-dialog--remove-confirm--buttons">
+					<button class="btn btn-grey" ng-click="dialogVm.removeDeferred.reject()">Cancel</button>
+					<button class="btn btn-danger" ng-click="dialogVm.removeDeferred.resolve()">Delete</button>
+				</div>
+			</div>
+		</div>
+	</script>
+</div>

@@ -1,0 +1,225 @@
+.patient-form {
+	.disabled {
+		background-color: #eeeeee;
+	}
+	div.form-control {
+		height: 30px;
+		font-size: 12px;
+		white-space: nowrap;
+		&.diagnosis-field {
+			white-space: normal;
+			height: inherit;
+			min-height: 30px;
+		}
+	}
+	label {
+		color: #666;
+		font-weight: normal !important;
+	}
+	.radio label {
+		font-size: 12px;
+	}
+	h3 {
+		color: #666;
+		border-bottom: 1px solid #ddd;
+		padding-bottom: 10px;
+	}
+	.out-of-network {
+		.radio {
+			display: inline-block;
+			margin-left: 5px;
+		}
+		.checkbox {
+			display: inline;
+			padding-left: 20px;
+		}
+		.cell-block {
+			vertical-align: middle;
+			height: 30px;
+			label {
+				margin-bottom: 0;
+			}
+		}
+		.cpt-codes {
+			.cell-block {
+				height: 40px;
+			}
+		}
+	}
+}
+
+.patient-form.view-patient-form {
+	.form-control {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+.patient-panel--ids {
+	padding: 2px 20px;
+	background: #f1f1f1;
+	position: absolute;
+	right: 0;
+	top: 0;
+	line-height: 2.3;
+	color: #909090;
+}
+
+.patient-mrn--field {
+	width: 330px;
+	float: left;
+	line-height: @line-height-base;
+
+	label {
+		width: 70px;
+		display: inline-block;
+		padding-top: 5px;
+	}
+	input,
+	.form-control {
+		width: 70px;
+		display: inline-block;
+	}
+	span {
+		display: inline-block;
+	}
+
+}
+
+.patient-main-info {
+	margin-bottom: 15px;
+	position: relative;
+
+	.title {
+		color: #5f5f5f;
+		font-size: 22px;
+		margin-bottom: 8px;
+	}
+	label {
+		width: 115px;
+		color: #909090;
+	}
+	.actions {
+		width: 300px;
+	}
+}
+
+.patient-view-info {
+	margin-bottom: 50px;
+	.form-control {
+		height: auto;
+		min-height: 30px;
+	}
+	.cases-management--docs {
+		.doc-icon {
+			display: inline-block;
+			float: none;
+		}
+	}
+}
+
+.patient-name-fields {
+	display: table;
+	width: 100%;
+	margin-right: -5px;
+	margin-left: -5px;
+
+	> * {
+		display: table-cell;
+		min-width: 65px;
+		padding-left: 5px;
+	}
+
+	input, select {
+		padding: 6px;
+	}
+}
+
+.no-encounters-message {
+
+	.text {
+		font-size: 18px;
+	}
+
+	a {
+		text-decoration: none;
+	}
+}
+
+.ssn {
+	input {
+		width: 55px !important;
+		&.small-ssn-field {
+			width: 40px !important;
+		}
+	}
+}
+
+.phone {
+	input.input-sm {
+		width: 50px !important;
+	}
+}
+
+div.patient-details--suffix {
+	padding-left: 12px;
+	padding-right: 12px;
+	select {
+		padding: 5px 1px;
+	}
+}
+
+.patient-list {
+	.remove-icons {
+		visibility: hidden;
+	}
+	tr:hover {
+		.remove-icons {
+			visibility: visible;
+		}
+	}
+	.remove-link {
+		margin-right: 15px;
+		vertical-align: top;
+		display: inline-block;
+	}
+	.strikethrough{
+		text-decoration:line-through;
+	}
+	.loading-wheel {
+		display: inline-block;
+	}
+}
+
+.booking-sheet--form {
+	padding: 20px 90px;
+	.patient-mrn--field {
+		label {
+			text-align: left;
+			display: block;
+		}
+	}
+}
+
+.patient-view-info {
+
+  .invite-patient-portal-icon {
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 5px;
+	text-decoration: none;
+	width: 30px;
+	height: 20px;
+
+  }
+
+  .tooltip-inner {
+	white-space: pre-wrap;
+  }
+
+  .patient-buttons-container {
+	float: right;
+  }
+
+}

@@ -1,0 +1,105 @@
+/*
+* Стили для стрелки без позиционирования на странице
+*
+* Возможные варианты позиций: up, down, left, right
+*/
+.triangle(@triangle-position, @triangle-size, @triangle-color) {
+	border-color: transparent;
+	border-style: solid;
+	border-width: @triangle-size;
+	display: block;
+	width: 0;
+	height: 0;
+	z-index: 10;
+
+	& when (@triangle-position = up) {
+		border-top-width: 0;
+		border-bottom-color: @triangle-color;
+	}
+	& when (@triangle-position = down) {
+		border-bottom-width: 0;
+		border-top-color: @triangle-color;
+	}
+	& when (@triangle-position = left) {
+		border-left-width: 0;
+		border-right-color: @triangle-color;
+	}
+	& when (@triangle-position = right) {
+		border-right-width: 0;
+		border-left-color: @triangle-color;
+	}
+}
+
+/*
+* Отображает стрелку в заданной позиции относительно родителя с указанным фоном и бордером.
+* ВНИМАНИЕ: Для отображения стрелки используются псевдоклассы :before и :after
+*
+* Возможные варианты позиций: up, down, left, right
+*/
+.triangle-with-border(@triangle-position, @triangle-size, @triangle-border-color, @triangle-bg-color, @triangle-left) {
+	&:before,
+	&:after {
+		border-color: transparent;
+		border-style: solid;
+		border-width: @triangle-size;
+		content: '';
+		display: block;
+		position: absolute;
+		width: 0;
+		height: 0;
+		z-index: 10;
+
+		& when (@triangle-position = up) {
+			border-top-width: 0;
+			border-bottom-color: @triangle-border-color;
+			top: -1 * @triangle-size;
+			left: @triangle-left;
+			margin-left: -1 * @triangle-size;
+		}
+		& when (@triangle-position = down) {
+			border-bottom-width: 0;
+			border-top-color: @triangle-border-color;
+			bottom: -1 * @triangle-size;
+			left: @triangle-left;
+			margin-left: -1 * @triangle-size;
+		}
+		& when (@triangle-position = left) {
+			border-left-width: 0;
+			border-right-color: @triangle-border-color;
+			left: -1 * @triangle-size;
+			top: @triangle-left;
+			margin-top: -1 * @triangle-size;
+		}
+		& when (@triangle-position = right) {
+			border-right-width: 0;
+			border-left-color: @triangle-border-color;
+			right: -1 * @triangle-size;
+			top: @triangle-left;
+			margin-top: -1 * @triangle-size;
+		}
+	}
+	&:after {
+		z-index: 11;
+		border-width: @triangle-size - 1;
+		& when (@triangle-position = up) {
+			border-bottom-color: @triangle-bg-color;
+			top: -2 * (@triangle-size - 1) + 1;
+			margin-left: -1 * (@triangle-size - 1);
+		}
+		& when (@triangle-position = down) {
+			border-top-color: @triangle-bg-color;
+			bottom: -2 * (@triangle-size - 1);
+			margin-left: -1 * (@triangle-size - 1);
+		}
+		& when (@triangle-position = left) {
+			border-right-color: @triangle-bg-color;
+			left: -2 * (@triangle-size - 1);
+			margin-top: -1 * (@triangle-size - 1);
+		}
+		& when (@triangle-position = right) {
+			border-left-color: @triangle-bg-color;
+			right: -2 * (@triangle-size - 1);
+			margin-top: -1 * (@triangle-size - 1);
+		}
+	}
+}

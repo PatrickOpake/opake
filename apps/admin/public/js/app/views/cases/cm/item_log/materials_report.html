@@ -1,0 +1,73 @@
+<div ng-controller="CaseItemLogCtrl as logVm" ng-init="logVm.init(cmVm.case);"
+     class="content-block cases-management--item-log" ng-cloak>
+
+	<div class="cases-management--item-log--section" ng-controller="CaseItemLogListCtrl as itemsVm" ng-init="itemsVm.init(cmVm.case, logVm.preOpCard);">
+		<div class="cases-management--item-log--control">
+			<label>Pre Op</label>
+			<a class="btn btn-success" ng-click="itemsVm.addItemDialog()">Add Item</a>
+		</div>
+		<ng-include src="'cases/cm/item_log/table.html'"></ng-include>
+	</div>
+
+	<div class="cases-management--item-log--section">
+		<div ng-if="cmVm.case.cards.staff.length == 1" ng-controller="CaseItemLogListCtrl as itemsVm" ng-init="itemsVm.init(cmVm.case, cmVm.case.cards.staff[0]);">
+			<div class="cases-management--item-log--control">
+				<label>Operation</label>
+				<a class="btn btn-success" ng-click="itemsVm.addItemDialog()">Add Item</a>
+			</div>
+			<ng-include src="'cases/cm/item_log/table.html'"></ng-include>
+		</div>
+		<div ng-if="cmVm.case.cards.staff.length > 1">
+			<label>Operation</label>
+			<div ng-repeat="card in cmVm.case.cards.staff" ng-controller="CaseItemLogListCtrl as itemsVm" ng-init="itemsVm.init(cmVm.case, card);">
+				<div class="cases-management--item-log--control surgeon">
+					<img src="{{ ::card.image }}" />
+					<b>{{ ::card.title }}</b>
+					<a class="btn btn-success" ng-click="itemsVm.addItemDialog()">Add Item</a>
+				</div>
+				<ng-include src="'cases/cm/item_log/table.html'"></ng-include>
+			</div>
+		</div>
+	</div>
+
+	<div class="cases-management--item-log--section" ng-controller="CaseItemLogListCtrl as itemsVm" ng-init="itemsVm.init(cmVm.case, logVm.postOpCard);">
+		<div class="cases-management--item-log--control">
+			<label>Post Op</label>
+			<a class="btn btn-success" ng-click="itemsVm.addItemDialog()">Add Item</a>
+		</div>
+		<ng-include src="'cases/cm/item_log/table.html'"></ng-include>
+	</div>
+
+
+	<div class="cases-management--item-log--section" ng-controller="CaseItemLogListCtrl as itemsVm" ng-init="itemsVm.init(cmVm.case);">
+		<div class="cases-management--item-log--control">
+			<label>General</label>
+			<a class="btn btn-success" ng-click="itemsVm.addItemDialog()">Add Item</a>
+		</div>
+		<ng-include src="'cases/cm/item_log/table.html'"></ng-include>
+	</div>
+
+</div>
+
+<script type="text/ng-template" id="cases/cm/item_log/table.html">
+	<table class="opake cases-management--item-log--table">
+		<thead>
+			<tr>
+				<th class="text-center col-item">Item</th>
+				<th class="text-center col-type">Type</th>
+				<th class="text-center col-manufacturer">Manufacturer</th>
+				<th class="text-center col-quantity">Quantity</th>
+				<th class="col-actions"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in itemsVm.getItems()">
+				<td class="text-center">{{ ::item.inventory.name }}</td>
+				<td class="text-center">{{ ::item.inventory.type }}</td>
+				<td class="text-center">{{ ::item.inventory.manufacturer }}</td>
+				<td class="text-center">{{ ::item.quantity }}</td>
+				<td><a href="" class="remove" ng-click="itemsVm.removeItem(item)"><i class="icon-remove"></i></a>
+			</tr>
+		</tbody>
+	</table>
+</script>

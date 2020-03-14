@@ -1,0 +1,136 @@
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300&amp;subset=latin,cyrillic' rel='stylesheet'>
+
+<header class="public-header">
+	<div class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<img src="/common/i/logo.png" />
+					<div class="logo-title">OPAKE</div>
+				</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a class="navbar-item" href="#contact">CONTACT</a></li>
+				<li class="divider-vertical"></li>
+				<li><a class="navbar-item" href="">SIGN IN</a></li>
+			</ul>
+		</div>
+	</div>
+</header>
+
+<div id="auth" class="auth-section">
+	<div class="auth--panel">
+		<div class="title">Opake Patient Portal</div>
+		<div class="auth--panel--client-info">
+			<div class="icon" ng-class="::{default: !portal.icon}">
+				<img opk-src="{{ ::(portal.icon || '/common/i/logo-blue.png') }}"
+				     opk-src-error="/common/i/opake_logo_default.png" />
+			</div>
+			<div class="name" ng-if="::portal.title" ng-bind="::portal.title"></div>
+		</div>
+		<form class="auth--panel--form" class="form-control" ng-if="authVm.currentForm === 'login'">
+			<div class="form-group">
+				<input type="text" ng-model="authVm.loginData.login" class="form-control input-lg" placeholder="Username" />
+			</div>
+			<div class="form-group">
+				<input type="password" ng-model="authVm.loginData.password" class="form-control input-lg" placeholder="Password" />
+			</div>
+			<div class="suggestion">{{ authVm.suggestion }}</div>
+
+			<button ng-click="authVm.login()" class="btn btn-success btn-block btn-lg">LOGIN</button>
+		</form>
+		<form class="auth--panel--form" class="form-control" ng-if="authVm.currentForm === 'change_password'">
+			<div class="form-group">
+				<label class="big-text">Before we get started, please update your password</label>
+				<input type="password" ng-model="authVm.changePassData.password" class="form-control input-lg" placeholder="New Password" />
+			</div>
+			<div class="form-group">
+				<label>Password must be at least 8 characters long and include at least one capital letter, one lowercase letter, one special (symbol) character.</label>
+				<input type="password" ng-model="authVm.changePassData.password_confirm" class="form-control input-lg" placeholder="Confirm New Password" />
+			</div>
+			<div class="suggestion">{{ authVm.suggestion }}</div>
+
+			<button ng-click="authVm.changePassword()" class="btn btn-success btn-block btn-lg">Create Account</button>
+
+			<div class="back-to-login">
+				<a href="" ng-click="authVm.initForm('login')">Already a User? Login</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="contact" class="contact-section">
+	<div class="container">
+		<div class="title">Contact</div>
+		<div class="contact-section--content">
+			<div class="row">
+				<div class="col-sm-6">
+					<img class="map" src="/i/map.jpg" alt="Map" />
+				</div>
+				<div class="col-sm-6">
+					<form action="ajax/mail" class="contact-section--form">
+						<div class="row">
+							<div class="col-sm-12">
+								Interested in learning about what we do? We'd love to hear from you! Drop us a line.
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Name</label>
+									<input class="form-control" name="message[name]" type="text">
+									<div class="help"></div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Email</label>
+									<input class="form-control" name="message[email]" type="text">
+									<div class="help"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label>Message</label>
+									<textarea class="form-control" name="message[text]"></textarea>
+									<div class="help"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-8 result"></div>
+							<div class="col-sm-4 control">
+								<button type="submit" class="btn btn-opk">Send</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer class="public-footer">
+	<div class="container">
+		<div class="links">
+			<ul class="menu scroller">
+				<li><a href="#contact">CONTACT</a></li>
+				<li><a href="#">SIGN IN</a></li>
+			</ul>
+			<ul class="socials">
+				<li><a class="icn-social-mail" href="mailto:hello@opake.com"></a></li>
+			</ul>
+		</div>
+		<div class="bottom">
+			<div class="copyright-ama">
+				<div>CPT copyright 2016 American Medical Association.</div>
+				<div>All rights reserved. Fee schedules, relative value units, conversion factors and/or related components are not assigned by the AMA, are not part of CPT, and the AMA is not recommending their use. The AMA does not directly or indirectly practice medicine or dispense medical services. The AMA assumes no liability for data contained or not contained herein.</div>
+				<div>CPT is a registered trademark of the American Medical Association.</div>
+			</div>
+			<div class="copyright">&copy; Opake 2016</div>
+		</div>
+	</div>
+</footer>

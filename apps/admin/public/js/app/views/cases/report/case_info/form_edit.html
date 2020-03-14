@@ -1,0 +1,105 @@
+<div class="row">
+	<div class="col-sm-6">
+		<div dnd-list="reportVm.chunkedCaseInfo[0]"
+			 dnd-allowed-types="[reportVm.templateConst.GROUPS.CASEINFO]">
+			<div ng-repeat="item in reportVm.chunkedCaseInfo[0]"
+				 dnd-draggable="item"
+				 dnd-moved="reportVm.chunkedCaseInfo[0].splice($index, 1);"
+				 dnd-effect-allowed="move"
+				 dnd-dragend="reportVm.reindexCaseInfoColumns()"
+				 dnd-type="item.group_id"
+				 ng-if="item.confirmed_active"
+				 dnd-nodrag
+				 class="row">
+					<ng-include src="'cases/report/case_info/outputFieldTemplate.html'"></ng-include>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div dnd-list="reportVm.chunkedCaseInfo[1]"
+			 dnd-allowed-types="[reportVm.templateConst.GROUPS.CASEINFO]">
+			<div ng-repeat="item in reportVm.chunkedCaseInfo[1]"
+				 dnd-draggable="item"
+				 dnd-moved="reportVm.chunkedCaseInfo[1].splice($index, 1);"
+				 dnd-effect-allowed="move"
+				 dnd-dragend="reportVm.reindexCaseInfoColumns()"
+				 dnd-type="item.group_id"
+				 ng-if="item.confirmed_active"
+				 dnd-nodrag
+				 class="row">
+				<ng-include src="'cases/report/case_info/outputFieldTemplate.html'"></ng-include>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/ng-template" id="cases/report/case_info/outputFieldTemplate.html">
+	<div class="col-sm-12">
+		<div class="data-row" ng-switch="item.field">
+			<div class="switch-container"><switch class="green" ng-model="item.active"></switch><label>{{item.name}}:</label></div>
+
+			<div class="col-sm-12" ng-switch-when="patient_name">
+				<div class="data-row">
+					{{ case.patient.last_name + ', ' + case.patient.first_name }}
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="dob">
+				<div class="data-row">
+					{{ case.patient.dob | date:'M/d/yyyy' }}
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="age_sex">
+				<div class="data-row">
+					{{ case.patient.age}} {{ case.patient.sex}}
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="mrn">
+				<div class="data-row">
+					{{ case.patient.full_mrn}}
+				</div>
+			</div>
+			<div class="col-sm-12"  ng-switch-when="acc_number">
+				<div class="data-row">
+					{{ caseVm.case.id || caseVm.case.acc_number }}
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="surgeon">
+				<div class="data-row">
+					<opk-select ng-disabled="!caseVm.hasCaseEditAccess || reportVm.isSigned()" ng-model="case.users" multiple options="user.fullname for user in source.getSurgeons()"></opk-select>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="dos">
+				<div class="data-row">
+					<date-field ng-disabled="!caseVm.hasCaseEditAccess || reportVm.isSigned()" ng-model="case.time_start" icon="true"></date-field>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="time_scheduled">
+				<div class="data-row">
+					<div ng-if="!caseVm.hasCaseEditAccess">{{ caseVm.case.time_start | date:'hh:mm a' }} &mdash; {{ caseVm.case.time_end | date:'hh:mm a' }}</div>
+					<opk-timepicker ng-disabled="reportVm.isSigned()" ng-if="caseVm.hasCaseEditAccess" ng-model="case.time_start"></opk-timepicker>
+					<span ng-if="caseVm.hasCaseEditAccess">&mdash;</span>
+					<opk-timepicker ng-disabled="reportVm.isSigned()" ng-if="caseVm.hasCaseEditAccess"  ng-model="case.time_end"></opk-timepicker>
+					<time-diff ng-if="caseVm.hasCaseEditAccess" start="case.time_start" end="case.time_end" />
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="data-row">
+					<opk-select ng-switch-when="room" ng-disabled="reportVm.isSigned()" ng-model="case.location" options="location.name for location in source.getLocations()"></opk-select>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-when="admit_type">
+				<div class="data-row">
+					<div>{{ caseRegistrationConst.ADMISSION_TYPE[caseVm.case.registration.admission_type]}}</div>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-switch-default>
+				<div class="data-row">
+					<opk-select  ng-if="item.field !== 'surgeon' && item.type == 'user'" ng-disabled="reportVm.isSigned()" ng-model="case[item.field]" multiple options="user.fullname for user in caseVm.getStaffs(item.field)"></opk-select>
+				</div>
+			</div>
+			<div dnd-handle class="handle"><i class="icon-drag-n-drop"></i></div>
+		</div>
+	</div>
+</script>

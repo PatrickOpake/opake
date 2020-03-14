@@ -1,0 +1,177 @@
+<div class="profile-page patient-profile">
+	<div class="block-panel">
+		<div>
+			<div class="heading-row clearfix">
+				<profile-image-upload
+						options="profileVm.profileImageOptions"
+						control="profileVm.profileImageControl"
+						ng-if="profileVm.profileImageOptions"></profile-image-upload>
+
+				<div class="controls">
+					<div class="buttons clearfix">
+						<a class='btn btn-grey' href='' ng-click="profileVm.cancel()">Cancel</a>
+						<a class='btn btn-success' href='' ng-click="profileVm.save()">Save</a>
+					</div>
+					<div class="additional-info">
+						<span>Date Created:  {{profileVm.profile.date_created}}</span>
+					</div>
+				</div>
+			</div>
+
+			<errors src="profileVm.errors"></errors>
+
+			<div class="details-panel">
+				<div class="data-row">
+					<label>First Name:</label>
+					<div class="input-container">
+						<input class='form-control name-field' type='text' ng_model="profileVm.profile.first_name" />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Last Name:</label>
+					<div class="input-container">
+						<input class='form-control name-field' type='text' ng_model="profileVm.profile.last_name" />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Gender:</label>
+					<div class="input-container">
+						<opk-select ng-model="profileVm.profile.gender" key-value-options="patientConst.GENDERS" placeholder='Type or select'></opk-select>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>DOB:</label>
+					<div class="input-container">
+						<date-field ng-model="profileVm.profile.dob" icon="true"></date-field>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>SSN:</label>
+					<div class="input-container">
+						<ssn ng-model="profileVm.profile.ssn"></ssn>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Marital Status:</label>
+					<div class="input-container">
+						<opk-select ng-model="profileVm.profile.status_marital" key-value-options="patientConst.STATUSES_MARITAL"></opk-select>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Ethnicity:</label>
+					<div class="input-container">
+						<opk-select ng-model="profileVm.profile.ethnicity" key-value-options="patientConst.ETHNICITIES"></opk-select>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Race:</label>
+					<div class="input-container">
+						<opk-select ng-model="profileVm.profile.race" key-value-options="patientConst.RACES"></opk-select>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Language:</label>
+					<div class="input-container">
+						<opk-select ng-model="profileVm.profile.language" options="item as item.name for item in source.getLanguages()"></opk-select>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Email:</label>
+					<div class="input-container">
+						<input type="text" ng-model="profileVm.profile.home_email" class='form-control' placeholder='Type' />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Phone:</label>
+					<div class="input-container">
+						<phone ng-model="profileVm.profile.home_phone"></phone>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Address:</label>
+					<div class="input-container">
+						<input type="text" ng-model="profileVm.profile.home_address" class='form-control' placeholder='Type' />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Apartment #:</label>
+					<div class="input-container">
+						<input type="text" ng-model="profileVm.profile.home_apt_number" class='form-control' placeholder='Type' />
+					</div>
+				</div>
+				<div geo model="profileVm.profile" props="{country: 'home_country', state: 'home_state', city: 'home_city', custom_state: 'custom_home_state', custom_city: 'custom_home_city'}">
+					<div class="data-row country">
+						<label>Country:</label>
+						<div class="input-container">
+							<opk-select ng-model="profileVm.profile.home_country"
+										options="item.name for item in geoVm.countries" placeholder='Type or select'></opk-select>
+						</div>
+					</div>
+					<div class="data-row geo-field state">
+						<label>State:</label>
+						<div class="input-container">
+							<opk-select ng-model="profileVm.profile.home_state"
+										options="item.name for item in geoVm.states" placeholder='Type or select'></opk-select>
+						</div>
+					</div>
+					<div class="data-row custom-state">
+						<label>State:</label>
+						<div class="input-container">
+							<input type="text" ng-model="profileVm.profile.custom_home_state" placeholder='Type' class="form-control" />
+						</div>
+					</div>
+					<div class="data-row geo-field city">
+						<label>City:</label>
+						<div class="input-container">
+							<input type="text" ng-model="profileVm.profile.home_city" placeholder='Type' uib-typeahead="city as city.name for city in geoVm.cities | filter:$viewValue | limitTo:8" class="form-control" />
+						</div>
+					</div>
+					<div class="data-row custom-city">
+						<label>City:</label>
+						<div class="input-container">
+							<input type="text" ng-model="profileVm.profile.custom_home_city" placeholder='Type' class="form-control" />
+						</div>
+					</div>
+				</div>
+				<div class="data-row geo-field zip-code">
+					<label>ZIP code:</label>
+					<div class="input-container">
+						<input type="text" ng-model="profileVm.profile.home_zip_code" class="form-control" placeholder='Type' />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Emergency Contact:</label>
+					<div class="input-container">
+						<input type="text" ng-model="profileVm.profile.ec_name" class='form-control input-sm' placeholder='Type' />
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Emergency Phone Contact:</label>
+					<div class="input-container">
+						<phone ng-model="profileVm.profile.ec_phone_number"></phone>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Relationship to Patient:</label>
+					<div class="input-container">
+						<opk-select ng-model="profileVm.profile.ec_relationship"
+						            select-options="{searchFilter: 'opkRelationshipToInsuredSearchFilter', allowValuesNotInList: true}"
+						            key-value-options="caseRegistrationConst.RELATIONSHIP_TO_INSURED"></opk-select>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Occupation <span class="optional">(optional)</span>:</label>
+					<div class="input-container">
+						<opk-select ng-model="profileVm.profile.status_employment" key-value-options="patientConst.STATUSES_EMPLOYMENT"></opk-select>
+					</div>
+				</div>
+				<div class="data-row">
+					<label>Employer/School <span class="optional">(optional)</span>:</label>
+					<div class="input-container">
+						<input type="text" ng-model="profileVm.profile.employer" class='form-control' placeholder='Type' />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

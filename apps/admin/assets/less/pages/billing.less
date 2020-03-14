@@ -1,0 +1,908 @@
+.billing-list {
+	.filters-panel--content {
+		> * {
+			width: 430px;
+		}
+		label {
+			width: 100px;
+		}
+		.date-range {
+			label.to {
+				width: 25px;
+				text-align: center;
+			}
+
+		}
+	}
+	.header-print {
+		color: #666;
+		width: 50px;
+	}
+	.status-button {
+		min-width: 100px;
+	}
+	table td.submitted-claims {
+		min-width: 200px;
+	}
+	.top-icons {
+		padding-left: 10px;
+		margin-bottom: 20px;
+		.checkbox {
+			display: inline-block;
+		}
+		button {
+			margin-left: 20px;
+		}
+	}
+}
+
+.billing-reports {
+	.billing-reports-tabs {
+		margin-top: 20px;
+	}
+	.tab-content {
+		display: block;
+		.billing-report-list {
+			display: block;
+			table {
+				display: block;
+				overflow-x: auto;
+				thead {
+					display: block;
+				}
+				tbody {
+					display: inline-block;
+					overflow-y: auto;
+					overflow-x: hidden;
+					height: 600px;
+				}
+				th, td {
+					min-width: 110px;
+					max-width: 110px;
+					&.remove {
+						min-width: 35px;
+					}
+					&.doctor {
+						min-width: 160px;
+						max-width: 160px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.billing-collections-list {
+	tr.accordion-header > td:first-child {
+		cursor: pointer;
+	}
+
+	.table-wrap {
+		display: block;
+		overflow-x: auto;
+		table {
+			th, td {
+				white-space: normal;
+				&.mrn {
+					white-space: nowrap;
+				}
+				.balance-title {
+					cursor: pointer;
+				}
+				&.case_id {
+					white-space: nowrap;
+				}
+				&.billing-status {
+					overflow: visible;
+					.billing-status--container {
+						width: 80px;
+					}
+					.opk-select {
+						.select-search {
+							min-height: 33px;
+						}
+					}
+					.tooltip {
+						width: 400px;
+					}
+				}
+				&.co-pay {
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+
+	.responsibility-label-row {
+		th {
+			border: 0;
+		}
+		.responsibility-label-column {
+			border-top: 1px solid #e6e6e6;
+			border-left: 1px solid #e6e6e6;
+			border-right: 1px solid #e6e6e6;
+			text-align: center;
+		}
+	}
+
+}
+
+.billing-collections--filter {
+	.date-range {
+		label.to {
+			text-align: center;
+		}
+		.datepicker-field {
+			display: block;
+			input {
+				min-width: 120px;
+			}
+		}
+	}
+	.patient-name {
+		label.first-name {
+			text-align: center;
+		}
+		> div {
+			width: 220px;
+		}
+	}
+	.filters-panel--content > * {
+		float: none;
+		width: auto;
+	}
+	.group-field {
+		width: 100%;
+		margin: 0;
+	}
+}
+
+.claims-processing-page {
+
+  .billing-list {
+	padding: 30px 15px 15px;
+  }
+
+  .process-page {
+
+	.bunches-table {
+	  tr {
+		cursor: pointer;
+
+		&.selected {
+		  background-color: #fffeee;
+		}
+
+	  }
+
+	}
+
+  }
+
+  .payments-table {
+
+	.claim-link {
+	  text-decoration: none;
+	}
+
+	.status-select {
+	  width: 200px;
+	}
+
+  }
+
+  .services-table {
+	width: 100%;
+
+
+	> thead > tr > th {
+	  border-top: none;
+	  padding: 10px;
+	  border-bottom: 1px solid #e6e6e6;
+	}
+
+	> tbody > tr > td {
+	  border-top: 1px solid #e6e6e6;
+	  padding: 10px;
+	  border-bottom: 1px solid #e6e6e6;
+	}
+
+	> tbody > tr > td:last-child {
+	  border-bottom: none;
+	}
+
+	> tbody > tr > td.adjustments-container {
+	  padding-left: 20px;
+	}
+
+	.adjustments-table {
+	  width: 100%;
+	  margin-bottom: 5px;
+
+	  > thead > tr > th {
+		padding: 5px;
+		border-bottom: 1px solid #e6e6e6;
+
+		&.type-column {
+		  width: 15%;
+		}
+		&.amount-column {
+		  width: 10%;
+		}
+		&.quantity-column {
+		  width: 10%;
+		}
+		&.reason-code-column {
+		  width: 10%;
+		}
+	  }
+
+	  > tbody > tr > td {
+		padding: 5px;
+	  }
+	}
+
+  }
+
+  .payments-table-container {
+	margin-top: 60px;
+  }
+
+  .action-buttons {
+	margin-top: 15px;
+  }
+
+
+  .loading-wheel {
+	margin-left: 10px;
+	display: inline-block;
+  }
+
+}
+
+.billing-ledger-view.billing-ledger-page,
+.payment-posting-page.patient-payments {
+
+  .patient-info-header {
+	width: 90%;
+	margin: auto;
+  }
+
+}
+
+@media (max-width: 1460px) {
+  .billing-ledger-page.billing-ledger-view {
+	table.opake.payments-table {
+	  font-size: 10px;
+	  line-height: 22px;
+
+	  .btn {
+		font-size: 10px;
+	  }
+	  i.icon-cloud-upload-grey {
+		margin-right: 0;
+	  }
+	  input {
+		font-size: 10px;
+	  }
+	}
+  }
+}
+
+.billing-ledger-page.billing-ledger-view {
+
+  .loading-wheel {
+	display: inline-block;
+	vertical-align: middle;
+  }
+
+  a.back {
+	i {
+	  margin-right: 3px;
+	}
+  }
+
+  .total-amounts-table {
+	border-left: 1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+	margin-bottom: 15px;
+
+	th {
+	  text-align: center;
+	  padding: 5px;
+	}
+
+	td {
+	  padding: 5px 10px;
+	}
+  }
+
+  .patient-info-header {
+	width: 98%;
+  }
+
+  table.opake.payments-table {
+	line-height: 24px;
+
+	.case-row {
+		background: #f7f7f7;
+	}
+
+	.procedure-row {
+		background: #fafafa;
+	}
+
+	.diagnosis-column {
+	  white-space: nowrap;
+	  i {
+		margin-left: 5px;
+	  }
+
+	}
+
+	.balance-column {
+	  white-space: nowrap;
+	}
+
+	.oop-column {
+	  white-space: nowrap;
+	}
+
+	.responsibility-label-row {
+
+	  th {
+		border: 0;
+	  }
+
+	  .responsibility-label-column {
+		border-top: 1px solid #e6e6e6;
+		border-left: 1px solid #e6e6e6;
+		border-right: 1px solid #e6e6e6;
+		text-align: center;
+	  }
+	}
+
+	td, th {
+	  height: 40px;
+	  padding: 5px 5px;
+
+	  .btn {
+		padding: 5px;
+	  }
+	}
+
+	.acc-num-column {
+	  white-space: nowrap;
+	}
+
+	.payment-buttons {
+	  white-space: nowrap;
+
+	  .edit-links {
+		a {
+		  margin-right: 10px;
+		}
+
+		a.remove-link {
+		  color: #CD5C5C;
+		}
+	  }
+	}
+
+	.amount-input {
+	  max-width: 70px;
+	}
+
+	.payment-amount-input-container {
+	  white-space: nowrap;
+
+	  > input {
+		display: inline-block;
+		margin-left: 2px;
+	  }
+
+	}
+
+	.resp-payment-amount-input-container {
+	  white-space: nowrap;
+	  margin-left: 2px;
+	  margin-right: 2px;
+	  display: inline-block;
+
+	  > input {
+		display: inline-block;
+		margin-left: 2px;
+		min-width: 35px;
+	  }
+
+	}
+
+	.billing-financial-documents {
+	  a {
+		text-decoration: none;
+		outline: none;
+	  }
+	  i {
+		display: inline-block;
+		vertical-align: middle;
+		float: inherit;
+	  }
+	}
+
+	.add-note-link {
+	  height: 27px;
+	  vertical-align: middle;
+	  margin: 0;
+	}
+
+	.interest-entry-links {
+
+		a:first-child {
+		  margin-right: 5px;
+		}
+
+	  	a.remove-link {
+		  color: #CD5C5C;
+		}
+
+	}
+
+	.interest-edit-buttons {
+	  white-space: nowrap;
+	}
+
+  }
+
+
+  .patient-statement-form-container {
+	min-height: 340px;
+	position: relative;
+
+	.loading-wheel {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  margin-top: -15px;
+	  margin-left: -15px;
+	}
+  }
+
+  .patient-statement-form {
+	border-left: 1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+	margin-bottom: 15px;
+
+	th {
+	  text-align: center;
+	  padding: 5px;
+	}
+
+	label {
+	  color: #666;
+	  width: 100%;
+	}
+
+	textarea {
+	  width: 100%;
+	  height: 130px;
+	  max-height: 250px;
+	  border: 1px solid #e6e6e6;
+	}
+
+	.statement-comment-title {
+		font-weight: bold;
+	}
+
+    .statement-comment-options {
+      height: 55px;
+    }
+
+  }
+
+  .new-payment-form {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	width: 100%;
+
+	label {
+	  width: 140px;
+	  color: #666;
+	}
+
+	td {
+	  padding-left: 10px;
+	  padding-right: 10px;
+
+	  &.date-of-payment-column {
+		width: 190px;
+	  }
+
+	  &.payment-method-column {
+		width: 15%;
+	  }
+
+	  &.payment-source-column {
+		width: 20%;
+	  }
+
+	  &.payment-amount-column {
+
+	  }
+
+	  &.amount-remaining-column {
+
+	  }
+
+	  &.apply-payments-button-column {
+		padding-top: 10px;
+		text-align: center;
+        width: 180px;
+	  }
+
+	}
+
+	.checkbox {
+	  margin-top: 5px;
+	  margin-bottom: 5px;
+	}
+
+  }
+
+  .add-note-link .badge {
+	top: -5px;
+	right: 4px;
+  }
+
+  .manage-interest-payments-link {
+	display: block;
+	white-space: nowrap;
+  }
+
+  .new-payment-form {
+	.invisible-column {
+	  visibility: hidden;
+	}
+  }
+
+}
+
+.billing-ledger-modal {
+
+  label {
+	text-align: center;
+	vertical-align: middle;
+  }
+
+  .field-row {
+	margin-top: 10px;
+	margin-bottom: 10px;
+  }
+
+}
+
+.billing-ledger-modal.force-assign-confirmation-modal {
+  .modal-body {
+	padding-top: 30px;
+	padding-bottom: 30px;
+  }
+}
+
+
+.billing-ledger-page {
+
+  table.opake.patient-table {
+	tbody {
+	  tr:hover {
+		background-color: #f1f1f1;
+	  }
+	  tr {
+		td.link {
+		  padding: 0;
+		  a {
+			height: 100%;
+			display: block;
+			cursor: pointer;
+			padding: 15px 5px;
+			text-decoration: none;
+			color: inherit;
+		  }
+		}
+	  }
+	}
+
+  }
+
+}
+
+
+.financial-docs--modal {
+	.modal-header {
+		.x-close {
+			color: #666;
+			float: right;
+		}
+	}
+	.modal-body {
+		max-height: 600px;
+		overflow: auto;
+	}
+}
+
+.billing-eob-management {
+	.eob-uploading-block {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1050;
+		background-color: #FFF;
+		opacity: 0.8;
+		.file-drop-box {
+			height: 100%;
+			background-color: #FFF;
+			&.drag-over {
+				border: 3px solid #94c0f1;
+				background-color: rgba(148,192,241, 0.3);
+			}
+			.cancel-upload {
+				float: right;
+				margin: 10px 25px 0 0;
+			}
+			.file-drop-box--help {
+				padding-top: 20px;
+
+				.btn-file {
+					border: none;
+					background: none;
+					color: #00a1cf;
+				}
+				.btn-file:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+	.eob-table-block {
+		min-height: 200px;
+	}
+	.eob-to-upload {
+		border: 3px dashed #E1E1E1;
+		padding: 5px;
+		table {
+			th {
+				border-top: none;
+			}
+			td {
+				&.icon {
+					width: 5%;
+				}
+				&.name {
+					width: 20%;
+				}
+				&.insurer {
+					width: 20%;
+				}
+				&.cpt {
+					width: 20%;
+				}
+				&.charge_master {
+					width: 20%;
+				}
+				&.amount_paid {
+					width: 20%;
+				}
+				&.rename {
+					width: 10%;
+					text-align: right;
+				}
+				&.delete {
+					width: 5%;
+				}
+			}
+		}
+	}
+}
+
+.billing-ledger-history--filter {
+	.date-range {
+		label {
+			min-width: 130px;
+			&.from {
+				min-width: 50px;
+			}
+			&.to {
+				min-width: 50px;
+				text-align: center;
+			}
+		}
+		.datepicker-field {
+			input {
+				min-width: 120px;
+			}
+		}
+	}
+}
+
+.select-next-patient-modal {
+
+  .modal-dialog {
+	margin-top: 110px !important;
+  }
+
+  .select-next-patient-table-conatiner {
+	padding: 10px;
+
+	.title {
+	  font-weight: bold;
+	  margin-bottom: 20px;
+	  font-size: 18px;
+	  margin-left: 10px;
+	}
+
+	.buttons {
+	  margin-top: 5px;
+	  text-align: right;
+	}
+
+	table.opake {
+	  tbody {
+		tr:hover {
+		  background-color: #f1f1f1;
+		}
+		tr {
+		  td.link {
+			padding: 0;
+			a {
+			  height: 100%;
+			  display: block;
+			  cursor: pointer;
+			  padding: 15px 5px;
+			  text-decoration: none;
+			  color: inherit;
+			}
+		  }
+		}
+	  }
+	}
+  }
+
+}
+
+.patient-statement--filter {
+	.filters-panel--content > * {
+		width: 330px;
+	}
+}
+
+.billing-patient-statement--page {
+
+  	.patient-statement--filter label {
+	  width: 140px;
+	}
+
+	table.opake {
+		tbody {
+			tr:hover {
+				background-color: #f1f1f1;
+			}
+			tr {
+				td.link {
+					height: 100%;
+					cursor: pointer;
+					padding: 15px 5px;
+					text-decoration: none;
+					color: inherit;
+				}
+			}
+		}
+	}
+}
+
+.billing-patient-statement-comment--modal {
+	.patient-statement-form {
+		border-left: 1px solid #e6e6e6;
+		border-right: 1px solid #e6e6e6;
+		margin-bottom: 15px;
+
+		a {
+			color: #666;
+		}
+
+		label {
+			margin: 25px 0;
+			color: #666;
+			width: 100%;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			max-height: 250px;
+			border: 1px solid #e6e6e6;
+		}
+
+		.totals-buttons {
+			margin-top: 15px;
+		}
+	}
+}
+
+.billing-itemized-bill-date-range--modal {
+	.itemized-bill-form {
+		border-left: 1px solid #e6e6e6;
+		border-right: 1px solid #e6e6e6;
+		margin-bottom: 15px;
+
+		a {
+			color: #666;
+		}
+
+		label {
+			margin: 10px 0;
+			color: #666;
+			width: 100%;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			max-height: 250px;
+			border: 1px solid #e6e6e6;
+		}
+
+		.totals-buttons {
+			margin-top: 35px;
+		}
+
+		.date-range {
+			.to {
+				width: 25px;
+				margin-left: 10px;
+			}
+			.date {
+				display: inline-block;
+			}
+		}
+
+		.top-line {
+			label {
+				display: inline-block;
+				width: 250px;
+			}
+			a {
+				i {
+					vertical-align: bottom;
+				}
+			}
+		}
+
+	}
+}
+
+.modal--result-bulk-claims {
+	.modal-header {
+	  	border-bottom: none;
+
+		.x-close {
+			color: #666;
+		}
+	}
+  	.modal-body {
+	  padding-top: 0;
+	}
+  	.error-claim {
+	  margin-bottom: 5px;
+	}
+	.sent-claim {
+	  margin-bottom: 5px;
+	}
+  	h3 {
+	  margin-bottom: 10px;
+	}
+	.error-title {
+		color: red;
+	}
+
+
+}

@@ -1,0 +1,19 @@
+<div class="patient-insurances-container" ng-controller="PatientInsurancesCtrl as patientInsurancesVm" ng-cloak ng-show="patientInsurancesVm.isTemplatesLoaded">
+
+	<div ng-repeat="item in insuranceVm.patient.insurances" class="patient-insurance">
+		<div class="patient-form view-patient-form">
+			<div>
+				<errors src="insuranceVm.errors[$index+1]"></errors>
+
+				<ng-include src="view.get('app/insurance/common/view.html')"></ng-include>
+
+				<div ng-if="item.type">
+					<ng-include src="patientInsurancesVm.getDataTemplateSrc(item, false)"></ng-include>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="insuranceVm.patient.insurances.length === 0">No insurances found</div>
+
+</div>

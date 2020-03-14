@@ -1,0 +1,74 @@
+<div class='site-header'>
+	<div class='container-fluid'>
+		<nav class="navbar" role="navigation">
+			<a class="navbar-brand" ui-sref="app.home">
+				<img src="/common/i/logo.png"/>
+				<div class="logo-title">OPAKE</div>
+			</a>
+			<div class="credentials">
+				<div class="dropdown" uib-dropdown>
+					<a href="#" class="dropdown-toggle" type="button" id="dropdown-account-menu"
+					   uib-dropdown-toggle>
+						<img ng-if="appVm.loggedUser.photo_tiny_src" class="user-photo" ng-src="{{ ::appVm.loggedUser.photo_tiny_src }}" alt=""/>
+						<span ng-if="!appVm.loggedUser.photo_tiny_src" class="default-user-photo"></span>
+						<span class="account">Hello, {{ ::appVm.loggedUser.first_name }}</span> <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="dropdown-account-menu">
+						<li><a ui-sref="app.profile">Profile</a></li>
+						<li><a ui-sref="app.logout">Sign out</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+	</div>
+</div>
+<div class="site-body" sticky-scroll>
+	<div class="container-fluid">
+		<div class="inner-grid">
+			<div class="inner-left">
+				<div class="inner-left--background"></div>
+				<div class="left-menu">
+					<div class="logo">
+						<img opk-src="{{ ::portal.icon }}"
+						     opk-src-error="/common/i/opake_logo_default.png" />
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="top-menu">
+					<ul>
+						<li ng-class="{active: $state.includes('app.profile')}" ui-sref="app.profile">
+							<a href=""><span>My Info</span></a>
+						</li>
+						<li ng-class="{active: $state.includes('app.insurance')}" ui-sref="app.insurance">
+							<a href=""><span>My Insurance</span></a>
+						</li>
+						<li ng-class="{active: $state.includes('app.appointments') || $state.includes('app.view-appointment'), 'has-alerts': alertsVm.alerts.length}" class="my-appointments" ng-controller="AppointmentAlertsCtrl as alertsVm">
+							<a href=""  ui-sref="app.appointments">
+								<span>My Appointments</span>
+								<span class="appointment-alerts-button" uib-popover-template="alertsVm.getView()" popover-placement="bottom-left" popover-append-to-body="true" popover-trigger="outsideClick" popover-title="{{ alertsVm.getAlertsWindowTitle() }}" ng-if="alertsVm.alerts.length">
+									<i class="icon-red-warning"></i>
+								</span>
+							</a>
+						</li>
+						<li ng-class="{active: $state.includes('app.forms')}" ui-sref="app.forms">
+							<a href=""><span>My Forms</span></a>
+						</li>
+					</ul>
+				</div>
+				<div class="content-wrap" ui-view>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='site-footer'>
+	<div class='container-fluid'>
+		<div class="pull-right text-right">
+			<div>Copyright &copy;2016 OPAKE. All right reserved</div>
+			<div>CPT copyright 2016 American Medical Association. All rights reserved.</div>
+		</div>
+	</div>
+</div>

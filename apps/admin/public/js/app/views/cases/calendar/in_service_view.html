@@ -1,0 +1,16 @@
+<div class="cases-calendar--preview" ng-controller="PreviewCaseInServiceCrtl as caseVm" ng-init="caseVm.init(item)">
+	<div class="modal-header">
+		<span class="modal-title">{{::caseVm.item.title}}</span>
+		<a href="" class="close-preview"><i class="icon-x"></i></a>
+	</div>
+	<div class="modal-body">
+		<ul class="cases-calendar--modal-options">
+			<li><i class="icon-case-time"></i><span>{{::caseVm.item.start| date:'h:mma'}} - {{::caseVm.item.end| date:'h:mma'}} ({{::caseVm.item.start| timeLength : caseVm.item.end}})</span></li>
+			<li><i class="icon-case-procedure"></i><span>{{::caseVm.item.description}} </span></li>
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<a class="btn btn-danger pull-left" href="" ng-click="caseVm.delete()">Delete</a>
+		<a class="btn btn-grey" href=""  ng-click="caseVm.edit()">Edit</a>
+	</div>
+</div>

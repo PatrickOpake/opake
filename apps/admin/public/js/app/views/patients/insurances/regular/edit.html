@@ -1,0 +1,197 @@
+<div class="row">
+	<div class="col-sm-3">
+		<label class="control-label">Relationship to Patient</label>
+		<opk-select class="small" ng-model="item.data.relationship_to_insured"
+					change="insurances.onRelationshipToInsuredChange(item, $index, ctrl.model)"
+					select-options="{searchFilter: 'opkRelationshipToInsuredSearchFilter', allowValuesNotInList: true}"
+					key-value-options="caseRegistrationConst.RELATIONSHIP_TO_INSURED_OPTIONS">
+		</opk-select>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<label class="control-label">Insurance Company*</label>
+		<div>
+			<opk-select select-options="{newItemFn: 'item.newInsuranceCompany($query)', newItemUseLabel: true, newItemLabel: 'Add Insurance'}"
+			            class="small"
+						ng-model="item.data.insurance"
+						ng-change="patientInsurancesVm.fillInsurancePayorData(item)"
+						options="item.name for item in source.getInsurances($query, true)"></opk-select>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Policy #</label>
+		<input type="text" ng-model="item.data.policy_number" class='form-control input-sm' placeholder='Type' />
+	</div>
+	<div class="col-sm-3">
+		<label class="control-label">Group #</label>
+		<input type="text" ng-model="item.data.group_number"  class='form-control input-sm' placeholder='Type' />
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<div>
+			<label class="control-label">Insurance Company Address</label>
+			<div>
+				<opk-select class="small"
+				            ng-model="item.data.address_insurance_selected"
+				            select-options="{newItemFn: 'patientInsurancesVm.newInsuranceAddress(item, $query)', newItemUseLabel: true, newItemLabel: 'Add New Address'}"
+				            ng-change="patientInsurancesVm.fillInsuranceAddressFromSelected(item)"
+				            options="item.address for item in source.getInsuranceCompanyPossibleAddresses(item.data.insurance.id)"
+				            placeholder='Type or select'></opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">Electronic 1500 Payer ID #</label>
+		<input type="text" ng-model="item.data.cms1500_payer_id" class="form-control input-sm" placeholder='Type' />
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">Electronic UB04 Payer ID #</label>
+		<input type="text" ng-model="item.data.ub04_payer_id" class="form-control input-sm" placeholder='Type' />
+	</div>
+	<div class="col-sm-2">
+		<label class="control-label">Eligibility Payer ID #</label>
+		<input type="text" ng-model="item.data.eligibility_payer_id" class="form-control input-sm" placeholder='Type' />
+	</div>
+</div>
+<div geo model="item.data" props="{state: 'insurance_state', city: 'insurance_city'}">
+	<div class="row">
+		<div class="geo-field state col-sm-2">
+			<label class="control-label">State</label>
+			<div>
+				<opk-select select-options="{appendToBody: true}"
+				            class="small"
+				            ng-model="item.data.insurance_state"
+				            options="item.name for item in geoVm.states"
+				            placeholder='Type or select'></opk-select>
+			</div>
+		</div>
+		<div class="geo-field city col-sm-2">
+			<label class="control-label geo-field city">City</label>
+			<div class="city-select-container">
+				<opk-select class="small"
+							select-options="{autocompleteOnly: true, newItemFn: 'geoVm.newCity($query)', newItemUseLabel: true, newItemLabel: 'Add City'}"
+				            ng-model="item.data.insurance_city"
+				            options="city as city.name for city in geoVm.cities"
+				            placeholder="Type"></opk-select>
+			</div>
+		</div>
+		<div class="zip-code col-sm-2">
+			<label class="control-label geo-field zip-code">ZIP code</label>
+			<input type="text" ng-model="item.data.insurance_zip_code" class="form-control input-sm" placeholder='Type' />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Provider Phone #</label>
+			<phone ng-model="item.data.provider_phone"></phone>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Authorization Code or Referral #</label>
+			<input type="text" ng-model="item.data.authorization_or_referral_number" class='form-control input-sm' placeholder='Type' />
+		</div>
+	</div>
+</div>
+<div ng-if="!insurances.isSelfRelationshipToPatient(item)">
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Insured Last Name</label>
+			<input type="text" ng-model="item.data.last_name" class='form-control input-sm name-field' placeholder='Type' />
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Insured First Name</label>
+			<input type="text" ng-model="item.data.first_name" class='form-control input-sm name-field' placeholder='Type' />
+		</div>
+		<div class="col-sm-1">
+			<label class="control-label">M.I.</label>
+			<input type="text" ng-model="item.data.middle_name" class='form-control input-sm' placeholder='Type' />
+		</div>
+		<div class="col-sm-2 patient-details--suffix">
+			<label class="control-label">Suffix</label>
+			<div>
+				<opk-select class="small"
+				            ng-model="item.data.suffix"
+				            key-value-options="patientConst.SUFFIXES"></opk-select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Date of Birth</label>
+			<date-field ng-model="item.data.dob" small="true" without-calendar="true"></date-field>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Gender</label>
+			<div>
+				<opk-select class="small"
+				            ng-model="item.data.gender"
+				            key-value-options="patientConst.GENDERS"></opk-select>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<label class="control-label">Phone #</label>
+			<phone ng-model="item.data.phone"></phone>
+		</div>
+		<div class="col-sm-3" ng-if="item.type == 7">
+			<label class="control-label">Accident?</label>
+			<div>
+				<opk-select class="small"
+				            ng-model="item.data.is_accident"
+				            options="item.key as item.name for item in patientConst.INSURANCE_ACCIDENT_OPTIONS"
+				            placeholder='Select'></opk-select>
+			</div>
+		</div>
+	</div>
+	<div geo model="item.data" props="{country: 'country', state: 'state', city: 'city', custom_state: 'custom_state', custom_city: 'custom_city'}">
+		<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Address</label>
+				<input type="text" ng-model="item.data.address" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="col-sm-1">
+				<label class="control-label">Apt #</label>
+				<input type="text" ng-model="item.data.apt_number" class='form-control input-sm' placeholder='Type' />
+			</div>
+			<div class="geo-field state col-sm-2">
+				<label class="control-label">State</label>
+				<div>
+					<opk-select select-options="{appendToBody: true}"
+					            class="small" ng-model="item.data.state"
+								options="item.name for item in geoVm.states"
+								placeholder='Type or select'></opk-select>
+				</div>
+			</div>
+			<div class="custom-state col-sm-2">
+				<label class="control-label">State</label>
+				<input type="text" ng-model="item.data.custom_state" class="form-control input-sm" placeholder='Type' />
+			</div>
+			<div class="geo-field city col-sm-2">
+				<label class="control-label geo-field city">City</label>
+				<div class="city-select-container small">
+					<opk-select class="small"
+								select-options="{autocompleteOnly: true, newItemFn: 'geoVm.newCity($query)', newItemUseLabel: true, newItemLabel: 'Add City', appendToBody: true}"
+								ng-model="item.data.city"
+								options="city as city.name for city in geoVm.cities"
+								placeholder="Type"></opk-select>
+				</div>
+			</div>
+			<div class="custom-city col-sm-2">
+				<label class="control-label">City</label>
+				<input type="text" ng-model="item.data.custom_city" class="form-control input-sm" placeholder='Type'  />
+			</div>
+			<div class="zip-code col-sm-2">
+				<label class="control-label geo-field zip-code">ZIP code</label>
+				<input type="text" ng-model="item.data.zip_code" class="form-control input-sm" placeholder='Type' />
+			</div>
+			<div class="country col-sm-2">
+				<label class="control-label">Country</label>
+				<div>
+					<opk-select select-options="{appendToBody: true}"
+					            class="small"
+					            ng-model="item.data.country"
+								options="item.name for item in geoVm.countries"
+								placeholder='Type or select'></opk-select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

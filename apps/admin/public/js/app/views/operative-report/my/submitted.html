@@ -1,0 +1,102 @@
+<div class="submitted-op-reports-list">
+	<div class="top-icons">
+			<a href="" class="icon" ng-click="listVm.printAll()" ng-disabled="!listVm.toSelected.length">
+				<i class="icon-print-grey" uib-tooltip="Print"></i>
+			</a>
+			<a href="" class="icon" ng-click="listVm.archiveAll()" ng-disabled="!listVm.toSelected.length">
+				<i class="icon-archive" uib-tooltip="Archive"></i>
+			</a>
+			<div class="loading-wheel" ng-if="listVm.isShowLoading">
+				<div class="loading-spinner"></div>
+			</div>
+		<div class="filter-block">
+			<filters-panel ctrl="listVm">
+				<div class="data-row">
+					<label>DOS</label>
+					<div>
+						<date-field ng-model="listVm.search_params.dos" without-calendar="true" placeholder="mm/dd/yyyy" small="true"></date-field>
+					</div>
+				</div>
+			</filters-panel>
+		</div>
+	</div>
+	<div show-loading-list="listVm.isShowLoading">
+		<table class="opake highlight-rows" ng-if="listVm.items.length">
+			<thead sorter="listVm.search_params" callback="listVm.search()">
+			<tr>
+				<th>
+					<div class="checkbox">
+						<input id="print_all" type="checkbox" class="styled" ng-checked="listVm.selectAll" ng-click="listVm.addToSelectedAll()">
+						<label for="print_all"></label>
+					</div>
+				</th>
+				<th sort="last_name" class="text-center">Last Name</th>
+				<th sort="first_name" class="text-center">First Name</th>
+				<th sort="mrn" class="text-center">MRN</th>
+				<th sort="dos" class="text-center">DOS</th>
+				<th sort="case_type" class="text-center">Procedure</th>
+				<th class="text-center">Date Created</th>
+				<th class="text-center">Date Submitted</th>
+				<th class="text-center">Status</th>
+				<th class="text-center">Comments</th>
+				<th ng-if="permissions.user.isDoctor()" class="text-center">Sign</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="item in listVm.items">
+				<td>
+					<div class="checkbox">
+						<input id="print_{{$index}}"
+							   type="checkbox"
+							   class="styled"
+							   ng-checked="listVm.isAddedToSelected(item)"
+							   ng-click="listVm.addToSelected(item)">
+						<label for="print_{{$index}}"></label>
+					</div>
+				</td>
+				<td class="text-center">{{ ::item.patient.last_name }}</td>
+				<td class="text-center">{{ ::item.patient.first_name }}</td>
+				<td class="text-center mrn">{{ ::item.patient.mrn }}</td>
+				<td class="text-center">{{ ::item.case.time_start | date:'M/d/yyyy' }}</td>
+				<td class="text-center"><a href="" ng-click="listVm.previewReport(item.id)">{{ ::item.case.type_full_name}}</a></td>
+				<td class="text-center">{{ ::item.time_start | date:'M/d/yyyy' }}</td>
+				<td class="text-center">{{ ::item.time_submitted | date:'M/d/yyyy' }}</td>
+				<td class="text-center">
+					<a ng-if="item.status == operativeReportConst.STATUSES.submitted" ng-show="permissions.user.is_internal || permissions.hasAccess('operative_reports', 'reopen', item)" href="" ng-click="listVm.reopen(item)">
+						Reopen
+					</a>
+					<a ng-if="listVm.canUserSign(item) && item.status == operativeReportConst.STATUSES.signed" ng-show="permissions.hasAccess('operative_reports', 'edit', item)" href="" ng-click="listVm.view(item)">
+						Amend
+					</a>
+					<div ng-if="!listVm.canUserSign(item) && item.status == operativeReportConst.STATUSES.signed">
+						<div>Signed</div>
+						<div>{{ ::item.time_signed | date:'M/d/yyyy' }}</div>
+					</div>
+				</td>
+				<td class="text-center case-notes" ng-controller="ReportNoteCrtl as noteVm">
+					<a class="add-note-link" href="" ng-click="noteVm.openNotesDialog(item.id)">
+						<i class="icon-note"></i>
+						<span class="badge" ng-if="noteVm.reportNotes.getNotesCount(item)"
+							  ng-class="{'blue': noteVm.reportNotes.hasUnreadNotes[item.id]}">
+							{{ noteVm.reportNotes.getNotesCount(item) }}
+						</span>
+					</a>
+				</td>
+				<td ng-if="listVm.canUserSign(item)" class="text-center">
+					<a ng-if="item.status == operativeReportConst.STATUSES.submitted" href="" ng-click="listVm.sign(item)" class="icon" uib-tooltip="Sign"><i class="icon-sign-report"></i></a>
+					<div ng-if="item.status == operativeReportConst.STATUSES.signed">
+						<div>Signed</div>
+						<div>{{ ::item.time_signed | date:'M/d/yyyy' }}</div>
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<pages count="listVm.total_count" page="listVm.search_params.p" limit="listVm.search_params.l" callback="listVm.search()"></pages>
+		<h4 ng-if="listVm.items && !listVm.items.length">No reports found</h4>
+	
+		<div class="waiting-layer ng-hide" ng-show="listVm.isDocumentsLoading">
+			<img class="spinner" src="/common/i/spinner.gif" alt="">
+		</div>
+	</div>
+</div>

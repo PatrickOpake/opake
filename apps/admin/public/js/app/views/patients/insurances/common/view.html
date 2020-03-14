@@ -1,0 +1,20 @@
+<div class="insurances-common-fields">
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Insurance Order</label>
+			<div class="form-control input-sm opk-select">{{patientConst.INSURANCE_PRIMARY[item.order]}}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<label class="control-label">Insurance Type*</label>
+			<div class="form-control input-sm opk-select">{{patientConst.INSURANCE_TYPES[item.type]}}</div>
+		</div>
+	</div>
+	<div class="col-sm-3" ng-if="item.type == patientConst.INSURANCE_TYPES_ID.COMMERCIAL">
+		<div class="checkbox self-funded-checkbox">
+			<input type="checkbox" ng-model="item.data.is_self_funded" ng-disabled="true" />
+			<label ng-click="item.data.is_self_funded = !item.data.is_self_funded">Self Funded</label>
+		</div>
+	</div>
+</div>

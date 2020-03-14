@@ -1,0 +1,15 @@
+<div class="schedule-legend">
+	<div class="schedule-legend-header" ng-click="legendVm.open = !legendVm.open">
+		<span class="icon">
+			<i ng-if="legendVm.open" class="icon-caret-down"></i>
+			<i ng-if="!legendVm.open" class="icon-caret-right"></i>
+		</span>
+		Scheduled Surgeons
+	</div>
+	<div uib-collapse="!legendVm.open" class="schedule-legend-surgeons">
+		<div class="surgeon" ng-repeat="surgeon in legendVm.scheduledSurgeons" ng-click="legendVm.hideSurgeonEvents(surgeon)">
+			<div class="color-value" ng-class="legendVm.getColorClassName(surgeon)"></div>
+			<span class="name">{{ surgeon.name }}</span>
+		</div>
+	</div>
+</div>

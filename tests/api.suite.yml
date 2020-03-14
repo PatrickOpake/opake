@@ -1,0 +1,11 @@
+class_name: ApiTester
+modules:
+    enabled:
+        - REST:
+            url: http://api.opake.local
+            depends: PhpBrowser
+            part: Json
+        - Helper\Api
+        - Db:
+            cleanup: false
+            populate: true

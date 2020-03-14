@@ -1,0 +1,29 @@
+.site-breadcrumbs,
+.site-breadcrumbs .breadcrumb {
+	border-radius: 0px;
+	background: @green;
+}
+
+.site-breadcrumbs .breadcrumb {
+	margin-bottom: 0px;
+}
+
+.site-breadcrumbs *,
+.site-breadcrumbs .breadcrumb > li + li:before,
+.site-breadcrumbs .breadcrumb li.active a,
+.site-breadcrumbs .breadcrumb a {
+	color: #fff;
+}
+
+.site-breadcrumbs .breadcrumb a {
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.site-breadcrumbs .breadcrumb li.active a {
+	font-weight: normal;
+}
+
+.site-breadcrumbs .breadcrumb > li + li:before {
+	content: '>>';
+}

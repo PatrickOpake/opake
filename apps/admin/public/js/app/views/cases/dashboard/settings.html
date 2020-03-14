@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col-sm-3">
+		<h3 class="title">Display Settings</h3>
+		<div class="checkbox display-timestamp">
+			<input id="display_timestamp" type="checkbox" class="styled" ng-model="listVm.displayTimestamp">
+			<label for="display_timestamp">Display timestamp on printout</label>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="display-settings">
+			<div class="btn-group display-settings-type">
+				<label class="btn" ng-model="listVm.displaySettingsType" uib-btn-radio="'surgeon'">Staff</label>
+				<label class="btn" ng-model="listVm.displaySettingsType" uib-btn-radio="'room'">Rooms</label>
+			</div>
+			<div class="row">
+				<div class="col-sm-6"></div>
+				<div class="col-sm-6 position-column-label">Position</div>
+			</div>
+	
+			<div ng-if="listVm.displaySettingsType === 'surgeon'" class="display-settings--rows">
+				<div class="data-row" ng-repeat="surgeon in listVm.settingsSurgeons">
+					<label>{{::surgeon.full_name}}</label>
+					<opk-select ng-model="surgeon.overview_display_position"
+								placeholder="Select" options="item for item in listVm.surgeonDisplayPositions"></opk-select>
+				</div>
+			</div>
+	
+			<div ng-if="listVm.displaySettingsType === 'room'" class="display-settings--rows">
+				<div class="data-row" ng-repeat="room in listVm.settingsRooms">
+					<label>{{::room.name}}</label>
+					<opk-select ng-model="room.overview_display_position"
+								placeholder="Select" options="item for item in listVm.roomDisplayPositions"></opk-select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="main-control pull-right">
+			<button ng-click="listVm.saveSettings()" class="btn btn-success">Save</button>
+		</div>
+	</div>
+</div>

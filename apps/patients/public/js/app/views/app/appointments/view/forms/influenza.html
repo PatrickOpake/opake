@@ -1,0 +1,83 @@
+<div class="intake-patient-form influenza-form">
+
+	<h4 class="form-main-title">Influenza Triage Questionnaire</h4>
+
+	<errors src="influenzaVm.errors"></errors>
+
+	<div class="field travel-outside">
+		<label>1. Have you had recent travel outside the country; visits from anyone residing outside the country?</label>
+		<div class="inputs">
+			<div class="radio">
+				<input id="travel-outside-no" type="radio" name="travel-outside-yes-no" ng-model="influenzaVm.form.travel_outside" ng-value="false">
+				<label for="travel-outside-no">No</label>
+			</div>
+			<div class="radio">
+				<input id="travel-outside-yes" type="radio" name="travel-outside-yes-no" ng-model="influenzaVm.form.travel_outside" ng-value="true">
+				<label for="travel-outside-yes">Yes</label>
+			</div>
+			<span class="date-on-onset">Date of onset: <date-field ng-model="influenzaVm.form.travel_outside_date" icon="true" placeholder="mm/dd/yyyy"></date-field></span>
+		</div>
+	</div>
+
+	<div class="field flu-vaccine">
+		<label>2. Have you received any flu vaccines this season?</label>
+		<div class="inputs">
+			<div class="radio">
+				<input id="flu-vaccine-no" type="radio" name="flu-vaccine-yes-no" ng-model="influenzaVm.form.flu_vaccine" ng-value="false">
+				<label for="flu-vaccine-no">No</label>
+			</div>
+			<div class="radio">
+				<input id="flu-vaccine-yes" type="radio" name="flu-vaccine-yes-no" ng-model="influenzaVm.form.flu_vaccine" ng-value="true">
+				<label for="flu-vaccine-yes">Yes</label>
+			</div>
+			<span class="month">Month: <opk-select options="month.id as month.label for month in influenzaVm.months" ng-model="influenzaVm.form.flu_vaccine_month" placeholder="Select"></opk-select></span>
+		</div>
+	</div>
+
+	<div class="field illnesses">
+		<label>3. Have you had 1 or more of the following:</label>
+		<div class="inputs">
+			<div class="illness-row" ng-repeat="row in influenzaVm.illnesses">
+				<div class="illness" ng-repeat="illness in row">
+					<label>{{illness.label}}</label>
+					<div>
+						<div class="radio">
+							<input id="illness-{{illness.name}}-no" type="radio" name="illness-{{illness.name}}-yes-no" ng-model="influenzaVm.form.illnesses[illness.name].has" ng-value="false">
+							<label for="illness-{{illness.name}}-no">No</label>
+						</div>
+						<div class="radio">
+							<input id="illness-{{illness.name}}-yes" type="radio" name="illness-{{illness.name}}-yes-no" ng-model="influenzaVm.form.illnesses[illness.name].has" ng-value="true">
+							<label for="illness-{{illness.name}}-yes">Yes</label>
+						</div>
+						<span class="date-on-onset">Date of onset: <date-field ng-model="influenzaVm.form.illnesses[illness.name].date" icon="true" placeholder="mm/dd/yyyy"></date-field></span>
+					</div>
+					<div ng-if="illness.name == 'cough'">
+						<span class="productive">
+							Productive?
+							<div class="radio">
+								<input id="illness-cough-productive-no" type="radio" name="illness-cough-productive-yes" ng-model="influenzaVm.form.illnesses.cough.productive" ng-value="false">
+								<label for="illness-cough-productive-no">No</label>
+							</div>
+							<div class="radio">
+								<input id="illness-cough-productive-yes" type="radio" name="illness-cough-productive-yes" ng-model="influenzaVm.form.illnesses.cough.productive" ng-value="true">
+								<label for="illness-cough-productive-yes">Yes</label>
+							</div>
+						</span>
+						<span class="color">
+							Color:
+							<input type="text" class="form-control input-sm" ng-model="influenzaVm.form.illnesses.cough.color" maxlength="{{influenzaVm.characterLimit}}"/>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="controls-block">
+		<div class="right-control text-right">
+			<button class="btn btn-success" ng-click="influenzaVm.save()">Done</button>
+			<button class="btn btn-grey" ng-click="influenzaVm.cancel()">Cancel</button>
+		</div>
+	</div>
+
+</div>

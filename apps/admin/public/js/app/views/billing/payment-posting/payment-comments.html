@@ -1,0 +1,27 @@
+<div class="notes-modal">
+	<div class="modal-header">
+		<div class="user-info">
+			<img ng-if="::loggedUser.image" class="user-photo" ng-src="{{ ::loggedUser.image }}" alt=""/>
+			<span ng-if="::(!loggedUser.image)" class="default-user-photo"></span>
+			<span class="user-name">{{ ::loggedUser.fullname }}</span>
+		</div>
+		<a href="" ng-click="cancel()"><i class="glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="modal-body" ng-form name="NoteForm">
+		<div class="notes-container case-note-container" scroll-down>
+			<div ng-repeat="note in noteVm.payment.notes" class="note-container" ctrl="noteVm" note="note">
+				<div>
+					<span class="note-metadata">{{ ::(note.user.first_name + ' ' + note.user.last_name) }}</span>
+					<span class="note-addition-time">{{ noteVm.getDate(note) }}</span>
+				</div>
+				<div>{{ note.text }}</div>
+			</div>
+		</div>
+		<div class="notes--add-row" ng-hide="noteVm.readOnly">
+			<div class="data-row">
+				<input ng-keydown="noteVm.noteInputKeyDown($event)" ng-required="true" type="text" class="form-control" ng-model="noteVm.noteTempText" placeholder="Type here to enter a comment for the case" />
+				<div><button class="btn btn-success" ng-click="noteVm.addNote()" ng-disabled="NoteForm.$invalid">Add</button></div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,65 @@
+<div class="profile-page patient-user-view">
+	<div class="block-panel">
+		<div class="controls">
+			<div class="buttons data-row">
+				<div class="left-control">
+					<a class="btn btn-default" href="/patient-users/internal"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+				</div>
+				<div class="right-control text-right">
+					<button class="btn btn-success" ng-click="userVm.edit()">Edit</button>
+				</div>
+			</div>
+			<div class="additional-info text-right">
+				<span>Date Created: {{userVm.user.created |  date:'M/d/yyyy'}}</span>
+			</div>
+		</div>
+
+		<div class="details-panel">
+			<div class="data-row">
+				<label>First Name:</label>
+				<div>{{userVm.user.patient.first_name}}</div>
+			</div>
+			<div class="data-row">
+				<label>Last Name:</label>
+				<div>{{userVm.user.patient.last_name}}</div>
+			</div>
+
+			<div class="data-row">
+				<label>Email:</label>
+				<div><a href="mailto:{{userVm.user.patient.home_email}}">{{userVm.user.patient.home_email}}</a></div>
+			</div>
+			<div class="data-row">
+				<label>DOB:</label>
+				<div>{{ userVm.user.patient.dob | date:'M/d/yyyy'}}</div>
+			</div>
+			<div class="data-row">
+				<label>Phone:</label>
+				<div>{{userVm.user.patient.home_phone | phone}}</div>
+			</div>
+			<div class="data-row">
+				<label>Address:</label>
+				<div>{{userVm.user.patient.home_address}}</div>
+			</div>
+			<div class="data-row">
+				<label>Apartment #:</label>
+				<div>{{userVm.user.patient.home_apt_number}}</div>
+			</div>
+			<div class="data-row">
+				<label>Country:</label>
+				<div>{{userVm.user.patient.home_country_name}}</div>
+			</div>
+			<div class="data-row">
+				<label>City:</label>
+				<div>{{userVm.user.patient.home_city_name}}</div>
+			</div>
+			<div class="data-row">
+				<label>State:</label>
+				<div>{{userVm.user.patient.home_state_name}}</div>
+			</div>
+			<div class="data-row">
+				<label>Zip Code:</label>
+				<div>{{userVm.user.patient.home_zip_code}}</div>
+			</div>
+		</div>
+	</div>
+</div>

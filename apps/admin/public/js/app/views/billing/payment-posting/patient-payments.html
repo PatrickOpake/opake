@@ -1,0 +1,115 @@
+<div class="content-block payment-enter-step patient-posting">
+	<div class="list-control">
+		<span class="title">Payment Posting</span>
+		<div class="loading-wheel" ng-if="listVm.isShowLoading">
+			<div class="loading-spinner"></div>
+
+		</div>
+		<a class="btn btn-success" ng-click="listVm.addNewPayment()" ng-hide="true">Add Payment</a>
+	</div>
+	<table class="opake">
+		<thead>
+		<tr>
+			<th>Date Paid</th>
+			<th class="amount-paid-column">Amount Paid</th>
+			<th class="payment-type">Payment Type</th>
+			<th>Description</th>
+			<th class="co-pay">Co Pay</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat-start="item in listVm.enteredPayments">
+			<td>
+				<date-field ng-model="item.date_paid" placeholder="mm/dd/yyyy" small="true" icon="true"></date-field>
+			</td>
+			<td>
+				<input type="text" ng-model="item.amount_paid" valid-number type-number="float" digits-max-length="10" class='form-control input-sm amount' />
+			</td>
+			<td class="payment-type">
+				<opk-select select-options="{appendToBody: true}"
+				            ng-model="item.payment_type" change="listVm.paymentTypeChanged(item)" options="opt.id as opt.title for opt in BillingConst.PAYMENT_POSTING_PAYMENT_TYPE_OPTIONS" placeholder="Type"></opk-select>
+						<span class="card-info" ng-if="item.authorization_number">
+							Authorization Number: {{item.authorization_number}}
+						</span>
+						<span class="card-info" ng-if="item.check_number">
+							Check Number: {{item.check_number}}
+						</span>
+						<span class="card-info" ng-if="item.adjustment_reason">
+							Adjustment Reason: <span ng-if="item.adjustment_reason != 6">{{BillingConst.PAYMENT_POSTING_ADJUSTMENT_REASONS[item.adjustment_reason]}}</span><span ng-if="item.adjustment_reason == 6">{{item.adjustment_custom_reason}}</span>
+						</span>
+			</td>
+			<td>
+				<input type="text" ng-model="item.description" class='form-control input-sm' />
+			</td>
+			<td class="co-pay">
+						<span class="checkbox">
+							<input type="checkbox" ng-model="item.is_co_pay" />
+							<label></label>
+						</span>
+			</td>
+			<td>
+				<a href="" ng-click="listVm.removeEnteredPayment($index)"><span class="icon-remove"></span></a>
+			</td>
+		</tr>
+		<tr ng-repeat-end>
+			<td colspan="6">
+				<div class="procedures-table-container">
+					<ng-include src="view.get('billing/payment-posting/procedures-list.html')"></ng-include>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<script type="text/ng-template" id="billing/payment-posting/patient/check-number.html">
+	<div class="payment-posting-modal">
+		<div class="modal-body">
+			<div class="field-row">
+				<label>Check Number:</label>
+				<input type="text" ng-model="modalVm.number" class='form-control input-sm' />
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="modalVm.ok()">Save</button>
+			<button class="btn btn-grey" ng-click="modalVm.cancel()" type="button">Cancel</button>
+		</div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="billing/payment-posting/patient/authorization-number.html">
+	<div class="payment-posting-modal">
+		<div class="modal-body">
+			<div class="field-row">
+				<label>Authorization Number:</label>
+				<input type="text" ng-model="modalVm.number" class='form-control input-sm' />
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="modalVm.ok()">Save</button>
+			<button class="btn btn-grey" ng-click="modalVm.cancel()" type="button">Cancel</button>
+		</div>
+	</div>
+</script>
+
+
+<script type="text/ng-template" id="billing/payment-posting/patient/adjustment.html">
+	<div class="payment-posting-modal">
+		<div class="modal-body">
+			<div class="field-row">
+				<label>Reason Code:</label>
+				<opk-select ng-model="modalVm.adjustment_reason"
+				            options="item.id as item.title for item in BillingConst.PAYMENT_POSTING_ADJUSTMENT_REASONS_OPTIONS"></opk-select>
+			</div>
+			<div class="field-row" ng-show="modalVm.adjustment_reason == 6">
+				<label>Custom Reason Code:</label>
+				<input type="text" ng-model="modalVm.adjustment_custom_reason" class='form-control input-sm' />
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-success" ng-click="modalVm.ok()">Save</button>
+			<button class="btn btn-grey" ng-click="modalVm.cancel()" type="button">Cancel</button>
+		</div>
+	</div>
+</script>

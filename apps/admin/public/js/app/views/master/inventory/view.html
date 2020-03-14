@@ -1,0 +1,45 @@
+<tr ng-repeat="item in listVm.items">
+	<td>{{ item.item_number}}</td>
+	<td>{{ item.name}}</td>
+	<td>{{ item.desc}}</td>
+	<td>
+		<div class="opk-codes--select">
+			<a href="" ng-repeat="inventory in item.substitutes" uib-tooltip="{{ inventory.name}}" tooltip-placement="bottom">
+				{{ inventory.id }}{{ !$last ? ', ' : '' }}
+			</a>
+		</div>
+	</td>
+	<td>{{ item.hcpcs}}</td>
+	<td>{{ item.qty_per_uom}}</td>
+	<td>{{ item.uom.name}}</td>
+	<td>{{ item.unit_price | usd}}</td>
+	<td>{{ item.cost_multiplier}}</td>
+	<td>{{ item.charge_amount | usd}}</td>
+	<td>{{ item.status}}</td>
+	<td>{{ item.ndc}}</td>
+	<td>{{ item.manf.name}}</td>
+	<td>{{ item.manufacturer_catalog}}</td>
+	<td>{{ item.distributor_name}}</td>
+	<td>{{ item.distributor_catalog}}</td>
+	<td>{{ item.gln}}</td>
+	<td>{{ item.gtin}}</td>
+	<td>{{ item.barcode}}</td>
+	<td>{{ item.barcode_type}}</td>
+	<td><a href="{{ item.image_path}}">{{ item.image_path}}</a></td>
+	<td>{{ item.shipping_type}}</td>
+	<td>{{ item.unit_weight}}</td>
+	<td>{{ item.min_level}}</td>
+	<td>{{ item.max_level}}</td>
+	<td>{{ item.total_units}}</td>
+	<td>{{ item.type}}</td>
+	<td class="text-center"><input disabled type="checkbox" ng-model="item.is_remanufacturable" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input disabled type="checkbox" ng-model="item.is_resterilizable" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input disabled type="checkbox" ng-model="item.is_reusable" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input disabled type="checkbox" ng-model="item.is_generic" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input disabled type="checkbox" ng-model="item.is_implantable" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input disabled type="checkbox" ng-model="item.is_latex" ng-true-value="1" ng-false-value="0" /></td>
+	<td class="text-center"><input disabled type="checkbox" ng-model="item.is_hazardous" ng-true-value="1" ng-false-value="0" /></td>
+	<td>{{ item.hims_indicator}}</td>
+	<td>{{ item.unspsc}}</td>
+	<td>{{ item.id}}</td>
+</tr>

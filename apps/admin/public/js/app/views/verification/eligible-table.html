@@ -1,0 +1,738 @@
+<div class="eligibility-table--container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Subsсriber</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th>Name:</th>
+								<td>{{coverageVm.patient.first_name}} {{coverageVm.patient.last_name}}</td>
+							</tr>
+							<tr>
+								<th>Member ID:</th>
+								<td>
+									{{coverageVm.patient.memberId}}
+								</td>
+							</tr>
+							<tr>
+								<th>Plan Number:</th>
+								<td>
+									{{coverageVm.patient.planNumber}}
+								</td>
+							</tr>
+							<tr>
+								<th>Group Number:</th>
+								<td>
+									{{coverageVm.patient.groupNumber}}
+								</td>
+							</tr>
+							<tr>
+								<th>Plan Network ID:</th>
+								<td>
+									{{coverageVm.patient.planNetworkId}}
+								</td>
+							</tr>
+							<tr>
+								<th>DOB:</th>
+								<td>{{coverageVm.patient.dob}}</td>
+							</tr>
+							<tr>
+								<th>Gender:</th>
+								<td>{{coverageVm.patient.gender}}</td>
+							</tr>
+							<tr>
+								<th>Plan Begin Date:</th>
+								<td>
+									<span ng-if="coverageVm.patient.planBegin">
+										{{coverageVm.patient.planBegin}}
+									</span>
+									<span ng-if="coverageVm.dependent.planBegin">
+										{{coverageVm.dependent.planBegin}}
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>Plan End Date:</th>
+								<td>
+									<span ng-if="coverageVm.patient.planEnd">
+										{{coverageVm.patient.planEnd}}
+									</span>
+									<span ng-if="coverageVm.dependent.planEnd">
+										{{coverageVm.dependent.planEnd}}
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>Service Date:</th>
+								<td>
+									<span ng-if="coverageVm.patient.serviceDate">
+										{{coverageVm.patient.serviceDate}}
+									</span>
+									<span ng-if="coverageVm.dependent.serviceDate">
+										{{coverageVm.dependent.serviceDate}}
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>Eligibility Begin Date:</th>
+								<td>
+									<span ng-if="coverageVm.patient.eligibilityEnd">
+										{{coverageVm.patient.eligibilityEnd}}
+									</span>
+									<span ng-if="coverageVm.dependent.eligibilityEnd">
+										{{coverageVm.dependent.eligibilityEnd}}
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>Trace Number:</th>
+								<td>
+									{{coverageVm.patient.traceNumber}}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div ng-if="coverage.dependent" class="panel panel-default">
+				<div class="panel-heading"><h4>Dependent</h4></div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+						<tr>
+							<th>Name/Address</th>
+							<th>Date of Birth</th>
+							<th>Gender</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>{{coverageVm.dependent.first_name}} {{coverageVm.dependent.last_name}}
+								<div>{{coverageVm.dependent.address}}</div>
+							</td>
+							<td>{{coverageVm.dependent.dob}}</td>
+							<td>{{coverageVm.dependent.gender}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Response Information</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<th>Batch ID:</th>
+								<td></td>
+							</tr>
+							<tr>
+								<th>Response ID:</th>
+								<td>{{coverage.beginTransaction[0].referenceIdentification}}</td>
+							</tr>
+							<tr>
+								<th>Member Name:</th>
+								<td>
+									<span ng-if="coverageVm.dependent">{{coverageVm.dependent.first_name}} {{coverageVm.dependent.last_name}}</span>
+									<span ng-if="coverageVm.patient && !coverageVm.dependent.first_name">{{coverageVm.patient.first_name}} {{coverageVm.patient.last_name}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th>Status:</th>
+								<td>ELIGIBLE</td>
+							</tr>
+							<tr>
+								<th>DOS:</th>
+								<td>{{ latestUpdate | date:'M/d/yyyy' }}</td>
+							</tr>
+							<tr>
+								<th>Payer Name:</th>
+								<td>{{coverageVm.insurance.name}}</td>
+							</tr>
+							<tr>
+								<th>Group Name:</th>
+								<td>{{coverageVm.insurance.name}}</td>
+							</tr>
+							<tr>
+								<th>Provider Name:</th>
+								<td>{{coverageVm.provider.name}}</td>
+							</tr>
+							<tr>
+								<th>Additional Info:</th>
+								<td>
+									<span ng-repeat="ref in coverageVm.provider.additional_info">
+										{{coverageVm.eligibleConst.RECEIVER_ADDITIONAL_IDENTIFICATION[ref.ref_id_qualifier]}} : {{ref.ref_id}} {{$last ? '' : ','}}
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>Inquiry Date:</th>
+								<td>
+									{{ latestUpdate | date:'M/d/yyyy h:mm a' }}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Eligibility Status</h4></div>
+				<div class="panel-body">
+					<table class="table table-hover table-eligibility">
+						<thead>
+						<tr>
+							<th>Patient</th>
+							<th>Status</th>
+							<th>Coverage</th>
+							<th>Insurance Type</th>
+							<th>Service</th>
+							<th>Plan</th>
+							<th>Network</th>
+						</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in coverageVm.eligibilities">
+								<td>{{item.patientType}}</td>
+								<td>{{coverageVm.eligibleConst.ELIGIBILITY_INFO_CODE[item.eligibility.eligibilityOrBenefitInformationCode]}}</td>
+								<td>{{coverageVm.eligibleConst.COVERAGE_LEVEL_CODE[item.eligibility.coverageLevelCode]}}</td>
+								<td>{{coverageVm.eligibleConst.INSURANCE_TYPE_CODE[item.eligibility.insuranceTypeCode]}}</td>
+								<td>{{coverageVm.eligibleConst.SERVICE_TYPE_CODE[item.eligibility.serviceTypeCode]}}</td>
+								<td>{{item.eligibility.planCoverageDescription}}</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row header"><h4>Family Benefits</h4></div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Active Coverage</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Status:</th>
+							<td>{{coverageVm.eligibleConst.ELIGIBILITY_INFO_CODE[coverageVm.ActiveCoverageFam[0].eligibility.eligibilityOrBenefitInformationCode]}}</td>
+						</tr>
+						<tr>
+							<th>Insurance Type:</th>
+							<td>{{coverageVm.eligibleConst.INSURANCE_TYPE_CODE[coverageVm.ActiveCoverageFam[0].eligibility.insuranceTypeCode]}}</td>
+						</tr>
+						<tr>
+							<th>Description:</th>
+							<td>{{coverageVm.ActiveCoverageFam[0].eligibility.planCoverageDescription}}</td>
+						</tr>
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.ActiveCoverageFam[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Limitations</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.LimitationsFam[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Primary Care Provider</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Insurance Type:</th>
+							<td>
+								{{coverageVm.eligibleConst.INSURANCE_TYPE_CODE[coverageVm.PrimaryCareProviderFam[0].eligibility.insuranceTypeCode]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.PrimaryCareProviderFam[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+</div>
+
+	<div class="row header"><h4>Individual Benefits</h4></div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Limitations</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.LimitationsInd[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.LimitationsInd[0].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row header"><h4>In-Network - Individual</h4></div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Deductible</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.InNetworkIndDeductible[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period</th>
+							<td>{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.InNetworkIndDeductible[0].eligibility.timePeriodQualifier]}}</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>{{coverageVm.InNetworkIndDeductible[0].eligibility.monetaryAmount}}</td>
+						</tr>
+						<tr>
+							<th>Benefit Date:</th>
+							<td>{{coverageVm.InNetworkIndDeductible[0].benefitDate}}</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.InNetworkIndDeductible[1].eligibility.timePeriodQualifier]}}</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>{{coverageVm.InNetworkIndDeductible[1].eligibility.monetaryAmount}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Out of Pocket (Stop Loss)</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.InNetworkIndOutOfPocket[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.InNetworkIndOutOfPocket[0].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>
+								{{coverageVm.InNetworkIndOutOfPocket[0].eligibility.monetaryAmount}}
+							</td>
+						</tr>
+						<tr>
+							<th>Benefit Date:</th>
+							<td>{{coverageVm.InNetworkIndOutOfPocket[0].benefitDate}}</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.InNetworkIndOutOfPocket[1].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>
+								{{coverageVm.InNetworkIndOutOfPocket[1].eligibility.monetaryAmount}}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Limitations</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.InNetworkIndLimitations[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row header"><h4>In-Network - Family</h4></div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Deductible</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.InNetworkFamDeductible[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period</th>
+							<td>{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.InNetworkFamDeductible[0].eligibility.timePeriodQualifier]}}</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>{{coverageVm.InNetworkFamDeductible[0].eligibility.monetaryAmount}}</td>
+						</tr>
+						<tr>
+							<th>Benefit Date:</th>
+							<td>{{coverageVm.InNetworkFamDeductible[0].benefitDate}}</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.InNetworkFamDeductible[1].eligibility.timePeriodQualifier]}}</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>{{coverageVm.InNetworkFamDeductible[1].eligibility.monetaryAmount}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Out of Pocket (Stop Loss)</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.InNetworkFamOutOfPocket[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.InNetworkFamOutOfPocket[0].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>
+								{{coverageVm.InNetworkFamOutOfPocket[0].eligibility.monetaryAmount}}
+							</td>
+						</tr>
+						<tr>
+							<th>Benefit Date:</th>
+							<td>{{coverageVm.InNetworkFamOutOfPocket[0].benefitDate}}</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.InNetworkFamOutOfPocket[1].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>
+								{{coverageVm.InNetworkFamOutOfPocket[1].eligibility.monetaryAmount}}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Limitations</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.InNetworkFamLimitations[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row header"><h4>Out-Of-Network - Individual</h4></div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Deductible</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.OutNetworkIndDeductible[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period</th>
+							<td>{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.OutNetworkIndDeductible[0].eligibility.timePeriodQualifier]}}</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>{{coverageVm.OutNetworkIndDeductible[0].eligibility.monetaryAmount}}</td>
+						</tr>
+						<tr>
+							<th>Benefit Date:</th>
+							<td>{{coverageVm.OutNetworkIndDeductible[0].benefitDate}}</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.OutNetworkIndDeductible[1].eligibility.timePeriodQualifier]}}</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>{{coverageVm.OutNetworkIndDeductible[1].eligibility.monetaryAmount}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Out of Pocket (Stop Loss)</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.OutNetworkIndOutOfPocket[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.OutNetworkIndOutOfPocket[0].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>
+								{{coverageVm.OutNetworkIndOutOfPocket[0].eligibility.monetaryAmount}}
+							</td>
+						</tr>
+						<tr>
+							<th>Benefit Date:</th>
+							<td>{{coverageVm.OutNetworkIndOutOfPocket[0].benefitDate}}</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.OutNetworkIndOutOfPocket[1].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>
+								{{coverageVm.OutNetworkIndOutOfPocket[1].eligibility.monetaryAmount}}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Limitations</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.OutNetworkIndLimitations[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row header"><h4>Out-Of-Network - Family</h4></div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Deductible</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.OutNetworkFamDeductible[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period</th>
+							<td>{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.OutNetworkFamDeductible[0].eligibility.timePeriodQualifier]}}</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>{{coverageVm.OutNetworkFamDeductible[0].eligibility.monetaryAmount}}</td>
+						</tr>
+						<tr>
+							<th>Benefit Date:</th>
+							<td>{{coverageVm.OutNetworkFamDeductible[0].benefitDate}}</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.OutNetworkFamDeductible[1].eligibility.timePeriodQualifier]}}</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>{{coverageVm.OutNetworkFamDeductible[1].eligibility.monetaryAmount}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Out of Pocket (Stop Loss)</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.OutNetworkFamOutOfPocket[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th>Period</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.OutNetworkFamOutOfPocket[0].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>
+								{{coverageVm.OutNetworkFamOutOfPocket[0].eligibility.monetaryAmount}}
+							</td>
+						</tr>
+						<tr>
+							<th>Benefit Date:</th>
+							<td>{{coverageVm.OutNetworkFamOutOfPocket[0].benefitDate}}</td>
+						</tr>
+						<tr>
+							<th>Period:</th>
+							<td>
+								{{coverageVm.eligibleConst.TIME_PERIOD_QUALIFIER[coverageVm.OutNetworkFamOutOfPocket[1].eligibility.timePeriodQualifier]}}
+							</td>
+						</tr>
+						<tr>
+							<th>Amount:</th>
+							<td>
+								{{coverageVm.OutNetworkFamOutOfPocket[1].eligibility.monetaryAmount}}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4>Limitations</h4></div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>Message(s):</th>
+							<td>
+								<span ng-repeat="msg in coverageVm.OutNetworkFamLimitations[0].messageTexts">
+								{{msg.freeFormMessageText}} {{$last ? '' : ','}}
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

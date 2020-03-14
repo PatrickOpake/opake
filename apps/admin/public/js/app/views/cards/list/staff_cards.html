@@ -1,0 +1,47 @@
+<div ng-controller="CardStaffCardsListCrtl as staffCardsVm" ng-init="staffCardsVm.init()" show-loading="staffCardsVm.isPrinting">
+	<div class="row">
+		<div class="col-sm-1">
+			<a href="" class="btn btn-icon icon" uib-tooltip="Print" ng-click="staffCardsVm.print()">
+				<i class="icon-print-grey"></i>
+			</a>
+		</div>
+		<div class="col-sm-5">
+			<span class="headline">{{ staffCardsVm.full_name }}</span>
+		</div>
+		<div class="col-sm-6 list-control">
+			<a class='btn btn-success' ng-show="permissions.hasAccess('card', 'create')" ng-click="staffCardsVm.createCard()" href=''>Create Card</a>
+		</div>
+	</div>
+	<table class="opake highlight-rows staff-pref-cards" ng-if="staffCardsVm.items.length">
+		<thead sorter="staffCardsVm.search_params" callback="staffCardsVm.search()">
+			<tr>
+				<th>
+					<div class="checkbox">
+						<input id="print_all" type="checkbox" class="styled" ng-checked="staffCardsVm.selectAll" ng-click="staffCardsVm.addToSelectedAll()">
+						<label for="print_all"></label>
+					</div>
+				</th>
+				<th sort="name">Template Name</th>
+				<th sort="last_edit_date">Last Edited</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in staffCardsVm.items">
+				<td class="check">
+					<div class="checkbox">
+						<input id="card_{{$index}}"
+							   type="checkbox"
+							   class="styled"
+							   ng-checked="staffCardsVm.isAddedToSelected(item);"
+							   ng-click="staffCardsVm.addToSelected(item); $event.stopPropagation();">
+						<label for="card_{{$index}}"></label>
+					</div>
+				</td>
+				<td class="name" ng-click="staffCardsVm.openCard(item)">{{ ::item.name }}</td>
+				<td class="last-edit" ng-click="staffCardsVm.openCard(item)">{{ ::item.last_edit_date }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<pages count="staffCardsVm.total_count" page="staffCardsVm.search_params.p" limit="staffCardsVm.search_params.l" callback="staffCardsVm.search()"></pages>
+	<h4 ng-if="staffCardsVm.cards && !staffCardsVm.cards.length">No cards found</h4>
+</div>

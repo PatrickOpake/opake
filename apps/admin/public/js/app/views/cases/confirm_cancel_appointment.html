@@ -1,0 +1,63 @@
+<div class="cancel-appointment-modal">
+	<div class="modal-header">
+		<div class="header"><h4 class="modal-title">Cancel Appointment</h4></div>
+		<a href="" ng-click="cancel()"><i class="glyphicon glyphicon-remove"></i></a>
+	</div>
+	<div class="modal-body">
+		<div class="case-info">
+			<div class="row">
+				<div class="col-sm-7">
+					<span class="bold-text">{{ cancellationVm.caseCancellation.patient_full_name }}</span>
+				</div>
+				<div class="col-sm-5 text-right">
+					MRN: {{ cancellationVm.caseCancellation.patient_full_mrn }}
+				</div>
+			</div>
+			<div>
+				{{cancellationVm.caseCancellation.case_time_start| date:'h:mma'}} - {{cancellationVm.caseCancellation.case_time_end| date:'h:mma'}}
+				({{cancellationVm.caseCancellation.case_time_start| timeLength : cancellationVm.caseCancellation.case_time_end}}) 
+				| Dr. {{cancellationVm.caseCancellation.case_surgeon}}
+			</div>
+		</div>
+		<div class="cancel-status">
+			<label>Select Status:</label>
+			<opk-select ng-model="cancellationVm.caseCancellation.cancel_status" key-value-options="caseRegistrationConst.CANCEL_STATUSES" placeholder="Select"></opk-select>
+		</div>
+		<div class="cancel-reason" ng-if="cancellationVm.caseCancellation.cancel_status != 4">
+			<label>Reason:</label>
+			<textarea class="form-control" ng-model="cancellationVm.caseCancellation.cancel_reason" placeholder="Type"></textarea>
+		</div>
+		<div class="cancel-attempts" ng-if="cancellationVm.caseCancellation.cancel_status == 4">
+			<div class="data-row patient-phone">
+				<label>Phone:</label>
+				<div>{{ cancellationVm.case.patient.home_phone | phone }}</div>
+			</div>
+			<div class="attempts-table">
+				<table>
+					<thead>
+					<tr>
+						<th></th>
+						<th>Date Called</th>
+						<th>Initials of Caller</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="attempt in cancellationVm.caseCancellation.cancel_attempts">
+						<td>Attempt {{ $index+1 }}</td>
+						<td><date-field ng-model="attempt.date_called" small="true"></date-field></td>
+						<td><input type="text" ng-model="attempt.initials" class='form-control input-sm' placeholder='Type'/></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="data-row checkbox">
+			<input id="is_remained_in_billing" type="checkbox" class="styled" ng-model="cancellationVm.caseCancellation.is_remained_in_billing">
+			<label for="is_remained_in_billing">Keep the case in billing queue</label>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-success pull-right" ng-if="!cancellationVm.updateCancellation" ng-click="cancellationVm.cancel()">Confirm</button>
+		<button class="btn btn-success pull-right" ng-if="cancellationVm.updateCancellation" ng-click="cancellationVm.save()">Confirm</button>
+	</div>
+</div>

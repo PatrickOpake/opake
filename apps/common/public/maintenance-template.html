@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="opake">
+<head>
+	<title>Opake</title>
+	<link rel="shortcut icon" href="/common/i/favicon.ico">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300&amp;subset=latin,cyrillic' rel='stylesheet'>
+	<style>
+		@font-face {
+			font-family: 'Avenir Next';
+			src: url('/common/fonts/AvenirNext/AvenirNext-Regular.eot');
+			src: url('/common/fonts/AvenirNext/AvenirNext-Regular.eot?#iefix') format('embedded-opentype'),
+			url('/common/fonts/AvenirNext/AvenirNext-Regular.woff') format('woff'),
+			url('/common/fonts/AvenirNext/AvenirNext-Regular.ttf') format('truetype');
+			font-weight: 400;
+			font-style: normal;
+		}
+		@font-face {
+			font-family: 'Avenir Next';
+			src: url('/common/fonts/AvenirNext/AvenirNext-Bold.eot');
+			src: url('/common/fonts/AvenirNext/AvenirNext-Bold.eot#iefix') format('embedded-opentype'),
+			url('/common/fonts/AvenirNext/AvenirNext-Bold.woff') format('woff'),
+			url('/common/fonts/AvenirNext/AvenirNext-Bold.ttf') format('truetype');
+			font-weight: 700;
+			font-style: normal;
+		}
+
+		body {
+			background-color: #58a7c8;
+			background-size: cover;
+			font-family: "Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif
+		}
+
+		.message-box {
+			position: absolute;
+			width: 400px;
+			height: 450px;
+			z-index: 15;
+			top: 50%;
+			left: 50%;
+			margin: -225px 0 0 -200px;
+			text-align: center;
+		}
+
+		.message-box .logo {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.message-box .logo img {
+			vertical-align: middle;
+			display: inline-block;
+		}
+
+		.message-box .message {
+			color: #ffffff;
+			font-size: 22px;
+			text-align: center;
+		}
+
+		.opake-logo {
+			display: inline-block;
+			margin-top: 20px;
+			text-align: center;
+			height: 50px;
+			position: relative;
+			font-size: 18px;
+			line-height: 20px;
+		}
+
+		.opake-logo .logo-title {
+			color: #ffffff;
+			font-size: 11px;
+			font-weight: bold;
+			letter-spacing: 2px;
+			margin-left: 2px;
+			line-height: 1.5;
+		}
+
+		.opake-logo:after {
+			color: #ffffff;
+			font-family: Arial, sans-serif;
+			content: "\00ae";
+			font-size: 18px;
+			font-weight: normal;
+			position: absolute;
+			top: 5px;
+			right: -15px;
+		}
+
+	</style>
+</head>
+<body>
+<div class="message-box">
+	<div class="logo">
+		<img src="/common/i/heart.png">
+	</div>
+	<div class="message">
+		Opake is currently performing scheduled maintenance. We should be online again shortly.
+		Thank you for your patience.
+	</div>
+	<div class="opake-logo">
+		<img src="/common/i/logo.png">
+		<div class="logo-title">OPAKE</div>
+	</div>
+</div>
+</body>
+</html>

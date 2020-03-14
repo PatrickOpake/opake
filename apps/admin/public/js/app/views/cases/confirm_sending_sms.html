@@ -1,0 +1,13 @@
+<div show-loading="listVm.isShowSninner">
+	<div class="modal-header">
+		<h4 class="modal-title">Alert!</h4>
+	</div>
+	<div class="modal-body">
+		<h4>Are you sure you want to send the text message to {{::modalVm.case.point_of_contact_phone | phone}}?</h4>
+		<div>{{::modalVm.pointOfContactMsg}}</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="modalVm.save()">Yes</button>
+		<button class="btn btn-primary" ng-click="modalVm.cancel()" type="button">No</button>
+	</div>
+</div>

@@ -1,0 +1,36 @@
+general:
+  branches:
+    only:
+      - production
+      - staging
+      - qa
+
+machine:
+  override:
+    - "true"
+
+dependencies:
+  override:
+    - "true"
+
+database:
+  override:
+    - "true"
+
+test:
+  override:
+    - "true"
+
+deployment:
+  production:
+    branch: production
+    commands:
+      - git push -f dokku@86743101.healthcareblocks.com:opake $CIRCLE_SHA1:master
+  staging:
+    branch: staging
+    commands:
+      - git push -f dokku@staging.opake.com:opake $CIRCLE_SHA1:master
+  qa:
+    branch: qa
+    commands:
+      - git push -f dokku@qa.opake.com:opake $CIRCLE_SHA1:master

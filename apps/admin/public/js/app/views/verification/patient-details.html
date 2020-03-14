@@ -1,0 +1,54 @@
+<div class="panel-data verification-header">
+	<div class="case-panel--ids">
+		<div><span>Account#:</span> {{ ::regVm.registration.case_id }}</div>
+		<div><span>MRN#:</span> {{ ::regVm.registration.patient.full_mrn }}</div>
+	</div>
+	<a href="" class="back"  ng-click="VerificationVm.toVerificationQueue()" ng-if="VerificationVm.fromVerificationQueue"><i class="glyphicon glyphicon-chevron-left"></i>Back</a>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div ng-if="::regVm.registration.first_name" class="data-row case-notes">
+				<label>Patient Name:</label>
+				<div ng-controller="CaseNoteCrtl as noteVm">
+					<span>{{ ::(regVm.registration.first_name + ' ' + regVm.registration.last_name) }}</span>
+					<a class="add-note-link" href="" ng-click="noteVm.openNotesDialog(regVm.case.id)">
+						<span class="icon-note"></span>
+						<span class="badge" ng-if="caseNotes.getNotesCount(regVm.case)" ng-class="{'blue': caseNotes.hasUnreadNotes[regVm.case.id]}">
+								{{ caseNotes.getNotesCount(regVm.case)}}
+							</span>
+					</a>
+				</div>
+			</div>
+			<div ng-if="::regVm.registration.dob" class="data-row">
+				<label>Age:</label>
+				{{ ::regVm.registration.dob | age }}
+			</div>
+			<div ng-if="::regVm.registration.gender" class="data-row">
+				<label>Sex:</label>
+				{{ ::patientConst.GENDERS[regVm.registration.gender] }}
+			</div>
+			<div ng-if="::regVm.registration.home_phone" class="data-row">
+				<label>Phone:</label>
+				{{ ::regVm.registration.home_phone | phone }}
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div ng-if="::regVm.registration.dob" class="data-row">
+				<label>Date of Birth:</label>
+				<div>{{ ::regVm.registration.dob | date:'M/d/yyyy' }}</div>
+			</div>
+			<div ng-if="::regVm.registration.home_address" class="data-row">
+				<label>Address:</label>
+				<div>{{ ::regVm.registration.home_address }}</div>
+			</div>
+			<div ng-if="::(regVm.registration.home_city && regVm.registration.home_state)" class="data-row">
+				<label>City, State:</label>
+				<div>{{ ::regVm.registration.home_city.name }}, {{ ::regVm.registration.home_state.name }}</div>
+			</div>
+			<div ng-if="::regVm.registration.home_zip_code" class="data-row">
+				<label>Zip:</label>
+				<div>{{ ::regVm.registration.home_zip_code }}</div>
+			</div>
+		</div>
+	</div>
+</div>

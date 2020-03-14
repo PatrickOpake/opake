@@ -1,0 +1,193 @@
+<div class="profile-page site-profile">
+	<div class="block-panel">
+		<div class="heading-row clearfix">
+			<div class="headline-container">
+				<div class="headline-title">
+					Site Info
+				</div>
+			</div>
+
+			<div class="controls">
+				<div class="buttons clearfix">
+					<a class='btn btn-success' href='' ng-if="siteVm.canEditSite" ng-click="siteVm.edit()">Edit</a>
+				</div>
+				<div class="additional-info">
+					<span ng-if="siteVm.site.time_create">Date Created: {{siteVm.site.time_create}}</span>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="details-panel">
+
+			<div class="data-row">
+				<label>Site Name:</label>
+				<div>{{siteVm.site.name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.departments">
+				<label>Department:</label>
+				<div>{{siteVm.formatMultipleValues(siteVm.site.departments)}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.rooms">
+				<label>Room:</label>
+				<div>{{siteVm.formatMultipleValues(siteVm.site.rooms)}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.storage">
+				<label>Storage:</label>
+				<div>{{siteVm.formatMultipleValues(siteVm.site.storage)}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.description">
+				<label>Description:</label>
+				<div>{{siteVm.site.description}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.comment">
+				<label>Comments:</label>
+				<div>{{siteVm.site.comment}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.npi">
+				<label>NPI:</label>
+				<div>{{siteVm.site.npi}}</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="block-panel" ng-if="siteVm.site.address || siteVm.site.country || siteVm.site.website">
+		<div class="details-panel">
+			<div class="headline-title">
+				Billing Address
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.address">
+				<label>Address:</label>
+				<div>{{siteVm.site.address}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.country">
+				<label>Country:</label>
+				<div>{{siteVm.site.country.name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.state">
+				<label>State:</label>
+				<div>{{siteVm.site.state_name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.city">
+				<label>City:</label>
+				<div>{{siteVm.site.city_name}}</div>
+			</div>
+
+			<div class="data-row"  ng-if="siteVm.site.zip_code">
+				<label>Zip Code</label>
+				<div>{{siteVm.site.zip_code}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.website">
+				<label>Web Site:</label>
+				<div>{{siteVm.site.website}}</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="block-panel" ng-if="siteVm.site.contact_name || siteVm.site.contact_phone || siteVm.site.contact_email || siteVm.site.contact_fax">
+		<div class="details-panel">
+			<div class="headline-title">
+				Contact Info
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.contact_name">
+				<label>Name</label>
+				<div>{{siteVm.site.contact_name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.contact_phone">
+				<label>Phone</label>
+				<div>{{siteVm.site.contact_phone | phone}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.contact_email">
+				<label>Email</label>
+				<div>{{siteVm.site.contact_email}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.contact_fax">
+				<label>Fax Number</label>
+				<div>{{siteVm.site.contact_fax | phone}}</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="block-panel" ng-if="siteVm.site.pay_name || siteVm.site.pay_address || siteVm.site.pay_city_id">
+		<div class="details-panel">
+			<div class="headline-title">
+				Pay Info
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.pay_name">
+				<label>Pay-to-Name</label>
+				<div>{{siteVm.site.pay_name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.pay_country">
+				<label>Country</label>
+				<div>{{siteVm.site.pay_country.name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.pay_address">
+				<label>Address</label>
+				<div>{{siteVm.site.pay_address}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.pay_state">
+				<label>State</label>
+				<div>{{siteVm.site.pay_state_name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.pay_city">
+				<label>City</label>
+				<div>{{siteVm.site.pay_city_name}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.pay_zip_code">
+				<label>Zip Code</label>
+				<div>{{siteVm.site.pay_zip_code}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.federal_tax">
+				<label>Tax ID Number (TIN)</label>
+				<div>{{siteVm.site.federal_tax}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.navicure_sftp_username">
+				<label>Navicure SFTP Username</label>
+				<div>{{siteVm.site.navicure_sftp_username}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.navicure_sftp_password">
+				<label>Navicure SFTP Password</label>
+				<div>{{siteVm.site.navicure_sftp_password}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.navicure_submitter_id">
+				<label>Navicure Submitter ID</label>
+				<div>{{siteVm.site.navicure_submitter_id}}</div>
+			</div>
+
+			<div class="data-row" ng-if="siteVm.site.navicure_submitter_password">
+				<label>Navicure Submitter Password</label>
+				<div>{{siteVm.site.navicure_submitter_password}}</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

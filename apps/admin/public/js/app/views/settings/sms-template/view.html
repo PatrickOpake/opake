@@ -1,0 +1,44 @@
+<div class="row">
+	<div class="col-sm-6">
+		<h2>Appointment Reminder SMS</h2>
+		<switch class="green" ng-disabled="true" ng-model="templateVm.template.reminder_sms"></switch>
+	</div>
+	<div class="col-sm-6 text-right">
+		<a class="btn btn-success" href="" ng-click="templateVm.edit()">Edit</a>
+	</div>
+</div>
+<div class="right-shifted--block">
+	<div class="data-row">
+		Send SMS {{templateVm.template.hours_before}} Hours before scheduled appointment
+	</div>
+	<div>Message</div>
+	<div ng-bind-html="templateVm.template.schedule_msg"></div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<h2>Point of Contact SMS</h2>
+		<switch class="green" ng-disabled="true" ng-model="templateVm.template.poc_sms"></switch>
+	</div>
+</div>
+<div class="right-shifted--block">
+	<div>Message</div>
+	<div ng-bind-html="templateVm.template.poc_msg"></div>
+</div>
+
+<div ng-if="permissions.user.is_internal">
+	<div class="row">
+		<div class="col-sm-6">
+			<h2>Account Information</h2>
+		</div>
+	</div>
+	<div class="right-shifted--block acc-info">
+		<div class="data-row">
+			<label>Account SID</label>
+			{{templateVm.template.acc_sid}}
+		</div>
+		<div class="data-row">
+			<label>Auth Token</label>
+			{{templateVm.template.auth_token}}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,323 @@
+.booking-sheet-template-modal {
+
+  .modal-header {
+	text-align: left;
+	font-weight: bold;
+	border-bottom: none;
+	padding: 5px 5px 0;
+	position: relative;
+
+	.modal-title {
+	  display: inline-block;
+	  padding-right: 15px;
+	}
+
+	a.close-button {
+	  position: absolute;
+	  top: 10px;
+	  right: 10px;
+	  color: #909090;
+	}
+  }
+
+  &.alert {
+	.modal-dialog .modal-content {
+	  padding: 10px;
+	}
+  }
+
+  .modal-dialog .modal-content {
+	padding: 10px;
+  }
+
+  .modal-footer {
+	button {
+	  padding: 12px 60px;
+	  &:first-child {
+		float: left;
+	  }
+	  &:last-child {
+		float: right;
+	  }
+	}
+  }
+
+  label {
+	vertical-align: middle;
+	color: #666;
+  }
+
+  &.assign-modal {
+
+	.modal-body {
+	  text-align: left !important;
+
+	  .row {
+		margin-bottom: 10px;
+	  }
+
+	  a {
+		text-decoration: none !important;
+	  }
+
+	  span.ui-select-match {
+		width: 100% !important;
+	  }
+
+	}
+
+	.modal-footer {
+	  .btn {
+		float: none;
+	  }
+	}
+
+  }
+
+}
+
+.booking-sheet-template-page {
+  min-height: 500px;
+  padding-bottom: 50px;
+
+  .templates-table {
+	margin: 5px 0 20px;
+
+	tr {
+	  border-bottom: 1px solid #c8c8c8;
+
+	  &:first-child {
+		border-top: 1px solid #c8c8c8;
+	  }
+	}
+
+	td {
+	  padding: 10px;
+	  &.icon {
+		width: 1%;
+		font-size: 35px;
+		line-height: 0;
+	  }
+	}
+
+	a {
+	  vertical-align: middle;
+	  color: #666;
+	  font-weight: bold;
+	}
+
+	.form-control {
+	  width: 60px;
+	}
+
+	.not-loaded {
+	  font-weight: bold;
+	  opacity: .5;
+	}
+
+	.column-settings {
+	  width: 120px;
+	}
+
+  }
+
+  .control {
+	text-align: right;
+	padding: 0;
+	.dropdown {
+	  text-align: center;
+	  .dropdown-menu {
+		min-width: 100px;
+		left: -35px;
+		top: 25px;
+		a {
+		  color: #666;
+
+		}
+	  }
+	}
+	.disabled {
+	  opacity: .5;
+	  cursor: default;
+	}
+
+  }
+
+  .header-title {
+	overflow: hidden;
+	margin-bottom: 10px;
+
+	h4 {
+	  display: inline-block;
+	}
+
+	.print-button {
+	  margin-right: 10px;
+	}
+
+	.right-buttons {
+	  a {
+		margin-left: 40px;
+		float: right;
+
+		&.upload {
+		  text-decoration: underline;
+		}
+	  }
+	}
+  }
+
+
+
+}
+
+.booking-sheet-template-fields-page {
+  min-height: 500px;
+  background-color: #ffffff;
+  padding: 10px 30px 10px 35px;
+  margin-bottom: 10px;
+
+  .buttons {
+	overflow: hidden;
+	margin-bottom: 10px;
+  }
+
+  .template-name {
+	margin-bottom: 10px;
+
+	.title {
+	  display: inline-block;
+	  color: #666;
+	  font-size: 16px;
+	  font-weight: bold;
+	  margin-bottom: 5px;
+	}
+
+	input {
+	  width: 60%;
+	}
+
+  }
+
+  .template-preview {
+	margin-top: 0;
+
+	.booking-sheet--form {
+	  padding: 5px;
+
+	  h3 {
+		margin-top: 15px;
+	  }
+	}
+  }
+
+  .insurance-placeholder {
+	.section-title {
+	  display: inline-block;
+	  color: #666;
+	  font-size: 16px;
+	  font-weight: bold;
+	  margin-bottom: 5px;
+	}
+
+	.insurance-create-placeholder {
+	  border: 1px dashed #666;
+	  color: #666;
+	  display: block;
+	  background-color: #FFFFFF;
+	  border-radius: 10px;
+	  height: 120px;
+	  width: 200px;
+	  margin-top: 5px;
+	  vertical-align: top;
+	  text-align: center;
+	  padding: 15px 10px;
+	  overflow: hidden;
+
+	  .title-container {
+		display: table;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+
+		.title {
+		  display: table-cell;
+		  vertical-align: middle;
+		}
+	  }
+	}
+  }
+
+}
+
+.form-fields-grid {
+
+  .grid-title {
+	color: #666;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 10px;
+  }
+
+  .grid-container {
+	overflow: hidden;
+	margin-bottom: 15px;
+  }
+
+  .grid-zone {
+	float: left;
+
+	&.grid-left-zone {
+	  padding: 10px;
+	  width: 65%;
+	  border: 1px dashed;
+
+	  .grid-stack-item-content {
+		padding-top: 10px;
+		padding-left: 5px;
+	  }
+
+	  .grid-stack {
+		min-height: 200px;
+	  }
+	}
+
+	&.grid-right-zone {
+	  width: 35%;
+
+	  .grid-remove-area {
+		padding: 10px;
+		border: 1px solid;
+		margin-left: 10px;
+	  }
+
+	  .grid-stack {
+		min-height: 180px;
+	  }
+	}
+
+	.grid-stack-item-content {
+	  border: 1px dashed;
+	  cursor: pointer;
+	  padding-left: 5px;
+	  padding-right: 5px;
+	  overflow: hidden;
+	  white-space: nowrap;
+	  text-overflow: ellipsis;
+
+	  -webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	  -khtml-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  user-select: none;
+
+	  &.required {
+		border-color: red;
+	  }
+	}
+
+  }
+
+}
+

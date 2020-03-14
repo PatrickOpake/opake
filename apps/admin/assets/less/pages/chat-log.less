@@ -1,0 +1,107 @@
+.chat-log {
+	padding: 1px;
+	&:extend(.content-block);
+
+	.table-wrap {
+		margin-left: -1px;
+		margin-right: -1px;
+	}
+	.dashboard--filters {
+		.main-control {
+			padding-left: 10px;
+		}
+		.filters-panel {
+			padding: 0 10px;
+		}
+	}
+}
+
+.chat--table {
+	.chat-log-header {
+		text-align: center;
+		background-color: #fbfbfb;
+		color: #333;
+		font-size: 14px;
+		padding: 7px;
+	}
+	table {
+		th {
+			border-top: none;
+		}
+	}
+}
+
+.chat--bottom {
+	padding: 10px;
+}
+
+.chat--header {
+	margin-bottom: 10px;
+	.icon-group {
+		float: left;
+		display: table;
+		.tool-item {
+			float: left;
+			padding-top: 18px;
+			margin-left: 10px;
+			vertical-align: middle;
+			.date-icon {
+				padding-top: 5px;
+			}
+		}
+	}
+	.chat-date {
+		.center {
+			text-align: center;
+			h2 {
+				text-transform: uppercase;
+				color: #00ceb1;
+				font-size: 24px;
+				line-height: 1.4;
+				margin-left: 0;
+			}
+		}
+		.prev {
+			position: relative;
+			top: 13px;
+			right: 30px;
+			text-align: right;
+		}
+		.next {
+			position: relative;
+			top: 13px;
+			right: 30px;
+			text-align: left;
+		}
+		.prev-button, .next-button {
+			background: none;
+			border: none;
+			box-shadow: none;
+			margin: 0;
+			outline: 0;
+			color: #00ceb1;
+			font-weight: normal;
+		}
+		.chat-icon {
+			font-size: 44px;
+			left: -3%;
+			position: relative;
+			top: -.05em;
+			margin: 0 .2em;
+			vertical-align: middle;
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			line-height: 1em;
+			text-align: center;
+			overflow: hidden;
+			font-family: "Courier New", Courier, monospace;
+			&.icon-left-single-arrow:before {
+				content: "\02039";
+			}
+			&.icon-right-single-arrow:before {
+				content: "\0203A";
+			}
+		}
+	}
+}

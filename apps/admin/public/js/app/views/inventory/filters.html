@@ -1,0 +1,22 @@
+<filters-panel ctrl="listVm">
+	<div class="data-row">
+		<label>Keyword</label>
+		<input type="text" ng-model="listVm.search_params.name" class='form-control input-sm' placeholder='Type' />
+	</div>
+	<div class="data-row">
+		<label>Type</label>
+		<opk-select ng-model="listVm.search_params.type" options="item for item in source.getInventoryTypes()"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Manufacturer</label>
+		<opk-select ng-model="listVm.search_params.manufacturer" options="item.name for item in source.getVendors($query, 'manf')"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Site</label>
+		<opk-select ng-model="listVm.search_params.site" options="item for item in source.getList('/clients/ajax/site/', $query)"></opk-select>
+	</div>
+	<div class="data-row">
+		<label>Room</label>
+		<opk-select ng-model="listVm.search_params.location" options="item.name as item.name for item in source.getStorage()"></opk-select>
+	</div>
+</filters-panel>

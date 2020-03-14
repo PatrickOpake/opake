@@ -1,0 +1,97 @@
+<div class="main-control">
+	<h3 class="title">Filter</h3>
+</div>
+
+<filters-panel ctrl="listVm">
+
+	<div class="data-row">
+		<label>Procedure</label>
+		<opk-select class="long-options" ng-model="listVm.search_params.procedure"
+					options="type.id as type.full_name for type in source.getCaseTypes($query)"></opk-select>
+	</div>
+
+	<div class="data-row" ng-show="permissions.hasAccess('cases', 'edit_assigned_users')">
+		<label>Surgeon</label>
+		<opk-select ng-model="listVm.search_params.doctor"
+					options="doctor.id as doctor.fullname for doctor in source.getSurgeons()"></opk-select>
+	</div>
+
+	<div class="data-row">
+		<label>Patient Name</label>
+		<input type="text" ng-model="listVm.search_params.patient_name" class='form-control input-sm'
+		       placeholder='Patient Name' />
+	</div>
+
+	<div class="data-row">
+		<label>Account Number</label>
+		<input type="text" ng-model="listVm.search_params.id" class='form-control input-sm'
+			   placeholder='Account Number'/>
+	</div>
+
+	<div class="data-row">
+		<label>Room</label>
+		<div ng-if="!listVm.isDayView()"><opk-select ng-model="listVm.search_params.location"
+			    options="item.name as item.name for item in source.getLocations()"></opk-select></div>
+		<div ng-if="listVm.isDayView()"><opk-select class="multiple" ng-model="listVm.search_params.room_list" multiple
+			    options="value as value.name for value in source.getLocations()"></opk-select></div>
+	</div>
+
+</filters-panel>
+
+<div ng-if="permissions.user.isFullAdmin()">
+	<div class="cases-alert-header--filters" ng-click="listVm.showAlerts = !listVm.showAlerts">
+		<span class="icon">
+			<i ng-if="listVm.showAlerts" class="icon-caret-down"></i>
+			<i ng-if="!listVm.showAlerts" class="icon-caret-right"></i>
+		</span>
+		<label>Alerts</label>
+	</div>
+	<div class="cases-alert-checkboxes--filters" uib-collapse="!listVm.showAlerts">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="data-row checkbox">
+					<input id="have_not_insurance_verified" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.not_insurance_verified">
+					<label for="have_not_insurance_verified">Display patients that have not had insurance verified</label>
+				</div>
+				<div class="data-row checkbox">
+					<input id="have_not_completed_preauthorization" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.not_completed_preauthorized">
+					<label for="have_not_completed_preauthorization">Display patients that have not completed preauthorization</label>
+				</div>
+				<div class="data-row checkbox">
+					<input id="require_pre_certification" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.has_pre_certification_required">
+					<label for="require_pre_certification">Display patients that require pre-certification</label>
+				</div>
+				<div class="data-row checkbox">
+					<input id="have_not_been_pre_certified" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.has_not_been_pre_certified">
+					<label for="have_not_been_pre_certified">Display patients that have not been pre-certified</label>
+				</div>
+				<div class="data-row checkbox">
+					<input id="patients_are_self_funded" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.is_self_funded">
+					<label for="patients_are_self_funded">Display patients that are self-funded</label>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="data-row checkbox">
+					<input id="have_oon_benefits_cap" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.has_oon_benefits">
+					<label for="have_oon_benefits_cap">Display patients that have OON benefits cap</label>
+				</div>
+				<div class="data-row checkbox">
+					<input id="have_asc_benefits_cap" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.has_asc_benefits">
+					<label for="have_asc_benefits_cap">Display patients that have ASC benefits cap</label>
+				</div>
+				<div class="data-row checkbox">
+					<input id="have_clauses_under_medicare" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.has_clauses_under_medicare_entitlement">
+					<label for="have_clauses_under_medicare">Display patients that have clauses under Medicare entitlement</label>
+				</div>
+				<div class="data-row checkbox">
+					<input id="have_clauses_under_patients" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.has_clauses_under_patient_policy">
+					<label for="have_clauses_under_patients">Display patients that have pre-existing clauses under patient's policy</label>
+				</div>
+				<div class="data-row checkbox">
+					<input id="has_asc_benefits" ng-click="listVm.search()" type="checkbox" class="styled" ng-model="listVm.search_params.alert.cases_report_completed_48hrs_case_end">
+					<label for="has_asc_benefits">Display cases with operative reports that have not been completed within 48hrs of case</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

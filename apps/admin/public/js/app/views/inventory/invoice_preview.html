@@ -1,0 +1,9 @@
+<div class="modal-header">
+	<h4 class="modal-title">Invoice Preview</h4>
+	<a href="" ng-click="cancel()" class="close-button"><i class="glyphicon glyphicon-remove"></i></a>
+</div>
+<div class="modal-form-upload">
+	<div class="modal-body">
+		<document-preview src="{{::listVm.getPreviewUrl()}}" page-count="{{::listVm.previewItem.page_count}}"></document-preview>
+	</div>
+</div>
