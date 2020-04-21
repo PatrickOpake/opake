@@ -102,8 +102,8 @@
 					<div class="pull-right">
 						<a href="" class="icon print-icon" ng-click="bookingVm.print()"><i class="icon-print-grey" uib-tooltip="Print"></i></a>
 						<a class="btn btn-grey" href="" ng-click="bookingVm.cancel()">Cancel</a>
-						<a class="btn btn-success" href="" ng-disabled="!bookingVm.isRequiredFieldsFilled() || bookingVm.actionButtonsDisabled" ng-click="bookingVm.save()">Save</a>
-						<a ng-if="!loggedUser.isSatelliteOffice() && !loggedUser.isBiller()" class="btn btn-primary" href="" ng-disabled="!bookingVm.booking.isRequiredFieldsForScheduleFilled() || bookingVm.booking.status == 1 || bookingVm.actionButtonsDisabled" ng-click="bookingVm.schedule()">Schedule</a>
+						<a class="btn btn-success" href=""  ng-click="bookingVm.save()">Save</a>
+						<a ng-if="!loggedUser.isSatelliteOffice() && !loggedUser.isBiller()" class="btn btn-primary" href=""  ng-click="bookingVm.schedule()">Schedule</a>
 						<a ng-if="loggedUser.isSatelliteOffice()" class="btn btn-primary" href="" ng-disabled="!bookingVm.isRequiredFieldsForSubmitFilled() || bookingVm.actionButtonsDisabled" ng-click="bookingVm.save(true)">Submit</a>
 					</div>
 				</div>
